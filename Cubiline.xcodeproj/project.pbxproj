@@ -1,0 +1,1073 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3728F5C91A6C4FEB004F7244 /* oldhorn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BA1A6C4FEB004F7244 /* oldhorn.wav */; };
+		3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BB1A6C4FEB004F7244 /* quad.mtl */; };
+		3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BC1A6C4FEB004F7244 /* quad.obj */; };
+		3728F5CC1A6C4FEB004F7244 /* starwars.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BD1A6C4FEB004F7244 /* starwars.wav */; };
+		3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BF1A6C4FEB004F7244 /* wall.mtl */; };
+		3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5C01A6C4FEB004F7244 /* wall.obj */; };
+		3728F5E01A6C4FF6004F7244 /* color_light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */; };
+		3728F5E11A6C4FF6004F7244 /* color_light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */; };
+		3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */; };
+		3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D31A6C4FF6004F7244 /* depth_of_field_shader.vsh */; };
+		3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D41A6C4FF6004F7244 /* depth_shader.fsh */; };
+		3728F5E51A6C4FF6004F7244 /* depth_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D51A6C4FF6004F7244 /* depth_shader.vsh */; };
+		3728F5E61A6C4FF6004F7244 /* depth_texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D61A6C4FF6004F7244 /* depth_texture_shader.fsh */; };
+		3728F5E71A6C4FF6004F7244 /* depth_texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D71A6C4FF6004F7244 /* depth_texture_shader.vsh */; };
+		3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D81A6C4FF6004F7244 /* fullscreen_shader.fsh */; };
+		3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */; };
+		3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */; };
+		3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */; };
+		3728F5EC1A6C4FF6004F7244 /* light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */; };
+		3728F5ED1A6C4FF6004F7244 /* light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */; };
+		3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */; };
+		3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */; };
+		3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3728F5F11A6C5027004F7244 /* AVFoundation.framework */; };
+		3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3728F5F31A6C5033004F7244 /* OpenAL.framework */; };
+		3728F5F61A6C503A004F7244 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3728F5F51A6C503A004F7244 /* AudioToolbox.framework */; };
+		3734C5B11A7229400039269D /* geosphere_medium.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3734C5AF1A7229400039269D /* geosphere_medium.mtl */; };
+		3734C5B21A7229400039269D /* geosphere_medium.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3734C5B01A7229400039269D /* geosphere_medium.obj */; };
+		3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FE1A79EAE9004F88F7 /* VEcolorshader.m */; };
+		373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3121A6DF886003BEE7F /* color_shader.fsh */; };
+		373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3131A6DF886003BEE7F /* color_shader.vsh */; };
+		37436E381A86A26000167D31 /* CLgame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E371A86A26000167D31 /* CLgame.m */; };
+		37436E3C1A86A83400167D31 /* CLlevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E3B1A86A83400167D31 /* CLlevel.m */; };
+		37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E421A86D5A700167D31 /* back_wall.obj */; };
+		37436E4C1A86D5A700167D31 /* front_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E441A86D5A700167D31 /* front_wall.obj */; };
+		37436E4E1A86D5A700167D31 /* left_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E461A86D5A700167D31 /* left_wall.obj */; };
+		37436E501A86D5A700167D31 /* right_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E481A86D5A700167D31 /* right_wall.obj */; };
+		374FCCAA1A86D89700B14ACB /* bottom_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCA81A86D89700B14ACB /* bottom_wall.obj */; };
+		374FCCAB1A86D89700B14ACB /* top_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCA91A86D89700B14ACB /* top_wall.obj */; };
+		374FCCAF1A86DCCD00B14ACB /* CLgamesetup.m in Sources */ = {isa = PBXBuildFile; fileRef = 374FCCAE1A86DCCD00B14ACB /* CLgamesetup.m */; };
+		374FCCB21A86DD0300B14ACB /* CLbody.m in Sources */ = {isa = PBXBuildFile; fileRef = 374FCCB11A86DD0300B14ACB /* CLbody.m */; };
+		374FCCBC1A86FCAF00B14ACB /* game_guides.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */; };
+		374FCCBD1A86FCAF00B14ACB /* game_guides.obj in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCBB1A86FCAF00B14ACB /* game_guides.obj */; };
+		374FCCBF1A86FFEA00B14ACB /* game_guides.png in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCBE1A86FFEA00B14ACB /* game_guides.png */; };
+		3758D11A1A7C61A900982ABE /* main_menu_play.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1171A7C61A900982ABE /* main_menu_play.mtl */; };
+		3758D11B1A7C61A900982ABE /* main_menu_play.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1181A7C61A900982ABE /* main_menu_play.obj */; };
+		3758D11C1A7C61A900982ABE /* main_menu_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1191A7C61A900982ABE /* main_menu_play.png */; };
+		3758D1271A7C6BF200982ABE /* main_menu_game_center.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */; };
+		3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */; };
+		3758D12A1A7C6D2D00982ABE /* main_menu_game_center.png in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */; };
+		3758D1311A7C6F1F00982ABE /* main_menu_settings.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */; };
+		3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */; };
+		3758D1341A7C73E600982ABE /* main_menu_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1331A7C73E600982ABE /* main_menu_settings.png */; };
+		37604EDF1A88019200F77B76 /* CLmainmenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 37604EDC1A88019200F77B76 /* CLmainmenu.m */; };
+		37604EE01A88019200F77B76 /* CLtouchable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37604EDE1A88019200F77B76 /* CLtouchable.m */; };
+		37604EE21A8829CC00F77B76 /* test_song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE11A8829CC00F77B76 /* test_song.mp3 */; };
+		37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE31A88562900F77B76 /* game_setup_minus.png */; };
+		37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE41A88562900F77B76 /* game_setup_plus.png */; };
+		376B55D71A82BFF500CC011F /* game_menu_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B55D61A82BFF500CC011F /* game_menu_back.png */; };
+		3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771AC041A6CC7B8008E74D9 /* images.xcassets */; };
+		377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */; };
+		377A84EC1A79EA15004F88F7 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26231A6C4EFD00DB4E6C /* GameViewController.m */; };
+		377A853C1A79EAE9004F88F7 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84EE1A79EAE9004F88F7 /* GCHelper.m */; };
+		377A85401A79EAE9004F88F7 /* VE3Dobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84F61A79EAE9004F88F7 /* VE3Dobject.m */; };
+		377A85411A79EAE9004F88F7 /* VEaudiobox.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84F81A79EAE9004F88F7 /* VEaudiobox.m */; };
+		377A85421A79EAE9004F88F7 /* VEcamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FA1A79EAE9004F88F7 /* VEcamera.m */; };
+		377A85431A79EAE9004F88F7 /* VEcolorlightshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FC1A79EAE9004F88F7 /* VEcolorlightshader.m */; };
+		377A85451A79EAE9004F88F7 /* VEdepthoffieldshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */; };
+		377A85461A79EAE9004F88F7 /* VEdepthshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85031A79EAE9004F88F7 /* VEdepthshader.m */; };
+		377A85471A79EAE9004F88F7 /* VEeffect1.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85051A79EAE9004F88F7 /* VEeffect1.m */; };
+		377A85481A79EAE9004F88F7 /* VEeffect3.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85071A79EAE9004F88F7 /* VEeffect3.m */; };
+		377A85491A79EAE9004F88F7 /* VEfbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85091A79EAE9004F88F7 /* VEfbo.m */; };
+		377A854A1A79EAE9004F88F7 /* VEfullscreenshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A850B1A79EAE9004F88F7 /* VEfullscreenshader.m */; };
+		377A854C1A79EAE9004F88F7 /* VEgaussianblurshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A850F1A79EAE9004F88F7 /* VEgaussianblurshader.m */; };
+		377A854D1A79EAE9004F88F7 /* VElight.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85111A79EAE9004F88F7 /* VElight.m */; };
+		377A854E1A79EAE9004F88F7 /* VElightshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85131A79EAE9004F88F7 /* VElightshader.m */; };
+		377A854F1A79EAE9004F88F7 /* VEmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85151A79EAE9004F88F7 /* VEmodel.m */; };
+		377A85501A79EAE9004F88F7 /* VEmodelbuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85171A79EAE9004F88F7 /* VEmodelbuffer.m */; };
+		377A85511A79EAE9004F88F7 /* VEmodelbufferdispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85191A79EAE9004F88F7 /* VEmodelbufferdispatcher.m */; };
+		377A85521A79EAE9004F88F7 /* VErandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A851B1A79EAE9004F88F7 /* VErandom.m */; };
+		377A85531A79EAE9004F88F7 /* VErenderableobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A851D1A79EAE9004F88F7 /* VErenderableobject.m */; };
+		377A85541A79EAE9004F88F7 /* VErenderbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A851F1A79EAE9004F88F7 /* VErenderbox.m */; };
+		377A85551A79EAE9004F88F7 /* VEscene.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85211A79EAE9004F88F7 /* VEscene.m */; };
+		377A85561A79EAE9004F88F7 /* VEshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85231A79EAE9004F88F7 /* VEshader.m */; };
+		377A85571A79EAE9004F88F7 /* VEsound.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85251A79EAE9004F88F7 /* VEsound.m */; };
+		377A85581A79EAE9004F88F7 /* VEsoundbuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85271A79EAE9004F88F7 /* VEsoundbuffer.m */; };
+		377A85591A79EAE9004F88F7 /* VEsoundbufferdispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85291A79EAE9004F88F7 /* VEsoundbufferdispatcher.m */; };
+		377A855A1A79EAE9004F88F7 /* VEsprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A852B1A79EAE9004F88F7 /* VEsprite.m */; };
+		377A855B1A79EAE9004F88F7 /* VEtext.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A852D1A79EAE9004F88F7 /* VEtext.m */; };
+		377A855C1A79EAE9004F88F7 /* VEtextshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A852F1A79EAE9004F88F7 /* VEtextshader.m */; };
+		377A855D1A79EAE9004F88F7 /* VEtexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85311A79EAE9004F88F7 /* VEtexture.m */; };
+		377A855E1A79EAE9004F88F7 /* VEtexturedispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85331A79EAE9004F88F7 /* VEtexturedispatcher.m */; };
+		377A855F1A79EAE9004F88F7 /* VEtextureshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85351A79EAE9004F88F7 /* VEtextureshader.m */; };
+		377A85601A79EAE9004F88F7 /* VEtimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85371A79EAE9004F88F7 /* VEtimer.m */; };
+		377A85611A79EAE9004F88F7 /* VEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85391A79EAE9004F88F7 /* VEview.m */; };
+		377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A853B1A79EAE9004F88F7 /* VEwatch.m */; };
+		378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378001B21A6D9948009FFCC8 /* StoreKit.framework */; };
+		378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */; };
+		378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */; };
+		378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */; };
+		378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */; };
+		378EDAF41A79BB7100397989 /* Aharoni.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE61A79BB7100397989 /* Aharoni.png */; };
+		378EDAF51A79BB7100397989 /* Aharoni.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE71A79BB7100397989 /* Aharoni.txt */; };
+		378EDAF61A79BB7100397989 /* Gau Font Cube Big.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */; };
+		378EDAF71A79BB7100397989 /* Gau Font Cube Big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */; };
+		378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */; };
+		378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */; };
+		378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */; };
+		378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */; };
+		378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEE1A79BB7100397989 /* Tahoma.png */; };
+		378EDAFD1A79BB7100397989 /* Tahoma.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEF1A79BB7100397989 /* Tahoma.txt */; };
+		378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAFE1A79CFF700397989 /* Cubiline.png */; };
+		378EDB011A79D49800397989 /* Cubiline Half.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB001A79D49800397989 /* Cubiline Half.png */; };
+		378EDB031A79D83200397989 /* VE_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB021A79D83200397989 /* VE_Logo.png */; };
+		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
+		378F16261A8D8A1300AF42D6 /* CLcubilinegame.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */; };
+		37993E851A82DF6900E8A724 /* game_menu_size_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E841A82DF6900E8A724 /* game_menu_size_one.png */; };
+		37993E881A82E06500E8A724 /* game_menu_size_three.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E861A82E06500E8A724 /* game_menu_size_three.png */; };
+		37993E891A82E06500E8A724 /* game_menu_size_two.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E871A82E06500E8A724 /* game_menu_size_two.png */; };
+		37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 37A1F7471A75F5B90035BB91 /* dome.jpg */; };
+		37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A35A8C1A6D040E00E36F43 /* GameKit.framework */; };
+		37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7611A89ABB500FB84CF /* game_setup_play.png */; };
+		37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7621A89ABB500FB84CF /* game_setup_size.png */; };
+		37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7631A89ABB500FB84CF /* game_setup_speed.png */; };
+		37AF23231A7D5A1300E0829E /* main_menu_about.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37AF23211A7D5A1300E0829E /* main_menu_about.mtl */; };
+		37AF23241A7D5A1300E0829E /* main_menu_about.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37AF23221A7D5A1300E0829E /* main_menu_about.obj */; };
+		37AF23261A7D5A7500E0829E /* main_menu_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AF23251A7D5A7500E0829E /* main_menu_about.png */; };
+		37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6631A7836CE00084D7B /* text_shader.fsh */; };
+		37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6641A7836CE00084D7B /* text_shader.vsh */; };
+		37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37FB26251A6C4EFD00DB4E6C /* Main.storyboard */; };
+		37FB26381A6C4EFD00DB4E6C /* CubilineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37FB26321A6C4EFD00DB4E6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37FB260C1A6C4EFD00DB4E6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37FB26131A6C4EFD00DB4E6C;
+			remoteInfo = Cubiline;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3728F5BA1A6C4FEB004F7244 /* oldhorn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = oldhorn.wav; path = Cubiline/Resources/oldhorn.wav; sourceTree = "<group>"; };
+		3728F5BB1A6C4FEB004F7244 /* quad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.mtl; path = Cubiline/Resources/quad.mtl; sourceTree = "<group>"; };
+		3728F5BC1A6C4FEB004F7244 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.obj; path = Cubiline/Resources/quad.obj; sourceTree = "<group>"; };
+		3728F5BD1A6C4FEB004F7244 /* starwars.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = starwars.wav; path = Cubiline/Resources/starwars.wav; sourceTree = "<group>"; };
+		3728F5BF1A6C4FEB004F7244 /* wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.mtl; path = Cubiline/Resources/wall.mtl; sourceTree = "<group>"; };
+		3728F5C01A6C4FEB004F7244 /* wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.obj; path = Cubiline/Resources/wall.obj; sourceTree = "<group>"; };
+		3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.fsh; path = Cubiline/Shaders/color_light_shader.fsh; sourceTree = "<group>"; };
+		3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.vsh; path = Cubiline/Shaders/color_light_shader.vsh; sourceTree = "<group>"; };
+		3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_of_field_shader.fsh; path = Cubiline/Shaders/depth_of_field_shader.fsh; sourceTree = "<group>"; };
+		3728F5D31A6C4FF6004F7244 /* depth_of_field_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_of_field_shader.vsh; path = Cubiline/Shaders/depth_of_field_shader.vsh; sourceTree = "<group>"; };
+		3728F5D41A6C4FF6004F7244 /* depth_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_shader.fsh; path = Cubiline/Shaders/depth_shader.fsh; sourceTree = "<group>"; };
+		3728F5D51A6C4FF6004F7244 /* depth_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_shader.vsh; path = Cubiline/Shaders/depth_shader.vsh; sourceTree = "<group>"; };
+		3728F5D61A6C4FF6004F7244 /* depth_texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_texture_shader.fsh; path = Cubiline/Shaders/depth_texture_shader.fsh; sourceTree = "<group>"; };
+		3728F5D71A6C4FF6004F7244 /* depth_texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_texture_shader.vsh; path = Cubiline/Shaders/depth_texture_shader.vsh; sourceTree = "<group>"; };
+		3728F5D81A6C4FF6004F7244 /* fullscreen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.fsh; path = Cubiline/Shaders/fullscreen_shader.fsh; sourceTree = "<group>"; };
+		3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.vsh; path = Cubiline/Shaders/fullscreen_shader.vsh; sourceTree = "<group>"; };
+		3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = gaussian_blur_shader.fsh; path = Cubiline/Shaders/gaussian_blur_shader.fsh; sourceTree = "<group>"; };
+		3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = gaussian_blur_shader.vsh; path = Cubiline/Shaders/gaussian_blur_shader.vsh; sourceTree = "<group>"; };
+		3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.fsh; path = Cubiline/Shaders/light_shader.fsh; sourceTree = "<group>"; };
+		3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.vsh; path = Cubiline/Shaders/light_shader.vsh; sourceTree = "<group>"; };
+		3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Cubiline/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
+		3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Cubiline/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
+		3728F5F11A6C5027004F7244 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		3728F5F31A6C5033004F7244 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		3728F5F51A6C503A004F7244 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		3734C5AF1A7229400039269D /* geosphere_medium.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = geosphere_medium.mtl; path = Cubiline/Resources/geosphere_medium.mtl; sourceTree = "<group>"; };
+		3734C5B01A7229400039269D /* geosphere_medium.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = geosphere_medium.obj; path = Cubiline/Resources/geosphere_medium.obj; sourceTree = "<group>"; };
+		3734C5B31A7229AD0039269D /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
+		373CC3121A6DF886003BEE7F /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.fsh; path = Cubiline/Shaders/color_shader.fsh; sourceTree = "<group>"; };
+		373CC3131A6DF886003BEE7F /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.vsh; path = Cubiline/Shaders/color_shader.vsh; sourceTree = "<group>"; };
+		37436E361A86A26000167D31 /* CLgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgame.h; path = Cubiline/CLgame.h; sourceTree = "<group>"; };
+		37436E371A86A26000167D31 /* CLgame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgame.m; path = Cubiline/CLgame.m; sourceTree = "<group>"; };
+		37436E3B1A86A83400167D31 /* CLlevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLlevel.m; path = Cubiline/CLlevel.m; sourceTree = "<group>"; };
+		37436E421A86D5A700167D31 /* back_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = back_wall.obj; path = Cubiline/Resources/back_wall.obj; sourceTree = "<group>"; };
+		37436E441A86D5A700167D31 /* front_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = front_wall.obj; path = Cubiline/Resources/front_wall.obj; sourceTree = "<group>"; };
+		37436E461A86D5A700167D31 /* left_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = left_wall.obj; path = Cubiline/Resources/left_wall.obj; sourceTree = "<group>"; };
+		37436E481A86D5A700167D31 /* right_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = right_wall.obj; path = Cubiline/Resources/right_wall.obj; sourceTree = "<group>"; };
+		374FCCA81A86D89700B14ACB /* bottom_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bottom_wall.obj; path = Cubiline/Resources/bottom_wall.obj; sourceTree = "<group>"; };
+		374FCCA91A86D89700B14ACB /* top_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = top_wall.obj; path = Cubiline/Resources/top_wall.obj; sourceTree = "<group>"; };
+		374FCCAC1A86DCCD00B14ACB /* CLcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLcommon.h; path = Cubiline/CLcommon.h; sourceTree = "<group>"; };
+		374FCCAD1A86DCCD00B14ACB /* CLgamesetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgamesetup.h; path = Cubiline/CLgamesetup.h; sourceTree = "<group>"; };
+		374FCCAE1A86DCCD00B14ACB /* CLgamesetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgamesetup.m; path = Cubiline/CLgamesetup.m; sourceTree = "<group>"; };
+		374FCCB01A86DD0300B14ACB /* CLbody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLbody.h; path = Cubiline/CLbody.h; sourceTree = "<group>"; };
+		374FCCB11A86DD0300B14ACB /* CLbody.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLbody.m; path = Cubiline/CLbody.m; sourceTree = "<group>"; };
+		374FCCB31A86DD1600B14ACB /* CLlevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CLlevel.h; path = Cubiline/CLlevel.h; sourceTree = "<group>"; };
+		374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = game_guides.mtl; path = Cubiline/Resources/game_guides.mtl; sourceTree = "<group>"; };
+		374FCCBB1A86FCAF00B14ACB /* game_guides.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = game_guides.obj; path = Cubiline/Resources/game_guides.obj; sourceTree = "<group>"; };
+		374FCCBE1A86FFEA00B14ACB /* game_guides.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_guides.png; path = Cubiline/Resources/game_guides.png; sourceTree = "<group>"; };
+		3758D1171A7C61A900982ABE /* main_menu_play.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_play.mtl; path = Cubiline/Resources/main_menu_play.mtl; sourceTree = "<group>"; };
+		3758D1181A7C61A900982ABE /* main_menu_play.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_play.obj; path = Cubiline/Resources/main_menu_play.obj; sourceTree = "<group>"; };
+		3758D1191A7C61A900982ABE /* main_menu_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_play.png; path = Cubiline/Resources/main_menu_play.png; sourceTree = "<group>"; };
+		3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_game_center.mtl; path = Cubiline/Resources/main_menu_game_center.mtl; sourceTree = "<group>"; };
+		3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_game_center.obj; path = Cubiline/Resources/main_menu_game_center.obj; sourceTree = "<group>"; };
+		3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_game_center.png; path = Cubiline/Resources/main_menu_game_center.png; sourceTree = "<group>"; };
+		3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_settings.mtl; path = Cubiline/Resources/main_menu_settings.mtl; sourceTree = "<group>"; };
+		3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_settings.obj; path = Cubiline/Resources/main_menu_settings.obj; sourceTree = "<group>"; };
+		3758D1331A7C73E600982ABE /* main_menu_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_settings.png; path = Cubiline/Resources/main_menu_settings.png; sourceTree = "<group>"; };
+		37604EDB1A88019200F77B76 /* CLmainmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLmainmenu.h; path = Cubiline/CLmainmenu.h; sourceTree = "<group>"; };
+		37604EDC1A88019200F77B76 /* CLmainmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLmainmenu.m; path = Cubiline/CLmainmenu.m; sourceTree = "<group>"; };
+		37604EDD1A88019200F77B76 /* CLtouchable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLtouchable.h; path = Cubiline/CLtouchable.h; sourceTree = "<group>"; };
+		37604EDE1A88019200F77B76 /* CLtouchable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLtouchable.m; path = Cubiline/CLtouchable.m; sourceTree = "<group>"; };
+		37604EE11A8829CC00F77B76 /* test_song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = test_song.mp3; path = Cubiline/Resources/test_song.mp3; sourceTree = "<group>"; };
+		37604EE31A88562900F77B76 /* game_setup_minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_minus.png; path = Cubiline/Resources/game_setup_minus.png; sourceTree = "<group>"; };
+		37604EE41A88562900F77B76 /* game_setup_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_plus.png; path = Cubiline/Resources/game_setup_plus.png; sourceTree = "<group>"; };
+		376B55D61A82BFF500CC011F /* game_menu_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_back.png; path = Cubiline/Resources/game_menu_back.png; sourceTree = "<group>"; };
+		3771AC041A6CC7B8008E74D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
+		377A84ED1A79EAE9004F88F7 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCHelper.h; path = Cubiline/GCHelper.h; sourceTree = "<group>"; };
+		377A84EE1A79EAE9004F88F7 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCHelper.m; path = Cubiline/GCHelper.m; sourceTree = "<group>"; };
+		377A84F51A79EAE9004F88F7 /* VE3Dobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VE3Dobject.h; path = Cubiline/VE3Dobject.h; sourceTree = "<group>"; };
+		377A84F61A79EAE9004F88F7 /* VE3Dobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VE3Dobject.m; path = Cubiline/VE3Dobject.m; sourceTree = "<group>"; };
+		377A84F71A79EAE9004F88F7 /* VEaudiobox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEaudiobox.h; path = Cubiline/VEaudiobox.h; sourceTree = "<group>"; };
+		377A84F81A79EAE9004F88F7 /* VEaudiobox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEaudiobox.m; path = Cubiline/VEaudiobox.m; sourceTree = "<group>"; };
+		377A84F91A79EAE9004F88F7 /* VEcamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcamera.h; path = Cubiline/VEcamera.h; sourceTree = "<group>"; };
+		377A84FA1A79EAE9004F88F7 /* VEcamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEcamera.m; path = Cubiline/VEcamera.m; sourceTree = "<group>"; };
+		377A84FB1A79EAE9004F88F7 /* VEcolorlightshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcolorlightshader.h; path = Cubiline/VEcolorlightshader.h; sourceTree = "<group>"; };
+		377A84FC1A79EAE9004F88F7 /* VEcolorlightshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEcolorlightshader.m; path = Cubiline/VEcolorlightshader.m; sourceTree = "<group>"; };
+		377A84FD1A79EAE9004F88F7 /* VEcolorshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcolorshader.h; path = Cubiline/VEcolorshader.h; sourceTree = "<group>"; };
+		377A84FE1A79EAE9004F88F7 /* VEcolorshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEcolorshader.m; path = Cubiline/VEcolorshader.m; sourceTree = "<group>"; };
+		377A84FF1A79EAE9004F88F7 /* VEcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcommon.h; path = Cubiline/VEcommon.h; sourceTree = "<group>"; };
+		377A85001A79EAE9004F88F7 /* VEdepthoffieldshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdepthoffieldshader.h; path = Cubiline/VEdepthoffieldshader.h; sourceTree = "<group>"; };
+		377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEdepthoffieldshader.m; path = Cubiline/VEdepthoffieldshader.m; sourceTree = "<group>"; };
+		377A85021A79EAE9004F88F7 /* VEdepthShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdepthShader.h; path = Cubiline/VEdepthShader.h; sourceTree = "<group>"; };
+		377A85031A79EAE9004F88F7 /* VEdepthshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEdepthshader.m; path = Cubiline/VEdepthshader.m; sourceTree = "<group>"; };
+		377A85041A79EAE9004F88F7 /* VEeffect1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEeffect1.h; path = Cubiline/VEeffect1.h; sourceTree = "<group>"; };
+		377A85051A79EAE9004F88F7 /* VEeffect1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEeffect1.m; path = Cubiline/VEeffect1.m; sourceTree = "<group>"; };
+		377A85061A79EAE9004F88F7 /* VEeffect3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEeffect3.h; path = Cubiline/VEeffect3.h; sourceTree = "<group>"; };
+		377A85071A79EAE9004F88F7 /* VEeffect3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEeffect3.m; path = Cubiline/VEeffect3.m; sourceTree = "<group>"; };
+		377A85081A79EAE9004F88F7 /* VEfbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEfbo.h; path = Cubiline/VEfbo.h; sourceTree = "<group>"; };
+		377A85091A79EAE9004F88F7 /* VEfbo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEfbo.m; path = Cubiline/VEfbo.m; sourceTree = "<group>"; };
+		377A850A1A79EAE9004F88F7 /* VEfullscreenshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEfullscreenshader.h; path = Cubiline/VEfullscreenshader.h; sourceTree = "<group>"; };
+		377A850B1A79EAE9004F88F7 /* VEfullscreenshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEfullscreenshader.m; path = Cubiline/VEfullscreenshader.m; sourceTree = "<group>"; };
+		377A850E1A79EAE9004F88F7 /* VEgaussianblurshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEgaussianblurshader.h; path = Cubiline/VEgaussianblurshader.h; sourceTree = "<group>"; };
+		377A850F1A79EAE9004F88F7 /* VEgaussianblurshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEgaussianblurshader.m; path = Cubiline/VEgaussianblurshader.m; sourceTree = "<group>"; };
+		377A85101A79EAE9004F88F7 /* VElight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VElight.h; path = Cubiline/VElight.h; sourceTree = "<group>"; };
+		377A85111A79EAE9004F88F7 /* VElight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VElight.m; path = Cubiline/VElight.m; sourceTree = "<group>"; };
+		377A85121A79EAE9004F88F7 /* VElightshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VElightshader.h; path = Cubiline/VElightshader.h; sourceTree = "<group>"; };
+		377A85131A79EAE9004F88F7 /* VElightshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VElightshader.m; path = Cubiline/VElightshader.m; sourceTree = "<group>"; };
+		377A85141A79EAE9004F88F7 /* VEmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEmodel.h; path = Cubiline/VEmodel.h; sourceTree = "<group>"; };
+		377A85151A79EAE9004F88F7 /* VEmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEmodel.m; path = Cubiline/VEmodel.m; sourceTree = "<group>"; };
+		377A85161A79EAE9004F88F7 /* VEmodelbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEmodelbuffer.h; path = Cubiline/VEmodelbuffer.h; sourceTree = "<group>"; };
+		377A85171A79EAE9004F88F7 /* VEmodelbuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEmodelbuffer.m; path = Cubiline/VEmodelbuffer.m; sourceTree = "<group>"; };
+		377A85181A79EAE9004F88F7 /* VEmodelbufferdispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEmodelbufferdispatcher.h; path = Cubiline/VEmodelbufferdispatcher.h; sourceTree = "<group>"; };
+		377A85191A79EAE9004F88F7 /* VEmodelbufferdispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEmodelbufferdispatcher.m; path = Cubiline/VEmodelbufferdispatcher.m; sourceTree = "<group>"; };
+		377A851A1A79EAE9004F88F7 /* VErandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VErandom.h; path = Cubiline/VErandom.h; sourceTree = "<group>"; };
+		377A851B1A79EAE9004F88F7 /* VErandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VErandom.m; path = Cubiline/VErandom.m; sourceTree = "<group>"; };
+		377A851C1A79EAE9004F88F7 /* VErenderableobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VErenderableobject.h; path = Cubiline/VErenderableobject.h; sourceTree = "<group>"; };
+		377A851D1A79EAE9004F88F7 /* VErenderableobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VErenderableobject.m; path = Cubiline/VErenderableobject.m; sourceTree = "<group>"; };
+		377A851E1A79EAE9004F88F7 /* VErenderbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VErenderbox.h; path = Cubiline/VErenderbox.h; sourceTree = "<group>"; };
+		377A851F1A79EAE9004F88F7 /* VErenderbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VErenderbox.m; path = Cubiline/VErenderbox.m; sourceTree = "<group>"; };
+		377A85201A79EAE9004F88F7 /* VEscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEscene.h; path = Cubiline/VEscene.h; sourceTree = "<group>"; };
+		377A85211A79EAE9004F88F7 /* VEscene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEscene.m; path = Cubiline/VEscene.m; sourceTree = "<group>"; };
+		377A85221A79EAE9004F88F7 /* VEshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEshader.h; path = Cubiline/VEshader.h; sourceTree = "<group>"; };
+		377A85231A79EAE9004F88F7 /* VEshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEshader.m; path = Cubiline/VEshader.m; sourceTree = "<group>"; };
+		377A85241A79EAE9004F88F7 /* VEsound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEsound.h; path = Cubiline/VEsound.h; sourceTree = "<group>"; };
+		377A85251A79EAE9004F88F7 /* VEsound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEsound.m; path = Cubiline/VEsound.m; sourceTree = "<group>"; };
+		377A85261A79EAE9004F88F7 /* VEsoundbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEsoundbuffer.h; path = Cubiline/VEsoundbuffer.h; sourceTree = "<group>"; };
+		377A85271A79EAE9004F88F7 /* VEsoundbuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEsoundbuffer.m; path = Cubiline/VEsoundbuffer.m; sourceTree = "<group>"; };
+		377A85281A79EAE9004F88F7 /* VEsoundbufferdispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEsoundbufferdispatcher.h; path = Cubiline/VEsoundbufferdispatcher.h; sourceTree = "<group>"; };
+		377A85291A79EAE9004F88F7 /* VEsoundbufferdispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEsoundbufferdispatcher.m; path = Cubiline/VEsoundbufferdispatcher.m; sourceTree = "<group>"; };
+		377A852A1A79EAE9004F88F7 /* VEsprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEsprite.h; path = Cubiline/VEsprite.h; sourceTree = "<group>"; };
+		377A852B1A79EAE9004F88F7 /* VEsprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEsprite.m; path = Cubiline/VEsprite.m; sourceTree = "<group>"; };
+		377A852C1A79EAE9004F88F7 /* VEtext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtext.h; path = Cubiline/VEtext.h; sourceTree = "<group>"; };
+		377A852D1A79EAE9004F88F7 /* VEtext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtext.m; path = Cubiline/VEtext.m; sourceTree = "<group>"; };
+		377A852E1A79EAE9004F88F7 /* VEtextshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtextshader.h; path = Cubiline/VEtextshader.h; sourceTree = "<group>"; };
+		377A852F1A79EAE9004F88F7 /* VEtextshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtextshader.m; path = Cubiline/VEtextshader.m; sourceTree = "<group>"; };
+		377A85301A79EAE9004F88F7 /* VEtexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtexture.h; path = Cubiline/VEtexture.h; sourceTree = "<group>"; };
+		377A85311A79EAE9004F88F7 /* VEtexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtexture.m; path = Cubiline/VEtexture.m; sourceTree = "<group>"; };
+		377A85321A79EAE9004F88F7 /* VEtexturedispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtexturedispatcher.h; path = Cubiline/VEtexturedispatcher.h; sourceTree = "<group>"; };
+		377A85331A79EAE9004F88F7 /* VEtexturedispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtexturedispatcher.m; path = Cubiline/VEtexturedispatcher.m; sourceTree = "<group>"; };
+		377A85341A79EAE9004F88F7 /* VEtextureshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtextureshader.h; path = Cubiline/VEtextureshader.h; sourceTree = "<group>"; };
+		377A85351A79EAE9004F88F7 /* VEtextureshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtextureshader.m; path = Cubiline/VEtextureshader.m; sourceTree = "<group>"; };
+		377A85361A79EAE9004F88F7 /* VEtimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEtimer.h; path = Cubiline/VEtimer.h; sourceTree = "<group>"; };
+		377A85371A79EAE9004F88F7 /* VEtimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEtimer.m; path = Cubiline/VEtimer.m; sourceTree = "<group>"; };
+		377A85381A79EAE9004F88F7 /* VEview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEview.h; path = Cubiline/VEview.h; sourceTree = "<group>"; };
+		377A85391A79EAE9004F88F7 /* VEview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEview.m; path = Cubiline/VEview.m; sourceTree = "<group>"; };
+		377A853A1A79EAE9004F88F7 /* VEwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEwatch.h; path = Cubiline/VEwatch.h; sourceTree = "<group>"; };
+		377A853B1A79EAE9004F88F7 /* VEwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEwatch.m; path = Cubiline/VEwatch.m; sourceTree = "<group>"; };
+		378001B21A6D9948009FFCC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Fan Heiti Std.png"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.png"; sourceTree = "<group>"; };
+		378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Adobe Fan Heiti Std.txt"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.txt"; sourceTree = "<group>"; };
+		378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Gothic Std.png"; path = "Cubiline/Fonts/Adobe Gothic Std.png"; sourceTree = "<group>"; };
+		378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Adobe Gothic Std.txt"; path = "Cubiline/Fonts/Adobe Gothic Std.txt"; sourceTree = "<group>"; };
+		378EDAE61A79BB7100397989 /* Aharoni.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Aharoni.png; path = Cubiline/Fonts/Aharoni.png; sourceTree = "<group>"; };
+		378EDAE71A79BB7100397989 /* Aharoni.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Aharoni.txt; path = Cubiline/Fonts/Aharoni.txt; sourceTree = "<group>"; };
+		378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Big.png"; path = "Cubiline/Fonts/Gau Font Cube Big.png"; sourceTree = "<group>"; };
+		378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Big.txt"; path = "Cubiline/Fonts/Gau Font Cube Big.txt"; sourceTree = "<group>"; };
+		378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Medium.png"; path = "Cubiline/Fonts/Gau Font Cube Medium.png"; sourceTree = "<group>"; };
+		378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Medium.txt"; path = "Cubiline/Fonts/Gau Font Cube Medium.txt"; sourceTree = "<group>"; };
+		378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Small.png"; path = "Cubiline/Fonts/Gau Font Cube Small.png"; sourceTree = "<group>"; };
+		378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Small.txt"; path = "Cubiline/Fonts/Gau Font Cube Small.txt"; sourceTree = "<group>"; };
+		378EDAEE1A79BB7100397989 /* Tahoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tahoma.png; path = Cubiline/Fonts/Tahoma.png; sourceTree = "<group>"; };
+		378EDAEF1A79BB7100397989 /* Tahoma.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Tahoma.txt; path = Cubiline/Fonts/Tahoma.txt; sourceTree = "<group>"; };
+		378EDAFE1A79CFF700397989 /* Cubiline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cubiline.png; path = Cubiline/Resources/Cubiline.png; sourceTree = "<group>"; };
+		378EDB001A79D49800397989 /* Cubiline Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cubiline Half.png"; path = "Cubiline/Resources/Cubiline Half.png"; sourceTree = "<group>"; };
+		378EDB021A79D83200397989 /* VE_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VE_Logo.png; path = Cubiline/Resources/VE_Logo.png; sourceTree = "<group>"; };
+		378F16241A8D8A1300AF42D6 /* CLcubilinegame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLcubilinegame.h; path = Cubiline/CLcubilinegame.h; sourceTree = "<group>"; };
+		378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLcubilinegame.m; path = Cubiline/CLcubilinegame.m; sourceTree = "<group>"; };
+		37993E841A82DF6900E8A724 /* game_menu_size_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_one.png; path = Cubiline/Resources/game_menu_size_one.png; sourceTree = "<group>"; };
+		37993E861A82E06500E8A724 /* game_menu_size_three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_three.png; path = Cubiline/Resources/game_menu_size_three.png; sourceTree = "<group>"; };
+		37993E871A82E06500E8A724 /* game_menu_size_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_two.png; path = Cubiline/Resources/game_menu_size_two.png; sourceTree = "<group>"; };
+		37A1F7471A75F5B90035BB91 /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
+		37A35A8C1A6D040E00E36F43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		37ADE7611A89ABB500FB84CF /* game_setup_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_play.png; path = Cubiline/Resources/game_setup_play.png; sourceTree = "<group>"; };
+		37ADE7621A89ABB500FB84CF /* game_setup_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_size.png; path = Cubiline/Resources/game_setup_size.png; sourceTree = "<group>"; };
+		37ADE7631A89ABB500FB84CF /* game_setup_speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_speed.png; path = Cubiline/Resources/game_setup_speed.png; sourceTree = "<group>"; };
+		37AF23211A7D5A1300E0829E /* main_menu_about.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_about.mtl; path = Cubiline/Resources/main_menu_about.mtl; sourceTree = "<group>"; };
+		37AF23221A7D5A1300E0829E /* main_menu_about.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_about.obj; path = Cubiline/Resources/main_menu_about.obj; sourceTree = "<group>"; };
+		37AF23251A7D5A7500E0829E /* main_menu_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_about.png; path = Cubiline/Resources/main_menu_about.png; sourceTree = "<group>"; };
+		37B3D6631A7836CE00084D7B /* text_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.fsh; path = Cubiline/Shaders/text_shader.fsh; sourceTree = "<group>"; };
+		37B3D6641A7836CE00084D7B /* text_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.vsh; path = Cubiline/Shaders/text_shader.vsh; sourceTree = "<group>"; };
+		37FB26141A6C4EFD00DB4E6C /* Cubiline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cubiline.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37FB26181A6C4EFD00DB4E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37FB26191A6C4EFD00DB4E6C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		37FB261B1A6C4EFD00DB4E6C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		37FB26221A6C4EFD00DB4E6C /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		37FB26231A6C4EFD00DB4E6C /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		37FB26261A6C4EFD00DB4E6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		37FB26311A6C4EFD00DB4E6C /* Cubiline.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cubiline.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37FB26361A6C4EFD00DB4E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubilineTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37FB26111A6C4EFD00DB4E6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3728F5F61A6C503A004F7244 /* AudioToolbox.framework in Frameworks */,
+				3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */,
+				378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */,
+				3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */,
+				37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FB262E1A6C4EFD00DB4E6C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3728F54C1A6C4F82004F7244 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				37ADE7611A89ABB500FB84CF /* game_setup_play.png */,
+				37ADE7621A89ABB500FB84CF /* game_setup_size.png */,
+				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
+				37604EE31A88562900F77B76 /* game_setup_minus.png */,
+				37604EE41A88562900F77B76 /* game_setup_plus.png */,
+				37604EE11A8829CC00F77B76 /* test_song.mp3 */,
+				374FCCBE1A86FFEA00B14ACB /* game_guides.png */,
+				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
+				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
+				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
+				374FCCA91A86D89700B14ACB /* top_wall.obj */,
+				37436E421A86D5A700167D31 /* back_wall.obj */,
+				37436E441A86D5A700167D31 /* front_wall.obj */,
+				37436E461A86D5A700167D31 /* left_wall.obj */,
+				37436E481A86D5A700167D31 /* right_wall.obj */,
+				37993E861A82E06500E8A724 /* game_menu_size_three.png */,
+				37993E871A82E06500E8A724 /* game_menu_size_two.png */,
+				37993E841A82DF6900E8A724 /* game_menu_size_one.png */,
+				376B55D61A82BFF500CC011F /* game_menu_back.png */,
+				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
+				37AF23251A7D5A7500E0829E /* main_menu_about.png */,
+				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
+				3758D1331A7C73E600982ABE /* main_menu_settings.png */,
+				3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */,
+				3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */,
+				3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */,
+				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
+				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
+				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
+				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
+				3758D1191A7C61A900982ABE /* main_menu_play.png */,
+				378EDB021A79D83200397989 /* VE_Logo.png */,
+				3734C5B31A7229AD0039269D /* dome.jpg */,
+				378EDB001A79D49800397989 /* Cubiline Half.png */,
+				378EDAFE1A79CFF700397989 /* Cubiline.png */,
+				3734C5AF1A7229400039269D /* geosphere_medium.mtl */,
+				3734C5B01A7229400039269D /* geosphere_medium.obj */,
+				3728F5BA1A6C4FEB004F7244 /* oldhorn.wav */,
+				37A1F7471A75F5B90035BB91 /* dome.jpg */,
+				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
+				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
+				3728F5BD1A6C4FEB004F7244 /* starwars.wav */,
+				3728F5BF1A6C4FEB004F7244 /* wall.mtl */,
+				3728F5C01A6C4FEB004F7244 /* wall.obj */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3728F54D1A6C4F89004F7244 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */,
+				3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */,
+				373CC3121A6DF886003BEE7F /* color_shader.fsh */,
+				373CC3131A6DF886003BEE7F /* color_shader.vsh */,
+				3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */,
+				3728F5D31A6C4FF6004F7244 /* depth_of_field_shader.vsh */,
+				3728F5D41A6C4FF6004F7244 /* depth_shader.fsh */,
+				3728F5D51A6C4FF6004F7244 /* depth_shader.vsh */,
+				3728F5D61A6C4FF6004F7244 /* depth_texture_shader.fsh */,
+				3728F5D71A6C4FF6004F7244 /* depth_texture_shader.vsh */,
+				3728F5D81A6C4FF6004F7244 /* fullscreen_shader.fsh */,
+				3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */,
+				3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */,
+				3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */,
+				3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */,
+				3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */,
+				37B3D6631A7836CE00084D7B /* text_shader.fsh */,
+				37B3D6641A7836CE00084D7B /* text_shader.vsh */,
+				3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */,
+				3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		3728F54E1A6C4F90004F7244 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				378F16241A8D8A1300AF42D6 /* CLcubilinegame.h */,
+				378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */,
+				374FCCB01A86DD0300B14ACB /* CLbody.h */,
+				374FCCB11A86DD0300B14ACB /* CLbody.m */,
+				374FCCAC1A86DCCD00B14ACB /* CLcommon.h */,
+				37436E361A86A26000167D31 /* CLgame.h */,
+				37436E371A86A26000167D31 /* CLgame.m */,
+				374FCCAD1A86DCCD00B14ACB /* CLgamesetup.h */,
+				374FCCAE1A86DCCD00B14ACB /* CLgamesetup.m */,
+				374FCCB31A86DD1600B14ACB /* CLlevel.h */,
+				37436E3B1A86A83400167D31 /* CLlevel.m */,
+				37604EDB1A88019200F77B76 /* CLmainmenu.h */,
+				37604EDC1A88019200F77B76 /* CLmainmenu.m */,
+				37604EDD1A88019200F77B76 /* CLtouchable.h */,
+				37604EDE1A88019200F77B76 /* CLtouchable.m */,
+				377A84ED1A79EAE9004F88F7 /* GCHelper.h */,
+				377A84EE1A79EAE9004F88F7 /* GCHelper.m */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		3728F54F1A6C4F94004F7244 /* VEClasses */ = {
+			isa = PBXGroup;
+			children = (
+				377A84F51A79EAE9004F88F7 /* VE3Dobject.h */,
+				377A84F61A79EAE9004F88F7 /* VE3Dobject.m */,
+				377A84F71A79EAE9004F88F7 /* VEaudiobox.h */,
+				377A84F81A79EAE9004F88F7 /* VEaudiobox.m */,
+				377A84F91A79EAE9004F88F7 /* VEcamera.h */,
+				377A84FA1A79EAE9004F88F7 /* VEcamera.m */,
+				377A84FB1A79EAE9004F88F7 /* VEcolorlightshader.h */,
+				377A84FC1A79EAE9004F88F7 /* VEcolorlightshader.m */,
+				377A84FD1A79EAE9004F88F7 /* VEcolorshader.h */,
+				377A84FE1A79EAE9004F88F7 /* VEcolorshader.m */,
+				377A84FF1A79EAE9004F88F7 /* VEcommon.h */,
+				377A85001A79EAE9004F88F7 /* VEdepthoffieldshader.h */,
+				377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */,
+				377A85021A79EAE9004F88F7 /* VEdepthShader.h */,
+				377A85031A79EAE9004F88F7 /* VEdepthshader.m */,
+				377A85041A79EAE9004F88F7 /* VEeffect1.h */,
+				377A85051A79EAE9004F88F7 /* VEeffect1.m */,
+				377A85061A79EAE9004F88F7 /* VEeffect3.h */,
+				377A85071A79EAE9004F88F7 /* VEeffect3.m */,
+				377A85081A79EAE9004F88F7 /* VEfbo.h */,
+				377A85091A79EAE9004F88F7 /* VEfbo.m */,
+				377A850A1A79EAE9004F88F7 /* VEfullscreenshader.h */,
+				377A850B1A79EAE9004F88F7 /* VEfullscreenshader.m */,
+				377A850E1A79EAE9004F88F7 /* VEgaussianblurshader.h */,
+				377A850F1A79EAE9004F88F7 /* VEgaussianblurshader.m */,
+				377A85101A79EAE9004F88F7 /* VElight.h */,
+				377A85111A79EAE9004F88F7 /* VElight.m */,
+				377A85121A79EAE9004F88F7 /* VElightshader.h */,
+				377A85131A79EAE9004F88F7 /* VElightshader.m */,
+				377A85141A79EAE9004F88F7 /* VEmodel.h */,
+				377A85151A79EAE9004F88F7 /* VEmodel.m */,
+				377A85161A79EAE9004F88F7 /* VEmodelbuffer.h */,
+				377A85171A79EAE9004F88F7 /* VEmodelbuffer.m */,
+				377A85181A79EAE9004F88F7 /* VEmodelbufferdispatcher.h */,
+				377A85191A79EAE9004F88F7 /* VEmodelbufferdispatcher.m */,
+				377A851A1A79EAE9004F88F7 /* VErandom.h */,
+				377A851B1A79EAE9004F88F7 /* VErandom.m */,
+				377A851C1A79EAE9004F88F7 /* VErenderableobject.h */,
+				377A851D1A79EAE9004F88F7 /* VErenderableobject.m */,
+				377A851E1A79EAE9004F88F7 /* VErenderbox.h */,
+				377A851F1A79EAE9004F88F7 /* VErenderbox.m */,
+				377A85201A79EAE9004F88F7 /* VEscene.h */,
+				377A85211A79EAE9004F88F7 /* VEscene.m */,
+				377A85221A79EAE9004F88F7 /* VEshader.h */,
+				377A85231A79EAE9004F88F7 /* VEshader.m */,
+				377A85241A79EAE9004F88F7 /* VEsound.h */,
+				377A85251A79EAE9004F88F7 /* VEsound.m */,
+				377A85261A79EAE9004F88F7 /* VEsoundbuffer.h */,
+				377A85271A79EAE9004F88F7 /* VEsoundbuffer.m */,
+				377A85281A79EAE9004F88F7 /* VEsoundbufferdispatcher.h */,
+				377A85291A79EAE9004F88F7 /* VEsoundbufferdispatcher.m */,
+				377A852A1A79EAE9004F88F7 /* VEsprite.h */,
+				377A852B1A79EAE9004F88F7 /* VEsprite.m */,
+				377A852C1A79EAE9004F88F7 /* VEtext.h */,
+				377A852D1A79EAE9004F88F7 /* VEtext.m */,
+				377A852E1A79EAE9004F88F7 /* VEtextshader.h */,
+				377A852F1A79EAE9004F88F7 /* VEtextshader.m */,
+				377A85301A79EAE9004F88F7 /* VEtexture.h */,
+				377A85311A79EAE9004F88F7 /* VEtexture.m */,
+				377A85321A79EAE9004F88F7 /* VEtexturedispatcher.h */,
+				377A85331A79EAE9004F88F7 /* VEtexturedispatcher.m */,
+				377A85341A79EAE9004F88F7 /* VEtextureshader.h */,
+				377A85351A79EAE9004F88F7 /* VEtextureshader.m */,
+				377A85361A79EAE9004F88F7 /* VEtimer.h */,
+				377A85371A79EAE9004F88F7 /* VEtimer.m */,
+				377A85381A79EAE9004F88F7 /* VEview.h */,
+				377A85391A79EAE9004F88F7 /* VEview.m */,
+				377A853A1A79EAE9004F88F7 /* VEwatch.h */,
+				377A853B1A79EAE9004F88F7 /* VEwatch.m */,
+			);
+			name = VEClasses;
+			sourceTree = "<group>";
+		};
+		3728F5F01A6C5016004F7244 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				378001B21A6D9948009FFCC8 /* StoreKit.framework */,
+				37A35A8C1A6D040E00E36F43 /* GameKit.framework */,
+				3728F5F51A6C503A004F7244 /* AudioToolbox.framework */,
+				3728F5F31A6C5033004F7244 /* OpenAL.framework */,
+				3728F5F11A6C5027004F7244 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		378EDAE11A79BB5800397989 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */,
+				378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */,
+				378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */,
+				378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */,
+				378EDAE61A79BB7100397989 /* Aharoni.png */,
+				378EDAE71A79BB7100397989 /* Aharoni.txt */,
+				378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */,
+				378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */,
+				378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */,
+				378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */,
+				378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */,
+				378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */,
+				378EDAEE1A79BB7100397989 /* Tahoma.png */,
+				378EDAEF1A79BB7100397989 /* Tahoma.txt */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
+		37FB260B1A6C4EFD00DB4E6C = {
+			isa = PBXGroup;
+			children = (
+				37FB26161A6C4EFD00DB4E6C /* Cubiline */,
+				37FB26341A6C4EFD00DB4E6C /* CubilineTests */,
+				378EDAE11A79BB5800397989 /* Fonts */,
+				3728F5F01A6C5016004F7244 /* Frameworks */,
+				3728F54E1A6C4F90004F7244 /* Game */,
+				37FB26151A6C4EFD00DB4E6C /* Products */,
+				3728F54C1A6C4F82004F7244 /* Resources */,
+				3728F54D1A6C4F89004F7244 /* Shaders */,
+				3728F54F1A6C4F94004F7244 /* VEClasses */,
+			);
+			sourceTree = "<group>";
+			usesTabs = 1;
+		};
+		37FB26151A6C4EFD00DB4E6C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37FB26141A6C4EFD00DB4E6C /* Cubiline.app */,
+				37FB26311A6C4EFD00DB4E6C /* Cubiline.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37FB26161A6C4EFD00DB4E6C /* Cubiline */ = {
+			isa = PBXGroup;
+			children = (
+				37FB261B1A6C4EFD00DB4E6C /* AppDelegate.h */,
+				37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */,
+				37FB26221A6C4EFD00DB4E6C /* GameViewController.h */,
+				37FB26231A6C4EFD00DB4E6C /* GameViewController.m */,
+				37FB26251A6C4EFD00DB4E6C /* Main.storyboard */,
+				37FB26171A6C4EFD00DB4E6C /* Supporting Files */,
+				3771AC041A6CC7B8008E74D9 /* images.xcassets */,
+			);
+			path = Cubiline;
+			sourceTree = "<group>";
+		};
+		37FB26171A6C4EFD00DB4E6C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37FB26181A6C4EFD00DB4E6C /* Info.plist */,
+				37FB26191A6C4EFD00DB4E6C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		37FB26341A6C4EFD00DB4E6C /* CubilineTests */ = {
+			isa = PBXGroup;
+			children = (
+				37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */,
+				37FB26351A6C4EFD00DB4E6C /* Supporting Files */,
+			);
+			path = CubilineTests;
+			sourceTree = "<group>";
+		};
+		37FB26351A6C4EFD00DB4E6C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				37FB26361A6C4EFD00DB4E6C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37FB26131A6C4EFD00DB4E6C /* Cubiline */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37FB263B1A6C4EFD00DB4E6C /* Build configuration list for PBXNativeTarget "Cubiline" */;
+			buildPhases = (
+				37FB26101A6C4EFD00DB4E6C /* Sources */,
+				37FB26111A6C4EFD00DB4E6C /* Frameworks */,
+				37FB26121A6C4EFD00DB4E6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cubiline;
+			productName = Cubiline;
+			productReference = 37FB26141A6C4EFD00DB4E6C /* Cubiline.app */;
+			productType = "com.apple.product-type.application";
+		};
+		37FB26301A6C4EFD00DB4E6C /* CubilineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37FB263E1A6C4EFD00DB4E6C /* Build configuration list for PBXNativeTarget "CubilineTests" */;
+			buildPhases = (
+				37FB262D1A6C4EFD00DB4E6C /* Sources */,
+				37FB262E1A6C4EFD00DB4E6C /* Frameworks */,
+				37FB262F1A6C4EFD00DB4E6C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37FB26331A6C4EFD00DB4E6C /* PBXTargetDependency */,
+			);
+			name = CubilineTests;
+			productName = CubilineTests;
+			productReference = 37FB26311A6C4EFD00DB4E6C /* Cubiline.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37FB260C1A6C4EFD00DB4E6C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = omarandstuff;
+				TargetAttributes = {
+					37FB26131A6C4EFD00DB4E6C = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 4WT5U2SGE8;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+					37FB26301A6C4EFD00DB4E6C = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 37FB26131A6C4EFD00DB4E6C;
+					};
+				};
+			};
+			buildConfigurationList = 37FB260F1A6C4EFD00DB4E6C /* Build configuration list for PBXProject "Cubiline" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 37FB260B1A6C4EFD00DB4E6C;
+			productRefGroup = 37FB26151A6C4EFD00DB4E6C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37FB26131A6C4EFD00DB4E6C /* Cubiline */,
+				37FB26301A6C4EFD00DB4E6C /* CubilineTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37FB26121A6C4EFD00DB4E6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3728F5E11A6C4FF6004F7244 /* color_light_shader.vsh in Resources */,
+				37AF23261A7D5A7500E0829E /* main_menu_about.png in Resources */,
+				3758D11A1A7C61A900982ABE /* main_menu_play.mtl in Resources */,
+				374FCCBF1A86FFEA00B14ACB /* game_guides.png in Resources */,
+				37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */,
+				37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */,
+				37993E891A82E06500E8A724 /* game_menu_size_two.png in Resources */,
+				378EDB011A79D49800397989 /* Cubiline Half.png in Resources */,
+				376B55D71A82BFF500CC011F /* game_menu_back.png in Resources */,
+				37604EE21A8829CC00F77B76 /* test_song.mp3 in Resources */,
+				37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */,
+				37436E501A86D5A700167D31 /* right_wall.obj in Resources */,
+				3728F5ED1A6C4FF6004F7244 /* light_shader.vsh in Resources */,
+				37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */,
+				3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */,
+				378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */,
+				3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */,
+				3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */,
+				37993E851A82DF6900E8A724 /* game_menu_size_one.png in Resources */,
+				378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */,
+				378EDB031A79D83200397989 /* VE_Logo.png in Resources */,
+				378EDAFD1A79BB7100397989 /* Tahoma.txt in Resources */,
+				3728F5E71A6C4FF6004F7244 /* depth_texture_shader.vsh in Resources */,
+				374FCCBC1A86FCAF00B14ACB /* game_guides.mtl in Resources */,
+				378EDAF51A79BB7100397989 /* Aharoni.txt in Resources */,
+				3734C5B11A7229400039269D /* geosphere_medium.mtl in Resources */,
+				378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */,
+				3734C5B21A7229400039269D /* geosphere_medium.obj in Resources */,
+				374FCCAA1A86D89700B14ACB /* bottom_wall.obj in Resources */,
+				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
+				3728F5CC1A6C4FEB004F7244 /* starwars.wav in Resources */,
+				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
+				3728F5E51A6C4FF6004F7244 /* depth_shader.vsh in Resources */,
+				3728F5E61A6C4FF6004F7244 /* depth_texture_shader.fsh in Resources */,
+				37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */,
+				3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */,
+				374FCCAB1A86D89700B14ACB /* top_wall.obj in Resources */,
+				37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */,
+				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,
+				3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */,
+				3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */,
+				3728F5C91A6C4FEB004F7244 /* oldhorn.wav in Resources */,
+				378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */,
+				3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */,
+				378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */,
+				3728F5EC1A6C4FF6004F7244 /* light_shader.fsh in Resources */,
+				378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */,
+				3758D12A1A7C6D2D00982ABE /* main_menu_game_center.png in Resources */,
+				37AF23241A7D5A1300E0829E /* main_menu_about.obj in Resources */,
+				378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */,
+				37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */,
+				3728F5E01A6C4FF6004F7244 /* color_light_shader.fsh in Resources */,
+				37436E4C1A86D5A700167D31 /* front_wall.obj in Resources */,
+				3758D1271A7C6BF200982ABE /* main_menu_game_center.mtl in Resources */,
+				37436E4E1A86D5A700167D31 /* left_wall.obj in Resources */,
+				3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */,
+				37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */,
+				37993E881A82E06500E8A724 /* game_menu_size_three.png in Resources */,
+				378EDAF61A79BB7100397989 /* Gau Font Cube Big.png in Resources */,
+				3758D11B1A7C61A900982ABE /* main_menu_play.obj in Resources */,
+				3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */,
+				378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */,
+				3758D1341A7C73E600982ABE /* main_menu_settings.png in Resources */,
+				37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */,
+				378EDAF41A79BB7100397989 /* Aharoni.png in Resources */,
+				378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */,
+				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
+				3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */,
+				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
+				3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */,
+				3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */,
+				378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */,
+				373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */,
+				3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */,
+				37AF23231A7D5A1300E0829E /* main_menu_about.mtl in Resources */,
+				374FCCBD1A86FCAF00B14ACB /* game_guides.obj in Resources */,
+				378EDAF71A79BB7100397989 /* Gau Font Cube Big.txt in Resources */,
+				3758D1311A7C6F1F00982ABE /* main_menu_settings.mtl in Resources */,
+				3758D11C1A7C61A900982ABE /* main_menu_play.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FB262F1A6C4EFD00DB4E6C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37FB26101A6C4EFD00DB4E6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				377A855C1A79EAE9004F88F7 /* VEtextshader.m in Sources */,
+				377A85501A79EAE9004F88F7 /* VEmodelbuffer.m in Sources */,
+				377A85531A79EAE9004F88F7 /* VErenderableobject.m in Sources */,
+				37436E3C1A86A83400167D31 /* CLlevel.m in Sources */,
+				377A85401A79EAE9004F88F7 /* VE3Dobject.m in Sources */,
+				377A85591A79EAE9004F88F7 /* VEsoundbufferdispatcher.m in Sources */,
+				377A855D1A79EAE9004F88F7 /* VEtexture.m in Sources */,
+				377A85481A79EAE9004F88F7 /* VEeffect3.m in Sources */,
+				377A85521A79EAE9004F88F7 /* VErandom.m in Sources */,
+				377A85601A79EAE9004F88F7 /* VEtimer.m in Sources */,
+				377A85611A79EAE9004F88F7 /* VEview.m in Sources */,
+				377A85511A79EAE9004F88F7 /* VEmodelbufferdispatcher.m in Sources */,
+				377A855A1A79EAE9004F88F7 /* VEsprite.m in Sources */,
+				377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */,
+				377A85421A79EAE9004F88F7 /* VEcamera.m in Sources */,
+				377A85571A79EAE9004F88F7 /* VEsound.m in Sources */,
+				377A85581A79EAE9004F88F7 /* VEsoundbuffer.m in Sources */,
+				377A85491A79EAE9004F88F7 /* VEfbo.m in Sources */,
+				377A85541A79EAE9004F88F7 /* VErenderbox.m in Sources */,
+				37604EDF1A88019200F77B76 /* CLmainmenu.m in Sources */,
+				377A85471A79EAE9004F88F7 /* VEeffect1.m in Sources */,
+				374FCCB21A86DD0300B14ACB /* CLbody.m in Sources */,
+				377A854D1A79EAE9004F88F7 /* VElight.m in Sources */,
+				3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */,
+				377A854A1A79EAE9004F88F7 /* VEfullscreenshader.m in Sources */,
+				377A85461A79EAE9004F88F7 /* VEdepthshader.m in Sources */,
+				377A855F1A79EAE9004F88F7 /* VEtextureshader.m in Sources */,
+				377A854E1A79EAE9004F88F7 /* VElightshader.m in Sources */,
+				377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */,
+				377A84EC1A79EA15004F88F7 /* GameViewController.m in Sources */,
+				37604EE01A88019200F77B76 /* CLtouchable.m in Sources */,
+				377A854C1A79EAE9004F88F7 /* VEgaussianblurshader.m in Sources */,
+				374FCCAF1A86DCCD00B14ACB /* CLgamesetup.m in Sources */,
+				377A854F1A79EAE9004F88F7 /* VEmodel.m in Sources */,
+				377A85431A79EAE9004F88F7 /* VEcolorlightshader.m in Sources */,
+				377A85411A79EAE9004F88F7 /* VEaudiobox.m in Sources */,
+				377A855B1A79EAE9004F88F7 /* VEtext.m in Sources */,
+				377A85561A79EAE9004F88F7 /* VEshader.m in Sources */,
+				377A85451A79EAE9004F88F7 /* VEdepthoffieldshader.m in Sources */,
+				37436E381A86A26000167D31 /* CLgame.m in Sources */,
+				378EDB621A79E65100397989 /* main.m in Sources */,
+				377A855E1A79EAE9004F88F7 /* VEtexturedispatcher.m in Sources */,
+				377A85551A79EAE9004F88F7 /* VEscene.m in Sources */,
+				377A853C1A79EAE9004F88F7 /* GCHelper.m in Sources */,
+				378F16261A8D8A1300AF42D6 /* CLcubilinegame.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37FB262D1A6C4EFD00DB4E6C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37FB26381A6C4EFD00DB4E6C /* CubilineTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37FB26331A6C4EFD00DB4E6C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37FB26131A6C4EFD00DB4E6C /* Cubiline */;
+			targetProxy = 37FB26321A6C4EFD00DB4E6C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		37FB26251A6C4EFD00DB4E6C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37FB26261A6C4EFD00DB4E6C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		37FB26391A6C4EFD00DB4E6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		37FB263A1A6C4EFD00DB4E6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		37FB263C1A6C4EFD00DB4E6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Cubiline/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = Cubiline;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		37FB263D1A6C4EFD00DB4E6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = Cubiline/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = Cubiline;
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		37FB263F1A6C4EFD00DB4E6C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CubilineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = Cubiline;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cubiline.app/Cubiline";
+			};
+			name = Debug;
+		};
+		37FB26401A6C4EFD00DB4E6C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CubilineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = Cubiline;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cubiline.app/Cubiline";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37FB260F1A6C4EFD00DB4E6C /* Build configuration list for PBXProject "Cubiline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FB26391A6C4EFD00DB4E6C /* Debug */,
+				37FB263A1A6C4EFD00DB4E6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37FB263B1A6C4EFD00DB4E6C /* Build configuration list for PBXNativeTarget "Cubiline" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FB263C1A6C4EFD00DB4E6C /* Debug */,
+				37FB263D1A6C4EFD00DB4E6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37FB263E1A6C4EFD00DB4E6C /* Build configuration list for PBXNativeTarget "CubilineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37FB263F1A6C4EFD00DB4E6C /* Debug */,
+				37FB26401A6C4EFD00DB4E6C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37FB260C1A6C4EFD00DB4E6C /* Project object */;
+}

@@ -1,0 +1,103 @@
+#ifndef Cubiline_CLcommon_h
+#define Cubiline_CLcommon_h
+
+#import "VErenderbox.h"
+#import "VEaudiobox.h"
+#import "GCHelper.h"
+
+enum CL_ZONE
+{
+	CL_ZONE_FRONT,
+	CL_ZONE_BACK,
+	CL_ZONE_RIGHT,
+	CL_ZONE_LEFT,
+	CL_ZONE_TOP,
+	CL_ZONE_BOTTOM,
+	CL_ZONE_NUMBER
+};
+
+enum CL_TURN
+{
+	CL_TURN_NONE,
+	CL_TURN_UP_RIGHT,
+	CL_TURN_UP_LEFT,
+	CL_TURN_DOWN_RIGHT,
+	CL_TURN_DOWN_LEFT,
+	CL_TURN_RIGHT_UP,
+	CL_TURN_RIGHT_DOWN,
+	CL_TURN_LEFT_UP,
+	CL_TURN_LEFT_DOWN
+};
+
+enum CL_HANDLE
+{
+	CL_HANDLE_NONE,
+	CL_HANDLE_FRONT,
+	CL_HANDLE_FRONT_RIGHT,
+	CL_HANDLE_FRONT_LEFT,
+	CL_HANDLE_FRONT_TOP,
+	CL_HANDLE_FRONT_BOTTOM,
+	CL_HANDLE_BACK,
+	CL_HANDLE_BACK_RIGHT,
+	CL_HANDLE_BACK_LEFT,
+	CL_HANDLE_BACK_TOP,
+	CL_HANDLE_BACK_BOTTOM,
+	CL_HANDLE_RIGHT,
+	CL_HANDLE_RIGHT_FRONT,
+	CL_HANDLE_RIGHT_BACK,
+	CL_HANDLE_RIGHT_TOP,
+	CL_HANDLE_RIGHT_BOTTOM,
+	CL_HANDLE_LEFT,
+	CL_HANDLE_LEFT_FRONT,
+	CL_HANDLE_LEFT_BACK,
+	CL_HANDLE_LEFT_TOP,
+	CL_HANDLE_LEFT_BOTTOM,
+	CL_HANDLE_TOP,
+	CL_HANDLE_TOP_FRONT,
+	CL_HANDLE_TOP_BACK,
+	CL_HANDLE_TOP_RIGHT,
+	CL_HANDLE_TOP_LEFT,
+	CL_HANDLE_BOTTOM,
+	CL_HANDLE_BOTTOM_FRONT,
+	CL_HANDLE_BOTTOM_BACK,
+	CL_HANDLE_BOTTOM_RIGHT,
+	CL_HANDLE_BOTTOM_LEFT
+	
+};
+
+enum CL_SIZE
+{
+	CL_SIZE_SMALL,
+	CL_SIZE_NORMAL,
+	CL_SIZE_BIG
+};
+
+enum CL_MAIN_MENU_SELECTION
+{
+	CL_MAIN_MENU_SELECTION_PLAY,
+	CL_MAIN_MENU_SELECTION_GC,
+	CL_MAIN_MENU_SELECTION_SETTINGS,
+	CL_MAIN_MENU_SELECTION_ABOUT
+};
+
+#define GrayColor GLKVector3Make(0.3f, 0.35f, 0.4f)
+#define WhiteBackgroundColor GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f)
+
+#define FrontColor GLKVector3Make(0.25f, 1.0f, 0.95f)
+
+#define BornSizeVector GLKVector3Make(1.0f, 1.0f, 1.0f)
+#define SmallSizeVector GLKVector3Make(9.0f, 9.0f, 9.0f)
+#define NormalSizeVector GLKVector3Make(15.0f, 15.0f, 15.0f)
+#define BigSizeVector GLKVector3Make(21.0f, 21.0f, 21.0f)
+
+#define GuidesBornSizeVector GLKVector3Make(1.01f, 1.01f, 1.01f)
+#define GuidesSmallSizeVector GLKVector3Make(9.01f, 9.01f, 9.01f)
+#define GuidesNormalSizeVector GLKVector3Make(15.01f, 15.01f, 15.01f)
+#define GuidesBigSizeVector GLKVector3Make(21.01f, 21.01f, 21.01f)
+
+#define BornSizeLimit 1.5f
+#define SmallSizeLimit 4.5f
+#define NormalSizeLimit 7.5f
+#define BigSizeLimit 10.5f
+
+#endif
