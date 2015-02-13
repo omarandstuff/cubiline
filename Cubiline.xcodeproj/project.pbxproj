@@ -121,7 +121,6 @@
 		378EDB011A79D49800397989 /* Cubiline Half.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB001A79D49800397989 /* Cubiline Half.png */; };
 		378EDB031A79D83200397989 /* VE_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB021A79D83200397989 /* VE_Logo.png */; };
 		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
-		378F16261A8D8A1300AF42D6 /* CLcubilinegame.m in Sources */ = {isa = PBXBuildFile; fileRef = 378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */; };
 		37993E851A82DF6900E8A724 /* game_menu_size_one.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E841A82DF6900E8A724 /* game_menu_size_one.png */; };
 		37993E881A82E06500E8A724 /* game_menu_size_three.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E861A82E06500E8A724 /* game_menu_size_three.png */; };
 		37993E891A82E06500E8A724 /* game_menu_size_two.png in Resources */ = {isa = PBXBuildFile; fileRef = 37993E871A82E06500E8A724 /* game_menu_size_two.png */; };
@@ -305,8 +304,6 @@
 		378EDAFE1A79CFF700397989 /* Cubiline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cubiline.png; path = Cubiline/Resources/Cubiline.png; sourceTree = "<group>"; };
 		378EDB001A79D49800397989 /* Cubiline Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cubiline Half.png"; path = "Cubiline/Resources/Cubiline Half.png"; sourceTree = "<group>"; };
 		378EDB021A79D83200397989 /* VE_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = VE_Logo.png; path = Cubiline/Resources/VE_Logo.png; sourceTree = "<group>"; };
-		378F16241A8D8A1300AF42D6 /* CLcubilinegame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLcubilinegame.h; path = Cubiline/CLcubilinegame.h; sourceTree = "<group>"; };
-		378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLcubilinegame.m; path = Cubiline/CLcubilinegame.m; sourceTree = "<group>"; };
 		37993E841A82DF6900E8A724 /* game_menu_size_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_one.png; path = Cubiline/Resources/game_menu_size_one.png; sourceTree = "<group>"; };
 		37993E861A82E06500E8A724 /* game_menu_size_three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_three.png; path = Cubiline/Resources/game_menu_size_three.png; sourceTree = "<group>"; };
 		37993E871A82E06500E8A724 /* game_menu_size_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_size_two.png; path = Cubiline/Resources/game_menu_size_two.png; sourceTree = "<group>"; };
@@ -437,8 +434,6 @@
 		3728F54E1A6C4F90004F7244 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				378F16241A8D8A1300AF42D6 /* CLcubilinegame.h */,
-				378F16251A8D8A1300AF42D6 /* CLcubilinegame.m */,
 				374FCCB01A86DD0300B14ACB /* CLbody.h */,
 				374FCCB11A86DD0300B14ACB /* CLbody.m */,
 				374FCCAC1A86DCCD00B14ACB /* CLcommon.h */,
@@ -861,7 +856,6 @@
 				377A855E1A79EAE9004F88F7 /* VEtexturedispatcher.m in Sources */,
 				377A85551A79EAE9004F88F7 /* VEscene.m in Sources */,
 				377A853C1A79EAE9004F88F7 /* GCHelper.m in Sources */,
-				378F16261A8D8A1300AF42D6 /* CLcubilinegame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

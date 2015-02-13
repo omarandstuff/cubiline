@@ -8,7 +8,6 @@
 	CLGameSetpUp* m_gameSetUp;
 	CLLevel* m_cubilineLevel;
 	CLMainMenu* m_mainMenu;
-	CLCubilineGame* m_cubilineGame;
 	
 	enum GAME_STATE
 	{
@@ -46,10 +45,6 @@
 		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox];
 		[m_gameSetUp Resize];
 		m_gameSetUp.Level = m_cubilineLevel;
-		
-		m_cubilineGame = [[CLCubilineGame alloc] initWithRenderBox:m_renderBox];
-		[m_cubilineGame Resize];
-		m_cubilineGame.Level = m_cubilineLevel;
 		
 		m_renderBox.MainView.ClearColor = WhiteBackgroundColor;
 		m_renderBox.MainView.Scene = m_mainMenu.Scene;
@@ -103,15 +98,12 @@
 		[m_gameSetUp Frame:time];
 		if([m_gameSetUp Ready])
 		{
-			m_gameState = GAME_STATE_PLAYING;
-			m_renderBox.MainView.Scene = m_cubilineGame.Scene;
-			m_cubilineGame.Level = m_cubilineLevel;
-			[m_cubilineGame Begin];
+
 		}
 	}
 	else if(m_gameState == GAME_STATE_PLAYING)
 	{
-		[m_cubilineGame Frame:time];
+
 	}
 }
 
@@ -122,7 +114,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp Render];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame Render];
+	{}
 }
 
 - (void)Resize
@@ -132,7 +124,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp Resize];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame Resize];
+	{}
 }
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
@@ -142,7 +134,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanBegan:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
@@ -152,7 +144,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanChange:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 - (void)TouchPanEnd:(float)x Y:(float)y Fingers:(int)fingers
@@ -162,7 +154,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanEnd:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 - (void)TouchTap:(float)x Y:(float)y Fingers:(int)fingers
@@ -172,7 +164,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchTap:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers
@@ -182,7 +174,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchDown:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
@@ -192,7 +184,7 @@
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchUp:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING)
-		[m_cubilineGame TouchPanBegan:x Y:y Fingers:fingers];
+	{}
 }
 
 

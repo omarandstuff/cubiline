@@ -3,7 +3,6 @@
 
 #import "CLmainmenu.h"
 #import "CLgamesetup.h"
-#import "CLcubilinegame.h"
 
 @interface CLGame : NSObject
 
