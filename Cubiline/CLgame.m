@@ -12,8 +12,9 @@
 	enum GAME_STATE
 	{
 		GAME_STATE_MAIN_MENU,
-		GAME_STATE_FROM_MAIN_TO_PLAY,
+		GAME_STATE_FROM_MAIN_TO_GAME_SETUP,
 		GAME_STATE_GAME_SETUP,
+		GAME_STATE_FROM_GAME_SETUP_TO_PLAY,
 		GAME_STATE_PLAYING
 	};
 	
@@ -78,11 +79,11 @@
 				[m_gameSetUp Frame:time];
 				
 				[m_mainMenu OutToPlay];
-				m_gameState = GAME_STATE_FROM_MAIN_TO_PLAY;
+				m_gameState = GAME_STATE_FROM_MAIN_TO_GAME_SETUP;
 			}
 		}
 	}
-	else if(m_gameState == GAME_STATE_FROM_MAIN_TO_PLAY)
+	else if(m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 	{
 		[m_mainMenu Frame:time];
 		if([m_mainMenu OutReady])
@@ -98,20 +99,24 @@
 		[m_gameSetUp Frame:time];
 		if([m_gameSetUp Ready])
 		{
-
+			[m_gameSetUp OutToPlay];
+			m_gameState = GAME_STATE_FROM_GAME_SETUP_TO_PLAY;
+			m_cubilineLevel.Dance = false;
+			m_cubilineLevel.Follow = true;
 		}
 	}
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 	{
-
+		[m_cubilineLevel Frame:time];
+		[m_gameSetUp Frame:time];
 	}
 }
 
 - (void)Render
 {
-	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_PLAY)
+	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Render];
-	else if(m_gameState == GAME_STATE_GAME_SETUP)
+	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameSetUp Render];
 	else if(m_gameState == GAME_STATE_PLAYING)
 	{}
@@ -119,9 +124,9 @@
 
 - (void)Resize
 {
-	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_PLAY)
+	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Resize];
-	else if(m_gameState == GAME_STATE_GAME_SETUP)
+	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameSetUp Resize];
 	else if(m_gameState == GAME_STATE_PLAYING)
 	{}

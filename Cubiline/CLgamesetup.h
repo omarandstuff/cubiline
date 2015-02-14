@@ -18,6 +18,9 @@
 
 - (bool)Ready;
 
+- (void)OutToPlay;
+- (bool)OutReady;
+
 @end
 
 #endif

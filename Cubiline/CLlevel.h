@@ -6,6 +6,7 @@
 @interface CLLevel : NSObject
 
 @property VEModel* Leader;
+@property VE3DObject* LeaderGhost;
 @property VEModel* Food;
 @property NSMutableArray* Body;
 @property VEModel* FrontWall;
@@ -29,12 +30,12 @@
 @property (readonly)VECamera* FocusedCamera;
 
 @property bool Dance;
+@property bool Follow;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
-- (void)FocusLeaderInCamera:(VECamera*)camera;
 
 @end
 

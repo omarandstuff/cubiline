@@ -604,7 +604,7 @@
 	m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 7.3f);
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -7.3f);
-	m_cubeCamera.PivotRotation = GLKVector3Make(20.0f, 0.0f, 0.0f);
+	m_cubeCamera.PivotRotation = GLKVector3Make(26.5650501f, 0.0f, 0.0f);
 	m_text.Opasity = 0.0f;
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];

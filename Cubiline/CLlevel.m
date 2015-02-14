@@ -22,7 +22,6 @@
 	bool m_noZoneFase;
 	
 	// Camera control
-	VE3DObject* LeaderGhost;
 	float m_radious;
 
 	// Turn control
@@ -76,11 +75,18 @@
 - (void)TurnLeftUp;
 - (void)TurnLeftDown;
 
+// Camera
+- (void)FocusLeaderInCamera;
+- (void)FollowWithCamera;
+- (GLKVector2)CameraRotationBase:(float)base Horizontal:(float)horizontal Vertical:(float)vertical;
+- (void)ManageFollow;
+
 @end
 
 @implementation CLLevel
 
 @synthesize Leader;
+@synthesize LeaderGhost;
 @synthesize Food;
 @synthesize Body;
 @synthesize FrontWall;
@@ -100,6 +106,7 @@
 @synthesize BodyColor;
 @synthesize FocusedCamera;
 @synthesize Dance;
+@synthesize Follow;
 
 - (id)initWithRenderBox:(VERenderBox *)renderbox
 {
@@ -110,6 +117,7 @@
 		m_renderBox = renderbox;
 		
 		_Size = 456;
+		ZoneUp = CL_ZONE_TOP;
 		
 		[self CreateLevel];
 		[self Reset];
@@ -120,12 +128,15 @@
 
 - (void)Frame:(float)time
 {
+	[LeaderGhost Frame:time];
+	
 	if(m_playing)
 	{
 		[self MannageZones];
 		[self MannageBody];
 		[self ManageTurns];
 		[self ManageHandles];
+		[self ManageFollow];
 	}
 	else
 	{
@@ -161,10 +172,81 @@
 	m_playing = true;
 }
 
-- (void)FocusLeaderInCamera:(VECamera*)camera
+- (void)FocusLeaderInCamera
 {
-	float focusDistance = GLKVector3Length(GLKVector3Subtract(Leader.Position, camera.Position));
-	camera.FocusDistance = focusDistance;
+	float focusDistance = GLKVector3Length(GLKVector3Subtract(Leader.Position, FocusedCamera.Position));
+	FocusedCamera.FocusDistance = focusDistance;
+}
+
+- (void)FollowWithCamera
+{
+	GLKVector3 leaderGhostPosition = LeaderGhost.Position;
+	GLKVector2 newRotations;
+	if(Zone == CL_ZONE_FRONT)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.z Horizontal:leaderGhostPosition.x Vertical:-leaderGhostPosition.y];
+		FocusedCamera.PivotRotation = GLKVector3Make(newRotations.x, newRotations.y, 0.0f);
+	}
+	if(Zone == CL_ZONE_BACK)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.z Horizontal:leaderGhostPosition.x Vertical:leaderGhostPosition.y];
+		FocusedCamera.PivotRotation = GLKVector3Make(newRotations.x, newRotations.y, 0.0f);
+	}
+	if(Zone == CL_ZONE_RIGHT)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.x Horizontal:leaderGhostPosition.y Vertical:-leaderGhostPosition.z];
+		FocusedCamera.PivotRotation = GLKVector3Make(0.0f, newRotations.x, newRotations.y);
+	}
+	if(Zone == CL_ZONE_LEFT)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.x Horizontal:leaderGhostPosition.y Vertical:leaderGhostPosition.z];
+		FocusedCamera.PivotRotation = GLKVector3Make(0.0f, newRotations.x, newRotations.y);
+	}
+	if(Zone == CL_ZONE_TOP)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.y Horizontal:-leaderGhostPosition.x Vertical:leaderGhostPosition.z];
+		FocusedCamera.PivotRotation = GLKVector3Make(newRotations.x, 0.0f, newRotations.y);
+	}
+	if(Zone == CL_ZONE_BOTTOM)
+	{
+		newRotations = [self CameraRotationBase:leaderGhostPosition.y Horizontal:-leaderGhostPosition.x Vertical:-leaderGhostPosition.z];
+		FocusedCamera.PivotRotation = GLKVector3Make(newRotations.x, 0.0f, newRotations.y);
+	}
+}
+
+- (GLKVector2)CameraRotationBase:(float)base Horizontal:(float)horizontal Vertical:(float)vertical
+{
+	float anglexz;
+	float spherey;
+	
+	anglexz = horizontal == 0.0f || base == 0.0f ? 0.0f : horizontal / base;
+	
+	// New value for the sphere y angle.
+	spherey =  GLKMathRadiansToDegrees(atanf(anglexz));
+	
+	// New value for the sphere x angle.
+	float auxhy = sqrtf(powf(horizontal, 2.0f) + powf(base, 2.0f));
+	float xangle =  GLKMathRadiansToDegrees(atanf(vertical / auxhy));
+	
+	// Set the new pivot rotation base these angles.
+	return GLKVector2Make(xangle, spherey);
+}
+
+- (void)ManageFollow
+{
+	if(Follow)
+		LeaderGhost.Position = Leader.Position;
+	else
+	{
+		if(Zone == CL_ZONE_FRONT)
+		{
+			if(ZoneUp == CL_ZONE_TOP)
+				LeaderGhost.Position = GLKVector3Make(0.0f, -m_cubeEdgeLimit / 2.0f, m_cubeEdgeLimit);
+		}
+	}
+	
+	[self FollowWithCamera];
+	[self FocusLeaderInCamera];
 }
 
 - (void)AddBodyWithSize:(float)size
@@ -2077,6 +2159,16 @@
 	[Scene addLight:TopLight];
 	[Scene addLight:BottomLight];
 	
+	// Camera.
+	FocusedCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
+	FocusedCamera.ViewUpTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	FocusedCamera.ViewUpTransitionTime = 1.0f;
+	FocusedCamera.LockLookAt = true;
+	FocusedCamera.DepthOfField = false;
+	FocusedCamera.Far = 60.0f;
+	FocusedCamera.Near = 5.0f;
+	FocusedCamera.FocusRange = 15.0f;
+
 	// Body
 	Body = [[NSMutableArray alloc] init];
 }
@@ -2098,7 +2190,7 @@
 		m_cubeEdgeLimit = 5.0f;
 		m_cubeEdgeLogicalLimit = 4.0f;
 		
-		m_radious = SmallSizeLimit * 2.3f;
+		m_radious = SmallSizeLimit * 2.3f * 2.0f;
 	}
 	else if(size == CL_SIZE_NORMAL)
 	{
@@ -2115,7 +2207,7 @@
 		m_cubeEdgeLimit = 8.0f;
 		m_cubeEdgeLogicalLimit = 7.0f;
 		
-		m_radious = NormalSizeLimit * 2.3f;
+		m_radious = NormalSizeLimit * 2.3f * 2.0f;
 	}
 	else if(size == CL_SIZE_BIG)
 	{
@@ -2132,8 +2224,40 @@
 		m_cubeEdgeLimit = 11.0f;
 		m_cubeEdgeLogicalLimit = 10.0f;
 		
-		m_radious = BigSizeLimit * 2.3f;
+		m_radious = BigSizeLimit * 2.3f * 2.0f;
 	}
+	
+	if(Zone == CL_ZONE_FRONT)
+	{
+		FocusedCamera.Position = GLKVector3Make(0.0f, 0.0f, m_radious);
+		FocusedCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -m_radious);
+	}
+	if(Zone == CL_ZONE_BACK)
+	{
+		FocusedCamera.Position = GLKVector3Make(0.0f, 0.0f, -m_radious);
+		FocusedCamera.Pivot = GLKVector3Make(0.0f, 0.0f, m_radious);
+	}
+	if(Zone == CL_ZONE_RIGHT)
+	{
+		FocusedCamera.Position = GLKVector3Make(m_radious, 0.0f, 0.0f);
+		FocusedCamera.Pivot = GLKVector3Make(-m_radious, 0.0f, 0.0f);
+	}
+	if(Zone == CL_ZONE_LEFT)
+	{
+		FocusedCamera.Position = GLKVector3Make(-m_radious, 0.0f, 0.0f);
+		FocusedCamera.Pivot = GLKVector3Make(m_radious, 0.0f, 0.0f);
+	}
+	if(Zone == CL_ZONE_TOP)
+	{
+		FocusedCamera.Position = GLKVector3Make(0.0f, m_radious, 0.0f);
+		FocusedCamera.Pivot = GLKVector3Make(0.0f, -m_radious, 0.0f);
+	}
+	if(Zone == CL_ZONE_BOTTOM)
+	{
+		FocusedCamera.Position = GLKVector3Make(0.0f, -m_radious, 0.0f);
+		FocusedCamera.Pivot = GLKVector3Make(0.0f, m_radious, 0.0f);
+	}
+	
 	
 	m_resizing = true;
 }
@@ -2175,27 +2299,27 @@
 	for(CLBody* body in Body)
 	{
 		bodyPosition = body.Model.Position;
-		if(Zone == CL_ZONE_FRONT)
+		if(body.Zone == CL_ZONE_FRONT)
 		{
 			bodyPosition.z = size;
 		}
-		else if(Zone == CL_ZONE_BACK)
+		else if(body.Zone == CL_ZONE_BACK)
 		{
 			bodyPosition.z = -size;
 		}
-		else if(Zone == CL_ZONE_RIGHT)
+		else if(body.Zone == CL_ZONE_RIGHT)
 		{
 			bodyPosition.x = size;
 		}
-		else if(Zone == CL_ZONE_LEFT)
+		else if(body.Zone == CL_ZONE_LEFT)
 		{
 			bodyPosition.x = -size;
 		}
-		else if(Zone == CL_ZONE_TOP)
+		else if(body.Zone == CL_ZONE_TOP)
 		{
 			bodyPosition.y = size;
 		}
-		else if(Zone == CL_ZONE_BOTTOM)
+		else if(body.Zone == CL_ZONE_BOTTOM)
 		{
 			bodyPosition.y = -size;
 		}

@@ -48,6 +48,8 @@
 	
 	bool m_play;
 	
+	VEWatch* m_watch;
+	
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size;
@@ -164,6 +166,9 @@
 		[Scene addSprite:m_playButton];
 		[Scene addSprite:m_speedButton];
 		[Scene addSprite:m_sizeButton];
+		
+		m_watch = [[VEWatch alloc] init];
+		m_watch.Style = VE_WATCH_STYLE_LIMITED;
 	}
 	
 	return self;
@@ -171,7 +176,7 @@
 
 - (void)Frame:(float)time
 {
-	[Level FocusLeaderInCamera:m_cubeCamera];
+	
 }
 
 - (void)Render
@@ -255,7 +260,7 @@
 {
 	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.3f)];
 	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
-	[m_cubeCamera ResetPivotRotation:GLKVector3Make(20.0f, 0.0f, 0.0f)];
+	[m_cubeCamera ResetPivotRotation:GLKVector3Make(26.5650501, 0.0f, 0.0f)];
 }
 - (void)Begin
 {
@@ -308,21 +313,11 @@
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
 {
-	m_prePosition = m_cubeCamera.PivotRotation;
 }
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
-	if(m_pressing)return;
-	
-	GLKVector3 newRotation = GLKVector3Add(m_prePosition, GLKVector3Make(-y / 2.0f, -x / 2.0f, 0.0f));
-	
-	if(newRotation.x > 45.0f)
-		newRotation.x = 45.0f;
-	if(newRotation.x < -45.0f)
-		newRotation.x = -45.0f;
-	
-	m_cubeCamera.PivotRotation = newRotation;
+
 }
 
 - (void)TouchPanEnd:(float)x Y:(float)y Fingers:(int)fingers
@@ -337,34 +332,7 @@
 
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers
 {
-	float rx = x - m_renderBox.ScreenWidth / 2;
-	float ry = -y + m_renderBox.ScreenHeight / 2;
-	
-	if([self TestButton:m_plusButtonRect X:rx Y:ry] && m_plusButtonEnable)
-	{
-		m_plusButton.Scale = GLKVector3Make(m_buttonSize / 1.3f, m_buttonSize / 1.3f, 0.0f);
-		m_pressing = true;
-	}
-	else if([self TestButton:m_minusButtonRect X:rx Y:ry] && m_minusButtonEnable)
-	{
-		m_minusButton.Scale = GLKVector3Make(m_buttonSize / 1.3f, m_buttonSize / 1.3f, 0.0f);
-		m_pressing = true;
-	}
-	else if([self TestButton:m_playButtonRect X:rx Y:ry])
-	{
-		m_playButton.Scale = GLKVector3Make(m_buttonSize / 1.3f, m_buttonSize / 1.3f, 0.0f);
-		m_pressing = true;
-	}
-	else if([self TestButton:m_speedButtonRect X:rx Y:ry] && m_speedButtonEnable)
-	{
-		m_speedButton.Scale = GLKVector3Make(m_buttonSize / 1.3f, m_buttonSize / 1.3f, 0.0f);
-		m_pressing = true;
-	}
-	else if([self TestButton:m_sizeButtonRect X:rx Y:ry] && m_sizeButtonEnable)
-	{
-		m_sizeButton.Scale = GLKVector3Make(m_buttonSize / 1.3f, m_buttonSize / 1.3f, 0.0f);
-		m_pressing = true;
-	}
+
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers
@@ -512,6 +480,29 @@
 	m_sizeButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
 }
 
+- (void)OutToPlay
+{
+	m_playButton.Opasity = 0.0f;
+	m_sizeButton.Opasity = 0.0f;
+	m_speedButton.Opasity = 0.0f;
+	m_plusButton.Opasity = 0.0f;
+	m_minusButton.Opasity = 0.0f;
+	m_playText.Opasity = 0.0f;
+	m_sizeText.Opasity = 0.0f;
+	m_speedText.Opasity = 0.0f;
+	
+	m_cubeView.Camera = Level.FocusedCamera;
+	
+	[m_renderBox Frame:0.0f];
+	
+	[m_watch Reset];
+	[m_watch SetLimitInSeconds:0.8f];
+}
+
+- (bool)OutReady
+{
+	return !m_watch.Active;
+}
 
 - (void)setLevel:(CLLevel *)level
 {
