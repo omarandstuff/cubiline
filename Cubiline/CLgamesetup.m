@@ -255,11 +255,12 @@
 {
 	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.3f)];
 	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
-	[m_cubeCamera ResetPivotRotation:GLKVector3Make(-15.0f, 15.0f, 0.0f)];
+	[m_cubeCamera ResetPivotRotation:GLKVector3Make(20.0f, 0.0f, 0.0f)];
 }
 - (void)Begin
 {
 	[self ResizeLevel:CL_SIZE_SMALL];
+	Level.Dance = true;
 	m_playText.Opasity = 1.0f;
 	m_speedText.Opasity = 1.0f;
 	m_sizeText.Opasity = 1.0f;
@@ -280,7 +281,6 @@
 - (void)ResizeLevel:(enum CL_SIZE)size
 {
 	Level.Size = size;
-	[Level Play];
 	
 	float radious;
 	

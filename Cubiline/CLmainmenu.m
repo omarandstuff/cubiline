@@ -18,7 +18,7 @@
 	VEModel* m_aboutIcon;
 	VEModel* m_sideLeft;
 	
-	VEModel* m_sideTop;
+	VEModel* m_sideBottom;
 	
 	GLKVector3 m_preRotation;
 	
@@ -149,14 +149,14 @@
 		m_sideLeft.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideLeft.RotationTransitionTime = 0.1f;
 		
-		m_sideTop = [m_renderBox NewModelFromFileName:@"top_wall"];
-		m_sideTop.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideTop.ScaleTransitionTime = 0.1f;
-		m_sideTop.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideTop.ColorTransitionTime = 0.1f;
-		m_sideTop.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-		m_sideTop.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideTop.RotationTransitionTime = 0.1f;
+		m_sideBottom = [m_renderBox NewModelFromFileName:@"bottom_wall"];
+		m_sideBottom.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_sideBottom.ScaleTransitionTime = 0.1f;
+		m_sideBottom.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_sideBottom.ColorTransitionTime = 0.1f;
+		m_sideBottom.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_sideBottom.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_sideBottom.RotationTransitionTime = 0.1f;
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(-2.0f, 3.0f, 5.0f);
@@ -178,7 +178,7 @@
 		[m_cubeScene addModel:m_sideRight];
 		[m_cubeScene addModel:m_sideBack];
 		[m_cubeScene addModel:m_sideLeft];
-		[m_cubeScene addModel:m_sideTop];
+		[m_cubeScene addModel:m_sideBottom];
 		[m_cubeScene addLight:m_light];
 		[m_cubeScene addModel:m_playIcon];
 		[m_cubeScene addModel:m_gameCenterIcon];
@@ -288,7 +288,7 @@
 	m_sideLeft.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
 	
-	m_sideTop.Rotation = newRotation;
+	m_sideBottom.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
 	
@@ -349,7 +349,7 @@
 	m_sideLeft.Scale = newScale;
 	m_aboutIcon.Scale = newScale;
 	
-	m_sideTop.Scale = newScale;
+	m_sideBottom.Scale = newScale;
 }
 
 - (void)ReleaseCube
@@ -383,7 +383,7 @@
 		else
 			m_aboutIcon.Scale = newScale;
 		
-		m_sideTop.Scale = newScale;
+		m_sideBottom.Scale = newScale;
 	}
 	
 	if(m_inCube)
@@ -408,7 +408,7 @@
 	m_sideLeft.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
 	
-	m_sideTop.Rotation = newRotation;
+	m_sideBottom.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
 }
@@ -604,7 +604,7 @@
 	m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 7.3f);
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -7.3f);
-	m_cubeCamera.PivotRotation = GLKVector3Make(-15.0f, 15.0f, 0.0f);
+	m_cubeCamera.PivotRotation = GLKVector3Make(20.0f, 0.0f, 0.0f);
 	m_text.Opasity = 0.0f;
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];

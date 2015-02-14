@@ -28,13 +28,13 @@
 
 @property (readonly)VECamera* FocusedCamera;
 
+@property bool Dance;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (void)FocusLeaderInCamera:(VECamera*)camera;
-
-- (void)Play;
 
 @end
 

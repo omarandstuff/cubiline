@@ -8,6 +8,7 @@
 	// Line control
 	GLKVector3 m_preLeaderPosition;
 	bool m_toNew;
+	bool m_playing;
 	
 	// Eating control
 	bool m_eating;
@@ -21,14 +22,22 @@
 	bool m_noZoneFase;
 	
 	// Camera control
-	VE3DObject* m_leaderGhost;
+	VE3DObject* LeaderGhost;
 	float m_radious;
 
-	
 	// Turn control
 	bool m_bufferTurn;
 	bool m_justBuffered;
 	enum CL_HANDLE m_nextHandle;
+	enum CL_ZONE m_nextDirection;
+	bool m_inComplex;
+	GLKVector3 m_toTurnPosition;
+	GLKVector3 m_nextDirectionPosition;
+	bool m_toTurn;
+	
+	
+	// Resizing control.
+	bool m_resizing;
 }
 
 
@@ -36,15 +45,21 @@
 - (void)CreateLevel;
 - (void)ResizeLevel:(enum CL_SIZE)size;
 - (void)ChangeSpeed:(enum CL_SIZE)speed;
+- (void)ManageResizing;
 
 // Line iteractions.
-
+- (void)Play;
 - (void)AddBodyWithSize:(float)size;
 - (void)MannageBody;
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone;
 - (void)MannageZones;
 
+// Dance
+- (void)ManageDance;
+
 // Turn iterations
+- (void)ManageHandles;
+- (void)ManageTurns;
 - (enum CL_ZONE)GetUpOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (enum CL_ZONE)GetDownOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (enum CL_ZONE)GetRightOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
@@ -60,8 +75,6 @@
 - (void)TurnRightDown;
 - (void)TurnLeftUp;
 - (void)TurnLeftDown;
-
-
 
 @end
 
@@ -86,6 +99,7 @@
 @synthesize ZoneUp;
 @synthesize BodyColor;
 @synthesize FocusedCamera;
+@synthesize Dance;
 
 - (id)initWithRenderBox:(VERenderBox *)renderbox
 {
@@ -94,6 +108,8 @@
 	if(self)
 	{
 		m_renderBox = renderbox;
+		
+		_Size = 456;
 		
 		[self CreateLevel];
 		[self Reset];
@@ -104,8 +120,24 @@
 
 - (void)Frame:(float)time
 {
-	[self MannageZones];
-	[self MannageBody];
+	if(m_playing)
+	{
+		[self MannageZones];
+		[self MannageBody];
+		[self ManageTurns];
+		[self ManageHandles];
+	}
+	else
+	{
+		if(FrontWall.Scale.x >= SmallSizeLimit)
+			[self Play];
+	}
+	
+	if(m_resizing)
+		[self ManageResizing];
+	
+	if(Dance)
+		[self ManageDance];
 }
 
 - (void)Play
@@ -125,6 +157,8 @@
 		position.y = -m_cubeEdgeLimit;
 	
 	Leader.Position = position;
+	
+	m_playing = true;
 }
 
 - (void)FocusLeaderInCamera:(VECamera*)camera
@@ -1060,6 +1094,423 @@
 	}
 }
 
+- (void)ManageHandles
+{
+	if(m_nextHandle == CL_HANDLE_NONE || m_inComplex || (m_noZone && !m_noZoneFase)) return;
+	if(m_justBuffered)
+	{
+		m_justBuffered = false;
+		return;
+	}
+	
+	m_toTurnPosition = Leader.Position;
+	
+	if(Direction == CL_ZONE_FRONT)
+	{
+		if(m_toTurnPosition.z != (int)m_toTurnPosition.z)
+		{
+			m_toTurnPosition.z += m_cubeEdgeLimit;
+			m_toTurnPosition.z = (int)m_toTurnPosition.z + 1;
+			m_toTurnPosition.z -= m_cubeEdgeLimit;
+		}
+	}
+	if(Direction == CL_ZONE_BACK)
+	{
+		if(m_toTurnPosition.z != (int)m_toTurnPosition.z)
+		{
+			m_toTurnPosition.z -= m_cubeEdgeLimit;
+			m_toTurnPosition.z = (int)m_toTurnPosition.z - 1;
+			m_toTurnPosition.z += m_cubeEdgeLimit;
+		}
+	}
+	if(Direction == CL_ZONE_RIGHT)
+	{
+		if(m_toTurnPosition.x != (int)m_toTurnPosition.x)
+		{
+			m_toTurnPosition.x += m_cubeEdgeLimit;
+			m_toTurnPosition.x = (int)m_toTurnPosition.x + 1;
+			m_toTurnPosition.x -= m_cubeEdgeLimit;
+		}
+	}
+	if(Direction == CL_ZONE_LEFT)
+	{
+		if(m_toTurnPosition.x != (int)m_toTurnPosition.x)
+		{
+			m_toTurnPosition.x -= m_cubeEdgeLimit;
+			m_toTurnPosition.x = (int)m_toTurnPosition.x - 1;
+			m_toTurnPosition.x += m_cubeEdgeLimit;
+		}
+	}
+	if(Direction == CL_ZONE_TOP)
+	{
+		if(m_toTurnPosition.y != (int)m_toTurnPosition.y)
+		{
+			m_toTurnPosition.y += m_cubeEdgeLimit;
+			m_toTurnPosition.y = (int)m_toTurnPosition.y + 1;
+			m_toTurnPosition.y -= m_cubeEdgeLimit;
+		}
+	}
+	if(Direction == CL_ZONE_BOTTOM)
+	{
+		if(m_toTurnPosition.y != (int)m_toTurnPosition.y)
+		{
+			m_toTurnPosition.y -= m_cubeEdgeLimit;
+			m_toTurnPosition.y = (int)m_toTurnPosition.y - 1;
+			m_toTurnPosition.y += m_cubeEdgeLimit;
+		}
+	}
+	
+	m_toTurn = true;
+	m_nextDirectionPosition = m_toTurnPosition;
+	
+	if(m_nextHandle == CL_HANDLE_FRONT)
+	{
+		m_nextDirectionPosition.z = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_FRONT;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_BACK)
+	{
+		m_nextDirectionPosition.z = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BACK;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_RIGHT)
+	{
+		m_nextDirectionPosition.x = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_RIGHT;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_LEFT)
+	{
+		m_nextDirectionPosition.x = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_LEFT;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_TOP)
+	{
+		m_nextDirectionPosition.y = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_TOP;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_BOTTOM)
+	{
+		m_nextDirectionPosition.y = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BOTTOM;
+		
+		m_nextHandle = CL_HANDLE_NONE;
+		return;
+	}
+	
+	if(m_nextHandle == CL_HANDLE_FRONT_RIGHT || m_nextHandle == CL_HANDLE_BACK_RIGHT)
+	{
+		m_nextDirectionPosition.x = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_FRONT_RIGHT)
+			m_nextHandle = CL_HANDLE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_BACK_RIGHT)
+			m_nextHandle = CL_HANDLE_BACK;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_FRONT_LEFT || m_nextHandle == CL_HANDLE_BACK_LEFT)
+	{
+		m_nextDirectionPosition.x = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_LEFT;
+		
+		if(m_nextHandle == CL_HANDLE_FRONT_LEFT)
+			m_nextHandle = CL_HANDLE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_BACK_LEFT)
+			m_nextHandle = CL_HANDLE_BACK;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_FRONT_TOP || m_nextHandle == CL_HANDLE_BACK_TOP)
+	{
+		m_nextDirectionPosition.y = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_FRONT_TOP)
+			m_nextHandle = CL_HANDLE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_BACK_TOP)
+			m_nextHandle = CL_HANDLE_BACK;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_FRONT_BOTTOM || m_nextHandle == CL_HANDLE_BACK_BOTTOM)
+	{
+		m_nextDirectionPosition.y = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BOTTOM;
+		
+		if(m_nextHandle == CL_HANDLE_FRONT_BOTTOM)
+			m_nextHandle = CL_HANDLE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_BACK_BOTTOM)
+			m_nextHandle = CL_HANDLE_BACK;
+		
+		m_inComplex = true;
+		return;
+	}
+	
+	if(m_nextHandle == CL_HANDLE_RIGHT_FRONT || m_nextHandle == CL_HANDLE_LEFT_FRONT)
+	{
+		m_nextDirectionPosition.z = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_RIGHT_FRONT)
+			m_nextHandle = CL_HANDLE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_LEFT_FRONT)
+			m_nextHandle = CL_HANDLE_LEFT;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_RIGHT_BACK || m_nextHandle == CL_HANDLE_LEFT_BACK)
+	{
+		m_nextDirectionPosition.z = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BACK;
+		
+		if(m_nextHandle == CL_HANDLE_RIGHT_BACK)
+			m_nextHandle = CL_HANDLE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_LEFT_BACK)
+			m_nextHandle = CL_HANDLE_LEFT;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_RIGHT_TOP || m_nextHandle == CL_HANDLE_LEFT_TOP)
+	{
+		m_nextDirectionPosition.y = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_RIGHT_TOP)
+			m_nextHandle = CL_HANDLE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_LEFT_TOP)
+			m_nextHandle = CL_HANDLE_LEFT;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_RIGHT_BOTTOM|| m_nextHandle == CL_HANDLE_LEFT_BOTTOM)
+	{
+		m_nextDirectionPosition.y = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BOTTOM;
+		
+		if(m_nextHandle == CL_HANDLE_RIGHT_BOTTOM)
+			m_nextHandle = CL_HANDLE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_LEFT_BOTTOM)
+			m_nextHandle = CL_HANDLE_LEFT;
+		
+		m_inComplex = true;
+		return;
+	}
+	
+	if(m_nextHandle == CL_HANDLE_TOP_FRONT|| m_nextHandle == CL_HANDLE_BOTTOM_FRONT)
+	{
+		m_nextDirectionPosition.z = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_FRONT;
+		
+		if(m_nextHandle == CL_HANDLE_TOP_FRONT)
+			m_nextHandle = CL_HANDLE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_BOTTOM_FRONT)
+			m_nextHandle = CL_HANDLE_BOTTOM;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_TOP_BACK || m_nextHandle == CL_HANDLE_BOTTOM_BACK)
+	{
+		m_nextDirectionPosition.z = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_BACK;
+		
+		if(m_nextHandle == CL_HANDLE_TOP_BACK)
+			m_nextHandle = CL_HANDLE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_BOTTOM_BACK)
+			m_nextHandle = CL_HANDLE_BOTTOM;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_TOP_RIGHT || m_nextHandle == CL_HANDLE_BOTTOM_RIGHT)
+	{
+		m_nextDirectionPosition.x = m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_RIGHT;
+		
+		if(m_nextHandle == CL_HANDLE_TOP_RIGHT)
+			m_nextHandle = CL_HANDLE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_BOTTOM_RIGHT)
+			m_nextHandle = CL_HANDLE_BOTTOM;
+		
+		m_inComplex = true;
+		return;
+	}
+	if(m_nextHandle == CL_HANDLE_TOP_LEFT|| m_nextHandle == CL_HANDLE_BOTTOM_LEFT)
+	{
+		m_nextDirectionPosition.x = -m_cubeEdgeLimit;
+		m_nextDirection = CL_ZONE_LEFT;
+		
+		if(m_nextHandle == CL_HANDLE_TOP_LEFT)
+			m_nextHandle = CL_HANDLE_TOP;
+		
+		if(m_nextHandle == CL_HANDLE_BOTTOM_LEFT)
+			m_nextHandle = CL_HANDLE_BOTTOM;
+		
+		m_inComplex = true;
+		return;
+	}
+}
+
+- (void)ManageTurns
+{
+	if(!m_toTurn) return;
+	
+	GLKVector3 leaderPosition = Leader.Position;
+	if(Direction == CL_ZONE_FRONT)
+	{
+		if(leaderPosition.z >= m_toTurnPosition.z)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+	if(Direction == CL_ZONE_BACK)
+	{
+		if(leaderPosition.z <= m_toTurnPosition.z)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+	if(Direction == CL_ZONE_RIGHT)
+	{
+		if(leaderPosition.x >= m_toTurnPosition.x)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+	if(Direction == CL_ZONE_LEFT)
+	{
+		if(leaderPosition.x <= m_toTurnPosition.x)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+	if(Direction == CL_ZONE_TOP)
+	{
+		if(leaderPosition.y >= m_toTurnPosition.y)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+	if(Direction == CL_ZONE_BOTTOM)
+	{
+		if(leaderPosition.y <= m_toTurnPosition.y)
+		{
+			[Leader ResetPosition:m_toTurnPosition];
+			[Leader Frame:0.0f];
+			Leader.Position = m_nextDirectionPosition;
+			
+			Direction = m_nextDirection;
+			m_toTurn = false;
+			
+			[self MannageBody];
+			[self AddBodyWithSize:0.0f];
+			m_toNew = true;
+			
+			m_inComplex = false;
+			
+			return;
+		}
+	}
+}
+
 - (enum CL_ZONE)GetUpOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up
 {
 	return up;
@@ -1499,6 +1950,34 @@
 		m_nextHandle = [self GetHandleForDirection:left];
 }
 
+- (void)ManageDance
+{
+	GLKVector3 leaderPosition = Leader.Position;
+	if(Zone == CL_ZONE_FRONT)
+	{
+		if(Direction == CL_ZONE_RIGHT)
+		{
+			if(leaderPosition.x > SmallSizeLimit - 1.5f)
+				m_nextHandle = CL_HANDLE_TOP;
+		}
+		if(Direction == CL_ZONE_LEFT)
+		{
+			if(leaderPosition.x < -SmallSizeLimit + 1.5f)
+				m_nextHandle = CL_HANDLE_BOTTOM;
+		}
+		if(Direction == CL_ZONE_TOP)
+		{
+			if(leaderPosition.y > SmallSizeLimit - 1.5f)
+				m_nextHandle = CL_HANDLE_LEFT;
+		}
+		if(Direction == CL_ZONE_BOTTOM)
+		{
+			if(leaderPosition.y < -SmallSizeLimit + 1.5f)
+				m_nextHandle = CL_HANDLE_RIGHT;
+		}
+	}
+}
+
 - (void)CreateLevel
 {
 	BodyColor = GLKVector3Make(0.9f, 0.95f, 1.0f);
@@ -1510,8 +1989,8 @@
 	Leader.PositionTransitionSpeed = 5.0f;
 	
 	// Ghost
-	m_leaderGhost = [[VE3DObject alloc] init];
-	m_leaderGhost.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	LeaderGhost = [[VE3DObject alloc] init];
+	LeaderGhost.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	
 	// Food
 	Food = [m_renderBox NewModelFromFileName:@"geosphere_medium"];
@@ -1655,6 +2134,77 @@
 		
 		m_radious = BigSizeLimit * 2.3f;
 	}
+	
+	m_resizing = true;
+}
+
+- (void)ManageResizing
+{
+	GLKVector3 leaderPosition = Leader.Position;
+	GLKVector3 bodyPosition;;
+	float size = FrontWall.Scale.z / 2.0f + 0.5f;
+	
+	if(Zone == CL_ZONE_FRONT)
+	{
+		leaderPosition.z = size;
+	}
+	else if(Zone == CL_ZONE_BACK)
+	{
+		leaderPosition.z = -size;
+	}
+	else if(Zone == CL_ZONE_RIGHT)
+	{
+		leaderPosition.x = size;
+	}
+	else if(Zone == CL_ZONE_LEFT)
+	{
+		leaderPosition.x = -size;
+	}
+	else if(Zone == CL_ZONE_TOP)
+	{
+		leaderPosition.y = size;
+	}
+	else if(Zone == CL_ZONE_BOTTOM)
+	{
+		leaderPosition.y = -size;
+	}
+	
+	[Leader ResetPosition:leaderPosition];
+	m_preLeaderPosition = leaderPosition;
+	
+	for(CLBody* body in Body)
+	{
+		bodyPosition = body.Model.Position;
+		if(Zone == CL_ZONE_FRONT)
+		{
+			bodyPosition.z = size;
+		}
+		else if(Zone == CL_ZONE_BACK)
+		{
+			bodyPosition.z = -size;
+		}
+		else if(Zone == CL_ZONE_RIGHT)
+		{
+			bodyPosition.x = size;
+		}
+		else if(Zone == CL_ZONE_LEFT)
+		{
+			bodyPosition.x = -size;
+		}
+		else if(Zone == CL_ZONE_TOP)
+		{
+			bodyPosition.y = size;
+		}
+		else if(Zone == CL_ZONE_BOTTOM)
+		{
+			bodyPosition.y = -size;
+		}
+		[body.Model ResetPosition:bodyPosition];
+	}
+	
+	m_resizing = FrontWall.ScaleIsActive;
+	
+	[self Play];
 }
 
 - (void)Reset
@@ -1770,10 +2320,17 @@
 	{
 		Leader.PositionTransitionSpeed = 10.0f;
 	}
+	
+	GLKVector3 leaderPosition = Leader.Position;
+	[Leader ResetPosition:leaderPosition];
+	
+	[self Play];
+	
 }
 
 - (void)setSize:(enum CL_SIZE)size
 {
+	if(_Size == size)return;
 	_Size = size;
 	[self ResizeLevel:size];
 }
