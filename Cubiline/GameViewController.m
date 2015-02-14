@@ -20,7 +20,7 @@
 	[super viewDidLoad];
 	
 	// Multipler
-	m_multipler = 1.5f;
+	m_multipler = 2.0f;
 	
 	// Create the context object
 	m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -137,8 +137,8 @@
 - (void)PanHandler:(UIPanGestureRecognizer*)gestureRecognizer
 {
     CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
-    float x = translation.x;
-    float y = translation.y;
+    float x = translation.x * m_multipler;
+    float y = translation.y * m_multipler;
 
     if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
         [m_game TouchPanBegan:x Y:y Fingers:(int)gestureRecognizer.numberOfTouches];
@@ -151,8 +151,8 @@
 - (void)TapHandler:(UITapGestureRecognizer*)gestureRecognizer
 {
     CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
-    float x = point.x;
-    float y = point.y;
+    float x = point.x * m_multipler;
+    float y = point.y * m_multipler;
 	
 	[m_game TouchTap:x Y:y Fingers:(int)gestureRecognizer.numberOfTouches];
 }
@@ -160,8 +160,8 @@
 - (void)LongPressHandler:(UILongPressGestureRecognizer*)gestureRecognizer
 {
 	CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
-	float x = point.x;
-	float y = point.y;
+	float x = point.x * m_multipler;
+	float y = point.y * m_multipler;
 	
 	if(gestureRecognizer.state == UIGestureRecognizerStateBegan)
 		[m_game TouchDown:x Y:y Fingers:(int)gestureRecognizer.numberOfTouches];

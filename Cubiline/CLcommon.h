@@ -85,17 +85,14 @@ enum CL_MAIN_MENU_SELECTION
 
 #define FrontColor GLKVector3Make(0.25f, 1.0f, 0.95f)
 
-#define BornSizeVector GLKVector3Make(1.0f, 1.0f, 1.0f)
 #define SmallSizeVector GLKVector3Make(9.0f, 9.0f, 9.0f)
 #define NormalSizeVector GLKVector3Make(15.0f, 15.0f, 15.0f)
 #define BigSizeVector GLKVector3Make(21.0f, 21.0f, 21.0f)
 
-#define GuidesBornSizeVector GLKVector3Make(1.01f, 1.01f, 1.01f)
 #define GuidesSmallSizeVector GLKVector3Make(9.01f, 9.01f, 9.01f)
 #define GuidesNormalSizeVector GLKVector3Make(15.01f, 15.01f, 15.01f)
 #define GuidesBigSizeVector GLKVector3Make(21.01f, 21.01f, 21.01f)
 
-#define BornSizeLimit 1.5f
 #define SmallSizeLimit 4.5f
 #define NormalSizeLimit 7.5f
 #define BigSizeLimit 10.5f

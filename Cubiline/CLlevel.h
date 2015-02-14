@@ -22,15 +22,19 @@
 @property enum CL_SIZE Speed;
 @property (readonly)enum CL_ZONE Zone;
 @property (readonly)enum CL_ZONE Direction;
+@property (readonly)enum CL_ZONE ZoneUp;
 
 @property GLKVector3 BodyColor;
+
+@property (readonly)VECamera* FocusedCamera;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (void)FocusLeaderInCamera:(VECamera*)camera;
-- (void)AddBodyWithSize:(float)size;
+
+- (void)Play;
 
 @end
 

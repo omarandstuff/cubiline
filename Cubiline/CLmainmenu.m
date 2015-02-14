@@ -73,7 +73,7 @@
 		m_cubeView.ClearColor = GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f);
 		
 		m_cubeView.Scene = m_cubeScene;
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		
@@ -264,7 +264,7 @@
 	
 	m_text.Position = GLKVector3Make(0.0f, -spriteSize / 3.0f, 0.0f);
 	
-	m_cubeLimit = (float)m_renderBox.ScreenHeight / 2.0f / 3.3f;
+	m_cubeLimit = spriteSize / 2.0f;
 }
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
@@ -314,8 +314,8 @@
 
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers
 {
-	float rx = (x * 1.5f) - (m_renderBox.ScreenWidth / 2);
-	float ry = -((y * 1.5f) - (m_renderBox.ScreenHeight / 2));
+	float rx = x - (m_renderBox.ScreenWidth / 2);
+	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
 	m_selected = false;
 	if(rx < m_cubeLimit && rx > -m_cubeLimit && ry < m_cubeLimit && ry > -m_cubeLimit)

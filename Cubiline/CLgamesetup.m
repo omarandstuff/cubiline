@@ -78,7 +78,7 @@
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeView.Camera = m_cubeCamera;
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		// Camera SetUp
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -280,6 +280,7 @@
 - (void)ResizeLevel:(enum CL_SIZE)size
 {
 	Level.Size = size;
+	[Level Play];
 	
 	float radious;
 	
@@ -336,8 +337,8 @@
 
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers
 {
-	float rx = (x * 1.5f) - m_renderBox.ScreenWidth / 2;
-	float ry = (-y * 1.5f) + m_renderBox.ScreenHeight / 2;
+	float rx = x - m_renderBox.ScreenWidth / 2;
+	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
 	if([self TestButton:m_plusButtonRect X:rx Y:ry] && m_plusButtonEnable)
 	{
@@ -368,8 +369,8 @@
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers
 {
-	float rx = (x * 1.5f) - m_renderBox.ScreenWidth / 2;
-	float ry = (-y * 1.5f) + m_renderBox.ScreenHeight / 2;
+	float rx = x - m_renderBox.ScreenWidth / 2;
+	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
 	m_pressing = false;
 	
