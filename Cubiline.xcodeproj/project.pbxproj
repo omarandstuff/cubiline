@@ -103,6 +103,7 @@
 		377A85611A79EAE9004F88F7 /* VEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85391A79EAE9004F88F7 /* VEview.m */; };
 		377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A853B1A79EAE9004F88F7 /* VEwatch.m */; };
 		378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378001B21A6D9948009FFCC8 /* StoreKit.framework */; };
+		378E43161A9105F300CC03D9 /* test_song_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 378E43151A9105F300CC03D9 /* test_song_2.mp3 */; };
 		378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */; };
 		378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */; };
 		378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */; };
@@ -288,6 +289,7 @@
 		377A853A1A79EAE9004F88F7 /* VEwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEwatch.h; path = Cubiline/VEwatch.h; sourceTree = "<group>"; };
 		377A853B1A79EAE9004F88F7 /* VEwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEwatch.m; path = Cubiline/VEwatch.m; sourceTree = "<group>"; };
 		378001B21A6D9948009FFCC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		378E43151A9105F300CC03D9 /* test_song_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = test_song_2.mp3; path = Cubiline/test_song_2.mp3; sourceTree = "<group>"; };
 		378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Fan Heiti Std.png"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.png"; sourceTree = "<group>"; };
 		378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Adobe Fan Heiti Std.txt"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.txt"; sourceTree = "<group>"; };
 		378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Gothic Std.png"; path = "Cubiline/Fonts/Adobe Gothic Std.png"; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				378E43151A9105F300CC03D9 /* test_song_2.mp3 */,
 				37ADE7611A89ABB500FB84CF /* game_setup_play.png */,
 				37ADE7621A89ABB500FB84CF /* game_setup_size.png */,
 				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
@@ -757,6 +760,7 @@
 				3728F5E61A6C4FF6004F7244 /* depth_texture_shader.fsh in Resources */,
 				37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */,
 				3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */,
+				378E43161A9105F300CC03D9 /* test_song_2.mp3 in Resources */,
 				374FCCAB1A86D89700B14ACB /* top_wall.obj in Resources */,
 				37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */,
 				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,

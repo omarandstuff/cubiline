@@ -57,7 +57,7 @@
 		m_gameState = GAME_STATE_MAIN_MENU;
 		
 		// Sound
-		NSString *path = [NSString stringWithFormat:@"%@/test_song.mp3", [[NSBundle mainBundle] resourcePath]];
+		NSString *path = [NSString stringWithFormat:@"%@/test_song_2.mp3", [[NSBundle mainBundle] resourcePath]];
 		NSURL *soundUrl = [NSURL fileURLWithPath:path];
 		
 		// Create audio player object and initialize with URL to sound
@@ -116,6 +116,7 @@
 		[m_gameSetUp Frame:time];
 		if([m_gameSetUp OutReady])
 		{
+			m_cubilineLevel.Collide = true;
 			m_renderBox.MainView.Scene = m_gameHolder.Scene;
 			m_gameState = GAME_STATE_PLAYING;
 		}

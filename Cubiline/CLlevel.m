@@ -1,5 +1,8 @@
 #import "CLlevel.h"
 
+@implementation Slot
+@end
+
 @interface CLLevel()
 {
 	VERenderBox* m_renderBox;
@@ -18,6 +21,8 @@
 	// Edge control
 	float m_cubeEdgeLimit;
 	float m_cubeEdgeLogicalLimit;
+	float m_cubeSideSize;
+	int m_cubeFaceSlotLimit;
 	bool m_noZone;
 	bool m_noZoneFase;
 	
@@ -37,6 +42,18 @@
 	
 	// Resizing control.
 	bool m_resizing;
+	
+	// Collision control.
+	NSMutableArray* m_slots;
+	int m_leaderFaceX;
+	int m_leaderFaceY;
+	enum CL_ZONE m_leaderFaceZone;
+	int m_slotControl;
+	bool* m_facesMap[CL_ZONE_NUMBER];
+	int m_occupied[CL_ZONE_NUMBER];
+	
+	// Point Control
+	unsigned int m_taken;
 }
 
 
@@ -46,7 +63,7 @@
 - (void)ChangeSpeed:(enum CL_SIZE)speed;
 - (void)ManageResizing;
 
-// Line iteractions.
+// Line directives.
 - (void)Play;
 - (void)AddBodyWithSize:(float)size;
 - (void)MannageBody;
@@ -56,7 +73,7 @@
 // Dance
 - (void)ManageDance;
 
-// Turn iterations
+// Turn directives
 - (void)ManageHandles;
 - (void)ManageTurns;
 - (enum CL_ZONE)GetUpOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
@@ -73,6 +90,12 @@
 - (void)TurnRightDown;
 - (void)TurnLeftUp;
 - (void)TurnLeftDown;
+
+// Collisions
+- (void)ManageColloisions;
+- (bool)CheckColition:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy;
+- (void)AddSlot:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy Position:(GLKVector3)position InZone:(bool)inzone;
+- (void)RemoveFirstSlot;
 
 // Camera
 - (void)FocusLeaderInCamera;
@@ -118,6 +141,8 @@
 @synthesize FocusedCamera;
 @synthesize Dance;
 @synthesize Follow;
+@synthesize Collide;
+@synthesize Feed;
 
 - (void)PrintZone
 {
@@ -326,6 +351,9 @@
 		m_toNew = false;
 		
 		[self ManageFollow];
+		
+		if(Collide)
+			[self ManageColloisions];
 	}
 	else
 	{
@@ -445,6 +473,16 @@
 
 - (void)MannageBody
 {
+	if(m_resizing)
+	{
+		if(Zone == CL_ZONE_FRONT || Zone == CL_ZONE_BACK)
+			m_preLeaderPosition.z = Leader.Position.z;
+		else if(Zone == CL_ZONE_RIGHT || Zone == CL_ZONE_LEFT)
+			m_preLeaderPosition.x = Leader.Position.x;
+		else if(Zone == CL_ZONE_TOP || Zone == CL_ZONE_BOTTOM)
+			m_preLeaderPosition.y = Leader.Position.y;
+	}
+
 	float delta = GLKVector3Length(GLKVector3Subtract(m_preLeaderPosition, Leader.Position));
 	[[Body lastObject] Grow:delta];
 	
@@ -1562,7 +1600,7 @@
 		m_nextDirection = CL_ZONE_FRONT;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	if(m_nextHandle == CL_HANDLE_BACK)
 	{
@@ -1570,7 +1608,7 @@
 		m_nextDirection = CL_ZONE_BACK;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	if(m_nextHandle == CL_HANDLE_RIGHT)
 	{
@@ -1578,7 +1616,7 @@
 		m_nextDirection = CL_ZONE_RIGHT;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	if(m_nextHandle == CL_HANDLE_LEFT)
 	{
@@ -1586,7 +1624,7 @@
 		m_nextDirection = CL_ZONE_LEFT;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	if(m_nextHandle == CL_HANDLE_TOP)
 	{
@@ -1594,7 +1632,7 @@
 		m_nextDirection = CL_ZONE_TOP;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	if(m_nextHandle == CL_HANDLE_BOTTOM)
 	{
@@ -1602,7 +1640,7 @@
 		m_nextDirection = CL_ZONE_BOTTOM;
 		
 		m_nextHandle = CL_HANDLE_NONE;
-		//return;
+		return;
 	}
 	
 	if(m_nextHandle == CL_HANDLE_FRONT_RIGHT || m_nextHandle == CL_HANDLE_BACK_RIGHT)
@@ -2359,6 +2397,111 @@
 		m_nextHandle = [self GetHandleForDirection:left];
 }
 
+- (void)ManageColloisions
+{
+	GLKVector3 position = Leader.Position;
+	GLKVector3 p;
+	int nowX = 0;
+	int nowY = 0;
+	
+	if(Zone == CL_ZONE_FRONT || Zone == CL_ZONE_BACK)
+	{
+		nowX = roundf(position.x);
+		nowY = roundf(position.y);
+		p = GLKVector3Make(nowX, nowY, position.z);
+	}
+	if(Zone == CL_ZONE_RIGHT || Zone == CL_ZONE_LEFT)
+	{
+		nowX = roundf(position.z);
+		nowY = roundf(position.y);
+		p = GLKVector3Make(position.x, nowY, nowX);
+	}
+	if(Zone == CL_ZONE_TOP || Zone == CL_ZONE_BOTTOM)
+	{
+		nowX = roundf(position.x);
+		nowY = roundf(position.z);
+		p = GLKVector3Make(nowX, position.y, nowY);
+	}
+	
+	if(nowX == m_leaderFaceX && nowY == m_leaderFaceY) return;
+	
+	m_leaderFaceX = nowX;
+	m_leaderFaceY = nowY;
+	m_leaderFaceZone = Zone;
+	
+	static bool inNoZone;
+	static int inNoZoneReleased;
+	if(m_leaderFaceX == -m_cubeEdgeLimit || m_leaderFaceY == -m_cubeEdgeLimit || m_leaderFaceX == m_cubeEdgeLimit || m_leaderFaceY == m_cubeEdgeLimit)
+		inNoZone = true;
+	
+	if(inNoZone)
+		inNoZoneReleased++;
+	else
+		inNoZoneReleased = 0;
+	
+	inNoZone = false;
+	
+	if(inNoZoneReleased > 1) return;
+	
+	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
+	{
+		[self ResetInZone:Zone Up:ZoneUp];
+		[self Play];
+		return;
+	}
+	
+	[self AddSlot:Zone CoordX:nowX CoordY:nowY Position:p InZone:inNoZone == 0 ? true : false];
+	
+	
+	if (!m_slotControl)
+	{
+		[self RemoveFirstSlot];
+	}
+	else
+		m_slotControl--;
+}
+
+- (bool)CheckColition:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy
+{
+	int slotPos = (coordy + m_cubeEdgeLimit) * m_cubeSideSize + (coordx + m_cubeEdgeLimit);
+	
+	return m_facesMap[zone][slotPos];
+}
+
+- (void)AddSlot:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy Position:(GLKVector3)position InZone:(bool)inzone
+{
+	Slot* newSlot = [[Slot alloc] init];
+	
+	newSlot.Zone = zone;
+	newSlot.CoordX = coordx;
+	newSlot.CoordY = coordy;
+	newSlot.inZone = inzone;
+	
+	if(inzone)
+		m_occupied[zone]++;
+	
+	if(m_occupied[zone] == m_cubeFaceSlotLimit)
+		NSLog(@"Full");
+	
+	
+	int slotPos = (coordy + m_cubeEdgeLimit) * m_cubeSideSize + (coordx + m_cubeEdgeLimit);
+	m_facesMap[zone][slotPos] = true;
+	
+	[m_slots addObject:newSlot];
+}
+
+- (void)RemoveFirstSlot
+{
+	Slot* first = [m_slots firstObject];
+	int slotPos = (first.CoordY + m_cubeEdgeLimit) * m_cubeSideSize + (first.CoordX + m_cubeEdgeLimit);
+	m_facesMap[first.Zone][slotPos] = false;
+	
+	if(first.inZone)
+		m_occupied[first.Zone]--;
+	
+	[m_slots removeObjectAtIndex:0];
+}
+
 - (void)ManageDance
 {
 	GLKVector3 leaderPosition = Leader.Position;
@@ -2496,8 +2639,9 @@
 	FocusedCamera.Near = 5.0f;
 	FocusedCamera.FocusRange = 15.0f;
 
-	// Body
+	// Body and slots
 	Body = [[NSMutableArray alloc] init];
+	m_slots = [[NSMutableArray alloc] init];
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size
@@ -2518,6 +2662,10 @@
 		m_cubeEdgeLogicalLimit = 4.0f;
 		
 		m_radious = SmallSizeLimit * 2.3f * 2.0f;
+		
+		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
+		
+		m_cubeFaceSlotLimit = (SmallSizeLimit * SmallSizeLimit * 4);
 	}
 	else if(size == CL_SIZE_NORMAL)
 	{
@@ -2535,6 +2683,10 @@
 		m_cubeEdgeLogicalLimit = 7.0f;
 		
 		m_radious = NormalSizeLimit * 2.3f * 2.0f;
+		
+		m_cubeSideSize = m_cubeSideSize * 2 + 1;
+		
+		m_cubeFaceSlotLimit = (NormalSizeLimit * NormalSizeLimit * 4);
 	}
 	else if(size == CL_SIZE_BIG)
 	{
@@ -2552,6 +2704,10 @@
 		m_cubeEdgeLogicalLimit = 10.0f;
 		
 		m_radious = BigSizeLimit * 2.3f * 2.0f;
+		
+		m_cubeSideSize = m_cubeSideSize * 2 + 1;
+		
+		m_cubeFaceSlotLimit = (BigSizeLimit * BigSizeLimit * 4);
 	}
 	
 	if(Zone == CL_ZONE_FRONT)
@@ -2584,6 +2740,24 @@
 		FocusedCamera.Position = GLKVector3Make(0.0f, -m_radious, 0.0f);
 		FocusedCamera.Pivot = GLKVector3Make(0.0f, m_radious, 0.0f);
 	}
+	
+	// Collitions
+	if(m_facesMap[CL_ZONE_FRONT])free(m_facesMap[CL_ZONE_FRONT]);
+	if(m_facesMap[CL_ZONE_BACK])free(m_facesMap[CL_ZONE_BACK]);
+	if(m_facesMap[CL_ZONE_RIGHT])free(m_facesMap[CL_ZONE_RIGHT]);
+	if(m_facesMap[CL_ZONE_LEFT])free(m_facesMap[CL_ZONE_LEFT]);
+	if(m_facesMap[CL_ZONE_TOP])free(m_facesMap[CL_ZONE_TOP]);
+	if(m_facesMap[CL_ZONE_BOTTOM])free(m_facesMap[CL_ZONE_BOTTOM]);
+	
+	int positionsPerFace = m_cubeSideSize;
+	positionsPerFace *= positionsPerFace;
+	
+	m_facesMap[CL_ZONE_FRONT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_BACK] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_RIGHT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_LEFT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_TOP] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_BOTTOM] = calloc(positionsPerFace, sizeof(bool));
 	
 	
 	m_resizing = true;
@@ -2757,6 +2931,65 @@
 	// Body.
 	[Body removeAllObjects];
 	[self AddBodyWithSize:3.0f];
+	
+
+	// Interactions
+	m_toTurn = false;
+	m_toNew = false;
+	m_eating = false;
+	m_toGrow = 0.0f;
+	m_stepGrown = 0.0f;
+	m_slotControl = 0;
+	m_inComplex = false;
+	m_taken = 0;
+
+	LeaderGhost.Position = Leader.Position;
+	m_preLeaderPosition = Leader.Position;
+	
+	m_nextHandle = CL_HANDLE_NONE;
+	
+	// Collitions
+	if(m_facesMap[CL_ZONE_FRONT])free(m_facesMap[CL_ZONE_FRONT]);
+	if(m_facesMap[CL_ZONE_BACK])free(m_facesMap[CL_ZONE_BACK]);
+	if(m_facesMap[CL_ZONE_RIGHT])free(m_facesMap[CL_ZONE_RIGHT]);
+	if(m_facesMap[CL_ZONE_LEFT])free(m_facesMap[CL_ZONE_LEFT]);
+	if(m_facesMap[CL_ZONE_TOP])free(m_facesMap[CL_ZONE_TOP]);
+	if(m_facesMap[CL_ZONE_BOTTOM])free(m_facesMap[CL_ZONE_BOTTOM]);
+	
+	int positionsPerFace = m_cubeSideSize;
+	positionsPerFace *= positionsPerFace;
+	
+	m_facesMap[CL_ZONE_FRONT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_BACK] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_RIGHT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_LEFT] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_TOP] = calloc(positionsPerFace, sizeof(bool));
+	m_facesMap[CL_ZONE_BOTTOM] = calloc(positionsPerFace, sizeof(bool));
+	
+	// Reset occupied.
+	m_occupied[CL_ZONE_FRONT] = 4;
+	m_occupied[CL_ZONE_BACK] = 0;
+	m_occupied[CL_ZONE_RIGHT] = 0;
+	m_occupied[CL_ZONE_LEFT] = 0;
+	m_occupied[CL_ZONE_TOP] = 0;
+	m_occupied[CL_ZONE_BOTTOM] = 0;
+	
+	// Reset slots
+	int limit = (int)[m_slots count];
+	for(int i = 0; i < limit; i++)
+		[self RemoveFirstSlot];
+	
+	[m_slots removeAllObjects];
+	
+	GLKVector3 position = Leader.Position;
+	
+	[self AddSlot:Zone CoordX:0 CoordY:0 Position:position InZone:true];
+	
+	[self AddSlot:Zone CoordX:0 CoordY:0 Position:position InZone:true];
+	
+	[self AddSlot:Zone CoordX:0 CoordY:0 Position:position InZone:true];
+	
+	[self AddSlot:Zone CoordX:0 CoordY:0 Position:position InZone:true];
 }
 
 - (void)ChangeSpeed:(enum CL_SIZE)speed

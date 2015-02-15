@@ -3,6 +3,13 @@
 
 #import "CLbody.h"
 
+@interface Slot : NSObject
+@property enum CL_ZONE Zone;
+@property int CoordX;
+@property int CoordY;
+@property bool inZone;
+@end
+
 @interface CLLevel : NSObject
 
 @property VEModel* Leader;
@@ -31,6 +38,8 @@
 
 @property bool Dance;
 @property bool Follow;
+@property bool Collide;
+@property bool Feed;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;

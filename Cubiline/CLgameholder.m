@@ -29,7 +29,7 @@
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
 		m_cubeView.ClearColor = WhiteBackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		m_cubeView.EnableLight = true;
+		m_cubeView.EnableLight = false;
 		
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
