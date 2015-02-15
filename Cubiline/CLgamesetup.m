@@ -176,7 +176,7 @@
 
 - (void)Frame:(float)time
 {
-	
+	[m_watch Frame:time];
 }
 
 - (void)Render
@@ -496,7 +496,7 @@
 	[m_renderBox Frame:0.0f];
 	
 	[m_watch Reset];
-	[m_watch SetLimitInSeconds:0.8f];
+	[m_watch SetLimitInSeconds:1.0f];
 }
 
 - (bool)OutReady

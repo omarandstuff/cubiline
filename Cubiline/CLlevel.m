@@ -25,7 +25,7 @@
 	float m_radious;
 
 	// Turn control
-	bool m_bufferTurn;
+	enum CL_TURN m_bufferTurn;
 	bool m_justBuffered;
 	enum CL_HANDLE m_nextHandle;
 	enum CL_ZONE m_nextDirection;
@@ -65,7 +65,6 @@
 - (enum CL_ZONE)GetLeftOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (enum CL_HANDLE)GetHandleForDirection:(enum CL_ZONE)direction;
 - (enum CL_HANDLE)GetComplexHandleForDirection:(enum CL_ZONE)direction SecundaryDirection:(enum CL_ZONE)secundarydirection;
-- (void)doTurn:(enum CL_TURN)turn;
 - (void)TurnUpRight;
 - (void)TurnUpLeft;
 - (void)TurnDownRight;
@@ -133,9 +132,13 @@
 	if(m_playing)
 	{
 		[self MannageZones];
-		[self MannageBody];
-		[self ManageTurns];
 		[self ManageHandles];
+		[self ManageTurns];
+		
+		if(!m_toNew)
+			[self MannageBody];
+		m_toNew = false;
+		
 		[self ManageFollow];
 	}
 	else
@@ -2265,7 +2268,7 @@
 - (void)ManageResizing
 {
 	GLKVector3 leaderPosition = Leader.Position;
-	GLKVector3 bodyPosition;;
+	GLKVector3 bodyPosition;
 	float size = FrontWall.Scale.z / 2.0f + 0.5f;
 	
 	if(Zone == CL_ZONE_FRONT)
@@ -2294,6 +2297,7 @@
 	}
 	
 	[Leader ResetPosition:leaderPosition];
+	[Leader Frame:0.0f];
 	m_preLeaderPosition = leaderPosition;
 	
 	for(CLBody* body in Body)
@@ -2324,6 +2328,7 @@
 			bodyPosition.y = -size;
 		}
 		[body.Model ResetPosition:bodyPosition];
+		[body.Model Frame:0.0f];
 	}
 	
 	m_resizing = FrontWall.ScaleIsActive;

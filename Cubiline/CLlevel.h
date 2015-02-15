@@ -37,6 +37,8 @@
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 
+- (void)doTurn:(enum CL_TURN)turn;
+
 @end
 
 #endif
