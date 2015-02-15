@@ -41,6 +41,9 @@
 @property bool Collide;
 @property bool Feed;
 
+@property (readonly)unsigned int Points;
+@property (readonly)unsigned int TotalEarned;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Reset;

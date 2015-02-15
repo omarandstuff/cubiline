@@ -21,6 +21,8 @@
 - (void)OutToPlay;
 - (bool)OutReady;
 
+- (void)Reset;
+
 @end
 
 #endif

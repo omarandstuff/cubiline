@@ -9,6 +9,8 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	BOOL _matchStarted;
 }
 
+@synthesize MainGameCenterView;
+
 + (instancetype)sharedGameKitHelper
 {
 	static GameKitHelper *sharedGameKitHelper;
@@ -65,6 +67,33 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 		_authenticationViewController = authenticationViewController;
 		[[NSNotificationCenter defaultCenter] postNotificationName:PresentAuthenticationViewController object:self];
 	}
+}
+
+- (void)presentGameCenter
+{
+	GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+	if (gameCenterController != nil)
+	{
+		gameCenterController.gameCenterDelegate = MainGameCenterView;
+		[MainGameCenterView presentViewController: gameCenterController animated: YES completion:nil];
+	}
+}
+
+-(void) submitScore:(int64_t)score category:(NSString*)category
+{
+	if (!_enableGameCenter)
+	{
+		NSLog(@"Player not authenticated");
+		return;
+	}
+ 
+	GKScore *scoreReporter = [[GKScore alloc] initWithCategory:category];
+	scoreReporter.value = score;
+	scoreReporter.context = 0;
+ 
+	[scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+		// Do something interesting here.
+	}];
 }
 
 - (void)setLastError:(NSError *)error

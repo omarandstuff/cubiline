@@ -14,6 +14,8 @@
 - (void)Render;
 - (void)Resize;
 
+- (void)Begin;
+
 @end
 
 #endif

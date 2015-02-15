@@ -38,8 +38,7 @@
 	GLKVector3 m_toTurnPosition;
 	GLKVector3 m_nextDirectionPosition;
 	bool m_toTurn;
-	
-	
+
 	// Resizing control.
 	bool m_resizing;
 	
@@ -51,6 +50,9 @@
 	int m_slotControl;
 	bool* m_facesMap[CL_ZONE_NUMBER];
 	int m_occupied[CL_ZONE_NUMBER];
+	
+	// Feed control.
+	VERandom* m_random;
 	
 	// Point Control
 	unsigned int m_taken;
@@ -96,6 +98,10 @@
 - (bool)CheckColition:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy;
 - (void)AddSlot:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy Position:(GLKVector3)position InZone:(bool)inzone;
 - (void)RemoveFirstSlot;
+
+// Feed
+- (void)MannageFood;
+- (void)RandomFood;
 
 // Camera
 - (void)FocusLeaderInCamera;
@@ -143,6 +149,8 @@
 @synthesize Follow;
 @synthesize Collide;
 @synthesize Feed;
+@synthesize Points;
+@synthesize TotalEarned;
 
 - (void)PrintZone
 {
@@ -351,6 +359,9 @@
 		m_toNew = false;
 		
 		[self ManageFollow];
+		
+		if(Feed)
+			[self MannageFood];
 		
 		if(Collide)
 			[self ManageColloisions];
@@ -2445,6 +2456,7 @@
 	
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
 	{
+		[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
 		[self ResetInZone:Zone Up:ZoneUp];
 		[self Play];
 		return;
@@ -2502,6 +2514,125 @@
 	[m_slots removeObjectAtIndex:0];
 }
 
+- (void)MannageFood
+{
+	float dist = GLKVector3Length(GLKVector3Subtract(Food.Position, Leader.Position));
+	
+	if(dist < 0.5f)
+	{
+		m_toGrow += 1.0f;
+		m_slotControl += 1;
+		m_taken += 1;
+		
+		Points += 1;
+		TotalEarned += 1;
+		
+		m_eating = true;
+		[self RandomFood];
+	}
+}
+
+- (void)RandomFood
+{
+	GLKVector3 position;
+	int face;
+	int nowX = 0;
+	int nowY = 0;
+	int realX = 0;
+	int realY = 0;
+	int randomthreshold = 0;
+	
+	do
+	{
+		face = [m_random NextIntegerWithMin:0 Max:5];
+		randomthreshold++;
+		if(randomthreshold > 50)
+		{
+			for(int i = 0; i < 6; i++)
+			{
+				if(m_occupied[i] < m_cubeFaceSlotLimit)
+				{
+					face = i;
+					break;
+				}
+				
+			}
+		}
+	}
+	while(m_occupied[face] >= m_cubeFaceSlotLimit);
+	
+	randomthreshold = 0;
+	
+	bool done = false;
+	do
+	{
+		nowX = [m_random NextIntegerWithMin:-m_cubeEdgeLogicalLimit Max:m_cubeEdgeLogicalLimit];
+		nowY = [m_random NextIntegerWithMin:-m_cubeEdgeLogicalLimit Max:m_cubeEdgeLogicalLimit];
+		realX = nowX + m_cubeEdgeLimit;
+		realY = nowY + m_cubeEdgeLimit;
+		randomthreshold++;
+		if(randomthreshold > 50)
+		{
+			for(int i = 1; i < m_cubeSideSize - 1; i++)
+			{
+				for(int o = 1; o < m_cubeSideSize - 1; o++)
+				{
+					if(!m_facesMap[face][i * (int)m_cubeSideSize + o])
+					{
+						realX = o;
+						realY = i;
+						done = true;
+						break;
+					}
+				}
+				if(done) break;
+			}
+		}
+	}
+	while(m_facesMap[face][realY * (int)m_cubeSideSize + realX]);
+	
+	if(face == CL_ZONE_FRONT)
+	{
+		position.x = nowX;
+		position.y = nowY;
+		position.z = m_cubeEdgeLimit;
+	}
+	if(face == CL_ZONE_BACK)
+	{
+		position.x = nowX;
+		position.y = nowY;
+		position.z = -m_cubeEdgeLimit;
+	}
+	if(face == CL_ZONE_RIGHT)
+	{
+		position.x = m_cubeEdgeLimit;
+		position.y = nowY;
+		position.z = nowX;
+	}
+	if(face == CL_ZONE_LEFT)
+	{
+		position.x = -m_cubeEdgeLimit;
+		position.y = nowY;
+		position.z = nowX;
+	}
+	if(face == CL_ZONE_TOP)
+	{
+		position.x = nowX;
+		position.y = m_cubeEdgeLimit;;
+		position.z = nowY;
+	}
+	if(face == CL_ZONE_BOTTOM)
+	{
+		position.x = nowX;
+		position.y = -m_cubeEdgeLimit;;
+		position.z = nowY;
+	}
+	
+	Food.Position = position;
+	[Food ResetScale:GLKVector3Make(0.0f, 0.0f, 0.0f)];
+	Food.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+}
+
 - (void)ManageDance
 {
 	GLKVector3 leaderPosition = Leader.Position;
@@ -2546,6 +2677,12 @@
 	
 	// Food
 	Food = [m_renderBox NewModelFromFileName:@"geosphere_medium"];
+	Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	Food.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	Food.ScaleTransitionTime = 0.2f;
+	
+	// Random.
+	m_random = [[VERandom alloc] init];
 	
 	// Create Walls
 	FrontWall = [m_renderBox NewModelFromFileName:@"front_wall"];
@@ -2684,7 +2821,7 @@
 		
 		m_radious = NormalSizeLimit * 2.3f * 2.0f;
 		
-		m_cubeSideSize = m_cubeSideSize * 2 + 1;
+		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
 		
 		m_cubeFaceSlotLimit = (NormalSizeLimit * NormalSizeLimit * 4);
 	}
@@ -2705,7 +2842,7 @@
 		
 		m_radious = BigSizeLimit * 2.3f * 2.0f;
 		
-		m_cubeSideSize = m_cubeSideSize * 2 + 1;
+		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
 		
 		m_cubeFaceSlotLimit = (BigSizeLimit * BigSizeLimit * 4);
 	}
@@ -2942,6 +3079,8 @@
 	m_slotControl = 0;
 	m_inComplex = false;
 	m_taken = 0;
+	Points = 0;
+	m_bufferTurn = CL_TURN_NONE;
 
 	LeaderGhost.Position = Leader.Position;
 	m_preLeaderPosition = Leader.Position;
@@ -3035,6 +3174,20 @@
 - (enum CL_SIZE)Speed
 {
 	return Speed;
+}
+
+- (void)setFeed:(bool)feed
+{
+	Feed = feed;
+	if(feed)
+		[self RandomFood];
+	else
+		Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+}
+
+- (bool)Feed
+{
+	return Feed;
 }
 
 @end

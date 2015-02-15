@@ -73,7 +73,7 @@
 		m_cubeView.ClearColor = GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f);
 		
 		m_cubeView.Scene = m_cubeScene;
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		
@@ -608,6 +608,11 @@
 	m_text.Opasity = 0.0f;
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];
+}
+
+- (void)Reset
+{
+	m_selected = false;
 }
 
 - (bool)Selected

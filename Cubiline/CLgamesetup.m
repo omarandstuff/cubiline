@@ -80,7 +80,7 @@
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeView.Camera = m_cubeCamera;
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		// Camera SetUp
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -482,6 +482,15 @@
 
 - (void)OutToPlay
 {
+	m_playButton.OpasityTransitionTime = 0.1f;
+	m_sizeButton.OpasityTransitionTime = 0.1f;
+	m_speedButton.OpasityTransitionTime = 0.1f;
+	m_plusButton.OpasityTransitionTime = 0.1f;
+	m_minusButton.OpasityTransitionTime = 0.1f;
+	m_playText.OpasityTransitionTime = 0.1f;
+	m_sizeText.OpasityTransitionTime = 0.1f;
+	m_speedText.OpasityTransitionTime = 0.1f;
+	
 	m_playButton.Opasity = 0.0f;
 	m_sizeButton.Opasity = 0.0f;
 	m_speedButton.Opasity = 0.0f;

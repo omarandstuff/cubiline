@@ -77,6 +77,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
  
 	[[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
+	
+	[GameKitHelper sharedGameKitHelper].MainGameCenterView = self;
 }
 
 - (void)showAuthenticationViewController
@@ -84,6 +86,11 @@
 	GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
  
 	[self presentViewController: gameKitHelper.authenticationViewController animated:YES completion:nil];
+}
+
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dealloc

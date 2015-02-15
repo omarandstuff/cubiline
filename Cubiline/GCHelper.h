@@ -9,8 +9,8 @@ extern NSString *const LocalPlayerIsAuthenticated;
 @protocol GameKitHelperDelegate
 - (void)matchStarted;
 - (void)matchEnded;
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data
-   fromPlayer:(NSString *)playerID;
+- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
+- (void)onScoresSubmitted:(bool)success;
 @end
 
 @interface GameKitHelper : NSObject<GKMatchmakerViewControllerDelegate, GKMatchDelegate>
@@ -21,10 +21,16 @@ extern NSString *const LocalPlayerIsAuthenticated;
 @property (nonatomic, strong) GKMatch *match;
 @property (nonatomic, assign) id <GameKitHelperDelegate> delegate;
 
+@property UIViewController<GKGameCenterControllerDelegate>* MainGameCenterView;
+
 + (instancetype)sharedGameKitHelper;
 - (void)authenticateLocalPlayer;
 
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameKitHelperDelegate>)delegate;
+
+- (void)submitScore:(int64_t)score category:(NSString*)category;
+
+- (void)presentGameCenter;
 
 @end
 
