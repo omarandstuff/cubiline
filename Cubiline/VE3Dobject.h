@@ -36,6 +36,7 @@
 @property float PositionEase;
 @property (readonly) bool PositionIsActive;
 
+- (GLKVector3)PositionWOR;
 - (void)ResetPosition;
 - (void)ResetPosition:(GLKVector3)state;
 

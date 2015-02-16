@@ -355,6 +355,16 @@
     return m_viewUp.IsActive;
 }
 
+- (void)ResetViewUp
+{
+	[m_viewUp Reset];
+}
+
+- (void)ResetViewUp:(GLKVector3)state
+{
+	[m_viewUp Reset:state];
+}
+
 ////////// Zoom /////////////////
 - (void)setZoom:(float)zoom
 {

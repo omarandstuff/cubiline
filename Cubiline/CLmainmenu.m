@@ -264,7 +264,7 @@
 	
 	m_text.Position = GLKVector3Make(0.0f, -spriteSize / 3.0f, 0.0f);
 	
-	m_cubeLimit = spriteSize / 2.0f;
+	m_cubeLimit = spriteSize / 3.5f;
 }
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
@@ -274,7 +274,7 @@
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 2.0f, 0.0f));
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, 0.0f));
 	
 	m_sideFront.Rotation = newRotation;
 	m_playIcon.Rotation = newRotation;
@@ -596,10 +596,32 @@
 	}
 }
 
+- (void)InFromPlaying
+{
+	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.5f)];
+	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.5f)];
+	[m_cubeCamera ResetPivotRotation:GLKVector3Make(0.0f, 0.0f, 0.0f)];
+	[m_cubeCamera Frame:0.0f];
+	m_text.Opasity = 1.0f;
+	m_playIcon.Opasity = 1.0f;
+	m_gameCenterIcon.Opasity = 1.0f;
+	Selection = CL_MAIN_MENU_SELECTION_PLAY;
+	[m_watch Reset];
+	[m_watch SetLimitInSeconds:7.0f];
+	m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_cubeCamera.PositionTransitionTime = 0.1f;
+	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
+	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
+}
+
 - (void)OutToPlay
 {
 	m_playIcon.Opasity = 0.0f;
 	m_gameCenterIcon.Opasity = 0.0f;
+	m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	m_cubeCamera.PivotTransitionTime = 0.8f;
+	m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	m_cubeCamera.PositionTransitionTime = 0.8f;
 	m_cubeCamera.PivotRotationTransitionTime = 0.8f;
 	m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 7.3f);

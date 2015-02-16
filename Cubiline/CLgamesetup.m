@@ -18,14 +18,6 @@
 	VESprite* m_speedButton;
 	VESprite* m_sizeButton;
 	
-	struct rect
-	{
-		float top;
-		float bottom;
-		float right;
-		float left;
-	};
-	
 	Rect m_plusButtonRect;
 	Rect m_minusButtonRect;
 	Rect m_playButtonRect;
@@ -258,12 +250,14 @@
 
 - (void)InToSetUp
 {
+	m_cubeView.Camera = m_cubeCamera;
 	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.3f)];
 	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
 	[m_cubeCamera ResetPivotRotation:GLKVector3Make(26.5650501, 0.0f, 0.0f)];
 }
 - (void)Begin
 {
+	[Level Reset];
 	[self ResizeLevel:CL_SIZE_SMALL];
 	Level.Dance = true;
 	m_playText.Opasity = 1.0f;
@@ -281,6 +275,7 @@
 	m_size = CL_SIZE_SMALL;
 	m_speed = CL_SIZE_SMALL;
 	m_step = 0;
+	m_play = false;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size
@@ -332,7 +327,29 @@
 
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers
 {
-
+	float rx = x - m_renderBox.ScreenWidth / 2;
+	float ry = -y + m_renderBox.ScreenHeight / 2;
+	
+	if([self TestButton:m_plusButtonRect X:rx Y:ry] && m_plusButtonEnable)
+	{
+		m_plusButton.Width = m_buttonSize * 0.7f;
+	}
+	else if([self TestButton:m_minusButtonRect X:rx Y:ry] && m_minusButtonEnable)
+	{
+		m_minusButton.Width = m_buttonSize * 0.7f;
+	}
+	else if([self TestButton:m_speedButtonRect X:rx Y:ry] && m_speedButtonEnable)
+	{
+		m_speedButton.Width = m_buttonSize * 0.7f;
+	}
+	else if([self TestButton:m_sizeButtonRect X:rx Y:ry] && m_sizeButtonEnable)
+	{
+		m_sizeButton.Width = m_buttonSize * 0.7f;
+	}
+	else if([self TestButton:m_playButtonRect X:rx Y:ry])
+	{
+		m_playButton.Width = m_buttonSize * 0.7f;
+	}
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers
@@ -473,11 +490,11 @@
 		m_play = true;
 	}
 	
-	m_plusButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
-	m_minusButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
-	m_playButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
-	m_speedButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
-	m_sizeButton.Scale = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
+	m_plusButton.Width = m_buttonSize;
+	m_minusButton.Width = m_buttonSize;
+	m_playButton.Width = m_buttonSize;
+	m_speedButton.Width = m_buttonSize;
+	m_sizeButton.Width = m_buttonSize;
 }
 
 - (void)OutToPlay

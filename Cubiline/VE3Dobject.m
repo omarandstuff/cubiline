@@ -179,6 +179,11 @@
 	return m_realPosition;
 }
 
+- (GLKVector3)PositionWOR
+{
+	return m_position.Vector;
+}
+
 - (void)setPositionTransitionEffect:(enum VE_TRANSITION_EFFECT)transitioneffect
 {
 	m_position.TransitionEffect = transitioneffect;
@@ -440,7 +445,6 @@
 {
 	[m_pivot Reset:state];
 }
-
 
 /////// Pivot rotation ///////////////
 - (void)setPivotRotation:(GLKVector3)pivotrotation

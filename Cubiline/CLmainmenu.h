@@ -18,6 +18,8 @@
 
 - (bool)Selected;
 
+- (void)InFromPlaying;
+
 - (void)OutToPlay;
 - (bool)OutReady;
 

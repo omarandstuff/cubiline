@@ -36,6 +36,7 @@
 
 @property (readonly)VECamera* FocusedCamera;
 
+@property bool Move;
 @property bool Dance;
 @property bool Follow;
 @property bool Collide;
@@ -50,6 +51,8 @@
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 
 - (void)doTurn:(enum CL_TURN)turn;
+
+- (void)Restore;
 
 @end
 

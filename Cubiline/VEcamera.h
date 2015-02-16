@@ -37,6 +37,9 @@
 @property float ViewUpEase;
 @property (readonly) bool ViewUpIsActive;
 
+- (void)ResetViewUp;
+- (void)ResetViewUp:(GLKVector3)state;
+
 /// Zoom
 @property float Zoom;
 @property enum VE_TRANSITION_EFFECT ZoomTransitionEffect;

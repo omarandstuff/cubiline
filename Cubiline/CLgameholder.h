@@ -9,12 +9,16 @@
 @property CLLevel* Level;
 @property (readonly)VEScene* Scene;
 
+@property bool Exit;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;
 
 - (void)Begin;
+- (void)OutToMainMenu;
+- (bool)OutReady;
 
 @end
 

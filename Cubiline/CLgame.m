@@ -16,7 +16,8 @@
 		GAME_STATE_FROM_MAIN_TO_GAME_SETUP,
 		GAME_STATE_GAME_SETUP,
 		GAME_STATE_FROM_GAME_SETUP_TO_PLAY,
-		GAME_STATE_PLAYING
+		GAME_STATE_PLAYING,
+		GAME_STATE_FROM_PLAYING_TO_MAIN_MENU
 	};
 	
 	enum GAME_STATE m_gameState;
@@ -101,6 +102,8 @@
 			m_renderBox.MainView.Scene = m_gameSetUp.Scene;
 			[m_gameSetUp Begin];
 			m_gameState = GAME_STATE_GAME_SETUP;
+			m_cubilineLevel.Move = true;
+			m_cubilineLevel.Follow = false;
 		}
 	}
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
@@ -111,6 +114,7 @@
 		{
 			[m_gameSetUp OutToPlay];
 			m_gameState = GAME_STATE_FROM_GAME_SETUP_TO_PLAY;
+			[m_mainMenu Reset];
 			m_cubilineLevel.Dance = false;
 			m_cubilineLevel.Follow = true;
 			m_cubilineLevel.Feed = true;
@@ -130,8 +134,22 @@
 	}
 	else if(m_gameState == GAME_STATE_PLAYING)
 	{
-		[m_cubilineLevel Frame:time];
 		[m_gameHolder Frame:time];
+		if(m_gameHolder.Exit)
+		{
+			[m_gameHolder OutToMainMenu];
+			m_gameState = GAME_STATE_FROM_PLAYING_TO_MAIN_MENU;
+		}
+	}
+	else if(m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU)
+	{
+		[m_gameHolder Frame:time];
+		if([m_gameHolder OutReady])
+		{
+			m_gameState = GAME_STATE_MAIN_MENU;
+			m_renderBox.MainView.Scene = m_mainMenu.Scene;
+			[m_mainMenu InFromPlaying];
+		}
 	}
 }
 
@@ -141,7 +159,7 @@
 		[m_mainMenu Render];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameSetUp Render];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU)
 		[m_gameHolder Render];
 }
 
@@ -151,7 +169,7 @@
 		[m_mainMenu Resize];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameSetUp Resize];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU)
 		[m_gameHolder Resize];
 }
 
@@ -161,7 +179,7 @@
 		[m_mainMenu TouchPanBegan:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanBegan:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchPanBegan:x Y:y Fingers:fingers];
 }
 
@@ -171,7 +189,7 @@
 		[m_mainMenu TouchPanChange:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanChange:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchPanChange:x Y:y Fingers:fingers];
 }
 
@@ -181,7 +199,7 @@
 		[m_mainMenu TouchPanEnd:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchPanEnd:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchPanEnd:x Y:y Fingers:fingers];
 }
 
@@ -191,7 +209,7 @@
 		[m_mainMenu TouchTap:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchTap:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchTap:x Y:y Fingers:fingers];
 }
 
@@ -201,7 +219,7 @@
 		[m_mainMenu TouchDown:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchDown:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchDown:x Y:y Fingers:fingers];
 }
 
@@ -211,7 +229,7 @@
 		[m_mainMenu TouchUp:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_GAME_SETUP)
 		[m_gameSetUp TouchUp:x Y:y Fingers:fingers];
-	else if(m_gameState == GAME_STATE_PLAYING)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchUp:x Y:y Fingers:fingers];
 }
 

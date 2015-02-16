@@ -67,6 +67,7 @@
 
 // Line directives.
 - (void)Play;
+- (void)Stop;
 - (void)AddBodyWithSize:(float)size;
 - (void)MannageBody;
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone;
@@ -151,6 +152,7 @@
 @synthesize Feed;
 @synthesize Points;
 @synthesize TotalEarned;
+@synthesize Move;
 
 - (void)PrintZone
 {
@@ -381,6 +383,11 @@
 
 - (void)Play
 {
+	if(!Move)
+	{
+		[self Stop];
+		return;
+	}
 	GLKVector3 position = Leader.Position;
 	if(Direction == CL_ZONE_FRONT)
 		position.z = m_cubeEdgeLimit;
@@ -398,6 +405,11 @@
 	Leader.Position = position;
 	
 	m_playing = true;
+}
+
+- (void)Stop
+{
+	[Leader ResetPosition:Leader.Position];
 }
 
 - (void)FocusLeaderInCamera
@@ -2900,6 +2912,28 @@
 	m_resizing = true;
 }
 
+- (void)Restore
+{
+	FrontWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	BackWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	RightWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	LeftWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	TopWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	BottomWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	
+	m_guides.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	m_guides.TextureCompression = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	
+	self.Feed = false;
+	Leader.Opasity = 0.0f;
+
+	[Body removeAllObjects];
+	
+	FocusedCamera.ViewUp = GLKVector3Make(0.0f, 1.0f, 0.0f);
+	
+	_Size = 456;
+}
+
 - (void)ManageResizing
 {
 	GLKVector3 leaderPosition = Leader.Position;
@@ -2978,7 +3012,10 @@
 
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up
 {
+	[self SwitchZoneColor:Zone NewZone:zone];
+	Leader.Opasity = 1.0f;
 	Zone = zone;
+	ZoneUp = up;
 	
 	if(zone == CL_ZONE_FRONT)
 	{
@@ -3064,6 +3101,8 @@
 		if(up == CL_ZONE_LEFT)
 			Direction = CL_ZONE_FRONT;
 	}
+	
+	FocusedCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	
 	// Body.
 	[Body removeAllObjects];
@@ -3188,6 +3227,20 @@
 - (bool)Feed
 {
 	return Feed;
+}
+
+- (void)setMove:(bool)move
+{
+	Move = move;
+	if(move)
+		[self Play];
+	else
+		[self Stop];
+}
+
+- (bool)Move
+{
+	return Move;
 }
 
 @end

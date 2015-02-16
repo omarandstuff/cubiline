@@ -81,6 +81,14 @@ enum CL_MAIN_MENU_SELECTION
 	CL_MAIN_MENU_SELECTION_ABOUT
 };
 
+struct rect
+{
+	float top;
+	float bottom;
+	float right;
+	float left;
+};
+
 #define GrayColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 #define WhiteBackgroundColor GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f)
 
