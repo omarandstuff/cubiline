@@ -43,7 +43,7 @@
 @property bool Feed;
 
 @property (readonly)unsigned int Points;
-@property (readonly)unsigned int TotalEarned;
+@property unsigned int TotalEaten;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;

@@ -23,6 +23,9 @@
 	enum GAME_STATE m_gameState;
 	
 	AVAudioPlayer* m_player;
+	
+	bool m_justEaten;
+	bool m_justRequested;
 }
 
 @end
@@ -73,6 +76,25 @@
 
 - (void)Frame:(float)time
 {
+	if(!m_justEaten)
+	{
+		if([GameKitHelper sharedGameKitHelper].LoggedIn)
+		{
+			if(!m_justRequested)
+			{
+				[[GameKitHelper sharedGameKitHelper] GetTotalEaten];
+				m_justRequested = false;
+			}
+			if(!m_justEaten)
+			{
+				if ([GameKitHelper sharedGameKitHelper].TotalEatenLoaded)
+				{
+					m_cubilineLevel.TotalEaten = [GameKitHelper sharedGameKitHelper].TotalEaten;
+					m_justEaten = true;
+				}
+			}
+		}
+	}
 	if(m_gameState == GAME_STATE_MAIN_MENU)
 	{
 		[m_mainMenu Frame:time];
@@ -115,6 +137,7 @@
 			[m_gameSetUp OutToPlay];
 			m_gameState = GAME_STATE_FROM_GAME_SETUP_TO_PLAY;
 			[m_mainMenu Reset];
+			[[GameKitHelper sharedGameKitHelper] GetHighScore];
 			m_cubilineLevel.Dance = false;
 			m_cubilineLevel.Follow = true;
 			m_cubilineLevel.Feed = true;

@@ -21,6 +21,12 @@ extern NSString *const LocalPlayerIsAuthenticated;
 @property (nonatomic, strong) GKMatch *match;
 @property (nonatomic, assign) id <GameKitHelperDelegate> delegate;
 
+@property (readonly) bool LoggedIn;
+
+@property (readonly)int HighScore;
+@property (readonly)int TotalEaten;
+@property (readonly)bool TotalEatenLoaded;
+
 @property UIViewController<GKGameCenterControllerDelegate>* MainGameCenterView;
 
 + (instancetype)sharedGameKitHelper;
@@ -29,6 +35,8 @@ extern NSString *const LocalPlayerIsAuthenticated;
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameKitHelperDelegate>)delegate;
 
 - (void)submitScore:(int64_t)score category:(NSString*)category;
+- (void)GetHighScore;
+- (void)GetTotalEaten;
 
 - (void)presentGameCenter;
 

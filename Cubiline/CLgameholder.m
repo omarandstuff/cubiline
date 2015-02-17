@@ -8,6 +8,7 @@
 	VECamera* m_cubeCamera;
 	VEText* m_points;
 	VEEffect1* m_pointsEffect;
+	VEText* m_bestScore;
 	
 	VESprite* m_pauseButton;
 	Rect m_pauseRect;
@@ -47,6 +48,8 @@
 	enum GH_STAGE m_stage;
 	
 	VEWatch* m_watch;
+	
+	int m_highScore;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
@@ -74,7 +77,7 @@
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
 		m_cubeView.ClearColor = WhiteBackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		m_cubeView.EnableLight = true;
+		m_cubeView.EnableLight = false;
 		
 		
 		// Points text
@@ -85,6 +88,14 @@
 		m_points.OpasityTransitionTime = 0.15f;
 		m_points.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_points.PositionTransitionTime = 0.7f;
+		
+		m_bestScore = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
+		m_bestScore.Color = GrayColor;
+		m_bestScore.Opasity = 0.0f;
+		m_bestScore.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_bestScore.OpasityTransitionTime = 0.15f;
+		m_bestScore.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_bestScore.PositionTransitionTime = 0.7f;
 		
 		m_pointsEffect = [[VEEffect1 alloc] init];
 		m_pointsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
@@ -185,6 +196,7 @@
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_points];
+		[Scene addText:m_bestScore];
 		[Scene addSprite:m_pauseButton];
 		[Scene addSprite:m_pauseFade];
 		[Scene addSprite:m_continueButton];
@@ -228,6 +240,15 @@
 			m_pointsEffect.Value = Level.Points;
 	}
 	
+	int high = [GameKitHelper sharedGameKitHelper].HighScore;
+	
+	if(high != m_highScore)
+	{
+		m_highScore = high;
+		m_bestScore.Text = [NSString stringWithFormat:@"%d", m_highScore];
+		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	}
+	
 	if(active)
 	{
 		m_points.Text = [NSString stringWithFormat:@"%d", (int)m_pointsEffect.Value];
@@ -245,9 +266,11 @@
 - (void)Begin
 {
 	m_points.Opasity = 1.0f;
+	m_bestScore.Opasity = 1.0f;
 	m_pauseButton.Opasity = 1.0f;
 	m_stage = PLAYING;
 	m_cubeView.Camera = Level.FocusedCamera;
+	
 	Exit = false;
 }
 
@@ -274,7 +297,10 @@
 	m_cubeImage.Scale = GLKVector3Make(spriteSize, -spriteSize, 0.0f);
 	
 	m_points.FontSize = width > height ? height / 10 : width / 10;
-	m_points.Position = GLKVector3Make(width / 2 - m_points.Width, height / 2 - m_points.Height / 2.0f, 0.0f);
+	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
+	
+	m_bestScore.FontSize = width > height ? height / 11 : width / 11;
+	m_bestScore.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height * 2.0f, 0.0f);
 	
 	m_pauseButton.Height = m_buttonSize / 2.0f;
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);

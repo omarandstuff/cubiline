@@ -151,7 +151,7 @@
 @synthesize Collide;
 @synthesize Feed;
 @synthesize Points;
-@synthesize TotalEarned;
+@synthesize TotalEaten;
 @synthesize Move;
 
 - (void)PrintZone
@@ -318,14 +318,14 @@
 
 - (void)PrintLog
 {
-	[self PrintZone];
-	[self PrintDirection];
-	[self PrintUp];
-	[self PrintNextHandle];
-	[self PrintNextDirection];
-	[self PrintToTurnPosition];
-	[self PrintNextDirectionPosition];
-	[self PrintBuffer];
+	//[self PrintZone];
+	//[self PrintDirection];
+	//[self PrintUp];
+	//[self PrintNextHandle];
+	//[self PrintNextDirection];
+	//[self PrintToTurnPosition];
+	//[self PrintNextDirectionPosition];
+	//[self PrintBuffer];
 }
 
 - (id)initWithRenderBox:(VERenderBox *)renderbox
@@ -582,7 +582,7 @@
 		m_noZone = true;
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_RIGHT;
@@ -614,14 +614,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_RIGHT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_LEFT;
@@ -653,14 +653,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_LEFT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_TOP;
@@ -696,7 +696,7 @@
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BOTTOM;
@@ -728,7 +728,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_BOTTOM];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -745,7 +745,7 @@
 		m_noZone = true;
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_LEFT;
@@ -777,14 +777,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_LEFT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_RIGHT;
@@ -816,14 +816,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_RIGHT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_TOP;
@@ -855,14 +855,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_TOP];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BOTTOM;
@@ -894,7 +894,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_BOTTOM];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -911,7 +911,7 @@
 		m_noZone = true;
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BACK;
@@ -943,14 +943,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BACK];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_FRONT;
@@ -982,14 +982,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_FRONT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_TOP;
@@ -1021,14 +1021,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_TOP];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BOTTOM;
@@ -1060,7 +1060,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BOTTOM];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -1077,7 +1077,7 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_FRONT;
@@ -1109,14 +1109,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_FRONT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BACK;
@@ -1148,14 +1148,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BACK];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_TOP;
@@ -1187,14 +1187,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_TOP];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BOTTOM;
@@ -1226,7 +1226,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BOTTOM];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -1243,7 +1243,7 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_FRONT;
@@ -1275,14 +1275,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_FRONT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BACK;
@@ -1314,14 +1314,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_BACK];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_RIGHT;
@@ -1353,14 +1353,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_RIGHT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_LEFT;
@@ -1392,7 +1392,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_LEFT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -1409,7 +1409,7 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_FRONT;
@@ -1441,14 +1441,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_FRONT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_BACK;
@@ -1480,14 +1480,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_BACK];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_RIGHT;
@@ -1519,14 +1519,14 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_RIGHT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			NSLog(@"Pre Zone Change");
+			//NSLog(@"Pre Zone Change");
 			[self PrintLog];
 			
 			Zone = CL_ZONE_LEFT;
@@ -1558,7 +1558,7 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_LEFT];
 			
-			NSLog(@"Zone Changed");
+			//NSLog(@"Zone Changed");
 			[self PrintLog];
 			
 			return;
@@ -2469,6 +2469,8 @@
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
 	{
 		[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
+		[[GameKitHelper sharedGameKitHelper] submitScore:TotalEaten category:@"cubiline_total_eaten"];
+		[[GameKitHelper sharedGameKitHelper] GetHighScore];
 		[self ResetInZone:Zone Up:ZoneUp];
 		[self Play];
 		return;
@@ -2537,7 +2539,7 @@
 		m_taken += 1;
 		
 		Points += 1;
-		TotalEarned += 1;
+		TotalEaten += 1;
 		
 		m_eating = true;
 		[self RandomFood];

@@ -5,11 +5,14 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 
 @implementation GameKitHelper
 {
-	BOOL _enableGameCenter;
 	BOOL _matchStarted;
 }
 
 @synthesize MainGameCenterView;
+@synthesize LoggedIn;
+@synthesize HighScore;
+@synthesize TotalEaten;
+@synthesize TotalEatenLoaded;
 
 + (instancetype)sharedGameKitHelper
 {
@@ -26,7 +29,6 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	self = [super init];
 	if (self)
 	{
-		_enableGameCenter = YES;
 	}
 	return self;
 }
@@ -50,12 +52,12 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 		}
 		else if([GKLocalPlayer localPlayer].isAuthenticated)
 		{
-			_enableGameCenter = YES;
+			LoggedIn = YES;
 			[[NSNotificationCenter defaultCenter] postNotificationName:LocalPlayerIsAuthenticated object:nil];
 		}
 		else
 		{
-			_enableGameCenter = NO;
+			LoggedIn = NO;
 		}
 	};
 }
@@ -81,7 +83,7 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 
 -(void) submitScore:(int64_t)score category:(NSString*)category
 {
-	if (!_enableGameCenter)
+	if (!LoggedIn)
 	{
 		NSLog(@"Player not authenticated");
 		return;
@@ -96,6 +98,61 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	}];
 }
 
+- (void)GetHighScore
+{
+	if (!LoggedIn)
+	{
+		NSLog(@"Player not authenticated");
+		return;
+	}
+	GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] init];
+	if (leaderboardRequest != nil)
+	{
+		leaderboardRequest.playerScope = GKLeaderboardPlayerScopeGlobal;
+		leaderboardRequest.timeScope = GKLeaderboardTimeScopeToday;
+		leaderboardRequest.identifier = @"cubiline_high_score";
+		leaderboardRequest.range = NSMakeRange(1,1);
+		[leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
+			if (error != nil)
+			{
+				// Handle the error.
+			}
+			if (scores != nil)
+			{
+				HighScore = (int)leaderboardRequest.localPlayerScore.value;
+			}
+		}];
+	}
+}
+
+- (void)GetTotalEaten
+{
+	if (!LoggedIn)
+	{
+		NSLog(@"Player not authenticated");
+		return;
+	}
+	GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] init];
+	if (leaderboardRequest != nil)
+	{
+		leaderboardRequest.playerScope = GKLeaderboardPlayerScopeGlobal;
+		leaderboardRequest.timeScope = GKLeaderboardTimeScopeToday;
+		leaderboardRequest.identifier = @"cubiline_total_eaten";
+		leaderboardRequest.range = NSMakeRange(1,1);
+		[leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
+			if (error != nil)
+			{
+				// Handle the error.
+			}
+			if (scores != nil)
+			{
+				TotalEaten = (int)leaderboardRequest.localPlayerScore.value;
+				TotalEatenLoaded = true;
+			}
+		}];
+	}
+}
+
 - (void)setLastError:(NSError *)error
 {
 	_lastError = [error copy];
@@ -103,12 +160,11 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	{
 		NSLog(@"GameKitHelper ERROR: %@", [[_lastError userInfo] description]);
 	}
-	
 }
 
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameKitHelperDelegate>)delegate
 {
-	if (!_enableGameCenter) return;
+	if (!LoggedIn) return;
 	
 	_matchStarted = NO;
 	self.match = nil;
