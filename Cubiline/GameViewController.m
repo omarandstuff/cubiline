@@ -69,6 +69,8 @@
 	[m_renderBox Frame:0.0f];
 	[m_game Frame:0.0f];
 	[m_renderBox Render];
+	
+	[m_renderBox Play];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -91,6 +93,7 @@
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
+	[m_renderBox Play];
 }
 
 - (void)dealloc

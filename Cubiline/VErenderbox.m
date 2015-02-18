@@ -24,6 +24,8 @@
     
     EAGLContext* m_context;
     GLKView* m_GLKView;
+	
+	bool m_playing;
 }
 
 - (void)SetUpRenderTools;
@@ -61,6 +63,8 @@
 
 - (void)Frame:(float)time
 {
+	if(!m_playing)return;
+	
     // Frame for every active camera.
     for(VECamera* camera in m_cameras)
     {
@@ -106,6 +110,8 @@
 
 - (void)Render
 {
+	if(!m_playing)return;
+	
     [MainView Render];
 }
 
@@ -159,6 +165,16 @@
 	
     // Create the main view object
     MainView = [self NewViewAs:VE_VIEW_TYPE_DIRECT Width:ScreenWidth Height:ScreenHeight];
+}
+
+- (void)Pause
+{
+	m_playing = false;
+}
+
+- (void)Play
+{
+	m_playing = true;
 }
 
 - (VESprite*)NewSpriteFromFileName:(NSString*)filename

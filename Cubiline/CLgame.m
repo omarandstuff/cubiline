@@ -89,7 +89,7 @@
 			{
 				if ([GameKitHelper sharedGameKitHelper].TotalEatenLoaded)
 				{
-					m_cubilineLevel.TotalEaten = [GameKitHelper sharedGameKitHelper].TotalEaten;
+					m_cubilineLevel.TotalEaten += [GameKitHelper sharedGameKitHelper].TotalEaten;
 					m_justEaten = true;
 				}
 			}
@@ -113,6 +113,7 @@
 			{
 				[m_mainMenu Reset];
 				[[GameKitHelper sharedGameKitHelper] presentGameCenter];
+				[m_renderBox Pause];
 			}
 		}
 	}

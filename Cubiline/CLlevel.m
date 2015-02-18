@@ -2469,7 +2469,6 @@
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
 	{
 		[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
-		[[GameKitHelper sharedGameKitHelper] submitScore:TotalEaten category:@"cubiline_total_eaten"];
 		[[GameKitHelper sharedGameKitHelper] GetHighScore];
 		[self ResetInZone:Zone Up:ZoneUp];
 		[self Play];

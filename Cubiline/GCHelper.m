@@ -54,6 +54,7 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 		{
 			LoggedIn = YES;
 			[[NSNotificationCenter defaultCenter] postNotificationName:LocalPlayerIsAuthenticated object:nil];
+			
 		}
 		else
 		{
@@ -93,7 +94,8 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	scoreReporter.value = score;
 	scoreReporter.context = 0;
  
-	[scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+	[scoreReporter reportScoreWithCompletionHandler:^(NSError *error)
+	{
 		// Do something interesting here.
 	}];
 }
@@ -109,7 +111,7 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	if (leaderboardRequest != nil)
 	{
 		leaderboardRequest.playerScope = GKLeaderboardPlayerScopeGlobal;
-		leaderboardRequest.timeScope = GKLeaderboardTimeScopeToday;
+		leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardRequest.identifier = @"cubiline_high_score";
 		leaderboardRequest.range = NSMakeRange(1,1);
 		[leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
@@ -136,7 +138,7 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
 	if (leaderboardRequest != nil)
 	{
 		leaderboardRequest.playerScope = GKLeaderboardPlayerScopeGlobal;
-		leaderboardRequest.timeScope = GKLeaderboardTimeScopeToday;
+		leaderboardRequest.timeScope = GKLeaderboardTimeScopeAllTime;
 		leaderboardRequest.identifier = @"cubiline_total_eaten";
 		leaderboardRequest.range = NSMakeRange(1,1);
 		[leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {

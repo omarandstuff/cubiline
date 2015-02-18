@@ -9,6 +9,7 @@
 	VEText* m_points;
 	VEEffect1* m_pointsEffect;
 	VEText* m_bestScore;
+	VEText* m_totalEaten;
 	
 	VESprite* m_pauseButton;
 	Rect m_pauseRect;
@@ -50,6 +51,7 @@
 	VEWatch* m_watch;
 	
 	int m_highScore;
+	int m_total;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
@@ -96,6 +98,14 @@
 		m_bestScore.OpasityTransitionTime = 0.15f;
 		m_bestScore.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_bestScore.PositionTransitionTime = 0.7f;
+		
+		m_totalEaten = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
+		m_totalEaten.Color = GrayColor;
+		m_totalEaten.Opasity = 0.0f;
+		m_totalEaten.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_totalEaten.OpasityTransitionTime = 0.15f;
+		m_totalEaten.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_totalEaten.PositionTransitionTime = 0.7f;
 		
 		m_pointsEffect = [[VEEffect1 alloc] init];
 		m_pointsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
@@ -197,6 +207,7 @@
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_points];
 		[Scene addText:m_bestScore];
+		[Scene addText:m_totalEaten];
 		[Scene addSprite:m_pauseButton];
 		[Scene addSprite:m_pauseFade];
 		[Scene addSprite:m_continueButton];
@@ -241,12 +252,21 @@
 	}
 	
 	int high = [GameKitHelper sharedGameKitHelper].HighScore;
+	int totalEaten = Level.TotalEaten;
 	
 	if(high != m_highScore)
 	{
 		m_highScore = high;
-		m_bestScore.Text = [NSString stringWithFormat:@"%d", m_highScore];
-		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+		m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
+		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	}
+	
+	if(totalEaten != m_total)
+	{
+		m_total = totalEaten;
+		m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
+		m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height, 0.0f);
+		[[GameKitHelper sharedGameKitHelper] submitScore:m_total category:@"cubiline_total_eaten"];
 	}
 	
 	if(active)
@@ -267,6 +287,7 @@
 {
 	m_points.Opasity = 1.0f;
 	m_bestScore.Opasity = 1.0f;
+	m_totalEaten.Opasity = 1.0f;
 	m_pauseButton.Opasity = 1.0f;
 	m_stage = PLAYING;
 	m_cubeView.Camera = Level.FocusedCamera;
@@ -299,16 +320,19 @@
 	m_points.FontSize = width > height ? height / 10 : width / 10;
 	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
 	
-	m_bestScore.FontSize = width > height ? height / 11 : width / 11;
-	m_bestScore.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height * 2.0f, 0.0f);
+	m_bestScore.FontSize = width > height ? height / 15 : width / 15;
+	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	
+	m_totalEaten.FontSize = width > height ? height / 20 : width / 20;
+	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height, 0.0f);
 	
 	m_pauseButton.Height = m_buttonSize / 2.0f;
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
 
-	m_pauseRect.top =  height / 2 - m_buttonSize / 4.0f;
-	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize;
-	m_pauseRect.left = -width / 2 + m_buttonSize / 4.0f;
-	m_pauseRect.right = m_pauseRect.left + m_buttonSize;
+	m_pauseRect.top =  height / 2 - m_buttonSize / 8.0f;
+	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize * 2.0f;
+	m_pauseRect.left = -width / 2 + m_buttonSize / 8.0f;
+	m_pauseRect.right = m_pauseRect.left + m_buttonSize * 2.0f;
 	
 	m_pauseFade.Width = width;
 	m_pauseFade.Height = height;
@@ -460,6 +484,8 @@
 			Level.Move = false;
 			m_pauseButton.Opasity = 0.0;
 			m_points.Opasity = 0.0f;
+			m_bestScore.Opasity = 0.0f;
+			m_totalEaten.Opasity = 0.0f;
 			m_pauseFade.Opasity = 0.9f;
 			m_continueButton.Opasity = 1.0f;
 			m_restartButton.Opasity = 1.0f;
@@ -482,6 +508,8 @@
 			Level.Move = true;
 			m_pauseButton.Opasity = 1.0;
 			m_points.Opasity = 1.0f;
+			m_bestScore.Opasity = 1.0f;
+			m_totalEaten.Opasity = 1.0f;
 			m_pauseFade.Opasity = 0.0f;
 			m_continueButton.Opasity = 0.0f;
 			m_restartButton.Opasity = 0.0f;
@@ -501,6 +529,8 @@
 			Level.Move = true;
 			m_pauseButton.Opasity = 1.0;
 			m_points.Opasity = 1.0f;
+			m_bestScore.Opasity = 1.0f;
+			m_totalEaten.Opasity = 1.0f;
 			m_pauseFade.Opasity = 0.0f;
 			m_continueButton.Opasity = 0.0f;
 			m_restartButton.Opasity = 0.0f;
@@ -516,6 +546,7 @@
 		else if([self TestButton:m_gcRect X:rx Y:ry])
 		{
 			[[GameKitHelper sharedGameKitHelper] presentGameCenter];
+			[m_renderBox Pause];
 		}
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 		{
