@@ -72,7 +72,7 @@
 @property NSString* FileName;
 
 - (id)initWithFileName:(NSString*)filename;
-- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
+- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights EnableSpecular:(bool)enablespecular EnableNoise:(bool)enablenoise TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
 
 @end
 

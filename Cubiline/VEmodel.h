@@ -10,6 +10,8 @@
 @property NSMutableArray* Lights;
 @property VEModelDispatcher* ModelBufferDispatcher;
 @property bool DisableLight;
+@property bool EnableNoise;
+@property bool EnableSpecular;
 
 - (id)initWithFileName:(NSString*)filename;
 - (void)Render:(enum VE_RENDER_MODE)rendermode;

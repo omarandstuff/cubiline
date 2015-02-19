@@ -9,6 +9,8 @@
         UNIFORM_NORMAL_MATRIX,
         UNIFORM_CAMERA_POSITION,
         UNIFORM_LIGHTS_NUM,
+		UNIFORM_ENABLE_SPECULAR,
+		UNIFORM_ENABLE_NOISE,
         UNIFORM_MATERIAL_SPECULAR,
         UNIFORM_MATERIAL_SPECULAR_COLOR,
         UNIFORM_COLOR,
@@ -47,7 +49,7 @@
     
 }
 
-- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights MaterialSpecular:(float)specular MaterialSpecularColor:(GLKVector3)specularcolor MaterialGlossiness:(float)glossiness Color:(GLKVector3)color Opasity:(float)opasity
+- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights EnableSpecular:(bool)enablespecular EnableNoise:(bool)enablenoise MaterialSpecular:(float)specular MaterialSpecularColor:(GLKVector3)specularcolor MaterialGlossiness:(float)glossiness Color:(GLKVector3)color Opasity:(float)opasity;
 {
     glUseProgram(m_glProgram);
     
@@ -75,6 +77,10 @@
     // Opasity and color.
     glUniform3fv(m_uniforms[UNIFORM_COLOR], 1, color.v);
     glUniform1f(m_uniforms[UNIFORM_OPASITY], opasity);
+	
+	// Enables.
+	glUniform1i(m_uniforms[UNIFORM_ENABLE_SPECULAR], enablespecular);
+	glUniform1i(m_uniforms[UNIFORM_ENABLE_NOISE], enablenoise);
     
     // Material
     glUniform1f(m_uniforms[UNIFORM_MATERIAL_SPECULAR], specular);
@@ -89,6 +95,8 @@
     m_uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(m_glProgram, "NormalMatrix");
     m_uniforms[UNIFORM_CAMERA_POSITION] = glGetUniformLocation(m_glProgram, "CameraPosition");
     m_uniforms[UNIFORM_LIGHTS_NUM] = glGetUniformLocation(m_glProgram, "LightsNumber");
+	m_uniforms[UNIFORM_ENABLE_SPECULAR] = glGetUniformLocation(m_glProgram, "Specular");
+	m_uniforms[UNIFORM_ENABLE_NOISE] = glGetUniformLocation(m_glProgram, "Noise");
     m_uniforms[UNIFORM_MATERIAL_SPECULAR] = glGetUniformLocation(m_glProgram, "MaterialSpecular");
     m_uniforms[UNIFORM_MATERIAL_SPECULAR_COLOR] = glGetUniformLocation(m_glProgram, "MaterialSpecularColor");
     m_uniforms[UNIFORM_COLOR] = glGetUniformLocation(m_glProgram, "ColorOut");

@@ -24,10 +24,6 @@
 	VEText* m_restartText;
 	Rect m_restartRect;
 	
-	VESprite* m_changeButton;
-	VEText* m_changeText;
-	Rect m_changeRect;
-	
 	VESprite* m_exitButton;
 	VEText* m_exitText;
 	Rect m_exitRect;
@@ -79,7 +75,7 @@
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
 		m_cubeView.ClearColor = WhiteBackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		
 		// Points text
@@ -140,14 +136,6 @@
 		m_restartButton.ScaleTransitionTime = 0.1f;
 		m_restartButton.LockAspect = true;
 		
-		m_changeButton = [m_renderBox NewSpriteFromFileName:@"game_change.png"];
-		m_changeButton.Opasity = 0.0f;
-		m_changeButton.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_changeButton.OpasityTransitionTime = 0.15f;
-		m_changeButton.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_changeButton.ScaleTransitionTime = 0.1f;
-		m_changeButton.LockAspect = true;
-		
 		m_exitButton = [m_renderBox NewSpriteFromFileName:@"game_exit.png"];
 		m_exitButton.Opasity = 0.0f;
 		m_exitButton.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -173,12 +161,7 @@
 		m_restartText.Opasity = 0.0f;
 		m_restartText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_restartText.OpasityTransitionTime = 0.15f;
-		
-		m_changeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Change Game"];
-		m_changeText.Opasity = 0.0f;
-		m_changeText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_changeText.OpasityTransitionTime = 0.15f;
-		
+
 		m_gcText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Scores"];
 		m_gcText.Opasity = 0.0f;
 		m_gcText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -212,12 +195,10 @@
 		[Scene addSprite:m_pauseFade];
 		[Scene addSprite:m_continueButton];
 		[Scene addSprite:m_exitButton];
-		[Scene addSprite:m_changeButton];
 		[Scene addSprite:m_gcButton];
 		[Scene addSprite:m_restartButton];
 		[Scene addText:m_continueText];
 		[Scene addText:m_restartText];
-		[Scene addText:m_changeText];
 		[Scene addText:m_gcText];
 		[Scene addText:m_exitText];
 		
@@ -330,33 +311,30 @@
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
 
 	m_pauseRect.top =  height / 2 - m_buttonSize / 8.0f;
-	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize * 2.0f;
+	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize;
 	m_pauseRect.left = -width / 2 + m_buttonSize / 8.0f;
-	m_pauseRect.right = m_pauseRect.left + m_buttonSize * 2.0f;
+	m_pauseRect.right = m_pauseRect.left + m_buttonSize;
 	
 	m_pauseFade.Width = width;
 	m_pauseFade.Height = height;
 	
 	m_continueButton.Width = m_buttonSize * 2.0f;
 	m_restartButton.Width = m_buttonSize;
-	m_changeButton.Width = m_buttonSize;
 	m_gcButton.Width = m_buttonSize;
 	m_exitButton.Width = m_buttonSize;
 	
-	m_restartButton.Position = GLKVector3Make(-m_buttonSize * 1.5f, 0.0f, 0.0f);
-	m_changeButton.Position = GLKVector3Make(m_buttonSize * 1.5f, 0.0f, 0.0);
+	m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f, 0.0f);
+	
+	m_continueButton.Position = GLKVector3Make(0.0f, m_buttonSize / 2.0f, 0.0f);
 	
 	m_gcButton.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
 	m_exitButton.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
 	
 	m_continueText.FontSize = m_buttonSize * 0.4f;
-	m_continueText.Position = GLKVector3Make(0.0, -m_buttonSize * 1.1f, 0.0f);
+	m_continueText.Position = GLKVector3Make(0.0, m_buttonSize / 2.0f - m_buttonSize * 1.1f, 0.0f);
 	
 	m_restartText.FontSize = m_buttonSize * 0.2f;
-	m_restartText.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 0.55f, 0.0f);
-	
-	m_changeText.FontSize = m_buttonSize * 0.2f;
-	m_changeText.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 0.55f, 0.0f);
+	m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f - m_buttonSize * 0.55f, 0.0f);
 	
 	m_gcText.FontSize = m_buttonSize * 0.2f;
 	m_gcText.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
@@ -364,14 +342,14 @@
 	m_exitText.FontSize = m_buttonSize * 0.2f;
 	m_exitText.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
 	
-	m_continueRect.top = m_buttonSize;
-	m_continueRect.bottom = -m_buttonSize;
+	m_continueRect.top =  m_buttonSize / 2.0f + m_buttonSize;
+	m_continueRect.bottom = m_continueRect.top - m_buttonSize * 2.0f;
 	m_continueRect.left = -m_buttonSize;
 	m_continueRect.right = m_buttonSize;
 	
-	m_restartRect.top = m_buttonSize * 0.55f + m_buttonSize / 2.0f;
-	m_restartRect.bottom = m_exitRect.top - m_buttonSize;
-	m_restartRect.left = -m_buttonSize * 2.0f;
+	m_restartRect.top = -m_buttonSize * 1.5f + m_buttonSize / 2.0f;
+	m_restartRect.bottom = m_restartRect.top - m_buttonSize;
+	m_restartRect.left = -m_buttonSize / 2.0f;
 	m_restartRect.right = m_restartRect.left + m_buttonSize;
 	
 	m_gcRect.top = -height / 2.0f + m_buttonSize * 1.5f;
@@ -491,9 +469,7 @@
 			m_restartButton.Opasity = 1.0f;
 			m_gcButton.Opasity = 1.0f;
 			m_exitButton.Opasity = 1.0f;
-			m_changeButton.Opasity = 1.0f;
 			m_continueText.Opasity = 1.0f;
-			m_changeText.Opasity = 1.0f;
 			m_restartText.Opasity = 1.0f;
 			m_gcText.Opasity = 1.0f;
 			m_exitText.Opasity = 1.0f;
@@ -515,9 +491,7 @@
 			m_restartButton.Opasity = 0.0f;
 			m_gcButton.Opasity = 0.0f;
 			m_exitButton.Opasity = 0.0f;
-			m_changeButton.Opasity = 0.0f;
 			m_continueText.Opasity = 0.0f;
-			m_changeText.Opasity = 0.0f;
 			m_restartText.Opasity = 0.0f;
 			m_gcText.Opasity = 0.0f;
 			m_exitText.Opasity = 0.0f;
@@ -536,9 +510,7 @@
 			m_restartButton.Opasity = 0.0f;
 			m_gcButton.Opasity = 0.0f;
 			m_exitButton.Opasity = 0.0f;
-			m_changeButton.Opasity = 0.0f;
 			m_continueText.Opasity = 0.0f;
-			m_changeText.Opasity = 0.0f;
 			m_restartText.Opasity = 0.0f;
 			m_gcText.Opasity = 0.0f;
 			m_exitText.Opasity = 0.0f;
@@ -555,6 +527,7 @@
 		m_continueButton.Width = m_buttonSize * 2.0f;
 		m_restartButton.Width = m_buttonSize;
 		m_gcButton.Width = m_buttonSize;
+		m_exitButton.Width = m_buttonSize;
 	}
 }
 
@@ -565,9 +538,7 @@
 	m_restartButton.Opasity = 0.0f;
 	m_gcButton.Opasity = 0.0f;
 	m_exitButton.Opasity = 0.0f;
-	m_changeButton.Opasity = 0.0f;
 	m_continueText.Opasity = 0.0f;
-	m_changeText.Opasity = 0.0f;
 	m_restartText.Opasity = 0.0f;
 	m_gcText.Opasity = 0.0f;
 	m_exitText.Opasity = 0.0f;

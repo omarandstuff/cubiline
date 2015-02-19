@@ -16,6 +16,8 @@
 @synthesize Camera;
 @synthesize Lights;
 @synthesize DisableLight;
+@synthesize EnableNoise;
+@synthesize EnableSpecular;
 
 - (id)initWithFileName:(NSString *)filename
 {
@@ -46,8 +48,8 @@
 	
 	if(rendermode == VE_RENDER_MODE_LIGHT && DisableLight)
 		rendermode = VE_RENDER_MODE_TEXTURE;
-		
-	[m_modelBuffer Render:rendermode ModelViewProjectionMatrix:&m_mvpMatrix ModelMatrix:&m_finalMatrix NormalMatrix:&m_normalMatrix CameraPosition:Camera.Position Lights:Lights TextureCompression:m_textureCompression.Vector Color:m_color.Vector Opasity:m_opasity.Value];
+	
+	[m_modelBuffer Render:rendermode ModelViewProjectionMatrix:&m_mvpMatrix ModelMatrix:&m_finalMatrix NormalMatrix:&m_normalMatrix CameraPosition:Camera.Position Lights:Lights EnableSpecular:EnableSpecular EnableNoise:EnableNoise TextureCompression:m_textureCompression.Vector Color:m_color.Vector Opasity:m_opasity.Value];
 }
 
 - (void)dealloc

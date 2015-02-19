@@ -63,7 +63,7 @@
     return self;
 }
 
-- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity
+- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights EnableSpecular:(bool)enablespecular EnableNoise:(bool)enablenoise TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
 {
     for(id key in m_buffers)
     {
@@ -87,7 +87,7 @@
         {
             // Set the shader parameters.
             if(buffer.Material.DiffuseMap == NULL)
-                [ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
+				[ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights EnableSpecular:enablespecular EnableNoise:enablenoise MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
             else
                 [LightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
             

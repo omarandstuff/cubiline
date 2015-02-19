@@ -3103,7 +3103,7 @@
 			Direction = CL_ZONE_FRONT;
 	}
 	
-	FocusedCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	//FocusedCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	
 	// Body.
 	[Body removeAllObjects];
