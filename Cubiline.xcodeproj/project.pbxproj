@@ -37,8 +37,6 @@
 		3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FE1A79EAE9004F88F7 /* VEcolorshader.m */; };
 		373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3121A6DF886003BEE7F /* color_shader.fsh */; };
 		373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3131A6DF886003BEE7F /* color_shader.vsh */; };
-		373EE2661A964E8500E55050 /* color_light_shader_per_vertex.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373EE2641A964E8500E55050 /* color_light_shader_per_vertex.fsh */; };
-		373EE2671A964E8500E55050 /* color_light_shader_per_vertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373EE2651A964E8500E55050 /* color_light_shader_per_vertex.vsh */; };
 		37436E381A86A26000167D31 /* CLgame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E371A86A26000167D31 /* CLgame.m */; };
 		37436E3C1A86A83400167D31 /* CLlevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E3B1A86A83400167D31 /* CLlevel.m */; };
 		37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E421A86D5A700167D31 /* back_wall.obj */; };
@@ -186,8 +184,6 @@
 		3734C5B31A7229AD0039269D /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
 		373CC3121A6DF886003BEE7F /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.fsh; path = Cubiline/Shaders/color_shader.fsh; sourceTree = "<group>"; };
 		373CC3131A6DF886003BEE7F /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.vsh; path = Cubiline/Shaders/color_shader.vsh; sourceTree = "<group>"; };
-		373EE2641A964E8500E55050 /* color_light_shader_per_vertex.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader_per_vertex.fsh; path = Cubiline/Shaders/color_light_shader_per_vertex.fsh; sourceTree = "<group>"; };
-		373EE2651A964E8500E55050 /* color_light_shader_per_vertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader_per_vertex.vsh; path = Cubiline/Shaders/color_light_shader_per_vertex.vsh; sourceTree = "<group>"; };
 		37436E361A86A26000167D31 /* CLgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgame.h; path = Cubiline/CLgame.h; sourceTree = "<group>"; };
 		37436E371A86A26000167D31 /* CLgame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgame.m; path = Cubiline/CLgame.m; sourceTree = "<group>"; };
 		37436E3B1A86A83400167D31 /* CLlevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLlevel.m; path = Cubiline/CLlevel.m; sourceTree = "<group>"; };
@@ -426,8 +422,6 @@
 		3728F54D1A6C4F89004F7244 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				373EE2641A964E8500E55050 /* color_light_shader_per_vertex.fsh */,
-				373EE2651A964E8500E55050 /* color_light_shader_per_vertex.vsh */,
 				3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */,
 				3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */,
 				373CC3121A6DF886003BEE7F /* color_shader.fsh */,
@@ -752,7 +746,6 @@
 				37436E501A86D5A700167D31 /* right_wall.obj in Resources */,
 				3728F5ED1A6C4FF6004F7244 /* light_shader.vsh in Resources */,
 				37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */,
-				373EE2661A964E8500E55050 /* color_light_shader_per_vertex.fsh in Resources */,
 				3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */,
 				378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */,
 				3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */,
@@ -816,7 +809,6 @@
 				37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */,
 				3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */,
 				378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */,
-				373EE2671A964E8500E55050 /* color_light_shader_per_vertex.vsh in Resources */,
 				373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */,
 				3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */,
 				37AF23231A7D5A1300E0829E /* main_menu_about.mtl in Resources */,

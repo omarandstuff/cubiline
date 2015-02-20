@@ -56,7 +56,7 @@
 		[m_gameHolder Resize];
 		m_gameHolder.Level = m_cubilineLevel;
 		
-		m_renderBox.MainView.ClearColor = WhiteBackgroundColor;
+		m_renderBox.MainView.ClearColor = BackgroundColor;
 		m_renderBox.MainView.Scene = m_mainMenu.Scene;
 		m_gameState = GAME_STATE_MAIN_MENU;
 		

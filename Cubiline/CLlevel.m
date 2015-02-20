@@ -542,30 +542,30 @@
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone
 {
 	if(prezone == CL_ZONE_FRONT)
-		FrontWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		FrontWall.Color = SecundaryColor;
 	if(prezone == CL_ZONE_BACK)
-		BackWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		BackWall.Color = SecundaryColor;
 	if(prezone == CL_ZONE_RIGHT)
-		RightWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		RightWall.Color = SecundaryColor;
 	if(prezone == CL_ZONE_LEFT)
-		LeftWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		LeftWall.Color = SecundaryColor;
 	if(prezone == CL_ZONE_TOP)
-		TopWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		TopWall.Color = SecundaryColor;
 	if(prezone == CL_ZONE_BOTTOM)
-		BottomWall.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		BottomWall.Color = SecundaryColor;
 	
 	if(newzone == CL_ZONE_FRONT)
-		FrontWall.Color = GLKVector3Make(0.25f, 1.0f, 0.95f);
+		FrontWall.Color = FrontColor;
 	if(newzone == CL_ZONE_BACK)
-		BackWall.Color = GLKVector3Make(0.89f, 0.22f, 1.0f);
+		BackWall.Color = BackColor;
 	if(newzone == CL_ZONE_RIGHT)
-		RightWall.Color = GLKVector3Make(0.95f, 1.0f, 0.05f);
+		RightWall.Color = RightColor;
 	if(newzone == CL_ZONE_LEFT)
-		LeftWall.Color = GLKVector3Make(0.43f, 1.0f, 0.2f);
+		LeftWall.Color = LeftColor;
 	if(newzone == CL_ZONE_TOP)
-		TopWall.Color = GLKVector3Make(1.0f, 0.25f, 0.16f);
+		TopWall.Color = TopColor;
 	if(newzone == CL_ZONE_BOTTOM)
-		BottomWall.Color = GLKVector3Make(0.2f, 0.2f, 0.2f);
+		BottomWall.Color = BottomColor;
 }
 
 - (void)MannageZones
@@ -2729,11 +2729,11 @@
 	m_guides.ScaleTransitionTime = 0.2f;
 	
 	FrontWall.Color = FrontColor;
-	BackWall.Color = GrayColor;
-	RightWall.Color = GrayColor;
-	LeftWall.Color = GrayColor;
-	TopWall.Color = GrayColor;
-	BottomWall.Color = GrayColor;
+	BackWall.Color = SecundaryColor;
+	RightWall.Color = SecundaryColor;
+	LeftWall.Color = SecundaryColor;
+	TopWall.Color = SecundaryColor;
+	BottomWall.Color = SecundaryColor;
 	
 	FrontWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;

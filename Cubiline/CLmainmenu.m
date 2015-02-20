@@ -70,10 +70,10 @@
 		m_cubeScene = [m_renderBox NewSceneWithName:@"MainMenuCubeScene"];
 		
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:(float)m_renderBox.ScreenHeight Height:(float)m_renderBox.ScreenHeight];
-		m_cubeView.ClearColor = GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f);
+		m_cubeView.ClearColor = BackgroundColor;
 		
 		m_cubeView.Scene = m_cubeScene;
-		m_cubeView.EnableLight = false;
+		m_cubeView.EnableLight = true;
 		
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		
@@ -118,7 +118,7 @@
 		m_sideFront.ScaleTransitionTime = 0.1f;
 		m_sideFront.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideFront.ColorTransitionTime = 0.1f;
-		m_sideFront.Color = GLKVector3Make(0.25f, 1.0f, 0.95f);
+		m_sideFront.Color = FrontColor;
 		m_sideFront.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideFront.RotationTransitionTime = 0.1f;
 		
@@ -127,7 +127,7 @@
 		m_sideRight.ScaleTransitionTime = 0.1f;
 		m_sideRight.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideRight.ColorTransitionTime = 0.1f;
-		m_sideRight.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_sideRight.Color = SecundaryColor;
 		m_sideRight.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideRight.RotationTransitionTime = 0.1f;
 		
@@ -136,7 +136,7 @@
 		m_sideBack.ScaleTransitionTime = 0.1f;
 		m_sideBack.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBack.ColorTransitionTime = 0.1f;
-		m_sideBack.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_sideBack.Color = SecundaryColor;
 		m_sideBack.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBack.RotationTransitionTime = 0.1f;
 		
@@ -145,7 +145,7 @@
 		m_sideLeft.ScaleTransitionTime = 0.1f;
 		m_sideLeft.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideLeft.ColorTransitionTime = 0.1f;
-		m_sideLeft.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_sideLeft.Color = SecundaryColor;
 		m_sideLeft.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideLeft.RotationTransitionTime = 0.1f;
 		
@@ -154,12 +154,12 @@
 		m_sideBottom.ScaleTransitionTime = 0.1f;
 		m_sideBottom.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBottom.ColorTransitionTime = 0.1f;
-		m_sideBottom.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_sideBottom.Color = SecundaryColor;
 		m_sideBottom.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBottom.RotationTransitionTime = 0.1f;
 		
 		m_light = [m_renderBox NewLight];
-		m_light.Position = GLKVector3Make(-2.0f, 3.0f, 5.0f);
+		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);
 		m_light.Color = GLKVector3Make(1.0f, 1.0f, 1.0f);
 		m_light.Intensity = 0.75f;
 		m_light.AttenuationDistance = 100.0f;
@@ -170,7 +170,7 @@
 			m_text.FontSize = m_renderBox.ScreenHeight / 8.0f;
 		else
 			m_text.FontSize = m_renderBox.ScreenWidth / 8.0f;
-		m_text.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+		m_text.Color = TextColor;
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
@@ -423,10 +423,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
 			Selection = CL_MAIN_MENU_SELECTION_PLAY;
-			m_sideFront.Color = GLKVector3Make(0.25f, 1.0f, 0.95f);
+			m_sideFront.Color = FrontColor;
 			
-			m_sideRight.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideLeft.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideRight.Color = SecundaryColor;
+			m_sideLeft.Color = SecundaryColor;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -445,10 +445,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)return;
 			Selection = CL_MAIN_MENU_SELECTION_ABOUT;
-			m_sideLeft.Color = GLKVector3Make(0.43f, 1.0f, 0.2f);
+			m_sideLeft.Color = LeftColor;
 			
-			m_sideFront.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideBack.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideFront.Color = SecundaryColor;
+			m_sideBack.Color = SecundaryColor;
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -467,10 +467,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
 			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
-			m_sideBack.Color = GLKVector3Make(0.89f, 0.22f, 1.0f);
+			m_sideBack.Color = BackColor;
 			
-			m_sideLeft.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideRight.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideLeft.Color = SecundaryColor;
+			m_sideRight.Color = SecundaryColor;
 			
 			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -489,10 +489,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_GC)return;
 			Selection = CL_MAIN_MENU_SELECTION_GC;
-			m_sideRight.Color = GLKVector3Make(0.95f, 1.0f, 0.05f);
+			m_sideRight.Color = RightColor;
 			
-			m_sideFront.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideBack.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideFront.Color = SecundaryColor;
+			m_sideBack.Color = SecundaryColor;
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -513,10 +513,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
 			Selection = CL_MAIN_MENU_SELECTION_PLAY;
-			m_sideFront.Color = GLKVector3Make(0.25f, 1.0f, 0.95f);
+			m_sideFront.Color = FrontColor;
 			
-			m_sideRight.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideLeft.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideRight.Color = SecundaryColor;
+			m_sideLeft.Color = SecundaryColor;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -534,10 +534,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_GC)return;
 			Selection = CL_MAIN_MENU_SELECTION_GC;
-			m_sideRight.Color = GLKVector3Make(0.95f, 1.0f, 0.05f);
+			m_sideRight.Color = RightColor;
 			
-			m_sideFront.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideBack.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideFront.Color = SecundaryColor;
+			m_sideBack.Color = SecundaryColor;
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -555,10 +555,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
 			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
-			m_sideBack.Color = GLKVector3Make(0.89f, 0.22f, 1.0f);
+			m_sideBack.Color = BackColor;
 			
-			m_sideLeft.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideRight.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideLeft.Color = SecundaryColor;
+			m_sideRight.Color = SecundaryColor;
 			
 			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -576,10 +576,10 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)return;
 			Selection = CL_MAIN_MENU_SELECTION_ABOUT;
-			m_sideLeft.Color = GLKVector3Make(0.43f, 1.0f, 0.2f);
+			m_sideLeft.Color = LeftColor;
 			
-			m_sideFront.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
-			m_sideBack.Color = GLKVector3Make(0.3f, 0.35f, 0.4f);
+			m_sideFront.Color = SecundaryColor;
+			m_sideBack.Color = SecundaryColor;
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);

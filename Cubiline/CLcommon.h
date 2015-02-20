@@ -88,11 +88,25 @@ struct rect
 	float right;
 	float left;
 };
+//#define PrimaryColor GLKVector3Make(0.1372f, 0.1568f, 0.1647f)
+//#define SecundaryColor GLKVector3Make(0.4705f, 0.5294f, 0.5490f)
+//#define TertiaryColor GLKVector3Make(0.3f, 0.35f, 0.4f) (0.1372f, 0.1568f, 0.1647f, 1.0f)
+
+#define PrimaryColor GLKVector3Make(0.3f, 0.35f, 0.4f)
+#define SecundaryColor GLKVector3Make(0.1372f, 0.1568f, 0.1647f)
+#define TertiaryColor GLKVector3Make(0.3f, 0.35f, 0.4f)
+#define BackgroundColor GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f)
+#define TextColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 
 #define GrayColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 #define WhiteBackgroundColor GLKVector4Make(0.95f, 0.95f, 1.0f, 1.0f)
 
-#define FrontColor GLKVector3Make(0.25f, 1.0f, 0.95f)
+#define FrontColor GLKVector3Make(0.0f, 0.76f, 1.0f)
+#define BackColor GLKVector3Make(0.35f, 0.15f, 0.62f)
+#define RightColor GLKVector3Make(0.0f, 1.0f, 0.4f)
+#define LeftColor GLKVector3Make(1.0f, 0.36f, 0.0f)
+#define TopColor GLKVector3Make(1.0f, 0.96f, 0.0f)
+#define BottomColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 
 #define SmallSizeVector GLKVector3Make(9.0f, 9.0f, 9.0f)
 #define NormalSizeVector GLKVector3Make(15.0f, 15.0f, 15.0f)
