@@ -20,6 +20,10 @@
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;
+
+- (void)Pause;
+- (void)Play;
+
 @end
 
 #endif

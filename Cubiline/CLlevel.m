@@ -2752,15 +2752,15 @@
 	// Lights
 	TopLight = [m_renderBox NewLight];
 	TopLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
-	TopLight.AmbientCoefficient = 0.0f;
+	TopLight.AmbientCoefficient = 0.05f;
 	TopLight.AttenuationDistance = 200.0f;
-	TopLight.Intensity = 2.5f;
+	TopLight.Intensity = 1.5f;
 	
 	BottomLight = [m_renderBox NewLight];
 	BottomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
-	BottomLight.AmbientCoefficient = 0.0f;
+	BottomLight.AmbientCoefficient = 0.05f;
 	BottomLight.AttenuationDistance = 200.0f;
-	BottomLight.Intensity = 2.5f;
+	BottomLight.Intensity = 1.5f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
@@ -3242,6 +3242,19 @@
 - (bool)Move
 {
 	return Move;
+}
+
+- (void)setBodyColor:(GLKVector3)color
+{
+	BodyColor = color;
+	self.Leader.Color = BodyColor;
+	for(CLBody* body in Body)
+		body.Model.Color = color;
+}
+
+- (GLKVector3)BodyColor
+{
+	return BodyColor;
 }
 
 @end

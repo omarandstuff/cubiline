@@ -6,6 +6,8 @@
     VELightShader* m_lightShader;
     VEColorLightShader* m_colorLightShader;
 	VEColorShader* m_colorShader;
+	VEDiffuseShader* m_diffuseShader;
+	VEColorDiffuseShader* m_colorDiffuseShader;
     VEDepthShader* m_depthShader;
     VEFullScreenShader* m_fullScreenShader;
     VEGaussianBlurShader* m_gaussianBlurShader;
@@ -136,6 +138,8 @@
     m_lightShader = [[VELightShader alloc] init];
     m_colorLightShader = [[VEColorLightShader alloc] init];
 	m_colorShader = [[VEColorShader alloc] init];
+	m_diffuseShader = [[VEDiffuseShader alloc] init];
+	m_colorDiffuseShader = [[VEColorDiffuseShader alloc] init];
     m_depthShader = [[VEDepthShader alloc] init];
     m_fullScreenShader = [[VEFullScreenShader alloc] init];
     m_gaussianBlurShader = [[VEGaussianBlurShader alloc] init];
@@ -151,6 +155,8 @@
     m_modelBufferDispatcher.LightShader = m_lightShader;
     m_modelBufferDispatcher.ColorLightShader = m_colorLightShader;
 	m_modelBufferDispatcher.ColorShader = m_colorShader;
+	m_modelBufferDispatcher.DiffuseShader = m_diffuseShader;
+	m_modelBufferDispatcher.ColorDiffuseShader = m_colorDiffuseShader;
     m_modelBufferDispatcher.DepthShader = m_depthShader;
     m_modelBufferDispatcher.TextureShader = m_textureShader;
     

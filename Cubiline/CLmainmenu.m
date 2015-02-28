@@ -121,6 +121,7 @@
 		m_sideFront.Color = FrontColor;
 		m_sideFront.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideFront.RotationTransitionTime = 0.1f;
+		m_sideFront.EnableSpecular = true;
 		
 		m_sideRight = [m_renderBox NewModelFromFileName:@"right_wall"];
 		m_sideRight.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -130,6 +131,7 @@
 		m_sideRight.Color = SecundaryColor;
 		m_sideRight.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideRight.RotationTransitionTime = 0.1f;
+		m_sideRight.EnableSpecular = true;
 		
 		m_sideBack = [m_renderBox NewModelFromFileName:@"back_wall"];
 		m_sideBack.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -139,6 +141,7 @@
 		m_sideBack.Color = SecundaryColor;
 		m_sideBack.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBack.RotationTransitionTime = 0.1f;
+		m_sideBack.EnableSpecular = true;
 		
 		m_sideLeft = [m_renderBox NewModelFromFileName:@"left_wall"];
 		m_sideLeft.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -148,6 +151,7 @@
 		m_sideLeft.Color = SecundaryColor;
 		m_sideLeft.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideLeft.RotationTransitionTime = 0.1f;
+		m_sideLeft.EnableSpecular = true;
 		
 		m_sideBottom = [m_renderBox NewModelFromFileName:@"bottom_wall"];
 		m_sideBottom.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -157,6 +161,7 @@
 		m_sideBottom.Color = SecundaryColor;
 		m_sideBottom.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBottom.RotationTransitionTime = 0.1f;
+		m_sideFront.EnableSpecular = true;
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);

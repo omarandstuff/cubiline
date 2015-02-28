@@ -43,6 +43,8 @@
 @synthesize LightShader;
 @synthesize ColorLightSahder;
 @synthesize ColorShader;
+@synthesize DiffuseShader;
+@synthesize ColorDiffuseShader;
 @synthesize DepthShader;
 @synthesize TextureShader;
 @synthesize FileName;
@@ -87,7 +89,10 @@
         {
             // Set the shader parameters.
             if(buffer.Material.DiffuseMap == NULL)
-				[ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights EnableSpecular:enablespecular EnableNoise:enablenoise MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
+				if(enablespecular)
+					[ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights EnableSpecular:enablespecular EnableNoise:enablenoise MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
+				else
+					[ColorDiffuseShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix Lights:lights Color:color Opasity:opasity];
             else
                 [LightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
             

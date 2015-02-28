@@ -14,6 +14,8 @@
 @property VEDepthShader* DepthShader;
 @property VELightShader* LightShader;
 @property VEColorLightShader* ColorLightShader;
+@property VEDiffuseShader* DiffuseShader;
+@property VEColorDiffuseShader* ColorDiffuseShader;
 @property VEColorShader* ColorShader;
 @property VETextureShader* TextureShader;
 

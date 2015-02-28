@@ -26,7 +26,7 @@
 	if(self)
 	{
         m_modelBuffer = [ModelBufferDispatcher GetModelBufferByFileName:filename];
-		self.EnableSpecular = true;
+		self.EnableSpecular = false;
 		self.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	}
 	

@@ -37,6 +37,12 @@
 		3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FE1A79EAE9004F88F7 /* VEcolorshader.m */; };
 		373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3121A6DF886003BEE7F /* color_shader.fsh */; };
 		373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373CC3131A6DF886003BEE7F /* color_shader.vsh */; };
+		373E62991AA2323000ACC243 /* VEcolordiffuseshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E62961AA2323000ACC243 /* VEcolordiffuseshader.m */; };
+		373E629A1AA2323000ACC243 /* VEdiffuseshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E62981AA2323000ACC243 /* VEdiffuseshader.m */; };
+		373E629F1AA232A500ACC243 /* color_diffuse_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629B1AA232A500ACC243 /* color_diffuse_shader.fsh */; };
+		373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */; };
+		373E62A11AA232A500ACC243 /* diffuse_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629D1AA232A500ACC243 /* diffuse_shader.fsh */; };
+		373E62A21AA232A500ACC243 /* diffuse_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629E1AA232A500ACC243 /* diffuse_shader.vsh */; };
 		37436E381A86A26000167D31 /* CLgame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E371A86A26000167D31 /* CLgame.m */; };
 		37436E3C1A86A83400167D31 /* CLlevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E3B1A86A83400167D31 /* CLlevel.m */; };
 		37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E421A86D5A700167D31 /* back_wall.obj */; };
@@ -184,6 +190,14 @@
 		3734C5B31A7229AD0039269D /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
 		373CC3121A6DF886003BEE7F /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.fsh; path = Cubiline/Shaders/color_shader.fsh; sourceTree = "<group>"; };
 		373CC3131A6DF886003BEE7F /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.vsh; path = Cubiline/Shaders/color_shader.vsh; sourceTree = "<group>"; };
+		373E62951AA2323000ACC243 /* VEcolordiffuseshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcolordiffuseshader.h; path = Cubiline/VEcolordiffuseshader.h; sourceTree = "<group>"; };
+		373E62961AA2323000ACC243 /* VEcolordiffuseshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEcolordiffuseshader.m; path = Cubiline/VEcolordiffuseshader.m; sourceTree = "<group>"; };
+		373E62971AA2323000ACC243 /* VEdiffuseshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdiffuseshader.h; path = Cubiline/VEdiffuseshader.h; sourceTree = "<group>"; };
+		373E62981AA2323000ACC243 /* VEdiffuseshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEdiffuseshader.m; path = Cubiline/VEdiffuseshader.m; sourceTree = "<group>"; };
+		373E629B1AA232A500ACC243 /* color_diffuse_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_diffuse_shader.fsh; path = Cubiline/Shaders/color_diffuse_shader.fsh; sourceTree = "<group>"; };
+		373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_diffuse_shader.vsh; path = Cubiline/Shaders/color_diffuse_shader.vsh; sourceTree = "<group>"; };
+		373E629D1AA232A500ACC243 /* diffuse_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = diffuse_shader.fsh; path = Cubiline/Shaders/diffuse_shader.fsh; sourceTree = "<group>"; };
+		373E629E1AA232A500ACC243 /* diffuse_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = diffuse_shader.vsh; path = Cubiline/Shaders/diffuse_shader.vsh; sourceTree = "<group>"; };
 		37436E361A86A26000167D31 /* CLgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgame.h; path = Cubiline/CLgame.h; sourceTree = "<group>"; };
 		37436E371A86A26000167D31 /* CLgame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgame.m; path = Cubiline/CLgame.m; sourceTree = "<group>"; };
 		37436E3B1A86A83400167D31 /* CLlevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLlevel.m; path = Cubiline/CLlevel.m; sourceTree = "<group>"; };
@@ -235,7 +249,7 @@
 		377A84FF1A79EAE9004F88F7 /* VEcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEcommon.h; path = Cubiline/VEcommon.h; sourceTree = "<group>"; };
 		377A85001A79EAE9004F88F7 /* VEdepthoffieldshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdepthoffieldshader.h; path = Cubiline/VEdepthoffieldshader.h; sourceTree = "<group>"; };
 		377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEdepthoffieldshader.m; path = Cubiline/VEdepthoffieldshader.m; sourceTree = "<group>"; };
-		377A85021A79EAE9004F88F7 /* VEdepthShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdepthShader.h; path = Cubiline/VEdepthShader.h; sourceTree = "<group>"; };
+		377A85021A79EAE9004F88F7 /* VEdepthshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEdepthshader.h; path = Cubiline/VEdepthshader.h; sourceTree = "<group>"; };
 		377A85031A79EAE9004F88F7 /* VEdepthshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEdepthshader.m; path = Cubiline/VEdepthshader.m; sourceTree = "<group>"; };
 		377A85041A79EAE9004F88F7 /* VEeffect1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEeffect1.h; path = Cubiline/VEeffect1.h; sourceTree = "<group>"; };
 		377A85051A79EAE9004F88F7 /* VEeffect1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEeffect1.m; path = Cubiline/VEeffect1.m; sourceTree = "<group>"; };
@@ -422,6 +436,8 @@
 		3728F54D1A6C4F89004F7244 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				373E629B1AA232A500ACC243 /* color_diffuse_shader.fsh */,
+				373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */,
 				3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */,
 				3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */,
 				373CC3121A6DF886003BEE7F /* color_shader.fsh */,
@@ -432,6 +448,8 @@
 				3728F5D51A6C4FF6004F7244 /* depth_shader.vsh */,
 				3728F5D61A6C4FF6004F7244 /* depth_texture_shader.fsh */,
 				3728F5D71A6C4FF6004F7244 /* depth_texture_shader.vsh */,
+				373E629D1AA232A500ACC243 /* diffuse_shader.fsh */,
+				373E629E1AA232A500ACC243 /* diffuse_shader.vsh */,
 				3728F5D81A6C4FF6004F7244 /* fullscreen_shader.fsh */,
 				3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */,
 				3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */,
@@ -479,6 +497,8 @@
 				377A84F81A79EAE9004F88F7 /* VEaudiobox.m */,
 				377A84F91A79EAE9004F88F7 /* VEcamera.h */,
 				377A84FA1A79EAE9004F88F7 /* VEcamera.m */,
+				373E62951AA2323000ACC243 /* VEcolordiffuseshader.h */,
+				373E62961AA2323000ACC243 /* VEcolordiffuseshader.m */,
 				377A84FB1A79EAE9004F88F7 /* VEcolorlightshader.h */,
 				377A84FC1A79EAE9004F88F7 /* VEcolorlightshader.m */,
 				377A84FD1A79EAE9004F88F7 /* VEcolorshader.h */,
@@ -486,8 +506,10 @@
 				377A84FF1A79EAE9004F88F7 /* VEcommon.h */,
 				377A85001A79EAE9004F88F7 /* VEdepthoffieldshader.h */,
 				377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */,
-				377A85021A79EAE9004F88F7 /* VEdepthShader.h */,
+				377A85021A79EAE9004F88F7 /* VEdepthshader.h */,
 				377A85031A79EAE9004F88F7 /* VEdepthshader.m */,
+				373E62971AA2323000ACC243 /* VEdiffuseshader.h */,
+				373E62981AA2323000ACC243 /* VEdiffuseshader.m */,
 				377A85041A79EAE9004F88F7 /* VEeffect1.h */,
 				377A85051A79EAE9004F88F7 /* VEeffect1.m */,
 				377A85061A79EAE9004F88F7 /* VEeffect3.h */,
@@ -752,6 +774,7 @@
 				3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */,
 				37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */,
 				378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */,
+				373E62A11AA232A500ACC243 /* diffuse_shader.fsh in Resources */,
 				378EDB031A79D83200397989 /* VE_Logo.png in Resources */,
 				378EDAFD1A79BB7100397989 /* Tahoma.txt in Resources */,
 				3728F5E71A6C4FF6004F7244 /* depth_texture_shader.vsh in Resources */,
@@ -761,6 +784,7 @@
 				3734C5B11A7229400039269D /* geosphere_medium.mtl in Resources */,
 				378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */,
 				3734C5B21A7229400039269D /* geosphere_medium.obj in Resources */,
+				373E62A21AA232A500ACC243 /* diffuse_shader.vsh in Resources */,
 				374FCCAA1A86D89700B14ACB /* bottom_wall.obj in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
 				3728F5CC1A6C4FEB004F7244 /* starwars.wav in Resources */,
@@ -782,6 +806,7 @@
 				3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */,
 				378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */,
 				3728F5EC1A6C4FF6004F7244 /* light_shader.fsh in Resources */,
+				373E629F1AA232A500ACC243 /* color_diffuse_shader.fsh in Resources */,
 				378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */,
 				3758D12A1A7C6D2D00982ABE /* main_menu_game_center.png in Resources */,
 				37AF23241A7D5A1300E0829E /* main_menu_about.obj in Resources */,
@@ -807,6 +832,7 @@
 				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
 				3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */,
 				37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */,
+				373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */,
 				3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */,
 				378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */,
 				373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */,
@@ -847,6 +873,7 @@
 				377A85511A79EAE9004F88F7 /* VEmodelbufferdispatcher.m in Sources */,
 				377A855A1A79EAE9004F88F7 /* VEsprite.m in Sources */,
 				377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */,
+				373E62991AA2323000ACC243 /* VEcolordiffuseshader.m in Sources */,
 				377A85421A79EAE9004F88F7 /* VEcamera.m in Sources */,
 				377A85571A79EAE9004F88F7 /* VEsound.m in Sources */,
 				377A85581A79EAE9004F88F7 /* VEsoundbuffer.m in Sources */,
@@ -866,6 +893,7 @@
 				37604EE01A88019200F77B76 /* CLtouchable.m in Sources */,
 				377A854C1A79EAE9004F88F7 /* VEgaussianblurshader.m in Sources */,
 				374FCCAF1A86DCCD00B14ACB /* CLgamesetup.m in Sources */,
+				373E629A1AA2323000ACC243 /* VEdiffuseshader.m in Sources */,
 				377A854F1A79EAE9004F88F7 /* VEmodel.m in Sources */,
 				377A85431A79EAE9004F88F7 /* VEcolorlightshader.m in Sources */,
 				377A85411A79EAE9004F88F7 /* VEaudiobox.m in Sources */,

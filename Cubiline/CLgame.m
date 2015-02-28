@@ -26,6 +26,8 @@
 	
 	bool m_justEaten;
 	bool m_justRequested;
+	
+	bool m_playing;
 }
 
 @end
@@ -47,6 +49,7 @@
 		[m_mainMenu Resize];
 		
 		m_cubilineLevel = [[CLLevel alloc] initWithRenderBox:m_renderBox];
+		m_cubilineLevel.BodyColor = GLKVector3Make(0.9, 0.95, 1.);
 		
 		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox];
 		[m_gameSetUp Resize];
@@ -68,7 +71,7 @@
 		m_player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
 		m_player.numberOfLoops = 100000;
 		
-		[m_player play];
+		//[m_player play];
 	}
 	
 	return self;
@@ -76,6 +79,7 @@
 
 - (void)Frame:(float)time
 {
+	if(!m_playing) return;
 	if(!m_justEaten)
 	{
 		if([GameKitHelper sharedGameKitHelper].LoggedIn)
@@ -179,6 +183,7 @@
 
 - (void)Render
 {
+	if(!m_playing) return;
 	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Render];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
@@ -255,6 +260,16 @@
 		[m_gameSetUp TouchUp:x Y:y Fingers:fingers];
 	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchUp:x Y:y Fingers:fingers];
+}
+
+- (void)Pause
+{
+	m_playing = false;
+}
+
+- (void)Play
+{
+	m_playing = true;
 }
 
 

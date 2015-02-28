@@ -71,6 +71,7 @@
 	[m_renderBox Render];
 	
 	[m_renderBox Play];
+	[m_game Play];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -94,6 +95,7 @@
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
 	[m_renderBox Play];
+	[m_game Play];
 }
 
 - (void)dealloc

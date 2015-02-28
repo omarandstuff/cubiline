@@ -4,6 +4,8 @@
 #import "VEtexturedispatcher.h"
 #import "VElightshader.h"
 #import "VEcolorlightshader.h"
+#import "VEdiffuseshader.h"
+#import "VEcolordiffuseshader.h"
 #import "VEcolorshader.h"
 #import "VEdepthShader.h"
 #import "VEtextureshader.h"
@@ -68,6 +70,8 @@
 @property VELightShader* LightShader;
 @property VEColorLightShader* ColorLightSahder;
 @property VEColorShader* ColorShader;
+@property VEDiffuseShader* DiffuseShader;
+@property VEColorDiffuseShader* ColorDiffuseShader;
 @property VETextureShader* TextureShader;
 @property NSString* FileName;
 

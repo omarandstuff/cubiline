@@ -15,6 +15,8 @@
 @synthesize LightShader;
 @synthesize ColorLightShader;
 @synthesize ColorShader;
+@synthesize DiffuseShader;
+@synthesize ColorDiffuseShader;
 @synthesize DepthShader;
 @synthesize TextureShader;
 
@@ -46,6 +48,8 @@
     currentBuffer.ModelBuffer.LightShader = LightShader;
     currentBuffer.ModelBuffer.ColorLightSahder = ColorLightShader;
 	currentBuffer.ModelBuffer.ColorShader = ColorShader;
+	currentBuffer.ModelBuffer.DiffuseShader = DiffuseShader;
+	currentBuffer.ModelBuffer.ColorDiffuseShader = ColorDiffuseShader;
     currentBuffer.ModelBuffer.DepthShader = DepthShader;
     currentBuffer.ModelBuffer.TextureShader = TextureShader;
     currentBuffer.ModelBuffer = [currentBuffer.ModelBuffer initWithFileName:filename];
