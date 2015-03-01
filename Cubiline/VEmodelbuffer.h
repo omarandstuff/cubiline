@@ -7,6 +7,8 @@
 #import "VEdiffuseshader.h"
 #import "VEcolordiffuseshader.h"
 #import "VEcolorshader.h"
+#import "VEvertexlightshader.h"
+#import "VEvertexcolorlightshader.h"
 #import "VEdepthShader.h"
 #import "VEtextureshader.h"
 #import "VEcommon.h"
@@ -67,6 +69,8 @@
 
 @property VETextureDispatcher* TextureDispatcher;
 @property VEDepthShader* DepthShader;
+@property VEVertexLightShader* VertexLightShader;
+@property VEVertexColorLightShader* VertexColorLightShader;
 @property VELightShader* LightShader;
 @property VEColorLightShader* ColorLightSahder;
 @property VEColorShader* ColorShader;
@@ -76,7 +80,7 @@
 @property NSString* FileName;
 
 - (id)initWithFileName:(NSString*)filename;
-- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights EnableSpecular:(bool)enablespecular EnableNoise:(bool)enablenoise TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
+- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
 
 @end
 

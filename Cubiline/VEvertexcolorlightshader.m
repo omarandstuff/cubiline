@@ -1,16 +1,18 @@
-#import "VEdiffuseshader.h"
+#import "VEvertexcolorlightshader.h"
 
-@interface VEDiffuseShader()
+@interface VEVertexColorLightShader()
 {
 	enum
 	{
 		UNIFORM_MODELVIEWPROJECTION_MATRIX,
 		UNIFORM_MODEL_MATRIX,
 		UNIFORM_NORMAL_MATRIX,
+		UNIFORM_CAMERA_POSITION,
 		UNIFORM_LIGHTS_NUM,
-		UNIFORM_TEXTURE,
+		UNIFORM_MATERIAL_SPECULAR,
+		UNIFORM_MATERIAL_SPECULAR_COLOR,
+		UNIFORM_COLOR,
 		UNIFORM_OPASITY,
-		UNIFORM_TEXTURE_COMPRESSION,
 		NUM_UNIFORMS
 	};
 	enum
@@ -32,11 +34,11 @@
 
 @end
 
-@implementation VEDiffuseShader
+@implementation VEVertexColorLightShader
 
 - (id)init
 {
-	self = [super initWithShaderName:@"diffuse_shader" BufferIn:VE_BUFFER_MODE_ALL];
+	self = [super initWithShaderName:@"vertex_color_light_shader" BufferIn:VE_BUFFER_MODE_POSITION_NORMAL];
 	
 	if(self)
 		[self SetUpSahder];
@@ -45,7 +47,7 @@
 	
 }
 
-- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix Lights:(NSMutableArray*)lights TextureID:(GLuint)textureid TextureCompression:(GLKVector3)texturecompression Opasity:(float)opasity;
+- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights MaterialSpecular:(float)specular MaterialSpecularColor:(GLKVector3)specularcolor MaterialGlossiness:(float)glossiness Color:(GLKVector3)color Opasity:(float)opasity;
 {
 	glUseProgram(m_glProgram);
 	
@@ -68,17 +70,15 @@
 	glUniformMatrix4fv(m_uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, mvpmatrix->m);
 	glUniformMatrix4fv(m_uniforms[UNIFORM_MODEL_MATRIX], 1, 0, modelmatrix->m);
 	glUniformMatrix3fv(m_uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalmatrix->m);
+	glUniform3fv(m_uniforms[UNIFORM_CAMERA_POSITION], 1, position.v);
 	
-	// Opasity.
+	// Opasity and color.
+	glUniform3fv(m_uniforms[UNIFORM_COLOR], 1, color.v);
 	glUniform1f(m_uniforms[UNIFORM_OPASITY], opasity);
 	
-	// Testure compression.
-	glUniform2f(m_uniforms[UNIFORM_TEXTURE_COMPRESSION], texturecompression.x, texturecompression.y);
-	
-	// Set one texture to render and the current texture to render.
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureid);
-	glUniform1i(m_uniforms[UNIFORM_TEXTURE], 0);
+	// Material
+	glUniform1f(m_uniforms[UNIFORM_MATERIAL_SPECULAR], specular);
+	glUniform3fv(m_uniforms[UNIFORM_MATERIAL_SPECULAR_COLOR], 1, GLKVector3MultiplyScalar(specularcolor, glossiness).v);
 }
 
 - (void)SetUpSahder
@@ -87,10 +87,12 @@
 	m_uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_glProgram, "ModelViewProjectionMatrix");
 	m_uniforms[UNIFORM_MODEL_MATRIX] = glGetUniformLocation(m_glProgram, "ModelMatrix");
 	m_uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(m_glProgram, "NormalMatrix");
+	m_uniforms[UNIFORM_CAMERA_POSITION] = glGetUniformLocation(m_glProgram, "CameraPosition");
 	m_uniforms[UNIFORM_LIGHTS_NUM] = glGetUniformLocation(m_glProgram, "LightsNumber");
-	m_uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(m_glProgram, "TextureOut");
+	m_uniforms[UNIFORM_MATERIAL_SPECULAR] = glGetUniformLocation(m_glProgram, "MaterialSpecular");
+	m_uniforms[UNIFORM_MATERIAL_SPECULAR_COLOR] = glGetUniformLocation(m_glProgram, "MaterialSpecularColor");
+	m_uniforms[UNIFORM_COLOR] = glGetUniformLocation(m_glProgram, "ColorOut");
 	m_uniforms[UNIFORM_OPASITY] = glGetUniformLocation(m_glProgram, "OpasityOut");
-	m_uniforms[UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(m_glProgram, "TextureCompressionIn");
 	
 	for(int i = 0; i < 10; i++)
 	{

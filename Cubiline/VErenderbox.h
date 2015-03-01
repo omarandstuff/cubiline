@@ -17,9 +17,6 @@
 - (void)Render;
 - (void)Resize;
 
-- (void)Pause;
-- (void)Play;
-
 - (VESprite*)NewSpriteFromFileName:(NSString*)filename;
 - (VESprite*)NewSpriteFromTexture:(VETexture*)texture;
 - (VESprite*)NewSolidSpriteWithColor:(GLKVector3)color;

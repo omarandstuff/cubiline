@@ -25,7 +25,7 @@ void main()
     highp vec4 colorLight;
     highp float diffuseCoefficient;
     highp vec4 perLightColor;
-    highp vec4 finalColor = vec4(0.0, 0.0, 0.0, 1.0);
+    highp vec4 finalColor = vec4(0.0, 0.0, 0.0, OpasityOut);
 	
 	// Color component.
 	highp vec4 surfaceColor = vec4(ColorOut, 1.0);
@@ -56,5 +56,5 @@ void main()
         finalColor += perLightColor;
     }
     
-    gl_FragColor = finalColor * OpasityOut;
+    gl_FragColor = finalColor;
 }

@@ -6,6 +6,7 @@
 	CLGame* m_game;
 	VERenderBox* m_renderBox;
     VEAudioBox* m_audioBox;
+	VEGameCenter* m_gameCenter;
 	VETimer* m_timer;
 	
 	float m_multipler;
@@ -47,6 +48,10 @@
 	view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 	view.contentScaleFactor = m_multipler;
 	
+	// Create the Game Center manager object.
+	m_gameCenter = [[VEGameCenter alloc] init];
+	m_gameCenter.MainViewController = self;
+	
 	//Create the timer object.
 	m_timer = [[VETimer alloc] init];
 	
@@ -69,33 +74,19 @@
 	[m_renderBox Frame:0.0f];
 	[m_game Frame:0.0f];
 	[m_renderBox Render];
-	
-	[m_renderBox Play];
-	[m_game Play];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
- 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showAuthenticationViewController) name:PresentAuthenticationViewController object:nil];
- 
-	[[GameKitHelper sharedGameKitHelper] authenticateLocalPlayer];
-	
-	[GameKitHelper sharedGameKitHelper].MainGameCenterView = self;
-}
-
-- (void)showAuthenticationViewController
+- (void)viewDidAppear:(BOOL)animated
 {
-	GameKitHelper *gameKitHelper = [GameKitHelper sharedGameKitHelper];
- 
-	[self presentViewController: gameKitHelper.authenticationViewController animated:YES completion:nil];
+	[super viewDidAppear:animated];
+	
+	[m_gameCenter AuthenticateLocalPlayer];
 }
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
-	[m_renderBox Play];
-	[m_game Play];
+	m_gameCenter.Presenting = false;
 }
 
 - (void)dealloc
@@ -124,6 +115,9 @@
 
 - (void)update
 {
+	// The authentification View Controller is presented.
+	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting) return;
+	
 	// Update the timer to adjust the time we wnat to use.
 	[m_timer Frame:self.timeSinceLastUpdate];
 	

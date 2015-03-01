@@ -45,6 +45,8 @@
 @synthesize ColorShader;
 @synthesize DiffuseShader;
 @synthesize ColorDiffuseShader;
+@synthesize VertexLightShader;
+@synthesize VertexColorLightShader;
 @synthesize DepthShader;
 @synthesize TextureShader;
 @synthesize FileName;
@@ -65,7 +67,7 @@
     return self;
 }
 
-- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)noramlmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights EnableSpecular:(bool)enablespecular EnableNoise:(bool)enablenoise TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
+- (void)Render:(enum VE_RENDER_MODE)rendermode ModelViewProjectionMatrix:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureCompression:(GLKVector3)texturecompression Color:(GLKVector3)color Opasity:(float)opasity;
 {
     for(id key in m_buffers)
     {
@@ -85,22 +87,43 @@
             glDisableVertexAttribArray(GLKVertexAttribNormal);
         }
         
-        if(rendermode == VE_RENDER_MODE_LIGHT)
+        if(rendermode == VE_RENDER_MODE_FRAGMENT_LIGHT)
         {
             // Set the shader parameters.
             if(buffer.Material.DiffuseMap == NULL)
-				if(enablespecular)
-					[ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights EnableSpecular:enablespecular EnableNoise:enablenoise MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
-				else
-					[ColorDiffuseShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix Lights:lights Color:color Opasity:opasity];
+				[ColorLightSahder Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
             else
-                [LightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:noramlmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
+                [LightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
             
             glEnableVertexAttribArray(GLKVertexAttribPosition);
             glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
             glEnableVertexAttribArray(GLKVertexAttribNormal);
         }
-        
+		if(rendermode == VE_RENDER_MODE_VERTEX_LIGHT)
+		{
+			// Set the shader parameters.
+			if(buffer.Material.DiffuseMap == NULL)
+				[VertexColorLightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
+			else
+				[VertexLightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
+			
+			glEnableVertexAttribArray(GLKVertexAttribPosition);
+			glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+			glEnableVertexAttribArray(GLKVertexAttribNormal);
+		}
+		if(rendermode == VE_RENDER_MODE_DIFFUSE)
+		{
+			// Set the shader parameters.
+			if(buffer.Material.DiffuseMap == NULL)
+				[ColorDiffuseShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix Lights:lights Color:color Opasity:opasity];
+			else
+				[DiffuseShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression Opasity:opasity];
+			
+			glEnableVertexAttribArray(GLKVertexAttribPosition);
+			glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+			glEnableVertexAttribArray(GLKVertexAttribNormal);
+		}
+		
         if(rendermode == VE_RENDER_MODE_TEXTURE)
         {
             // Set the shader parameters.

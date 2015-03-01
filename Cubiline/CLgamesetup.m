@@ -72,7 +72,7 @@
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeView.Camera = m_cubeCamera;
-		m_cubeView.EnableLight = true;
+		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Camera SetUp
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;

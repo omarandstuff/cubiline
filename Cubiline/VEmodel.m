@@ -15,9 +15,7 @@
 @synthesize ModelBufferDispatcher;
 @synthesize Camera;
 @synthesize Lights;
-@synthesize DisableLight;
-@synthesize EnableNoise;
-@synthesize EnableSpecular;
+@synthesize ForcedRenderMode;
 
 - (id)initWithFileName:(NSString *)filename
 {
@@ -26,7 +24,7 @@
 	if(self)
 	{
         m_modelBuffer = [ModelBufferDispatcher GetModelBufferByFileName:filename];
-		self.EnableSpecular = false;
+		self.ForcedRenderMode = VE_RENDER_MODE_NONE;
 		self.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	}
 	
@@ -47,10 +45,12 @@
     m_mvpMatrix = GLKMatrix4Multiply(Camera.ViewMatrix, m_finalMatrix);
     m_mvpMatrix = GLKMatrix4Multiply(Camera.ProjectionMatrix, m_mvpMatrix);
 	
-	if(rendermode == VE_RENDER_MODE_LIGHT && DisableLight)
-		rendermode = VE_RENDER_MODE_TEXTURE;
-	
-	[m_modelBuffer Render:rendermode ModelViewProjectionMatrix:&m_mvpMatrix ModelMatrix:&m_finalMatrix NormalMatrix:&m_normalMatrix CameraPosition:Camera.Position Lights:Lights EnableSpecular:EnableSpecular EnableNoise:EnableNoise TextureCompression:m_textureCompression.Vector Color:m_color.Vector Opasity:m_opasity.Value];
+	if(ForcedRenderMode != VE_RENDER_MODE_NONE)
+	{
+		[m_modelBuffer Render:ForcedRenderMode ModelViewProjectionMatrix:&m_mvpMatrix ModelMatrix:&m_finalMatrix NormalMatrix:&m_normalMatrix CameraPosition:Camera.Position Lights:Lights TextureCompression:m_textureCompression.Vector Color:m_color.Vector Opasity:m_opasity.Value];
+	}
+	else
+		[m_modelBuffer Render:rendermode ModelViewProjectionMatrix:&m_mvpMatrix ModelMatrix:&m_finalMatrix NormalMatrix:&m_normalMatrix CameraPosition:Camera.Position Lights:Lights TextureCompression:m_textureCompression.Vector Color:m_color.Vector Opasity:m_opasity.Value];
 }
 
 - (void)dealloc

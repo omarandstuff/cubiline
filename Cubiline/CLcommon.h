@@ -1,9 +1,9 @@
 #ifndef Cubiline_CLcommon_h
 #define Cubiline_CLcommon_h
 
+#import "VEgamecenter.h"
 #import "VErenderbox.h"
 #import "VEaudiobox.h"
-#import "GCHelper.h"
 
 enum CL_ZONE
 {

@@ -2468,8 +2468,8 @@
 	
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
 	{
-		[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
-		[[GameKitHelper sharedGameKitHelper] GetHighScore];
+		//[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
+		//[[GameKitHelper sharedGameKitHelper] GetHighScore];
 		[self ResetInZone:Zone Up:ZoneUp];
 		[self Play];
 		return;
@@ -2709,6 +2709,7 @@
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
+	m_guides.ForcedRenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
 	
 	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -2752,15 +2753,11 @@
 	// Lights
 	TopLight = [m_renderBox NewLight];
 	TopLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
-	TopLight.AmbientCoefficient = 0.05f;
-	TopLight.AttenuationDistance = 200.0f;
-	TopLight.Intensity = 1.5f;
+	TopLight.Intensity = 1.9f;
 	
 	BottomLight = [m_renderBox NewLight];
 	BottomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
-	BottomLight.AmbientCoefficient = 0.05f;
-	BottomLight.AttenuationDistance = 200.0f;
-	BottomLight.Intensity = 1.5f;
+	BottomLight.Intensity = 1.8f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];

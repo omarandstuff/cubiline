@@ -6,7 +6,7 @@
 
 @interface VEDiffuseShader : VEShader
 
-- (void)Render:(GLKMatrix4*)mvpmatrix Lights:(NSMutableArray*)lights TextureID:(GLuint)textureid TextureCompression:(GLKVector3)texturecompression Opasity:(float)opasity;
+- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix Lights:(NSMutableArray*)lights TextureID:(GLuint)textureid TextureCompression:(GLKVector3)texturecompression Opasity:(float)opasity;
 
 @end
 

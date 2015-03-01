@@ -36,10 +36,10 @@
 @synthesize Depth;
 @synthesize Width;
 @synthesize Height;
-@synthesize EnableLight;
 @synthesize ClearColor;
 @synthesize Scene;
 @synthesize Fader;
+@synthesize RenderMode;
 
 - (id)initAs:(enum VE_VIEW_TYPE)viewtype GLKView:(GLKView*)glkview Width:(GLint)width Height:(GLint)height
 {
@@ -54,6 +54,8 @@
         
         Width = width;
         Height = height;
+		
+		self.RenderMode = VE_RENDER_MODE_TEXTURE;
         
         [self ResizeWithWidth:width Height:height];
         [self CreateFullScreen];
@@ -84,11 +86,8 @@
      {
          model.Camera = Camera;
          model.Lights = Scene.Lights;
-         
-         if(EnableLight)
-             [model Render:VE_RENDER_MODE_LIGHT];
-         else
-             [model Render:VE_RENDER_MODE_TEXTURE];
+		 
+		 [model Render:RenderMode];
      }];
 	
     if(Camera.DepthOfField)

@@ -75,8 +75,7 @@
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
 		m_cubeView.ClearColor = WhiteBackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		m_cubeView.EnableLight = true;
-		
+		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Points text
 		m_points = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
@@ -232,7 +231,7 @@
 			m_pointsEffect.Value = Level.Points;
 	}
 	
-	int high = [GameKitHelper sharedGameKitHelper].HighScore;
+	int high = 0;//[GameKitHelper sharedGameKitHelper].HighScore;
 	int totalEaten = Level.TotalEaten;
 	
 	if(high != m_highScore)
@@ -247,7 +246,7 @@
 		m_total = totalEaten;
 		m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
 		m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height, 0.0f);
-		[[GameKitHelper sharedGameKitHelper] submitScore:m_total category:@"cubiline_total_eaten"];
+		//[[GameKitHelper sharedGameKitHelper] submitScore:m_total category:@"cubiline_total_eaten"];
 	}
 	
 	if(active)
@@ -517,8 +516,7 @@
 		}
 		else if([self TestButton:m_gcRect X:rx Y:ry])
 		{
-			[[GameKitHelper sharedGameKitHelper] presentGameCenter];
-			[m_renderBox Pause];
+			//[[GameKitHelper sharedGameKitHelper] presentGameCenter];
 		}
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 		{

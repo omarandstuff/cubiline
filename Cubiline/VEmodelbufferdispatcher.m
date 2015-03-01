@@ -15,6 +15,8 @@
 @synthesize LightShader;
 @synthesize ColorLightShader;
 @synthesize ColorShader;
+@synthesize VertexLightShader;
+@synthesize VertexColorLightShader;
 @synthesize DiffuseShader;
 @synthesize ColorDiffuseShader;
 @synthesize DepthShader;
@@ -48,6 +50,8 @@
     currentBuffer.ModelBuffer.LightShader = LightShader;
     currentBuffer.ModelBuffer.ColorLightSahder = ColorLightShader;
 	currentBuffer.ModelBuffer.ColorShader = ColorShader;
+	currentBuffer.ModelBuffer.VertexLightShader = VertexLightShader;
+	currentBuffer.ModelBuffer.VertexColorLightShader = VertexColorLightShader;
 	currentBuffer.ModelBuffer.DiffuseShader = DiffuseShader;
 	currentBuffer.ModelBuffer.ColorDiffuseShader = ColorDiffuseShader;
     currentBuffer.ModelBuffer.DepthShader = DepthShader;

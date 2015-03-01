@@ -19,15 +19,9 @@
 		GAME_STATE_PLAYING,
 		GAME_STATE_FROM_PLAYING_TO_MAIN_MENU
 	};
-	
 	enum GAME_STATE m_gameState;
 	
 	AVAudioPlayer* m_player;
-	
-	bool m_justEaten;
-	bool m_justRequested;
-	
-	bool m_playing;
 }
 
 @end
@@ -79,26 +73,6 @@
 
 - (void)Frame:(float)time
 {
-	if(!m_playing) return;
-	if(!m_justEaten)
-	{
-		if([GameKitHelper sharedGameKitHelper].LoggedIn)
-		{
-			if(!m_justRequested)
-			{
-				[[GameKitHelper sharedGameKitHelper] GetTotalEaten];
-				m_justRequested = false;
-			}
-			if(!m_justEaten)
-			{
-				if ([GameKitHelper sharedGameKitHelper].TotalEatenLoaded)
-				{
-					m_cubilineLevel.TotalEaten += [GameKitHelper sharedGameKitHelper].TotalEaten;
-					m_justEaten = true;
-				}
-			}
-		}
-	}
 	if(m_gameState == GAME_STATE_MAIN_MENU)
 	{
 		[m_mainMenu Frame:time];
@@ -116,8 +90,6 @@
 			if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_GC)
 			{
 				[m_mainMenu Reset];
-				[[GameKitHelper sharedGameKitHelper] presentGameCenter];
-				[m_renderBox Pause];
 			}
 		}
 	}
@@ -142,7 +114,6 @@
 			[m_gameSetUp OutToPlay];
 			m_gameState = GAME_STATE_FROM_GAME_SETUP_TO_PLAY;
 			[m_mainMenu Reset];
-			[[GameKitHelper sharedGameKitHelper] GetHighScore];
 			m_cubilineLevel.Dance = false;
 			m_cubilineLevel.Follow = true;
 			m_cubilineLevel.Feed = true;
@@ -183,7 +154,6 @@
 
 - (void)Render
 {
-	if(!m_playing) return;
 	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Render];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
@@ -261,16 +231,5 @@
 	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder TouchUp:x Y:y Fingers:fingers];
 }
-
-- (void)Pause
-{
-	m_playing = false;
-}
-
-- (void)Play
-{
-	m_playing = true;
-}
-
 
 @end

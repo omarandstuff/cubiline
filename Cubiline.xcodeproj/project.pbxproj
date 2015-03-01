@@ -13,8 +13,8 @@
 		3728F5CC1A6C4FEB004F7244 /* starwars.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BD1A6C4FEB004F7244 /* starwars.wav */; };
 		3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BF1A6C4FEB004F7244 /* wall.mtl */; };
 		3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5C01A6C4FEB004F7244 /* wall.obj */; };
-		3728F5E01A6C4FF6004F7244 /* color_light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */; };
-		3728F5E11A6C4FF6004F7244 /* color_light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */; };
+		3728F5E01A6C4FF6004F7244 /* vertex_color_light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D01A6C4FF6004F7244 /* vertex_color_light_shader.fsh */; };
+		3728F5E11A6C4FF6004F7244 /* vertex_color_light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D11A6C4FF6004F7244 /* vertex_color_light_shader.vsh */; };
 		3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */; };
 		3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D31A6C4FF6004F7244 /* depth_of_field_shader.vsh */; };
 		3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D41A6C4FF6004F7244 /* depth_shader.fsh */; };
@@ -25,8 +25,8 @@
 		3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */; };
 		3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */; };
 		3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */; };
-		3728F5EC1A6C4FF6004F7244 /* light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */; };
-		3728F5ED1A6C4FF6004F7244 /* light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */; };
+		3728F5EC1A6C4FF6004F7244 /* vertex_light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DC1A6C4FF6004F7244 /* vertex_light_shader.fsh */; };
+		3728F5ED1A6C4FF6004F7244 /* vertex_light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DD1A6C4FF6004F7244 /* vertex_light_shader.vsh */; };
 		3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */; };
 		3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */; };
 		3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3728F5F11A6C5027004F7244 /* AVFoundation.framework */; };
@@ -43,6 +43,13 @@
 		373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */; };
 		373E62A11AA232A500ACC243 /* diffuse_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629D1AA232A500ACC243 /* diffuse_shader.fsh */; };
 		373E62A21AA232A500ACC243 /* diffuse_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E629E1AA232A500ACC243 /* diffuse_shader.vsh */; };
+		373E62A51AA2713600ACC243 /* VEgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E62A41AA2713600ACC243 /* VEgamecenter.m */; };
+		373E62B01AA28ABE00ACC243 /* color_light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E62AC1AA28ABE00ACC243 /* color_light_shader.fsh */; };
+		373E62B11AA28ABE00ACC243 /* color_light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E62AD1AA28ABE00ACC243 /* color_light_shader.vsh */; };
+		373E62B21AA28ABE00ACC243 /* light_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E62AE1AA28ABE00ACC243 /* light_shader.fsh */; };
+		373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 373E62AF1AA28ABE00ACC243 /* light_shader.vsh */; };
+		373E62B81AA30C6C00ACC243 /* VEvertexcolorlightshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E62B51AA30C6C00ACC243 /* VEvertexcolorlightshader.m */; };
+		373E62B91AA30C6C00ACC243 /* VEvertexlightshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 373E62B71AA30C6C00ACC243 /* VEvertexlightshader.m */; };
 		37436E381A86A26000167D31 /* CLgame.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E371A86A26000167D31 /* CLgame.m */; };
 		37436E3C1A86A83400167D31 /* CLlevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 37436E3B1A86A83400167D31 /* CLlevel.m */; };
 		37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37436E421A86D5A700167D31 /* back_wall.obj */; };
@@ -74,7 +81,6 @@
 		3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771AC041A6CC7B8008E74D9 /* images.xcassets */; };
 		377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */; };
 		377A84EC1A79EA15004F88F7 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26231A6C4EFD00DB4E6C /* GameViewController.m */; };
-		377A853C1A79EAE9004F88F7 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84EE1A79EAE9004F88F7 /* GCHelper.m */; };
 		377A85401A79EAE9004F88F7 /* VE3Dobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84F61A79EAE9004F88F7 /* VE3Dobject.m */; };
 		377A85411A79EAE9004F88F7 /* VEaudiobox.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84F81A79EAE9004F88F7 /* VEaudiobox.m */; };
 		377A85421A79EAE9004F88F7 /* VEcamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84FA1A79EAE9004F88F7 /* VEcamera.m */; };
@@ -166,8 +172,8 @@
 		3728F5BD1A6C4FEB004F7244 /* starwars.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = starwars.wav; path = Cubiline/Resources/starwars.wav; sourceTree = "<group>"; };
 		3728F5BF1A6C4FEB004F7244 /* wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.mtl; path = Cubiline/Resources/wall.mtl; sourceTree = "<group>"; };
 		3728F5C01A6C4FEB004F7244 /* wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.obj; path = Cubiline/Resources/wall.obj; sourceTree = "<group>"; };
-		3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.fsh; path = Cubiline/Shaders/color_light_shader.fsh; sourceTree = "<group>"; };
-		3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.vsh; path = Cubiline/Shaders/color_light_shader.vsh; sourceTree = "<group>"; };
+		3728F5D01A6C4FF6004F7244 /* vertex_color_light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vertex_color_light_shader.fsh; path = Cubiline/Shaders/vertex_color_light_shader.fsh; sourceTree = "<group>"; };
+		3728F5D11A6C4FF6004F7244 /* vertex_color_light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vertex_color_light_shader.vsh; path = Cubiline/Shaders/vertex_color_light_shader.vsh; sourceTree = "<group>"; };
 		3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_of_field_shader.fsh; path = Cubiline/Shaders/depth_of_field_shader.fsh; sourceTree = "<group>"; };
 		3728F5D31A6C4FF6004F7244 /* depth_of_field_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_of_field_shader.vsh; path = Cubiline/Shaders/depth_of_field_shader.vsh; sourceTree = "<group>"; };
 		3728F5D41A6C4FF6004F7244 /* depth_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_shader.fsh; path = Cubiline/Shaders/depth_shader.fsh; sourceTree = "<group>"; };
@@ -178,8 +184,8 @@
 		3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.vsh; path = Cubiline/Shaders/fullscreen_shader.vsh; sourceTree = "<group>"; };
 		3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = gaussian_blur_shader.fsh; path = Cubiline/Shaders/gaussian_blur_shader.fsh; sourceTree = "<group>"; };
 		3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = gaussian_blur_shader.vsh; path = Cubiline/Shaders/gaussian_blur_shader.vsh; sourceTree = "<group>"; };
-		3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.fsh; path = Cubiline/Shaders/light_shader.fsh; sourceTree = "<group>"; };
-		3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.vsh; path = Cubiline/Shaders/light_shader.vsh; sourceTree = "<group>"; };
+		3728F5DC1A6C4FF6004F7244 /* vertex_light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vertex_light_shader.fsh; path = Cubiline/Shaders/vertex_light_shader.fsh; sourceTree = "<group>"; };
+		3728F5DD1A6C4FF6004F7244 /* vertex_light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vertex_light_shader.vsh; path = Cubiline/Shaders/vertex_light_shader.vsh; sourceTree = "<group>"; };
 		3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Cubiline/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
 		3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Cubiline/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
 		3728F5F11A6C5027004F7244 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -198,6 +204,16 @@
 		373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_diffuse_shader.vsh; path = Cubiline/Shaders/color_diffuse_shader.vsh; sourceTree = "<group>"; };
 		373E629D1AA232A500ACC243 /* diffuse_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = diffuse_shader.fsh; path = Cubiline/Shaders/diffuse_shader.fsh; sourceTree = "<group>"; };
 		373E629E1AA232A500ACC243 /* diffuse_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = diffuse_shader.vsh; path = Cubiline/Shaders/diffuse_shader.vsh; sourceTree = "<group>"; };
+		373E62A31AA2713600ACC243 /* VEgamecenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEgamecenter.h; path = Cubiline/VEgamecenter.h; sourceTree = "<group>"; };
+		373E62A41AA2713600ACC243 /* VEgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEgamecenter.m; path = Cubiline/VEgamecenter.m; sourceTree = "<group>"; };
+		373E62AC1AA28ABE00ACC243 /* color_light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.fsh; path = Cubiline/Shaders/color_light_shader.fsh; sourceTree = "<group>"; };
+		373E62AD1AA28ABE00ACC243 /* color_light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_light_shader.vsh; path = Cubiline/Shaders/color_light_shader.vsh; sourceTree = "<group>"; };
+		373E62AE1AA28ABE00ACC243 /* light_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.fsh; path = Cubiline/Shaders/light_shader.fsh; sourceTree = "<group>"; };
+		373E62AF1AA28ABE00ACC243 /* light_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = light_shader.vsh; path = Cubiline/Shaders/light_shader.vsh; sourceTree = "<group>"; };
+		373E62B41AA30C6C00ACC243 /* VEvertexcolorlightshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEvertexcolorlightshader.h; path = Cubiline/VEvertexcolorlightshader.h; sourceTree = "<group>"; };
+		373E62B51AA30C6C00ACC243 /* VEvertexcolorlightshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEvertexcolorlightshader.m; path = Cubiline/VEvertexcolorlightshader.m; sourceTree = "<group>"; };
+		373E62B61AA30C6C00ACC243 /* VEvertexlightshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEvertexlightshader.h; path = Cubiline/VEvertexlightshader.h; sourceTree = "<group>"; };
+		373E62B71AA30C6C00ACC243 /* VEvertexlightshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEvertexlightshader.m; path = Cubiline/VEvertexlightshader.m; sourceTree = "<group>"; };
 		37436E361A86A26000167D31 /* CLgame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgame.h; path = Cubiline/CLgame.h; sourceTree = "<group>"; };
 		37436E371A86A26000167D31 /* CLgame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgame.m; path = Cubiline/CLgame.m; sourceTree = "<group>"; };
 		37436E3B1A86A83400167D31 /* CLlevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLlevel.m; path = Cubiline/CLlevel.m; sourceTree = "<group>"; };
@@ -234,8 +250,6 @@
 		37604EE41A88562900F77B76 /* game_setup_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_plus.png; path = Cubiline/Resources/game_setup_plus.png; sourceTree = "<group>"; };
 		376B55D61A82BFF500CC011F /* game_menu_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_back.png; path = Cubiline/Resources/game_menu_back.png; sourceTree = "<group>"; };
 		3771AC041A6CC7B8008E74D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
-		377A84ED1A79EAE9004F88F7 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCHelper.h; path = Cubiline/GCHelper.h; sourceTree = "<group>"; };
-		377A84EE1A79EAE9004F88F7 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCHelper.m; path = Cubiline/GCHelper.m; sourceTree = "<group>"; };
 		377A84F51A79EAE9004F88F7 /* VE3Dobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VE3Dobject.h; path = Cubiline/VE3Dobject.h; sourceTree = "<group>"; };
 		377A84F61A79EAE9004F88F7 /* VE3Dobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VE3Dobject.m; path = Cubiline/VE3Dobject.m; sourceTree = "<group>"; };
 		377A84F71A79EAE9004F88F7 /* VEaudiobox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEaudiobox.h; path = Cubiline/VEaudiobox.h; sourceTree = "<group>"; };
@@ -438,8 +452,8 @@
 			children = (
 				373E629B1AA232A500ACC243 /* color_diffuse_shader.fsh */,
 				373E629C1AA232A500ACC243 /* color_diffuse_shader.vsh */,
-				3728F5D01A6C4FF6004F7244 /* color_light_shader.fsh */,
-				3728F5D11A6C4FF6004F7244 /* color_light_shader.vsh */,
+				373E62AC1AA28ABE00ACC243 /* color_light_shader.fsh */,
+				373E62AD1AA28ABE00ACC243 /* color_light_shader.vsh */,
 				373CC3121A6DF886003BEE7F /* color_shader.fsh */,
 				373CC3131A6DF886003BEE7F /* color_shader.vsh */,
 				3728F5D21A6C4FF6004F7244 /* depth_of_field_shader.fsh */,
@@ -454,12 +468,16 @@
 				3728F5D91A6C4FF6004F7244 /* fullscreen_shader.vsh */,
 				3728F5DA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh */,
 				3728F5DB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh */,
-				3728F5DC1A6C4FF6004F7244 /* light_shader.fsh */,
-				3728F5DD1A6C4FF6004F7244 /* light_shader.vsh */,
+				373E62AE1AA28ABE00ACC243 /* light_shader.fsh */,
+				373E62AF1AA28ABE00ACC243 /* light_shader.vsh */,
 				37B3D6631A7836CE00084D7B /* text_shader.fsh */,
 				37B3D6641A7836CE00084D7B /* text_shader.vsh */,
 				3728F5DE1A6C4FF6004F7244 /* texture_shader.fsh */,
 				3728F5DF1A6C4FF6004F7244 /* texture_shader.vsh */,
+				3728F5D01A6C4FF6004F7244 /* vertex_color_light_shader.fsh */,
+				3728F5D11A6C4FF6004F7244 /* vertex_color_light_shader.vsh */,
+				3728F5DC1A6C4FF6004F7244 /* vertex_light_shader.fsh */,
+				3728F5DD1A6C4FF6004F7244 /* vertex_light_shader.vsh */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -482,8 +500,8 @@
 				37604EDC1A88019200F77B76 /* CLmainmenu.m */,
 				37604EDD1A88019200F77B76 /* CLtouchable.h */,
 				37604EDE1A88019200F77B76 /* CLtouchable.m */,
-				377A84ED1A79EAE9004F88F7 /* GCHelper.h */,
-				377A84EE1A79EAE9004F88F7 /* GCHelper.m */,
+				373E62A31AA2713600ACC243 /* VEgamecenter.h */,
+				373E62A41AA2713600ACC243 /* VEgamecenter.m */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -560,6 +578,10 @@
 				377A85351A79EAE9004F88F7 /* VEtextureshader.m */,
 				377A85361A79EAE9004F88F7 /* VEtimer.h */,
 				377A85371A79EAE9004F88F7 /* VEtimer.m */,
+				373E62B41AA30C6C00ACC243 /* VEvertexcolorlightshader.h */,
+				373E62B51AA30C6C00ACC243 /* VEvertexcolorlightshader.m */,
+				373E62B61AA30C6C00ACC243 /* VEvertexlightshader.h */,
+				373E62B71AA30C6C00ACC243 /* VEvertexlightshader.m */,
 				377A85381A79EAE9004F88F7 /* VEview.h */,
 				377A85391A79EAE9004F88F7 /* VEview.m */,
 				377A853A1A79EAE9004F88F7 /* VEwatch.h */,
@@ -755,7 +777,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3728F5E11A6C4FF6004F7244 /* color_light_shader.vsh in Resources */,
+				3728F5E11A6C4FF6004F7244 /* vertex_color_light_shader.vsh in Resources */,
 				37AF23261A7D5A7500E0829E /* main_menu_about.png in Resources */,
 				3758D11A1A7C61A900982ABE /* main_menu_play.mtl in Resources */,
 				374FCCBF1A86FFEA00B14ACB /* game_guides.png in Resources */,
@@ -764,9 +786,10 @@
 				378EDB011A79D49800397989 /* Cubiline Half.png in Resources */,
 				376B55D71A82BFF500CC011F /* game_menu_back.png in Resources */,
 				37604EE21A8829CC00F77B76 /* test_song.mp3 in Resources */,
+				373E62B11AA28ABE00ACC243 /* color_light_shader.vsh in Resources */,
 				37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */,
 				37436E501A86D5A700167D31 /* right_wall.obj in Resources */,
-				3728F5ED1A6C4FF6004F7244 /* light_shader.vsh in Resources */,
+				3728F5ED1A6C4FF6004F7244 /* vertex_light_shader.vsh in Resources */,
 				37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */,
 				3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */,
 				378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */,
@@ -803,9 +826,10 @@
 				3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */,
 				3728F5C91A6C4FEB004F7244 /* oldhorn.wav in Resources */,
 				378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */,
+				373E62B21AA28ABE00ACC243 /* light_shader.fsh in Resources */,
 				3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */,
 				378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */,
-				3728F5EC1A6C4FF6004F7244 /* light_shader.fsh in Resources */,
+				3728F5EC1A6C4FF6004F7244 /* vertex_light_shader.fsh in Resources */,
 				373E629F1AA232A500ACC243 /* color_diffuse_shader.fsh in Resources */,
 				378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */,
 				3758D12A1A7C6D2D00982ABE /* main_menu_game_center.png in Resources */,
@@ -813,13 +837,14 @@
 				378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */,
 				37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */,
 				37BCAAE91A91760200FFFE6D /* game_exit.png in Resources */,
-				3728F5E01A6C4FF6004F7244 /* color_light_shader.fsh in Resources */,
+				3728F5E01A6C4FF6004F7244 /* vertex_color_light_shader.fsh in Resources */,
 				37436E4C1A86D5A700167D31 /* front_wall.obj in Resources */,
 				3758D1271A7C6BF200982ABE /* main_menu_game_center.mtl in Resources */,
 				37436E4E1A86D5A700167D31 /* left_wall.obj in Resources */,
 				3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */,
 				37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */,
 				378EDAF61A79BB7100397989 /* Gau Font Cube Big.png in Resources */,
+				373E62B01AA28ABE00ACC243 /* color_light_shader.fsh in Resources */,
 				3758D11B1A7C61A900982ABE /* main_menu_play.obj in Resources */,
 				3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */,
 				378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */,
@@ -827,6 +852,7 @@
 				37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */,
 				378EDAF41A79BB7100397989 /* Aharoni.png in Resources */,
 				378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */,
+				373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */,
 				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
 				3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */,
 				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
@@ -867,6 +893,7 @@
 				377A85591A79EAE9004F88F7 /* VEsoundbufferdispatcher.m in Sources */,
 				377A855D1A79EAE9004F88F7 /* VEtexture.m in Sources */,
 				377A85481A79EAE9004F88F7 /* VEeffect3.m in Sources */,
+				373E62A51AA2713600ACC243 /* VEgamecenter.m in Sources */,
 				377A85521A79EAE9004F88F7 /* VErandom.m in Sources */,
 				377A85601A79EAE9004F88F7 /* VEtimer.m in Sources */,
 				377A85611A79EAE9004F88F7 /* VEview.m in Sources */,
@@ -902,10 +929,11 @@
 				377A85451A79EAE9004F88F7 /* VEdepthoffieldshader.m in Sources */,
 				37436E381A86A26000167D31 /* CLgame.m in Sources */,
 				378EDB621A79E65100397989 /* main.m in Sources */,
+				373E62B81AA30C6C00ACC243 /* VEvertexcolorlightshader.m in Sources */,
 				37FA76B21A901A9E0097497D /* CLgameholder.m in Sources */,
 				377A855E1A79EAE9004F88F7 /* VEtexturedispatcher.m in Sources */,
+				373E62B91AA30C6C00ACC243 /* VEvertexlightshader.m in Sources */,
 				377A85551A79EAE9004F88F7 /* VEscene.m in Sources */,
-				377A853C1A79EAE9004F88F7 /* GCHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

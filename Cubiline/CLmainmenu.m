@@ -71,47 +71,47 @@
 		
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:(float)m_renderBox.ScreenHeight Height:(float)m_renderBox.ScreenHeight];
 		m_cubeView.ClearColor = BackgroundColor;
+		m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
 		
 		m_cubeView.Scene = m_cubeScene;
-		m_cubeView.EnableLight = true;
 		
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		
 		m_playIcon = [m_renderBox NewModelFromFileName:@"main_menu_play"];
 		m_playIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_playIcon.ScaleTransitionTime = 0.1f;
-		m_playIcon.DisableLight = true;
 		m_playIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_playIcon.RotationTransitionTime = 0.1f;
 		m_playIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
 		m_playIcon.OpasityTransitionTime = 0.3f;
+		m_playIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_gameCenterIcon = [m_renderBox NewModelFromFileName:@"main_menu_game_center"];
 		m_gameCenterIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_gameCenterIcon.ScaleTransitionTime = 0.1f;
-		m_gameCenterIcon.DisableLight = true;
 		m_gameCenterIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_gameCenterIcon.RotationTransitionTime = 0.1f;
 		m_gameCenterIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
 		m_gameCenterIcon.OpasityTransitionTime = 0.3f;
+		m_gameCenterIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_settingsIcon = [m_renderBox NewModelFromFileName:@"main_menu_settings"];
 		m_settingsIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_settingsIcon.ScaleTransitionTime = 0.1f;
-		m_settingsIcon.DisableLight = true;
 		m_settingsIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_settingsIcon.RotationTransitionTime = 0.1f;
 		m_settingsIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
 		m_settingsIcon.OpasityTransitionTime = 0.3f;
+		m_settingsIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_aboutIcon = [m_renderBox NewModelFromFileName:@"main_menu_about"];
 		m_aboutIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_aboutIcon.ScaleTransitionTime = 0.1f;
-		m_aboutIcon.DisableLight = true;
 		m_aboutIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_aboutIcon.RotationTransitionTime = 0.1f;
 		m_aboutIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
 		m_aboutIcon.OpasityTransitionTime = 0.3f;
+		m_aboutIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_sideFront = [m_renderBox NewModelFromFileName:@"front_wall"];
 		m_sideFront.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -121,7 +121,6 @@
 		m_sideFront.Color = FrontColor;
 		m_sideFront.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideFront.RotationTransitionTime = 0.1f;
-		m_sideFront.EnableSpecular = true;
 		
 		m_sideRight = [m_renderBox NewModelFromFileName:@"right_wall"];
 		m_sideRight.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -131,7 +130,6 @@
 		m_sideRight.Color = SecundaryColor;
 		m_sideRight.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideRight.RotationTransitionTime = 0.1f;
-		m_sideRight.EnableSpecular = true;
 		
 		m_sideBack = [m_renderBox NewModelFromFileName:@"back_wall"];
 		m_sideBack.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -141,7 +139,6 @@
 		m_sideBack.Color = SecundaryColor;
 		m_sideBack.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBack.RotationTransitionTime = 0.1f;
-		m_sideBack.EnableSpecular = true;
 		
 		m_sideLeft = [m_renderBox NewModelFromFileName:@"left_wall"];
 		m_sideLeft.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -151,7 +148,6 @@
 		m_sideLeft.Color = SecundaryColor;
 		m_sideLeft.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideLeft.RotationTransitionTime = 0.1f;
-		m_sideLeft.EnableSpecular = true;
 		
 		m_sideBottom = [m_renderBox NewModelFromFileName:@"bottom_wall"];
 		m_sideBottom.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -161,7 +157,6 @@
 		m_sideBottom.Color = SecundaryColor;
 		m_sideBottom.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sideBottom.RotationTransitionTime = 0.1f;
-		m_sideFront.EnableSpecular = true;
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);

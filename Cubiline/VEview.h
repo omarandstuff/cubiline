@@ -17,10 +17,10 @@
 @property VETexture* Depth;
 @property (readonly) int Width;
 @property (readonly) int Height;
-@property bool EnableLight;
 @property GLKVector4 ClearColor;
 @property VEScene* Scene;
 @property VESprite* Fader;
+@property enum VE_RENDER_MODE RenderMode;
 
 - (id)initAs:(enum VE_VIEW_TYPE)viewtype GLKView:(GLKView*)glkview Width:(GLint)width Height:(GLint)height;
 - (void)ResizeWithWidth:(GLint)width Height:(GLint)height;

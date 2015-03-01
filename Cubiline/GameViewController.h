@@ -1,6 +1,8 @@
 #import "CLgame.h"
 #import "AppDelegate.h"
 
-@interface GameViewController : GLKViewController<GKGameCenterControllerDelegate, GKLocalPlayerListener, UIGestureRecognizerDelegate>
+@interface GameViewController : GLKViewController<UIGestureRecognizerDelegate, GKGameCenterControllerDelegate>
+
+
 
 @end
