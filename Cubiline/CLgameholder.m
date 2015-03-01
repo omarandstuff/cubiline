@@ -263,18 +263,6 @@
 	m_cubeImage.Texture = m_cubeView.Color;
 }
 
-- (void)Begin
-{
-	m_points.Opasity = 1.0f;
-	m_bestScore.Opasity = 1.0f;
-	m_totalEaten.Opasity = 1.0f;
-	m_pauseButton.Opasity = 1.0f;
-	m_stage = PLAYING;
-	m_cubeView.Camera = Level.FocusedCamera;
-	
-	Exit = false;
-}
-
 - (void)Resize
 {
 	float width = m_renderBox.ScreenWidth;
@@ -527,6 +515,18 @@
 		m_gcButton.Width = m_buttonSize;
 		m_exitButton.Width = m_buttonSize;
 	}
+}
+
+- (void)Begin
+{
+	m_points.Opasity = 1.0f;
+	m_bestScore.Opasity = 1.0f;
+	m_totalEaten.Opasity = 1.0f;
+	m_pauseButton.Opasity = 1.0f;
+	m_stage = PLAYING;
+	m_cubeView.Camera = Level.FocusedCamera;
+	
+	Exit = false;
 }
 
 - (void)OutToMainMenu

@@ -13,9 +13,8 @@ varying vec3 NormalOut;
 
 void main()
 {
-    gl_Position = ModelViewProjectionMatrix * PositionIn;
-    
-    PositionOut = (ModelMatrix * PositionIn).xyz;;
-    TexCoordOut = TexCoordIn * TextureCompressionIn;
+	gl_Position = ModelViewProjectionMatrix * PositionIn;
+	PositionOut = (ModelMatrix * PositionIn).xyz;
+	TexCoordOut = TexCoordIn * TextureCompressionIn;
 	NormalOut = normalize(NormalMatrix * NormalIn);
 }

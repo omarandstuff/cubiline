@@ -161,6 +161,9 @@
 		
 		m_watch = [[VEWatch alloc] init];
 		m_watch.Style = VE_WATCH_STYLE_LIMITED;
+		
+		m_size = CL_SIZE_NORMAL;
+		m_speed = CL_SIZE_NORMAL;
 	}
 	
 	return self;
@@ -248,36 +251,6 @@
 	m_sizeText.Position = GLKVector3Make(-m_buttonSize, m_playButtonRect.top + m_playText.Height * 0.3f, 0.0f);
 }
 
-- (void)InToSetUp
-{
-	m_cubeView.Camera = m_cubeCamera;
-	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.3f)];
-	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
-	[m_cubeCamera ResetPivotRotation:GLKVector3Make(26.5650501, 0.0f, 0.0f)];
-}
-- (void)Begin
-{
-	[Level Reset];
-	[self ResizeLevel:CL_SIZE_SMALL];
-	Level.Dance = true;
-	m_playText.Opasity = 1.0f;
-	m_speedText.Opasity = 1.0f;
-	m_sizeText.Opasity = 1.0f;
-	m_plusButton.Opasity = 1.0f;
-	m_minusButton.Opasity = 0.5f;
-	m_playButton.Opasity = 1.0f;
-	m_speedButton.Opasity = 1.0f;
-	m_sizeButton.Opasity = 0.5f;
-	m_minusButtonEnable = false;
-	m_plusButtonEnable = true;
-	m_speedButtonEnable = true;
-	m_sizeButtonEnable = false;
-	m_size = CL_SIZE_SMALL;
-	m_speed = CL_SIZE_SMALL;
-	m_step = 0;
-	m_play = false;
-}
-
 - (void)ResizeLevel:(enum CL_SIZE)size
 {
 	Level.Size = size;
@@ -285,11 +258,29 @@
 	float radious;
 	
 	if(size == CL_SIZE_SMALL)
+	{
 		radious = 9.0f * 2.3;
+		m_minusButton.Opasity = 0.5f;
+		m_minusButtonEnable = false;
+		m_plusButton.Opasity = 1.0f;
+		m_plusButtonEnable = true;
+	}
 	else if(size == CL_SIZE_NORMAL)
+	{
 		radious = 15.0f * 2.3;
+		m_minusButton.Opasity = 1.0f;
+		m_minusButtonEnable = true;
+		m_plusButton.Opasity = 1.0f;
+		m_plusButtonEnable = true;
+	}
 	else if(size == CL_SIZE_BIG)
+	{
 		radious = 21.0f * 2.3;
+		m_minusButton.Opasity = 1.0f;
+		m_minusButtonEnable = true;
+		m_plusButton.Opasity = 0.5f;
+		m_plusButtonEnable = false;
+	}
 	
 	// Re positionate the camera view.
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, radious);
@@ -299,6 +290,28 @@
 - (void)ChangeSpeed:(enum CL_SIZE)speed
 {
 	Level.Speed = speed;
+	
+	if(speed == CL_SIZE_SMALL)
+	{
+		m_minusButton.Opasity = 0.5f;
+		m_minusButtonEnable = false;
+		m_plusButton.Opasity = 1.0f;
+		m_plusButtonEnable = true;
+	}
+	else if(speed == CL_SIZE_NORMAL)
+	{
+		m_minusButton.Opasity = 1.0f;
+		m_minusButtonEnable = true;
+		m_plusButton.Opasity = 1.0f;
+		m_plusButtonEnable = true;
+	}
+	else if(speed == CL_SIZE_BIG)
+	{
+		m_minusButton.Opasity = 1.0f;
+		m_minusButtonEnable = true;
+		m_plusButton.Opasity = 0.5f;
+		m_plusButtonEnable = false;
+	}
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
@@ -495,6 +508,31 @@
 	m_playButton.Width = m_buttonSize;
 	m_speedButton.Width = m_buttonSize;
 	m_sizeButton.Width = m_buttonSize;
+}
+
+- (void)InToSetUp
+{
+	m_cubeView.Camera = m_cubeCamera;
+	[m_cubeCamera ResetPosition:GLKVector3Make(0.0f, 0.0f, 7.3f)];
+	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
+	[m_cubeCamera ResetPivotRotation:GLKVector3Make(26.5650501, 0.0f, 0.0f)];
+}
+- (void)Begin
+{
+	[Level Reset];
+	[self ChangeSpeed:m_speed];
+	[self ResizeLevel:m_size];
+	Level.Dance = true;
+	m_playText.Opasity = 1.0f;
+	m_speedText.Opasity = 1.0f;
+	m_sizeText.Opasity = 1.0f;
+	m_playButton.Opasity = 1.0f;
+	m_speedButton.Opasity = 1.0f;
+	m_sizeButton.Opasity = 0.5f;
+	m_sizeButtonEnable = false;
+	m_speedButtonEnable = true;
+	m_step = 0;
+	m_play = false;
 }
 
 - (void)OutToPlay

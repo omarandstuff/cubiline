@@ -66,7 +66,7 @@ void main()
 		
 		finalColor += perLightColor;
 	}
-	finalColor.a = surfaceColor.a * OpasityOut;
+	finalColor.a = OpasityOut;
 	
 	gl_FragColor = finalColor;
 }
