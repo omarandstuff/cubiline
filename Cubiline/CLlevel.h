@@ -42,8 +42,9 @@
 @property bool Collide;
 @property bool Feed;
 
-@property (readonly)unsigned int Points;
-@property unsigned int TotalEaten;
+@property (readonly)unsigned int Score;
+@property unsigned int HighScore;
+@property unsigned int Grown;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;

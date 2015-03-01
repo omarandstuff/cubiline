@@ -8,8 +8,10 @@
 
 @property CLLevel* Level;
 @property (readonly)VEScene* Scene;
-
 @property bool Exit;
+
+@property VEGameCenter* GameCenter;
+@property CLData* GameData;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;

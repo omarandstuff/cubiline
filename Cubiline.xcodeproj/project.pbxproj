@@ -79,6 +79,7 @@
 		37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE41A88562900F77B76 /* game_setup_plus.png */; };
 		376B55D71A82BFF500CC011F /* game_menu_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 376B55D61A82BFF500CC011F /* game_menu_back.png */; };
 		3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771AC041A6CC7B8008E74D9 /* images.xcassets */; };
+		377880151AA3897400BDECB4 /* CLdata.m in Sources */ = {isa = PBXBuildFile; fileRef = 377880141AA3897400BDECB4 /* CLdata.m */; };
 		377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */; };
 		377A84EC1A79EA15004F88F7 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26231A6C4EFD00DB4E6C /* GameViewController.m */; };
 		377A85401A79EAE9004F88F7 /* VE3Dobject.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A84F61A79EAE9004F88F7 /* VE3Dobject.m */; };
@@ -250,6 +251,8 @@
 		37604EE41A88562900F77B76 /* game_setup_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_plus.png; path = Cubiline/Resources/game_setup_plus.png; sourceTree = "<group>"; };
 		376B55D61A82BFF500CC011F /* game_menu_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_menu_back.png; path = Cubiline/Resources/game_menu_back.png; sourceTree = "<group>"; };
 		3771AC041A6CC7B8008E74D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
+		377880131AA3897400BDECB4 /* CLdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLdata.h; path = Cubiline/CLdata.h; sourceTree = "<group>"; };
+		377880141AA3897400BDECB4 /* CLdata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLdata.m; path = Cubiline/CLdata.m; sourceTree = "<group>"; };
 		377A84F51A79EAE9004F88F7 /* VE3Dobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VE3Dobject.h; path = Cubiline/VE3Dobject.h; sourceTree = "<group>"; };
 		377A84F61A79EAE9004F88F7 /* VE3Dobject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VE3Dobject.m; path = Cubiline/VE3Dobject.m; sourceTree = "<group>"; };
 		377A84F71A79EAE9004F88F7 /* VEaudiobox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEaudiobox.h; path = Cubiline/VEaudiobox.h; sourceTree = "<group>"; };
@@ -488,6 +491,8 @@
 				374FCCB01A86DD0300B14ACB /* CLbody.h */,
 				374FCCB11A86DD0300B14ACB /* CLbody.m */,
 				374FCCAC1A86DCCD00B14ACB /* CLcommon.h */,
+				377880131AA3897400BDECB4 /* CLdata.h */,
+				377880141AA3897400BDECB4 /* CLdata.m */,
 				37436E361A86A26000167D31 /* CLgame.h */,
 				37436E371A86A26000167D31 /* CLgame.m */,
 				37FA76B01A901A9E0097497D /* CLgameholder.h */,
@@ -893,6 +898,7 @@
 				377A85591A79EAE9004F88F7 /* VEsoundbufferdispatcher.m in Sources */,
 				377A855D1A79EAE9004F88F7 /* VEtexture.m in Sources */,
 				377A85481A79EAE9004F88F7 /* VEeffect3.m in Sources */,
+				377880151AA3897400BDECB4 /* CLdata.m in Sources */,
 				373E62A51AA2713600ACC243 /* VEgamecenter.m in Sources */,
 				377A85521A79EAE9004F88F7 /* VErandom.m in Sources */,
 				377A85601A79EAE9004F88F7 /* VEtimer.m in Sources */,

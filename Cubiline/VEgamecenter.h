@@ -13,7 +13,12 @@
 @property (weak)UIViewController* AuthentificationViewController;
 @property UIViewController<GKGameCenterControllerDelegate>* MainViewController;
 
+@property (readonly)NSMutableDictionary* LoadedScores;
+
 - (void)AuthenticateLocalPlayer;
+- (void)presentGameCenter;
+- (void)loadScoreOfCategory:(NSString*)category;
+- (void)submitScore:(int64_t)score category:(NSString*)category;
 
 @end
 

@@ -69,7 +69,7 @@
 
 	
 	//Create the game place.
-	m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox];
+	m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter];
 	
 	[m_renderBox Frame:0.0f];
 	[m_game Frame:0.0f];

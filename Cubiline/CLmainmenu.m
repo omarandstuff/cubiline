@@ -57,6 +57,8 @@
 @synthesize Camera;
 @synthesize Selection;
 
+@synthesize GameCenter;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox
 {
 	self = [super init];

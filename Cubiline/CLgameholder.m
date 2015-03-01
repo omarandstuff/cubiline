@@ -60,6 +60,9 @@
 @synthesize Scene;
 @synthesize Exit;
 
+@synthesize GameCenter;
+@synthesize GameData;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox
 {
 	self = [super init];
@@ -86,7 +89,7 @@
 		m_points.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_points.PositionTransitionTime = 0.7f;
 		
-		m_bestScore = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
+		m_bestScore = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Best:0"];
 		m_bestScore.Color = GrayColor;
 		m_bestScore.Opasity = 0.0f;
 		m_bestScore.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -203,6 +206,8 @@
 		
 		m_watch = [[VEWatch alloc] init];
 		m_watch.Style = VE_WATCH_STYLE_LIMITED;
+		
+		m_stage = PLAYING;
 	}
 	
 	return self;
@@ -220,39 +225,51 @@
 	bool active = m_pointsEffect.IsActive;
 	[m_pointsEffect Frame:time];
 	
-	if(Level.Points != m_pointsEffect.Value)
+	if(Level.Score != m_pointsEffect.Value)
 	{
-		if(Level.Points == m_pointsEffect.Value + 1)
+		if(Level.Score == m_pointsEffect.Value + 1)
 		{
-			[m_pointsEffect Reset:Level.Points];
+			[m_pointsEffect Reset:Level.Score];
 			active = true;
 		}
 		else
-			m_pointsEffect.Value = Level.Points;
-	}
-	
-	int high = 0;//[GameKitHelper sharedGameKitHelper].HighScore;
-	int totalEaten = Level.TotalEaten;
-	
-	if(high != m_highScore)
-	{
-		m_highScore = high;
-		m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
-		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
-	}
-	
-	if(totalEaten != m_total)
-	{
-		m_total = totalEaten;
-		m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
-		m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height, 0.0f);
-		//[[GameKitHelper sharedGameKitHelper] submitScore:m_total category:@"cubiline_total_eaten"];
+			m_pointsEffect.Value = Level.Score;
 	}
 	
 	if(active)
 	{
 		m_points.Text = [NSString stringWithFormat:@"%d", (int)m_pointsEffect.Value];
 		m_points.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f);
+	}
+	
+	if(m_highScore != Level.HighScore)
+	{
+		m_highScore = Level.HighScore;
+		if(GameData.HighScore > m_highScore)
+		{
+			m_highScore = GameData.HighScore;
+			Level.HighScore = m_highScore;
+		}
+		else
+			GameData.HighScore = m_highScore;
+		
+		m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
+		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	}
+	
+	if(m_total != Level.Grown)
+	{
+		m_total = Level.Grown;
+		
+		if(GameData.Grown > m_total)
+		{
+			m_total = GameData.Grown;
+			Level.Grown = m_total;
+		}
+		else
+			GameData.Grown = m_total;
+		m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
+		m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
 	}
 }
 
@@ -288,11 +305,11 @@
 	m_points.FontSize = width > height ? height / 10 : width / 10;
 	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
 	
-	m_bestScore.FontSize = width > height ? height / 15 : width / 15;
+	m_bestScore.FontSize = width > height ? height / 18 : width / 18;
 	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
 	
 	m_totalEaten.FontSize = width > height ? height / 20 : width / 20;
-	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height, 0.0f);
+	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
 	
 	m_pauseButton.Height = m_buttonSize / 2.0f;
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
@@ -504,7 +521,7 @@
 		}
 		else if([self TestButton:m_gcRect X:rx Y:ry])
 		{
-			//[[GameKitHelper sharedGameKitHelper] presentGameCenter];
+			[GameCenter presentGameCenter];
 		}
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 		{
@@ -549,6 +566,8 @@
 	
 	m_cubeView.Camera = m_cubeCamera;
 	[Level Restore];
+	
+	m_stage = PLAYING;
 	
 	if(Level.Zone == CL_ZONE_FRONT)
 	{

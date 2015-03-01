@@ -16,7 +16,7 @@
 - (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers;
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox*)audiobox;
+- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox*)audiobox GameCenter:(VEGameCenter*)gamecenter;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;

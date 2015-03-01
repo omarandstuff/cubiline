@@ -10,6 +10,9 @@
 	CLMainMenu* m_mainMenu;
 	CLGameHolder* m_gameHolder;
 	
+	VEGameCenter* m_gameCenter;
+	CLData* m_gameData;
+	
 	enum GAME_STATE
 	{
 		GAME_STATE_MAIN_MENU,
@@ -28,7 +31,7 @@
 
 @implementation CLGame
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox *)audiobox
+- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox *)audiobox GameCenter:(VEGameCenter *)gamecenter
 {
 	self = [super init];
 	
@@ -37,12 +40,19 @@
         // Get the renderbox and audiobox
 		m_renderBox = renderbox;
         m_audioBox = audiobox;
+		m_gameCenter = gamecenter;
+		
+		// Game data.
+		m_gameData = [CLData loadInstanceWithGameCenter:m_gameCenter];
 		
 		// Main menu.
 		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox];
+		m_mainMenu.GameCenter = m_gameCenter;
 		[m_mainMenu Resize];
 		
 		m_cubilineLevel = [[CLLevel alloc] initWithRenderBox:m_renderBox];
+		m_cubilineLevel.Grown = m_gameData.Grown;
+		m_cubilineLevel.HighScore = m_gameData.HighScore;
 		m_cubilineLevel.BodyColor = GLKVector3Make(0.9, 0.95, 1.);
 		
 		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox];
@@ -50,6 +60,8 @@
 		m_gameSetUp.Level = m_cubilineLevel;
 		
 		m_gameHolder = [[CLGameHolder alloc] initWithRenderBox:m_renderBox];
+		m_gameHolder.GameCenter = m_gameCenter;
+		m_gameHolder.GameData = m_gameData;
 		[m_gameHolder Resize];
 		m_gameHolder.Level = m_cubilineLevel;
 		
@@ -73,6 +85,7 @@
 
 - (void)Frame:(float)time
 {
+	[m_gameData Frame];
 	if(m_gameState == GAME_STATE_MAIN_MENU)
 	{
 		[m_mainMenu Frame:time];
@@ -89,6 +102,7 @@
 			}
 			if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_GC)
 			{
+				[m_gameCenter presentGameCenter];
 				[m_mainMenu Reset];
 			}
 		}

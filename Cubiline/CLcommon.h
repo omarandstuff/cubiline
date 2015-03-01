@@ -1,7 +1,7 @@
 #ifndef Cubiline_CLcommon_h
 #define Cubiline_CLcommon_h
 
-#import "VEgamecenter.h"
+#import "CLdata.h"
 #import "VErenderbox.h"
 #import "VEaudiobox.h"
 

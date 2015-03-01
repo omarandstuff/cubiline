@@ -53,9 +53,6 @@
 	
 	// Feed control.
 	VERandom* m_random;
-	
-	// Point Control
-	unsigned int m_taken;
 }
 
 
@@ -95,6 +92,7 @@
 - (void)TurnLeftDown;
 
 // Collisions
+- (void)Finish;
 - (void)ManageColloisions;
 - (bool)CheckColition:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy;
 - (void)AddSlot:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy Position:(GLKVector3)position InZone:(bool)inzone;
@@ -150,8 +148,9 @@
 @synthesize Follow;
 @synthesize Collide;
 @synthesize Feed;
-@synthesize Points;
-@synthesize TotalEaten;
+@synthesize Score;
+@synthesize HighScore;
+@synthesize Grown;
 @synthesize Move;
 
 - (void)PrintZone
@@ -2420,6 +2419,12 @@
 		m_nextHandle = [self GetHandleForDirection:left];
 }
 
+- (void)Finish
+{
+	//[self ResetInZone:Zone Up:ZoneUp];
+	//[self Play];
+}
+
 - (void)ManageColloisions
 {
 	GLKVector3 position = Leader.Position;
@@ -2468,15 +2473,9 @@
 	
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
 	{
-		//[[GameKitHelper sharedGameKitHelper] submitScore:Points category:@"cubiline_high_score"];
-		//[[GameKitHelper sharedGameKitHelper] GetHighScore];
-		[self ResetInZone:Zone Up:ZoneUp];
-		[self Play];
+		[self Finish];
 		return;
 	}
-	
-	[self AddSlot:Zone CoordX:nowX CoordY:nowY Position:p InZone:inNoZone == 0 ? true : false];
-	
 	
 	if (!m_slotControl)
 	{
@@ -2484,6 +2483,8 @@
 	}
 	else
 		m_slotControl--;
+	
+	[self AddSlot:Zone CoordX:nowX CoordY:nowY Position:p InZone:inNoZone == 0 ? true : false];
 }
 
 - (bool)CheckColition:(enum CL_ZONE)zone CoordX:(int)coordx CoordY:(int)coordy
@@ -2533,12 +2534,13 @@
 	
 	if(dist < 0.5f)
 	{
-		m_toGrow += 1.0f;
-		m_slotControl += 1;
-		m_taken += 1;
+		m_toGrow += 10.0f;
+		m_slotControl += 10;
 		
-		Points += 1;
-		TotalEaten += 1;
+		Score += 10;
+		Grown += 10;
+		
+		HighScore = MAX(HighScore, Score);
 		
 		m_eating = true;
 		[self RandomFood];
@@ -2709,7 +2711,7 @@
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
-	m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+	//m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
 	
 	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -3115,8 +3117,7 @@
 	m_stepGrown = 0.0f;
 	m_slotControl = 0;
 	m_inComplex = false;
-	m_taken = 0;
-	Points = 0;
+	Score = 0;
 	m_bufferTurn = CL_TURN_NONE;
 
 	LeaderGhost.Position = Leader.Position;

@@ -10,6 +10,8 @@
 @property VECamera* Camera;
 @property enum CL_MAIN_MENU_SELECTION Selection;
 
+@property VEGameCenter* GameCenter;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 
 - (void)Frame:(float)time;
