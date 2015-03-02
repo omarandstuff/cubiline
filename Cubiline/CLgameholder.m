@@ -52,6 +52,13 @@
 	
 	int m_highScore;
 	int m_total;
+	
+	//  buttons
+	bool m_touchedButton;
+	
+	/// Finish check out game.
+	GLKVector3 m_preRotation;
+	bool m_showing;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
@@ -308,7 +315,20 @@
 	}
 	else if(m_stage == FINISHED)
 	{
-		
+		[m_watch Frame:time];
+		if(!m_watch.Active && !m_showing)
+		{
+			m_points.Opasity = 1.0f;
+			m_scoreFinish.Opasity = 0.9f;
+			m_restartButton.Opasity = 1.0f;
+			m_gcButton.Opasity = 1.0f;
+			m_exitButton.Opasity = 1.0f;
+			m_restartText.Opasity = 1.0f;
+			m_gcText.Opasity = 1.0f;
+			m_exitText.Opasity = 1.0f;
+			m_cubeCamera.PivotRotation = Level.FocusedCamera.TargetPivotRotation;
+			m_showing = true;
+		}
 	}
 	else if(m_stage == FINISHED_TO_RESTART)
 	{
@@ -381,12 +401,39 @@
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
 {
-
+	if(m_stage == FINISHED)
+	{
+		m_preRotation = m_cubeCamera.PivotRotation;
+	}
 }
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
-
+	if(m_stage == FINISHED && !m_touchedButton)
+	{
+		GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, -x / 4.0f, 0.0f));
+		
+		m_cubeCamera.PivotRotation = newRotation;
+		
+		
+		if(m_showing)
+		{
+			m_points.Opasity = 0.0f;
+			m_scoreFinish.Opasity = 0.0f;
+			m_restartButton.Opasity = 0.0f;
+			m_gcButton.Opasity = 0.0f;
+			m_exitButton.Opasity = 0.0f;
+			m_restartText.Opasity = 0.0f;
+			m_gcText.Opasity = 0.0f;
+			m_exitText.Opasity = 0.0f;
+		}
+		
+		m_showing = false;
+		
+		
+		[m_watch Reset];
+		[m_watch SetLimitInSeconds:2.0f];
+	}
 }
 
 - (void)TouchPanEnd:(float)x Y:(float)y Fingers:(int)fingers
@@ -440,12 +487,15 @@
 	float rx = x - m_renderBox.ScreenWidth / 2;
 	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
+	m_touchedButton = true;
 	if(m_stage == PLAYING)
 	{
 		if([self TestButton:m_pauseRect X:rx Y:ry])
 		{
 			m_pauseButton.Width = m_buttonSize * 0.45f;
 		}
+		else
+			m_touchedButton = false;
 	}
 	else if(m_stage == PAUSE)
 	{
@@ -457,9 +507,12 @@
 			m_gcButton.Width = m_buttonSize * 0.7f;
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 			m_exitButton.Width = m_buttonSize * 0.7f;
+		else
+			m_touchedButton = false;
 	}
-	else if(m_stage == FINISHED)
+	else if(m_stage == FINISHED && !m_watch.Active)
 	{
+		
 		if([self TestButton:m_restartRect X:rx Y:ry])
 			m_restartButton.Width = m_buttonSize * 1.0f;
 		else if([self TestButton:m_gcRect X:rx Y:ry])
@@ -467,17 +520,10 @@
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 			m_exitButton.Width = m_buttonSize * 0.7f;
 		else
-		{
-			m_points.Opasity = 0.05f;
-			m_scoreFinish.Opasity = 0.05f;
-			m_restartButton.Opasity = 0.05f;
-			m_gcButton.Opasity = 0.05f;
-			m_exitButton.Opasity = 0.05f;
-			m_restartText.Opasity = 0.05f;
-			m_gcText.Opasity = 0.05f;
-			m_exitText.Opasity = 0.05f;
-		}
+			m_touchedButton = false;
 	}
+	else
+		m_touchedButton = false;
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
@@ -485,7 +531,7 @@
 	float rx = x - m_renderBox.ScreenWidth / 2;
 	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
-	if(m_stage == PLAYING)
+	if(m_stage == PLAYING && m_touchedButton)
 	{
 		if([self TestButton:m_pauseRect X:rx Y:ry])
 		{
@@ -508,7 +554,7 @@
 		}
 		m_pauseButton.Width = m_buttonSize / 2.0f;
 	}
-	else if(m_stage == PAUSE)
+	else if(m_stage == PAUSE && m_touchedButton)
 	{
 		if([self TestButton:m_continueRect X:rx Y:ry])
 		{
@@ -560,7 +606,7 @@
 		m_gcButton.Width = m_buttonSize;
 		m_exitButton.Width = m_buttonSize;
 	}
-	else if(m_stage == FINISHED)
+	else if(m_stage == FINISHED && m_touchedButton)
 	{
 		if([self TestButton:m_restartRect X:rx Y:ry])
 		{
@@ -583,7 +629,7 @@
 			m_exitText.Opasity = 0.0f;
 			m_scoreFinish.Opasity = 0.0f;
 			
-			m_cubeCamera.PivotRotationTransitionTime = 0.05;
+			m_cubeCamera.PivotRotationTransitionTime = 0.1;
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.PivotRotation;
 			
 			[self SetForPlaying];
@@ -596,18 +642,6 @@
 		{
 			Exit = true;
 		}
-		else
-		{
-			m_points.Opasity = 1.0f;
-			m_scoreFinish.Opasity = 0.9f;
-			m_restartButton.Opasity = 1.0f;
-			m_gcButton.Opasity = 1.0f;
-			m_exitButton.Opasity = 1.0f;
-			m_restartText.Opasity = 1.0f;
-			m_gcText.Opasity = 1.0f;
-			m_exitText.Opasity = 1.0f;
-		}
-		
 		m_restartButton.Width = m_buttonSize * 1.5f;
 		m_gcButton.Width = m_buttonSize;
 		m_exitButton.Width = m_buttonSize;
@@ -909,6 +943,8 @@
 	m_exitText.Opasity = 1.0f;
 	
 	m_scoreFinish.Opasity = 0.9f;
+	
+	m_showing = true;
 	
 	[self SetForFinish];
 }
