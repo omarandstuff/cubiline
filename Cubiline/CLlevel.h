@@ -46,6 +46,8 @@
 @property unsigned int HighScore;
 @property unsigned int Grown;
 
+@property bool Finished;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox;
 - (void)Frame:(float)time;
 - (void)Reset;

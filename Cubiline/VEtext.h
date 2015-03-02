@@ -23,6 +23,7 @@
 @property float Width;
 @property float Height;
 
+- (void)ResetFontSize:(float)size;
 
 - (id)initWithFontName:(NSString*)font;
 - (id)initWithFontName:(NSString*)font Text:(NSString*)text;

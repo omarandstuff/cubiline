@@ -165,6 +165,14 @@
 	return FontSize;
 }
 
+- (void)ResetFontSize:(float)size
+{
+	FontSize = size;
+	Height = size;
+	Width = m_realWidth * size;
+	[m_scale Reset:GLKVector3Make(FontSize, FontSize, 0.0f)];
+}
+
 - (void)InitBuffer
 {
 	GLfloat vertices[256 * 30];

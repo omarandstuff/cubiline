@@ -53,6 +53,8 @@
 	
 	// Feed control.
 	VERandom* m_random;
+	
+	bool m_restarted;
 }
 
 
@@ -152,6 +154,7 @@
 @synthesize HighScore;
 @synthesize Grown;
 @synthesize Move;
+@synthesize Finished;
 
 - (void)PrintZone
 {
@@ -2421,8 +2424,7 @@
 
 - (void)Finish
 {
-	//[self ResetInZone:Zone Up:ZoneUp];
-	//[self Play];
+	Finished = true;
 }
 
 - (void)ManageColloisions
@@ -2471,11 +2473,13 @@
 	
 	if(inNoZoneReleased > 1) return;
 	
-	if([self CheckColition:Zone CoordX:nowX CoordY:nowY])
+	if([self CheckColition:Zone CoordX:nowX CoordY:nowY] && !m_restarted)
 	{
 		[self Finish];
 		return;
 	}
+	else
+		m_restarted = false;
 	
 	if (!m_slotControl)
 	{
@@ -2534,11 +2538,11 @@
 	
 	if(dist < 0.5f)
 	{
-		m_toGrow += 10.0f;
-		m_slotControl += 10;
+		m_toGrow += 1.0f;
+		m_slotControl += 1;
 		
-		Score += 10;
-		Grown += 10;
+		Score += 1;
+		Grown += 1;
 		
 		HighScore = MAX(HighScore, Score);
 		
@@ -3119,6 +3123,8 @@
 	m_inComplex = false;
 	Score = 0;
 	m_bufferTurn = CL_TURN_NONE;
+	Finished = false;
+	m_restarted = true;
 
 	LeaderGhost.Position = Leader.Position;
 	m_preLeaderPosition = Leader.Position;

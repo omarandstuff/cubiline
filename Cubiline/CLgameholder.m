@@ -11,6 +11,8 @@
 	VEText* m_bestScore;
 	VEText* m_totalEaten;
 	
+	VESprite* m_scoreFinish;
+	
 	VESprite* m_pauseButton;
 	Rect m_pauseRect;
 	
@@ -39,6 +41,8 @@
 	enum GH_STAGE
 	{
 		PLAYING,
+		FINISHED,
+		FINISHED_TO_RESTART,
 		PAUSE
 	};
 	
@@ -51,6 +55,11 @@
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
+- (void)ToFinish;
+
+- (void)SetForPlaying;
+- (void)SetForPause;
+- (void)SetForFinish;
 
 @end
 
@@ -88,6 +97,8 @@
 		m_points.OpasityTransitionTime = 0.15f;
 		m_points.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_points.PositionTransitionTime = 0.7f;
+		m_points.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_points.ScaleTransitionTime = 0.4f;
 		
 		m_bestScore = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Best:0"];
 		m_bestScore.Color = GrayColor;
@@ -96,6 +107,8 @@
 		m_bestScore.OpasityTransitionTime = 0.15f;
 		m_bestScore.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_bestScore.PositionTransitionTime = 0.7f;
+		m_bestScore.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_bestScore.ScaleTransitionTime = 0.4f;
 		
 		m_totalEaten = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
 		m_totalEaten.Color = GrayColor;
@@ -158,21 +171,29 @@
 		m_continueText.Opasity = 0.0f;
 		m_continueText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_continueText.OpasityTransitionTime = 0.15f;
+		m_continueText.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_continueText.ScaleTransitionTime = 0.1f;
 		
 		m_restartText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Restart"];
 		m_restartText.Opasity = 0.0f;
 		m_restartText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_restartText.OpasityTransitionTime = 0.15f;
+		m_restartText.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_restartText.ScaleTransitionTime = 0.1f;
 
 		m_gcText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Scores"];
 		m_gcText.Opasity = 0.0f;
 		m_gcText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_gcText.OpasityTransitionTime = 0.15f;
+		m_gcText.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_gcText.ScaleTransitionTime = 0.1f;
 		
 		m_exitText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Main Menu"];
 		m_exitText.Opasity = 0.0f;
 		m_exitText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_exitText.OpasityTransitionTime = 0.15f;
+		m_exitText.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_exitText.ScaleTransitionTime = 0.1f;
 		
 		// Camera SetUp
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
@@ -188,8 +209,17 @@
 		m_cubeCamera.Near = 1.0f;
 		m_cubeCamera.FocusRange = 15.0f;
 		
+		m_scoreFinish = [m_renderBox NewSolidSpriteWithColor:PrimaryColor];
+		m_scoreFinish.Opasity = 0.0f;
+		m_scoreFinish.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_scoreFinish.OpasityTransitionTime = 0.15f;
+		m_scoreFinish.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_scoreFinish.ScaleTransitionTime = 0.1f;
+		
+		
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
+		[Scene addSprite:m_scoreFinish];
 		[Scene addText:m_points];
 		[Scene addText:m_bestScore];
 		[Scene addText:m_totalEaten];
@@ -222,54 +252,78 @@
 	}
 	[Level Frame:time];
 	
-	bool active = m_pointsEffect.IsActive;
-	[m_pointsEffect Frame:time];
-	
-	if(Level.Score != m_pointsEffect.Value)
+	if(m_stage == PLAYING)
 	{
-		if(Level.Score == m_pointsEffect.Value + 1)
-		{
-			[m_pointsEffect Reset:Level.Score];
-			active = true;
-		}
-		else
-			m_pointsEffect.Value = Level.Score;
-	}
-	
-	if(active)
-	{
-		m_points.Text = [NSString stringWithFormat:@"%d", (int)m_pointsEffect.Value];
-		m_points.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f);
-	}
-	
-	if(m_highScore != Level.HighScore)
-	{
-		m_highScore = Level.HighScore;
-		if(GameData.HighScore > m_highScore)
-		{
-			m_highScore = GameData.HighScore;
-			Level.HighScore = m_highScore;
-		}
-		else
-			GameData.HighScore = m_highScore;
+		bool active = m_pointsEffect.IsActive;
+		[m_pointsEffect Frame:time];
 		
-		m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
-		m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+		if(Level.Score != m_pointsEffect.Value)
+		{
+			if(Level.Score == m_pointsEffect.Value + 1)
+			{
+				[m_pointsEffect Reset:Level.Score];
+				active = true;
+			}
+			else
+				m_pointsEffect.Value = Level.Score;
+		}
+		
+		if(active)
+		{
+			m_points.Text = [NSString stringWithFormat:@"%d", (int)m_pointsEffect.Value];
+			m_points.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f);
+		}
+		
+		if(m_highScore != Level.HighScore)
+		{
+			m_highScore = Level.HighScore;
+			if(GameData.HighScore > m_highScore)
+			{
+				m_highScore = GameData.HighScore;
+				Level.HighScore = m_highScore;
+			}
+			else
+				GameData.HighScore = m_highScore;
+			
+			m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
+			m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+		}
+		
+		if(m_total != Level.Grown)
+		{
+			m_total = Level.Grown;
+			
+			if(GameData.Grown > m_total)
+			{
+				m_total = GameData.Grown;
+				Level.Grown = m_total;
+			}
+			else
+				GameData.Grown = m_total;
+			m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
+			m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
+		}
+	}
+	else if(m_stage == FINISHED)
+	{
+		
+	}
+	else if(m_stage == FINISHED_TO_RESTART)
+	{
+		if(GLKVector3Length(GLKVector3Subtract(Level.FocusedCamera.PivotRotation, m_cubeCamera.PivotRotation)) <= 0.4f)
+		{
+			m_stage = PLAYING;
+			[Level ResetInZone:Level.Zone Up:Level.ZoneUp];
+			Level.Move = true;
+			m_cubeView.Camera = Level.FocusedCamera;
+		}
 	}
 	
-	if(m_total != Level.Grown)
+	if(Level.Finished && m_stage != FINISHED)
 	{
-		m_total = Level.Grown;
-		
-		if(GameData.Grown > m_total)
-		{
-			m_total = GameData.Grown;
-			Level.Grown = m_total;
-		}
-		else
-			GameData.Grown = m_total;
-		m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
-		m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
+		m_stage = FINISHED;
+		Level.Move = false;
+		[self ToFinish];
 	}
 }
 
@@ -302,69 +356,18 @@
 	[m_cubeView ResizeWithWidth:spriteSize Height:spriteSize];
 	m_cubeImage.Scale = GLKVector3Make(spriteSize, -spriteSize, 0.0f);
 	
-	m_points.FontSize = width > height ? height / 10 : width / 10;
-	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
-	
-	m_bestScore.FontSize = width > height ? height / 18 : width / 18;
-	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
-	
-	m_totalEaten.FontSize = width > height ? height / 20 : width / 20;
-	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
-	
-	m_pauseButton.Height = m_buttonSize / 2.0f;
-	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
-
-	m_pauseRect.top =  height / 2 - m_buttonSize / 8.0f;
-	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize;
-	m_pauseRect.left = -width / 2 + m_buttonSize / 8.0f;
-	m_pauseRect.right = m_pauseRect.left + m_buttonSize;
-	
-	m_pauseFade.Width = width;
-	m_pauseFade.Height = height;
-	
-	m_continueButton.Width = m_buttonSize * 2.0f;
-	m_restartButton.Width = m_buttonSize;
-	m_gcButton.Width = m_buttonSize;
-	m_exitButton.Width = m_buttonSize;
-	
-	m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f, 0.0f);
-	
-	m_continueButton.Position = GLKVector3Make(0.0f, m_buttonSize / 2.0f, 0.0f);
-	
-	m_gcButton.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
-	m_exitButton.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
-	
-	m_continueText.FontSize = m_buttonSize * 0.4f;
-	m_continueText.Position = GLKVector3Make(0.0, m_buttonSize / 2.0f - m_buttonSize * 1.1f, 0.0f);
-	
-	m_restartText.FontSize = m_buttonSize * 0.2f;
-	m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f - m_buttonSize * 0.55f, 0.0f);
-	
-	m_gcText.FontSize = m_buttonSize * 0.2f;
-	m_gcText.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
-	
-	m_exitText.FontSize = m_buttonSize * 0.2f;
-	m_exitText.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
-	
-	m_continueRect.top =  m_buttonSize / 2.0f + m_buttonSize;
-	m_continueRect.bottom = m_continueRect.top - m_buttonSize * 2.0f;
-	m_continueRect.left = -m_buttonSize;
-	m_continueRect.right = m_buttonSize;
-	
-	m_restartRect.top = -m_buttonSize * 1.5f + m_buttonSize / 2.0f;
-	m_restartRect.bottom = m_restartRect.top - m_buttonSize;
-	m_restartRect.left = -m_buttonSize / 2.0f;
-	m_restartRect.right = m_restartRect.left + m_buttonSize;
-	
-	m_gcRect.top = -height / 2.0f + m_buttonSize * 1.5f;
-	m_gcRect.bottom = m_gcRect.top - m_buttonSize;
-	m_gcRect.left = -width / 2.0f + m_buttonSize / 2.0f;
-	m_gcRect.right = m_gcRect.left + m_buttonSize;
-	
-	m_exitRect.top = m_gcRect.top;
-	m_exitRect.bottom = m_gcRect.bottom;
-	m_exitRect.right = width / 2.0f - m_buttonSize / 2.0f;
-	m_exitRect.left = m_exitRect.right - m_buttonSize;
+	if(m_stage == PLAYING)
+	{
+		[self SetForPlaying];
+	}
+	else if(m_stage == PAUSE)
+	{
+		[self SetForPause];
+	}
+	else if(m_stage == FINISHED)
+	{
+		[self SetForFinish];
+	}
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
@@ -384,7 +387,7 @@
 
 - (void)TouchPanEnd:(float)x Y:(float)y Fingers:(int)fingers
 {
-	if(m_stage == PLAYING)
+	if(m_stage == PLAYING || m_stage == FINISHED_TO_RESTART)
 	{
 		if(fabsf(x) > fabsf(y))
 		{
@@ -451,6 +454,26 @@
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 			m_exitButton.Width = m_buttonSize * 0.7f;
 	}
+	else if(m_stage == FINISHED)
+	{
+		if([self TestButton:m_restartRect X:rx Y:ry])
+			m_restartButton.Width = m_buttonSize * 1.0f;
+		else if([self TestButton:m_gcRect X:rx Y:ry])
+			m_gcButton.Width = m_buttonSize * 0.7f;
+		else if([self TestButton:m_exitRect X:rx Y:ry])
+			m_exitButton.Width = m_buttonSize * 0.7f;
+		else
+		{
+			m_points.Opasity = 0.05f;
+			m_scoreFinish.Opasity = 0.05f;
+			m_restartButton.Opasity = 0.05f;
+			m_gcButton.Opasity = 0.05f;
+			m_exitButton.Opasity = 0.05f;
+			m_restartText.Opasity = 0.05f;
+			m_gcText.Opasity = 0.05f;
+			m_exitText.Opasity = 0.05f;
+		}
+	}
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
@@ -477,6 +500,7 @@
 			m_restartText.Opasity = 1.0f;
 			m_gcText.Opasity = 1.0f;
 			m_exitText.Opasity = 1.0f;
+			[self SetForPause];
 		}
 		m_pauseButton.Width = m_buttonSize / 2.0f;
 	}
@@ -532,16 +556,72 @@
 		m_gcButton.Width = m_buttonSize;
 		m_exitButton.Width = m_buttonSize;
 	}
+	else if(m_stage == FINISHED)
+	{
+		if([self TestButton:m_restartRect X:rx Y:ry])
+		{
+			m_stage = FINISHED_TO_RESTART;
+			[m_points ResetPosition:GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f)];
+			Level.Finished = false;
+			
+			m_pauseButton.Opasity = 1.0;
+			m_points.Opasity = 1.0f;
+			m_bestScore.Opasity = 1.0f;
+			m_totalEaten.Opasity = 1.0f;
+			m_pauseFade.Opasity = 0.0f;
+			m_continueButton.Opasity = 0.0f;
+			m_restartButton.Opasity = 0.0f;
+			m_gcButton.Opasity = 0.0f;
+			m_exitButton.Opasity = 0.0f;
+			m_continueText.Opasity = 0.0f;
+			m_restartText.Opasity = 0.0f;
+			m_gcText.Opasity = 0.0f;
+			m_exitText.Opasity = 0.0f;
+			m_scoreFinish.Opasity = 0.0f;
+			
+			m_cubeCamera.PivotRotationTransitionTime = 0.05;
+			m_cubeCamera.PivotRotation = Level.FocusedCamera.PivotRotation;
+			
+			[self SetForPlaying];
+		}
+		else if([self TestButton:m_gcRect X:rx Y:ry])
+		{
+			[GameCenter presentGameCenter];
+		}
+		else if([self TestButton:m_exitRect X:rx Y:ry])
+		{
+			Exit = true;
+		}
+		else
+		{
+			m_points.Opasity = 1.0f;
+			m_scoreFinish.Opasity = 0.9f;
+			m_restartButton.Opasity = 1.0f;
+			m_gcButton.Opasity = 1.0f;
+			m_exitButton.Opasity = 1.0f;
+			m_restartText.Opasity = 1.0f;
+			m_gcText.Opasity = 1.0f;
+			m_exitText.Opasity = 1.0f;
+		}
+		
+		m_restartButton.Width = m_buttonSize * 1.5f;
+		m_gcButton.Width = m_buttonSize;
+		m_exitButton.Width = m_buttonSize;
+	}
 }
 
 - (void)Begin
 {
+	[m_points ResetPosition:GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f)];
+	[m_points ResetFontSize:m_buttonSize];
 	m_points.Opasity = 1.0f;
 	m_bestScore.Opasity = 1.0f;
 	m_totalEaten.Opasity = 1.0f;
 	m_pauseButton.Opasity = 1.0f;
 	m_stage = PLAYING;
 	m_cubeView.Camera = Level.FocusedCamera;
+	
+	[self SetForPlaying];
 	
 	Exit = false;
 }
@@ -557,12 +637,18 @@
 	m_restartText.Opasity = 0.0f;
 	m_gcText.Opasity = 0.0f;
 	m_exitText.Opasity = 0.0f;
+	m_scoreFinish.Opasity = 0.0f;
+	m_points.Opasity = 0.0f;
+	
+
 	
 	[m_cubeCamera ResetPivot:Level.FocusedCamera.Pivot];
 	[m_cubeCamera ResetPosition:[Level.FocusedCamera PositionWOR]];
 	[m_cubeCamera ResetViewUp:Level.FocusedCamera.ViewUp];
 	[m_cubeCamera ResetPivotRotation:Level.FocusedCamera.PivotRotation];
 	[m_cubeCamera Frame:0.0f];
+	
+	m_cubeCamera.PivotRotationTransitionTime = 0.2f;
 	
 	m_cubeView.Camera = m_cubeCamera;
 	[Level Restore];
@@ -635,6 +721,190 @@
 	Level = level;
 	m_cubeView.Scene = Level.Scene;
 	m_cubeView.Camera = Level.FocusedCamera;
+}
+
+- (void)SetForPlaying
+{
+	float width = m_renderBox.ScreenWidth;
+	float height = m_renderBox.ScreenHeight;
+	
+	// Best size from the screen.
+	if(width > height)
+		m_buttonSize = height / 5.0f;
+	else
+		m_buttonSize = width / 5.0f;
+
+	m_points.FontSize = m_buttonSize;
+	m_points.FontSize = width > height ? height / 10 : width / 10;
+	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
+	
+	m_bestScore.FontSize = width > height ? height / 18 : width / 18;
+	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	
+	m_totalEaten.FontSize = width > height ? height / 20 : width / 20;
+	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
+	
+	m_pauseButton.Height = m_buttonSize / 2.0f;
+	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
+	
+	m_pauseRect.top =  height / 2 - m_buttonSize / 8.0f;
+	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize;
+	m_pauseRect.left = -width / 2 + m_buttonSize / 8.0f;
+	m_pauseRect.right = m_pauseRect.left + m_buttonSize;
+}
+
+- (void)SetForPause
+{
+	float width = m_renderBox.ScreenWidth;
+	float height = m_renderBox.ScreenHeight;
+	
+	// Best size from the screen.
+	if(width > height)
+		m_buttonSize = height / 5.0f;
+	else
+		m_buttonSize = width / 5.0f;
+	
+	// Continue button
+	[m_continueButton ResetScale:GLKVector3Make(m_buttonSize * 3.5f, m_buttonSize * 3.5f, 0.0f)];
+	m_continueButton.Width = m_buttonSize * 2.0f;
+	m_continueButton.Position = GLKVector3Make(0.0f, m_buttonSize / 2.0f, 0.0f);
+	
+	[m_continueText ResetFontSize:m_buttonSize];
+	m_continueText.Position = GLKVector3Make(0.0, m_buttonSize / 2.0f - m_buttonSize * 1.1f, 0.0f);
+	m_continueText.FontSize = m_buttonSize * 0.4f;
+	
+	m_continueRect.top =  m_buttonSize / 2.0f + m_buttonSize;
+	m_continueRect.bottom = m_continueRect.top - m_buttonSize * 2.0f;
+	m_continueRect.left = -m_buttonSize;
+	m_continueRect.right = m_buttonSize;
+	
+	// Restart button
+	[m_restartButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	m_restartButton.Width = m_buttonSize;
+	m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f, 0.0f);
+	
+	[m_restartText ResetFontSize:m_buttonSize];
+	m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.5f - m_buttonSize * 0.55f, 0.0f);
+	m_restartText.FontSize = m_buttonSize * 0.2f;
+	
+	m_restartRect.top = -m_buttonSize * 1.5f + m_buttonSize / 2.0f;
+	m_restartRect.bottom = m_restartRect.top - m_buttonSize;
+	m_restartRect.left = -m_buttonSize / 2.0f;
+	m_restartRect.right = m_restartRect.left + m_buttonSize;
+	
+	// Game Center button
+	[m_gcButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	m_gcButton.Width = m_buttonSize;
+	m_gcButton.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
+	
+	[m_gcText ResetFontSize:m_buttonSize];
+	m_gcText.Position = GLKVector3Make(-width / 2.0f + m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
+	m_gcText.FontSize = m_buttonSize * 0.2f;
+	
+	m_gcRect.top = -height / 2.0f + m_buttonSize * 1.5f;
+	m_gcRect.bottom = m_gcRect.top - m_buttonSize;
+	m_gcRect.left = -width / 2.0f + m_buttonSize / 2.0f;
+	m_gcRect.right = m_gcRect.left + m_buttonSize;
+	
+	// Exit button
+	[m_exitButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	m_exitButton.Width = m_buttonSize;
+	m_exitButton.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize, 0.0f);
+	
+	[m_exitText ResetFontSize:m_buttonSize];
+	m_exitText.Position = GLKVector3Make(width / 2.0f - m_buttonSize, -height / 2.0f + m_buttonSize - m_buttonSize * 0.55f, 0.0f);
+	m_exitText.FontSize = m_buttonSize * 0.2f;
+	
+	m_exitRect.top = m_gcRect.top;
+	m_exitRect.bottom = m_gcRect.bottom;
+	m_exitRect.right = width / 2.0f - m_buttonSize / 2.0f;
+	m_exitRect.left = m_exitRect.right - m_buttonSize;
+	
+	m_pauseFade.Width = m_renderBox.ScreenWidth;
+	m_pauseFade.Height = m_renderBox.ScreenHeight;
+}
+
+- (void)SetForFinish
+{
+	[m_points ResetFontSize:m_buttonSize * 2.0f];
+	[m_points ResetPosition:GLKVector3Make(0.0f, -m_buttonSize * 0.1, 0.0f)];
+	[m_points Frame:0.0f];
+	m_points.FontSize = m_buttonSize;
+	
+	[m_scoreFinish ResetScale:GLKVector3Make(m_renderBox.ScreenWidth * 1.5f, m_renderBox.ScreenHeight * 1.5f, 0.0f)];
+	m_scoreFinish.Width = m_renderBox.ScreenWidth;
+	m_scoreFinish.Height = m_buttonSize * 1.6f;
+	m_scoreFinish.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15, 0.0f);
+	
+	[m_restartButton ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_restartButton Frame:0.0f];
+	m_restartButton.Width = m_buttonSize * 1.5;
+	m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize, 0.0f);
+	
+	[m_restartText ResetFontSize:m_buttonSize];
+	m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.8f, 0.0f);
+	m_restartText.FontSize = m_buttonSize / 4.0f;
+	
+	m_restartRect.top = -m_buttonSize + m_buttonSize * 0.75f;
+	m_restartRect.bottom = m_restartRect.top - m_buttonSize * 1.5f;
+	m_restartRect.left = -m_buttonSize * 0.75f;
+	m_restartRect.right = m_restartRect.left + m_buttonSize * 1.5f;
+	
+	// Game Center button
+	[m_gcButton ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	m_gcButton.Width = m_buttonSize;
+	m_gcButton.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize, 0.0f);
+	
+	[m_gcText ResetFontSize:m_buttonSize];
+	m_gcText.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 1.6f, 0.0f);
+	m_gcText.FontSize = m_buttonSize / 4.0f;
+	
+	m_gcRect.top = -m_buttonSize + m_buttonSize * 0.5f;
+	m_gcRect.bottom = m_gcRect.top - m_buttonSize;
+	m_gcRect.left = -m_buttonSize * 2.0f;
+	m_gcRect.right = m_gcRect.left + m_buttonSize;
+	
+	// Exit button
+	[m_exitButton ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	m_exitButton.Width = m_buttonSize;
+	m_exitButton.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize, 0.0f);
+	
+	[m_exitText ResetFontSize:m_buttonSize];
+	m_exitText.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 1.6f, 0.0f);
+	m_exitText.FontSize = m_buttonSize / 4.0f;
+	
+	m_exitRect.top = -m_buttonSize + m_buttonSize * 0.5f;
+	m_exitRect.bottom = m_exitRect.top - m_buttonSize;
+	m_exitRect.right = m_buttonSize * 2.0f;
+	m_exitRect.left = m_exitRect.right - m_buttonSize;
+}
+
+- (void)ToFinish
+{
+	[m_cubeCamera ResetPosition:Level.FocusedCamera.PositionWOR];
+	[m_cubeCamera ResetPivot:Level.FocusedCamera.Pivot];
+	[m_cubeCamera ResetPivotRotation:Level.FocusedCamera.PivotRotation];
+	[m_cubeCamera ResetViewUp:Level.FocusedCamera.ViewUp];
+	m_cubeView.Camera = m_cubeCamera;
+	[m_renderBox Frame:0.0f];
+	m_cubeCamera.PivotRotationTransitionTime = 0.5f;
+	
+	m_bestScore.Opasity = 0.0f;
+	m_totalEaten.Opasity = 0.0f;
+	m_pauseButton.Opasity = 0.0f;
+	
+	m_restartButton.Opasity = 1.0f;
+	m_restartText.Opasity = 1.0f;
+	
+	m_gcButton.Opasity = 1.0f;
+	m_gcText.Opasity = 1.0f;
+	
+	m_exitButton.Opasity = 1.0f;
+	m_exitText.Opasity = 1.0f;
+	
+	m_scoreFinish.Opasity = 0.9f;
+	
+	[self SetForFinish];
 }
 
 - (CLLevel*)Level
