@@ -222,6 +222,7 @@
 		37436E441A86D5A700167D31 /* front_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = front_wall.obj; path = Cubiline/Resources/front_wall.obj; sourceTree = "<group>"; };
 		37436E461A86D5A700167D31 /* left_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = left_wall.obj; path = Cubiline/Resources/left_wall.obj; sourceTree = "<group>"; };
 		37436E481A86D5A700167D31 /* right_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = right_wall.obj; path = Cubiline/Resources/right_wall.obj; sourceTree = "<group>"; };
+		3744CAEA1AA40D9A005C2287 /* VEdepthshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VEdepthshader.h; path = Cubiline/VEdepthshader.h; sourceTree = "<group>"; };
 		374FCCA81A86D89700B14ACB /* bottom_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bottom_wall.obj; path = Cubiline/Resources/bottom_wall.obj; sourceTree = "<group>"; };
 		374FCCA91A86D89700B14ACB /* top_wall.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = top_wall.obj; path = Cubiline/Resources/top_wall.obj; sourceTree = "<group>"; };
 		374FCCAC1A86DCCD00B14ACB /* CLcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLcommon.h; path = Cubiline/CLcommon.h; sourceTree = "<group>"; };
@@ -528,6 +529,7 @@
 				377A84FF1A79EAE9004F88F7 /* VEcommon.h */,
 				377A85001A79EAE9004F88F7 /* VEdepthoffieldshader.h */,
 				377A85011A79EAE9004F88F7 /* VEdepthoffieldshader.m */,
+				3744CAEA1AA40D9A005C2287 /* VEdepthshader.h */,
 				377A85031A79EAE9004F88F7 /* VEdepthshader.m */,
 				373E62971AA2323000ACC243 /* VEdiffuseshader.h */,
 				373E62981AA2323000ACC243 /* VEdiffuseshader.m */,
