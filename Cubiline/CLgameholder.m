@@ -200,6 +200,8 @@
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cubeCamera.ViewUpTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cubeCamera.ViewUpTransitionTime = 0.4f;
 		m_cubeCamera.PivotTransitionTime = 0.4f;
 		m_cubeCamera.PositionTransitionTime = 0.4f;
 		m_cubeCamera.PivotRotationTransitionTime = 0.2f;
@@ -317,6 +319,8 @@
 			Level.Move = true;
 			m_cubeView.Camera = Level.FocusedCamera;
 		}
+		else
+			m_cubeCamera.PivotRotation = Level.FocusedCamera.PivotRotation;
 	}
 	
 	if(Level.Finished && m_stage != FINISHED)
@@ -885,9 +889,11 @@
 	[m_cubeCamera ResetPivot:Level.FocusedCamera.Pivot];
 	[m_cubeCamera ResetPivotRotation:Level.FocusedCamera.PivotRotation];
 	[m_cubeCamera ResetViewUp:Level.FocusedCamera.ViewUp];
+	[m_cubeCamera Frame:0.0f];
 	m_cubeView.Camera = m_cubeCamera;
 	[m_renderBox Frame:0.0f];
-	m_cubeCamera.PivotRotationTransitionTime = 0.5f;
+	m_cubeCamera.ViewUp = Level.FocusedCamera.TargetViewUp;
+	m_cubeCamera.PivotRotation = Level.FocusedCamera.TargetPivotRotation;
 	
 	m_bestScore.Opasity = 0.0f;
 	m_totalEaten.Opasity = 0.0f;

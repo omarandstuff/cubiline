@@ -286,6 +286,11 @@
 	return Vector;
 }
 
+- (GLKVector3)TargetVector
+{
+	return m_targetPosition;
+}
+
 - (void)setTransitionTime:(float)time
 {
 	m_translationByTime = true;

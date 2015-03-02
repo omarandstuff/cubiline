@@ -458,6 +458,11 @@
 	return m_pivotRotation.Vector;
 }
 
+- (GLKVector3)TargetPivotRotation
+{
+	return m_pivotRotation.TargetVector;
+}
+
 - (void)setPivotRotationTransitionEffect:(enum VE_TRANSITION_EFFECT)transitioneffect
 {
 	m_pivotRotation.TransitionEffect = transitioneffect;

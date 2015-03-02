@@ -31,6 +31,7 @@
 
 /// View Up
 @property GLKVector3 ViewUp;
+@property (readonly)GLKVector3 TargetViewUp;
 @property enum VE_TRANSITION_EFFECT ViewUpTransitionEffect;
 @property float ViewUpTransitionTime;
 @property float ViewUpTransitionSpeed;

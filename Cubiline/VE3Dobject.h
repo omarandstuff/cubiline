@@ -77,6 +77,7 @@
 /// Pivot rotation
 @property enum VE_PIVOT_ROTATION PivotRotationStyle;
 @property GLKVector3 PivotRotation;
+@property (readonly)GLKVector3 TargetPivotRotation;
 @property enum VE_TRANSITION_EFFECT PivotRotationTransitionEffect;
 @property float PivotRotationTransitionTime;
 @property float PivotRotationTransitionSpeed;

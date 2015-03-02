@@ -104,7 +104,7 @@
 			}
 			if (scores != nil)
 			{
-				[LoadedScores setValue:[NSNumber numberWithInteger:leaderboardRequest.localPlayerScore.value] forKey:category];
+				[LoadedScores setValue:[NSNumber numberWithInteger:(int)leaderboardRequest.localPlayerScore.value] forKey:category];
 			}
 		}];
 	}

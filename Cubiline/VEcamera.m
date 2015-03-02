@@ -310,6 +310,11 @@
     return m_viewUp.Vector;
 }
 
+- (GLKVector3)TargetViewUp
+{
+	return m_viewUp.TargetVector;
+}
+
 - (void)setViewUpTransitionEffect:(enum VE_TRANSITION_EFFECT)transitioneffect
 {
     m_viewUp.TransitionEffect = transitioneffect;

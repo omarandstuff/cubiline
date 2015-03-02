@@ -9,6 +9,7 @@
 
 @property enum VE_TRANSITION_EFFECT TransitionEffect;
 @property GLKVector3 Vector;
+@property (readonly)GLKVector3 TargetVector;
 @property float TransitionTime;
 @property float TransitionSpeed;
 @property float Ease;

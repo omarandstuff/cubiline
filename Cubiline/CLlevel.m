@@ -2473,6 +2473,13 @@
 	
 	if(inNoZoneReleased > 1) return;
 	
+	if (!m_slotControl)
+	{
+		[self RemoveFirstSlot];
+	}
+	else
+		m_slotControl--;
+	
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY] && !m_restarted)
 	{
 		[self Finish];
@@ -2480,13 +2487,6 @@
 	}
 	else
 		m_restarted = false;
-	
-	if (!m_slotControl)
-	{
-		[self RemoveFirstSlot];
-	}
-	else
-		m_slotControl--;
 	
 	[self AddSlot:Zone CoordX:nowX CoordY:nowY Position:p InZone:inNoZone == 0 ? true : false];
 }
@@ -2715,7 +2715,7 @@
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
-	//m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+	m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
 	
 	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -2777,7 +2777,7 @@
 	[Scene addModel:BottomWall];
 	[Scene addModel:Leader];
 	[Scene addModel:Food];
-	[Scene addModel:m_guides];
+	//[Scene addModel:m_guides];
 	
 	[Scene addLight:TopLight];
 	[Scene addLight:BottomLight];
