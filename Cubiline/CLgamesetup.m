@@ -42,11 +42,14 @@
 	
 	VEWatch* m_watch;
 	
+	enum CL_GRAPHICS m_graphics;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size;
 - (void)ChangeSpeed:(enum CL_SIZE)speed;
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
+
+- (void)FocusLeaderInCamera;
 
 @end
 
@@ -55,13 +58,14 @@
 @synthesize Level;
 @synthesize Scene;
 
-- (id)initWithRenderBox:(VERenderBox *)renderbox
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
 	if(self)
 	{
 		m_renderBox = renderbox;
+		m_graphics = graphics;
 		
 		// Scene for full screen presentation.
 		Scene = [m_renderBox NewSceneWithName:@"SetUpGameScene"];
@@ -72,7 +76,13 @@
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeView.Camera = m_cubeCamera;
-		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
+		
+		if(m_graphics == CL_GRAPHICS_HIGH)
+			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
+		else if(m_graphics == CL_GRAPHICS_MEDIUM)
+			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+		else
+			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Camera SetUp
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -82,11 +92,13 @@
 		m_cubeCamera.PositionTransitionTime = 0.4f;
 		m_cubeCamera.PivotRotationTransitionTime = 0.2f;
 		m_cubeCamera.LockLookAt = true;
-		m_cubeCamera.DepthOfField = false;
 		m_cubeCamera.Far = 60.0f;
 		m_cubeCamera.Near = 5.0f;
 		m_cubeCamera.FocusRange = 15.0f;
 		m_cubeCamera.PivotRotation = GLKVector3Make(-30.0f, 30.0f, 0.0f);
+		
+		if(graphics == CL_GRAPHICS_HIGH)
+			m_cubeCamera.DepthOfField = true;
 		
 		// Back
 		m_playText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Play"];
@@ -172,6 +184,14 @@
 - (void)Frame:(float)time
 {
 	[m_watch Frame:time];
+	if(m_graphics == CL_GRAPHICS_HIGH)
+		[self FocusLeaderInCamera];
+}
+
+- (void)FocusLeaderInCamera
+{
+	float focusDistance = GLKVector3Length(GLKVector3Subtract(Level.Leader.Position, m_cubeCamera.Position));
+	m_cubeCamera.FocusDistance = focusDistance;
 }
 
 - (void)Render

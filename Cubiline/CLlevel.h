@@ -48,7 +48,7 @@
 
 @property bool Finished;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox;
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;

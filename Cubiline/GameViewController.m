@@ -12,6 +12,8 @@
 	float m_multipler;
 }
 
+- (NSString*)deviceCategory;
+
 @end
 
 @implementation GameViewController
@@ -20,8 +22,16 @@
 {
 	[super viewDidLoad];
 	
-	// Multipler
-	m_multipler = 2.0f;
+	// Multipler screen resolution base device.
+	NSString* deviceCategory = [self deviceCategory];
+	if([deviceCategory isEqualToString:@"very low"])
+		m_multipler = 1.0f;
+	else if([deviceCategory isEqualToString:@"low"])
+		m_multipler = 1.0f;
+	if([deviceCategory isEqualToString:@"medium"])
+		m_multipler = 1.5f;
+	else
+		m_multipler = 2.0f;
 	
 	// Create the context object
 	m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -66,14 +76,90 @@
  
 	if (!success)
 		NSLog(@"Audio session failed.");
-
 	
 	//Create the game place.
-	m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter];
+	if([deviceCategory isEqualToString:@"very low"])
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_VERYLOW];
+	else if([deviceCategory isEqualToString:@"low"])
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_LOW];
+	if([deviceCategory isEqualToString:@"medium"])
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_MEDIUM];
+	else
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_HIGH];
+
 	
 	[m_renderBox Frame:0.0f];
 	[m_game Frame:0.0f];
 	[m_renderBox Render];
+}
+
+- (NSString*)deviceCategory;
+{
+	struct utsname systemInfo;
+	uname(&systemInfo);
+	
+	NSString *machineName = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+
+	NSDictionary *commonNamesDictionary =
+	@{
+	  @"i386":     @"low",
+	  @"x86_64":   @"low",
+	  
+	  @"iPhone1,1":    @"very low",
+	  @"iPhone1,2":    @"very low",
+	  @"iPhone2,1":    @"very low",
+	  @"iPhone3,1":    @"very low",
+	  @"iPhone3,2":    @"very low",
+	  @"iPhone3,3":    @"very low",
+	  @"iPhone4,1":    @"low",
+	  @"iPhone5,1":    @"medium",
+	  @"iPhone5,2":    @"medium",
+	  @"iPhone5,3":    @"medium",
+	  @"iPhone5,4":    @"medium",
+	  @"iPhone6,1":    @"high",
+	  @"iPhone6,2":    @"high",
+	  
+	  @"iPhone7,1":    @"high",
+	  @"iPhone7,2":    @"high",
+	  
+	  @"iPad1,1":  @"very low",
+	  @"iPad2,1":  @"low",
+	  @"iPad2,2":  @"low",
+	  @"iPad2,3":  @"low",
+	  @"iPad2,4":  @"low",
+	  @"iPad2,5":  @"low",
+	  @"iPad2,6":  @"low",
+	  @"iPad2,7":  @"low",
+	  @"iPad3,1":  @"medium",
+	  @"iPad3,2":  @"medium",
+	  @"iPad3,3":  @"medium",
+	  @"iPad3,4":  @"high",
+	  @"iPad3,5":  @"high",
+	  @"iPad3,6":  @"high",
+	  
+	  @"iPad4,1":  @"high",
+	  @"iPad4,2":  @"high",
+	  @"iPad4,3":  @"high",
+	  
+	  @"iPad4,4":  @"high",
+	  @"iPad4,5":  @"high",
+	  @"iPad4,6":  @"high",
+	  
+	  @"iPod1,1":  @"very low",
+	  @"iPod2,1":  @"very low",
+	  @"iPod3,1":  @"very low",
+	  @"iPod4,1":  @"low",
+	  @"iPod5,1":  @"medium",
+	  
+   };
+	
+	NSString *deviceName = commonNamesDictionary[machineName];
+	
+	if (deviceName == nil) {
+		deviceName = machineName;
+	}
+	
+	return deviceName;
 }
 
 - (void)viewDidAppear:(BOOL)animated

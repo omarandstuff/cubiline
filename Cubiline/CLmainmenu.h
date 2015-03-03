@@ -12,7 +12,7 @@
 
 @property VEGameCenter* GameCenter;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox;
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 
 - (void)Frame:(float)time;
 - (void)Resize;

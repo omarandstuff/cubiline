@@ -55,10 +55,13 @@
 	
 	//  buttons
 	bool m_touchedButton;
+	bool m_isDown;
 	
 	/// Finish check out game.
 	GLKVector3 m_preRotation;
 	bool m_showing;
+	
+	enum CL_GRAPHICS m_graphics;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
@@ -79,13 +82,14 @@
 @synthesize GameCenter;
 @synthesize GameData;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
 	if(self)
 	{
 		m_renderBox = renderbox;
+		m_graphics = graphics;
 		
 		// Scene for full screen presentation.
 		Scene = [m_renderBox NewSceneWithName:@"PlayGameScene"];
@@ -94,7 +98,12 @@
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
 		m_cubeView.ClearColor = WhiteBackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
+		if(m_graphics == CL_GRAPHICS_HIGH)
+			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
+		else if(m_graphics == CL_GRAPHICS_MEDIUM)
+			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+		else
+			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Points text
 		m_points = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
@@ -329,6 +338,10 @@
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.TargetPivotRotation;
 			m_showing = true;
 		}
+		else if(m_isDown)
+		{
+			[m_watch Reset];
+		}
 	}
 	else if(m_stage == FINISHED_TO_RESTART)
 	{
@@ -432,7 +445,7 @@
 		
 		
 		[m_watch Reset];
-		[m_watch SetLimitInSeconds:2.0f];
+		[m_watch SetLimitInSeconds:1.0f];
 	}
 }
 
@@ -488,6 +501,7 @@
 	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
 	m_touchedButton = true;
+	m_isDown = true;
 	if(m_stage == PLAYING)
 	{
 		if([self TestButton:m_pauseRect X:rx Y:ry])
@@ -531,6 +545,7 @@
 	float rx = x - m_renderBox.ScreenWidth / 2;
 	float ry = -y + m_renderBox.ScreenHeight / 2;
 	
+	m_isDown = false;
 	if(m_stage == PLAYING && m_touchedButton)
 	{
 		if([self TestButton:m_pauseRect X:rx Y:ry])
@@ -650,8 +665,11 @@
 
 - (void)Begin
 {
+	float width = m_renderBox.ScreenWidth;
+	float height = m_renderBox.ScreenHeight;
 	[m_points ResetPosition:GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f)];
-	[m_points ResetFontSize:m_buttonSize];
+	[m_points ResetFontSize:width > height ? height / 10 : width / 10];
+	[m_points Frame:0.0f];
 	m_points.Opasity = 1.0f;
 	m_bestScore.Opasity = 1.0f;
 	m_totalEaten.Opasity = 1.0f;
@@ -772,7 +790,6 @@
 	else
 		m_buttonSize = width / 5.0f;
 
-	m_points.FontSize = m_buttonSize;
 	m_points.FontSize = width > height ? height / 10 : width / 10;
 	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
 	

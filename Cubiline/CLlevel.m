@@ -55,6 +55,8 @@
 	VERandom* m_random;
 	
 	bool m_restarted;
+	
+	enum CL_GRAPHICS m_graphics;
 }
 
 
@@ -110,18 +112,6 @@
 - (GLKVector2)CameraRotationBase:(float)base Horizontal:(float)horizontal Vertical:(float)vertical;
 - (void)ManageFollow;
 
-
-- (void)PrintZone;
-- (void)PrintDirection;
-- (void)PrintUp;
-- (void)PrintNextHandle;
-- (void)PrintNextDirection;
-- (void)PrintToTurnPosition;
-- (void)PrintNextDirectionPosition;
-- (void)PrintBuffer;
-
-- (void)PrintLog;
-
 @end
 
 @implementation CLLevel
@@ -156,187 +146,14 @@
 @synthesize Move;
 @synthesize Finished;
 
-- (void)PrintZone
-{
-	if(Zone == CL_ZONE_FRONT)
-		NSLog(@"Zone: Front");
-	if(Zone == CL_ZONE_BACK)
-		NSLog(@"Zone: Back");
-	if(Zone == CL_ZONE_RIGHT)
-		NSLog(@"Zone: Right");
-	if(Zone == CL_ZONE_LEFT)
-		NSLog(@"Zone: Left");
-	if(Zone == CL_ZONE_TOP)
-		NSLog(@"Zone: Top");
-	if(Zone == CL_ZONE_BOTTOM)
-		NSLog(@"Zone: Bottom");
-}
-
-- (void)PrintDirection
-{
-	if(Direction == CL_ZONE_FRONT)
-		NSLog(@"Direction: Front");
-	if(Direction == CL_ZONE_BACK)
-		NSLog(@"Direction: Back");
-	if(Direction == CL_ZONE_RIGHT)
-		NSLog(@"Direction: Right");
-	if(Direction == CL_ZONE_LEFT)
-		NSLog(@"Direction: Left");
-	if(Direction == CL_ZONE_TOP)
-		NSLog(@"Direction: Top");
-	if(Direction == CL_ZONE_BOTTOM)
-		NSLog(@"Direction: Bottom");
-}
-
-- (void)PrintNextDirection
-{
-	if(m_nextDirection == CL_ZONE_FRONT)
-		NSLog(@"Direction: Front");
-	if(m_nextDirection == CL_ZONE_BACK)
-		NSLog(@"Direction: Back");
-	if(m_nextDirection == CL_ZONE_RIGHT)
-		NSLog(@"Direction: Right");
-	if(m_nextDirection == CL_ZONE_LEFT)
-		NSLog(@"Direction: Left");
-	if(m_nextDirection == CL_ZONE_TOP)
-		NSLog(@"Direction: Top");
-	if(m_nextDirection == CL_ZONE_BOTTOM)
-		NSLog(@"Direction: Bottom");
-}
-
-- (void)PrintUp
-{
-	if(ZoneUp == CL_ZONE_FRONT)
-		NSLog(@"ZoneUp: Front");
-	if(ZoneUp == CL_ZONE_BACK)
-		NSLog(@"ZoneUp: Back");
-	if(ZoneUp == CL_ZONE_RIGHT)
-		NSLog(@"ZoneUp: Right");
-	if(ZoneUp == CL_ZONE_LEFT)
-		NSLog(@"ZoneUp: Left");
-	if(ZoneUp == CL_ZONE_TOP)
-		NSLog(@"ZoneUp: Top");
-	if(ZoneUp == CL_ZONE_BOTTOM)
-		NSLog(@"ZoneUp: Bottom");
-}
-
-- (void)PrintNextHandle
-{
-	if(m_nextHandle == CL_HANDLE_FRONT)
-		NSLog(@"NextHandle: Front");
-	if(m_nextHandle == CL_HANDLE_FRONT_RIGHT)
-		NSLog(@"NextHandle: Front Right");
-	if(m_nextHandle == CL_HANDLE_FRONT_LEFT)
-		NSLog(@"NextHandle: Front Left");
-	if(m_nextHandle == CL_HANDLE_FRONT_TOP)
-		NSLog(@"NextHandle: Front Top");
-	if(m_nextHandle == CL_HANDLE_FRONT_BOTTOM)
-		NSLog(@"NextHandle: Front Bottom");
-	
-	if(m_nextHandle == CL_HANDLE_BACK)
-		NSLog(@"NextHandle: Back");
-	if(m_nextHandle == CL_HANDLE_BACK_RIGHT)
-		NSLog(@"NextHandle: Back Right");
-	if(m_nextHandle == CL_HANDLE_BACK_LEFT)
-		NSLog(@"NextHandle: Back Left");
-	if(m_nextHandle == CL_HANDLE_BACK_TOP)
-		NSLog(@"NextHandle: Back Top");
-	if(m_nextHandle == CL_HANDLE_BACK_BOTTOM)
-		NSLog(@"NextHandle: Back Bottom");
-	
-	if(m_nextHandle == CL_HANDLE_RIGHT)
-		NSLog(@"NextHandle: Right");
-	if(m_nextHandle == CL_HANDLE_RIGHT_FRONT)
-		NSLog(@"NextHandle: Right Front");
-	if(m_nextHandle == CL_HANDLE_RIGHT_BACK)
-		NSLog(@"NextHandle: Right Back");
-	if(m_nextHandle == CL_HANDLE_RIGHT_TOP)
-		NSLog(@"NextHandle: Right Top");
-	if(m_nextHandle == CL_HANDLE_RIGHT_BOTTOM)
-		NSLog(@"NextHandle: Right Bottom");
-	
-	if(m_nextHandle == CL_HANDLE_LEFT)
-		NSLog(@"NextHandle: Left");
-	if(m_nextHandle == CL_HANDLE_LEFT_FRONT)
-		NSLog(@"NextHandle: Left Front");
-	if(m_nextHandle == CL_HANDLE_LEFT_BACK)
-		NSLog(@"NextHandle: Left Back");
-	if(m_nextHandle == CL_HANDLE_LEFT_TOP)
-		NSLog(@"NextHandle: Left Top");
-	if(m_nextHandle == CL_HANDLE_LEFT_BOTTOM)
-		NSLog(@"NextHandle: Left Bottom");
-	
-	if(m_nextHandle == CL_HANDLE_TOP)
-		NSLog(@"NextHandle: Top");
-	if(m_nextHandle == CL_HANDLE_TOP_FRONT)
-		NSLog(@"NextHandle: Top Front");
-	if(m_nextHandle == CL_HANDLE_TOP_BACK)
-		NSLog(@"NextHandle: Top Back");
-	if(m_nextHandle == CL_HANDLE_TOP_RIGHT)
-		NSLog(@"NextHandle: Top Right");
-	if(m_nextHandle == CL_HANDLE_TOP_LEFT)
-		NSLog(@"NextHandle: Top Left");
-	
-	if(m_nextHandle == CL_HANDLE_BOTTOM)
-		NSLog(@"NextHandle: Bottom");
-	if(m_nextHandle == CL_HANDLE_BOTTOM_FRONT)
-		NSLog(@"NextHandle: Bottom Front");
-	if(m_nextHandle == CL_HANDLE_BOTTOM_BACK)
-		NSLog(@"NextHandle: Bottom Back");
-	if(m_nextHandle == CL_HANDLE_BOTTOM_RIGHT)
-		NSLog(@"NextHandle: Bottom Right");
-	if(m_nextHandle == CL_HANDLE_BOTTOM_LEFT)
-		NSLog(@"NextHandle: Bottom Left");
-}
-- (void)PrintToTurnPosition
-{
-	NSLog(@"ToTurnPosition: (%f, %f, %f)", m_toTurnPosition.x, m_toTurnPosition.y, m_toTurnPosition.z);
-}
-
-- (void)PrintNextDirectionPosition
-{
-	NSLog(@"NextDirectionPosition: (%f, %f, %f)", m_nextDirectionPosition.x, m_nextDirectionPosition.y, m_nextDirectionPosition.z);
-}
-
-- (void)PrintBuffer
-{
-	if(m_bufferTurn == CL_TURN_UP_RIGHT)
-		NSLog(@"TurnBuffered: Up Right");
-	if(m_bufferTurn == CL_TURN_UP_LEFT)
-		NSLog(@"TurnBuffered: Up Left");
-	if(m_bufferTurn == CL_TURN_DOWN_RIGHT)
-		NSLog(@"TurnBuffered: Down Right");
-	if(m_bufferTurn == CL_TURN_DOWN_LEFT)
-		NSLog(@"TurnBuffered: Down Left");
-	if(m_bufferTurn == CL_TURN_RIGHT_UP)
-		NSLog(@"TurnBuffered: Right Up");
-	if(m_bufferTurn == CL_TURN_RIGHT_DOWN)
-		NSLog(@"TurnBuffered: Right Down");
-	if(m_bufferTurn == CL_TURN_LEFT_UP)
-		NSLog(@"TurnBuffered: Left Up");
-	if(m_bufferTurn == CL_TURN_LEFT_DOWN)
-		NSLog(@"TurnBuffered: Left Down");
-}
-
-- (void)PrintLog
-{
-	//[self PrintZone];
-	//[self PrintDirection];
-	//[self PrintUp];
-	//[self PrintNextHandle];
-	//[self PrintNextDirection];
-	//[self PrintToTurnPosition];
-	//[self PrintNextDirectionPosition];
-	//[self PrintBuffer];
-}
-
-- (id)initWithRenderBox:(VERenderBox *)renderbox
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
 	if(self)
 	{
 		m_renderBox = renderbox;
+		m_graphics = graphics;
 		
 		_Size = 456;
 		ZoneUp = CL_ZONE_TOP;
@@ -584,9 +401,6 @@
 		m_noZone = true;
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_RIGHT;
 			Direction = CL_ZONE_BACK;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -616,16 +430,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_RIGHT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_LEFT;
 			Direction = CL_ZONE_BACK;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -655,16 +463,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_LEFT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_TOP;
 			Direction = CL_ZONE_BACK;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -698,9 +500,6 @@
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BOTTOM;
 			Direction = CL_ZONE_BACK;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -729,10 +528,7 @@
 			m_justBuffered = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_BOTTOM];
-			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
+
 			return;
 		}
 	}
@@ -747,9 +543,6 @@
 		m_noZone = true;
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_LEFT;
 			Direction = CL_ZONE_FRONT;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -779,16 +572,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_LEFT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_RIGHT;
 			Direction = CL_ZONE_FRONT;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -818,16 +605,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_RIGHT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_TOP;
 			Direction = CL_ZONE_FRONT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -857,16 +638,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_TOP];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BOTTOM;
 			Direction = CL_ZONE_FRONT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -896,9 +671,6 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_BOTTOM];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 	}
@@ -913,9 +685,6 @@
 		m_noZone = true;
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BACK;
 			Direction = CL_ZONE_LEFT;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -945,16 +714,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BACK];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_FRONT;
 			Direction = CL_ZONE_LEFT;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -984,16 +747,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_FRONT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_TOP;
 			Direction = CL_ZONE_LEFT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -1023,16 +780,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_TOP];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BOTTOM;
 			Direction = CL_ZONE_LEFT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -1062,9 +813,6 @@
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BOTTOM];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 	}
@@ -1079,9 +827,6 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_FRONT;
 			Direction = CL_ZONE_RIGHT;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1111,16 +856,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_FRONT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BACK;
 			Direction = CL_ZONE_RIGHT;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1150,16 +889,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BACK];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_TOP;
 			Direction = CL_ZONE_RIGHT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -1189,16 +922,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_TOP];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.y == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BOTTOM;
 			Direction = CL_ZONE_RIGHT;
 			if(ZoneUp == CL_ZONE_TOP)
@@ -1228,9 +955,6 @@
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BOTTOM];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 	}
@@ -1245,9 +969,6 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_FRONT;
 			Direction = CL_ZONE_BOTTOM;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1277,16 +998,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_FRONT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BACK;
 			Direction = CL_ZONE_BOTTOM;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1316,16 +1031,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_BACK];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_RIGHT;
 			Direction = CL_ZONE_BOTTOM;
 			if(ZoneUp == CL_ZONE_LEFT)
@@ -1355,16 +1064,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_RIGHT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_LEFT;
 			Direction = CL_ZONE_BOTTOM;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -1394,9 +1097,6 @@
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_LEFT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 	}
@@ -1411,9 +1111,6 @@
 		m_noZone = true;
 		if(leaderPosition.z == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_FRONT;
 			Direction = CL_ZONE_TOP;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1443,16 +1140,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_FRONT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.z == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_BACK;
 			Direction = CL_ZONE_TOP;
 			if(ZoneUp == CL_ZONE_FRONT)
@@ -1482,16 +1173,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_BACK];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_RIGHT;
 			Direction = CL_ZONE_TOP;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -1521,16 +1206,10 @@
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_RIGHT];
 			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
-			
 			return;
 		}
 		if(leaderPosition.x == -m_cubeEdgeLimit)
 		{
-			//NSLog(@"Pre Zone Change");
-			[self PrintLog];
-			
 			Zone = CL_ZONE_LEFT;
 			Direction = CL_ZONE_TOP;
 			if(ZoneUp == CL_ZONE_RIGHT)
@@ -1559,9 +1238,6 @@
 			m_justBuffered = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_LEFT];
-			
-			//NSLog(@"Zone Changed");
-			[self PrintLog];
 			
 			return;
 		}
@@ -2715,7 +2391,13 @@
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
-	m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+	
+	if(m_graphics == CL_GRAPHICS_VERYLOW)
+		m_guides.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
+	else if(m_graphics == CL_GRAPHICS_LOW || m_graphics == CL_GRAPHICS_MEDIUM)
+		m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+	else
+		m_guides.ForcedRenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
 	
 	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -2759,11 +2441,11 @@
 	// Lights
 	TopLight = [m_renderBox NewLight];
 	TopLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
-	TopLight.Intensity = 1.9f;
+	TopLight.Intensity = 1.95f;
 	
 	BottomLight = [m_renderBox NewLight];
 	BottomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
-	BottomLight.Intensity = 1.8f;
+	BottomLight.Intensity = 2.15f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
@@ -2777,7 +2459,7 @@
 	[Scene addModel:BottomWall];
 	[Scene addModel:Leader];
 	[Scene addModel:Food];
-	//[Scene addModel:m_guides];
+	[Scene addModel:m_guides];
 	
 	[Scene addLight:TopLight];
 	[Scene addLight:BottomLight];
@@ -2787,11 +2469,13 @@
 	FocusedCamera.ViewUpTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	FocusedCamera.ViewUpTransitionTime = 1.0f;
 	FocusedCamera.LockLookAt = true;
-	FocusedCamera.DepthOfField = false;
 	FocusedCamera.Far = 60.0f;
 	FocusedCamera.Near = 5.0f;
 	FocusedCamera.FocusRange = 15.0f;
-
+	
+	if(m_graphics == CL_GRAPHICS_HIGH)
+			FocusedCamera.DepthOfField = true;
+	
 	// Body and slots
 	Body = [[NSMutableArray alloc] init];
 	m_slots = [[NSMutableArray alloc] init];

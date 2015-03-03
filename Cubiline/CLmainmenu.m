@@ -42,6 +42,8 @@
 	
 	VEWatch* m_watch;
 	VERandom* m_random;
+	
+	enum CL_GRAPHICS m_graphics;
 }
 
 - (void)PressCube;
@@ -59,13 +61,14 @@
 
 @synthesize GameCenter;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 {
 	self = [super init];
 	
 	if(self)
 	{
 		m_renderBox = renderbox;
+		m_graphics = graphics;
 		
 		Scene = [m_renderBox NewSceneWithName:@"MainMenuScene"];
 		
@@ -73,7 +76,16 @@
 		
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:(float)m_renderBox.ScreenHeight Height:(float)m_renderBox.ScreenHeight];
 		m_cubeView.ClearColor = BackgroundColor;
-		m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+		
+		/// Graphics
+		if(graphics == CL_GRAPHICS_VERYLOW)
+			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
+		else if(graphics == CL_GRAPHICS_LOW)
+			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+		else if(graphics == CL_GRAPHICS_MEDIUM)
+			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
+		else if(graphics == CL_GRAPHICS_HIGH)
+			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
 		
 		m_cubeView.Scene = m_cubeScene;
 		
@@ -202,11 +214,14 @@
 		m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_EASE;
 		m_cubeCamera.PivotRotationEase = 0.5f;
 		m_cubeCamera.PivotRotationTransitionTime = 7.0f;
-		m_cubeCamera.DepthOfField = false;
+		
 		m_cubeCamera.FocusDistance = 2.45f;
 		m_cubeCamera.FocusRange = 50.0f;
 		m_cubeCamera.Far = 15.0f;
 		m_cubeCamera.Near = 1.0f;
+		
+		if(graphics == CL_GRAPHICS_HIGH)
+			m_cubeCamera.DepthOfField = true;
 		
 		m_cubeView.Camera = m_cubeCamera;
 		
