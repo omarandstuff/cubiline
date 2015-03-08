@@ -28,7 +28,7 @@
 		m_multipler = 1.0f;
 	else if([deviceCategory isEqualToString:@"low"])
 		m_multipler = 1.0f;
-	if([deviceCategory isEqualToString:@"medium"])
+	else if([deviceCategory isEqualToString:@"medium"])
 		m_multipler = 1.5f;
 	else
 		m_multipler = 2.0f;
@@ -82,7 +82,7 @@
 		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_VERYLOW];
 	else if([deviceCategory isEqualToString:@"low"])
 		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_LOW];
-	if([deviceCategory isEqualToString:@"medium"])
+	else if([deviceCategory isEqualToString:@"medium"])
 		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_MEDIUM];
 	else
 		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_HIGH];

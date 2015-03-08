@@ -117,7 +117,7 @@
 		m_points.ScaleTransitionTime = 0.4f;
 		
 		m_bestScore = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Best:0"];
-		m_bestScore.Color = GrayColor;
+		m_bestScore.Color = FrontColor;
 		m_bestScore.Opasity = 0.0f;
 		m_bestScore.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_bestScore.OpasityTransitionTime = 0.15f;
@@ -303,8 +303,8 @@
 			else
 				GameData.HighScore = m_highScore;
 			
-			m_bestScore.Text = [NSString stringWithFormat:@"Best:%d", m_highScore];
-			m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+			m_bestScore.Text = [NSString stringWithFormat:@"%d", m_highScore];
+			m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 1.5f, 0.0f);
 		}
 		
 		if(m_total != Level.Grown)
@@ -319,7 +319,7 @@
 			else
 				GameData.Grown = m_total;
 			m_totalEaten.Text = [NSString stringWithFormat:@"%d", m_total];
-			m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
+			m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 4, -m_renderBox.ScreenHeight / 2 + m_points.Height / 4.0f, 0.0f);
 		}
 	}
 	else if(m_stage == FINISHED)
@@ -424,10 +424,172 @@
 {
 	if(m_stage == FINISHED && !m_touchedButton)
 	{
-		GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, -x / 4.0f, 0.0f));
+		GLKVector3 newRotation;
+		if(Level.Zone == CL_ZONE_FRONT)
+		{
+			if(Level.ZoneUp == CL_ZONE_TOP)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, -x / 4.0f, 0.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, x / 4.0f, 0.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_RIGHT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, y / 4.0f, 0.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_LEFT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, -y / 4.0f, 0.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+		}
+		else if(Level.Zone == CL_ZONE_BACK)
+		{
+			if(Level.ZoneUp == CL_ZONE_TOP)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, -x / 4.0f, 0.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, x / 4.0f, 0.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_RIGHT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, -y / 4.0f, 0.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_LEFT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, -y / 4.0f, 0.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+		}
+		else if(Level.Zone == CL_ZONE_RIGHT)
+		{
+			if(Level.ZoneUp == CL_ZONE_TOP)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -x / 4.0f, y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, -y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_FRONT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -y / 4.0f, -x / 4.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BACK)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, y / 4.0f, x / 4.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+		}
+		else if(Level.Zone == CL_ZONE_LEFT)
+		{
+			if(Level.ZoneUp == CL_ZONE_TOP)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -x / 4.0f, -y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_FRONT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, y / 4.0f, -x / 4.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BACK)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -y / 4.0f, x / 4.0f));
+				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
+			}
+		}
+		else if(Level.Zone == CL_ZONE_TOP)
+		{
+			if(Level.ZoneUp == CL_ZONE_FRONT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, 0.0f, -x / 4.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BACK)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, 0.0f, -x / 4.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_RIGHT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, 0.0f, -y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_LEFT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, 0.0f, y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+		}
+		else if(Level.Zone == CL_ZONE_BOTTOM)
+		{
+			if(Level.ZoneUp == CL_ZONE_FRONT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, 0.0f, -x / 4.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_BACK)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, 0.0f,  x / 4.0f));
+				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_RIGHT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, 0.0f, y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+			else if(Level.ZoneUp == CL_ZONE_LEFT)
+			{
+				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, 0.0f, -y / 4.0f));
+				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
+			}
+		}
+		
 		
 		m_cubeCamera.PivotRotation = newRotation;
-		
 		
 		if(m_showing)
 		{
@@ -440,9 +602,7 @@
 			m_gcText.Opasity = 0.0f;
 			m_exitText.Opasity = 0.0f;
 		}
-		
 		m_showing = false;
-		
 		
 		[m_watch Reset];
 		[m_watch SetLimitInSeconds:1.0f];
@@ -626,7 +786,11 @@
 		if([self TestButton:m_restartRect X:rx Y:ry])
 		{
 			m_stage = FINISHED_TO_RESTART;
+			[m_points ResetFontSize:m_buttonSize / 2.0f];
+			[m_points Frame:0.0f];
 			[m_points ResetPosition:GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_points.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height, 0.0f)];
+			[m_points Frame:0.0f];
+			
 			Level.Finished = false;
 			
 			m_pauseButton.Opasity = 1.0;
@@ -793,18 +957,18 @@
 	m_points.FontSize = width > height ? height / 10 : width / 10;
 	m_points.Position = GLKVector3Make(width / 2 - m_points.Width / 2 - m_points.Height / 2, height / 2 - m_points.Height, 0.0f);
 	
-	m_bestScore.FontSize = width > height ? height / 18 : width / 18;
-	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 2.0f, 0.0f);
+	m_bestScore.FontSize = width > height ? height / 23 : width / 23;
+	m_bestScore.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_bestScore.Width / 2 - m_points.Height / 2, m_renderBox.ScreenHeight / 2 - m_points.Height * 1.5f, 0.0f);
 	
-	m_totalEaten.FontSize = width > height ? height / 20 : width / 20;
-	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 2, -m_renderBox.ScreenHeight / 2 + m_points.Height / 2.0f, 0.0f);
+	m_totalEaten.FontSize = width > height ? height / 30 : width / 30;
+	m_totalEaten.Position = GLKVector3Make(m_renderBox.ScreenWidth / 2 - m_totalEaten.Width / 2 - m_points.Height / 4, -m_renderBox.ScreenHeight / 2 + m_points.Height / 4.0f, 0.0f);
 	
 	m_pauseButton.Height = m_buttonSize / 2.0f;
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
 	
-	m_pauseRect.top =  height / 2 - m_buttonSize / 8.0f;
+	m_pauseRect.top =  height / 2;
 	m_pauseRect.bottom = m_pauseRect.top - m_buttonSize;
-	m_pauseRect.left = -width / 2 + m_buttonSize / 8.0f;
+	m_pauseRect.left = -width / 2;
 	m_pauseRect.right = m_pauseRect.left + m_buttonSize;
 }
 

@@ -70,6 +70,8 @@
 		3758D1311A7C6F1F00982ABE /* main_menu_settings.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */; };
 		3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */; };
 		3758D1341A7C73E600982ABE /* main_menu_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3758D1331A7C73E600982ABE /* main_menu_settings.png */; };
+		375FF04F1AAA8A07003E56F1 /* front_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 375FF04E1AAA8A07003E56F1 /* front_wall.png */; };
+		375FF0511AAA8A42003E56F1 /* front_wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 375FF0501AAA8A42003E56F1 /* front_wall.mtl */; };
 		37604EDF1A88019200F77B76 /* CLmainmenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 37604EDC1A88019200F77B76 /* CLmainmenu.m */; };
 		37604EE01A88019200F77B76 /* CLtouchable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37604EDE1A88019200F77B76 /* CLtouchable.m */; };
 		37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE31A88562900F77B76 /* game_setup_minus.png */; };
@@ -235,6 +237,8 @@
 		3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_settings.mtl; path = Cubiline/Resources/main_menu_settings.mtl; sourceTree = "<group>"; };
 		3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_settings.obj; path = Cubiline/Resources/main_menu_settings.obj; sourceTree = "<group>"; };
 		3758D1331A7C73E600982ABE /* main_menu_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_settings.png; path = Cubiline/Resources/main_menu_settings.png; sourceTree = "<group>"; };
+		375FF04E1AAA8A07003E56F1 /* front_wall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = front_wall.png; path = Cubiline/Resources/front_wall.png; sourceTree = "<group>"; };
+		375FF0501AAA8A42003E56F1 /* front_wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = front_wall.mtl; path = Cubiline/Resources/front_wall.mtl; sourceTree = "<group>"; };
 		37604EDB1A88019200F77B76 /* CLmainmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLmainmenu.h; path = Cubiline/CLmainmenu.h; sourceTree = "<group>"; };
 		37604EDC1A88019200F77B76 /* CLmainmenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLmainmenu.m; path = Cubiline/CLmainmenu.m; sourceTree = "<group>"; };
 		37604EDD1A88019200F77B76 /* CLtouchable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLtouchable.h; path = Cubiline/CLtouchable.h; sourceTree = "<group>"; };
@@ -386,48 +390,50 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37436E421A86D5A700167D31 /* back_wall.obj */,
+				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
+				378EDB001A79D49800397989 /* Cubiline Half.png */,
+				378EDAFE1A79CFF700397989 /* Cubiline.png */,
+				3734C5B31A7229AD0039269D /* dome.jpg */,
+				375FF0501AAA8A42003E56F1 /* front_wall.mtl */,
+				37436E441A86D5A700167D31 /* front_wall.obj */,
+				375FF04E1AAA8A07003E56F1 /* front_wall.png */,
 				37BCAAEC1A9176BE00FFFE6D /* game_continue.png */,
 				37BCAAE51A91760200FFFE6D /* game_exit.png */,
 				37BCAAE61A91760200FFFE6D /* game_gc.png */,
-				37BCAAE71A91760200FFFE6D /* game_restart.png */,
-				37BCAAE21A9165A300FFFE6D /* game_pause.png */,
-				37ADE7611A89ABB500FB84CF /* game_setup_play.png */,
-				37ADE7621A89ABB500FB84CF /* game_setup_size.png */,
-				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
-				37604EE31A88562900F77B76 /* game_setup_minus.png */,
-				37604EE41A88562900F77B76 /* game_setup_plus.png */,
-				374FCCBE1A86FFEA00B14ACB /* game_guides.png */,
 				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
 				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
-				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
-				374FCCA91A86D89700B14ACB /* top_wall.obj */,
-				37436E421A86D5A700167D31 /* back_wall.obj */,
-				37436E441A86D5A700167D31 /* front_wall.obj */,
-				37436E461A86D5A700167D31 /* left_wall.obj */,
-				37436E481A86D5A700167D31 /* right_wall.obj */,
+				374FCCBE1A86FFEA00B14ACB /* game_guides.png */,
 				376B55D61A82BFF500CC011F /* game_menu_back.png */,
+				37BCAAE21A9165A300FFFE6D /* game_pause.png */,
+				37BCAAE71A91760200FFFE6D /* game_restart.png */,
+				37604EE31A88562900F77B76 /* game_setup_minus.png */,
+				37ADE7611A89ABB500FB84CF /* game_setup_play.png */,
+				37604EE41A88562900F77B76 /* game_setup_plus.png */,
+				37ADE7621A89ABB500FB84CF /* game_setup_size.png */,
+				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
+				3734C5AF1A7229400039269D /* geosphere_medium.mtl */,
+				3734C5B01A7229400039269D /* geosphere_medium.obj */,
+				37436E461A86D5A700167D31 /* left_wall.obj */,
 				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
-				37AF23251A7D5A7500E0829E /* main_menu_about.png */,
 				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
-				3758D1331A7C73E600982ABE /* main_menu_settings.png */,
-				3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */,
-				3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */,
-				3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */,
+				37AF23251A7D5A7500E0829E /* main_menu_about.png */,
 				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
 				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
+				3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */,
 				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
 				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
 				3758D1191A7C61A900982ABE /* main_menu_play.png */,
-				3734C5B31A7229AD0039269D /* dome.jpg */,
-				378EDB001A79D49800397989 /* Cubiline Half.png */,
-				378EDAFE1A79CFF700397989 /* Cubiline.png */,
-				3734C5AF1A7229400039269D /* geosphere_medium.mtl */,
-				3734C5B01A7229400039269D /* geosphere_medium.obj */,
-				37A1F7471A75F5B90035BB91 /* dome.jpg */,
+				3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */,
+				3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */,
+				3758D1331A7C73E600982ABE /* main_menu_settings.png */,
 				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
 				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
+				37436E481A86D5A700167D31 /* right_wall.obj */,
+				374FCCA91A86D89700B14ACB /* top_wall.obj */,
 				3728F5BF1A6C4FEB004F7244 /* wall.mtl */,
 				3728F5C01A6C4FEB004F7244 /* wall.obj */,
+				37A1F7471A75F5B90035BB91 /* dome.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -833,6 +839,7 @@
 				37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */,
 				378EDAF41A79BB7100397989 /* Aharoni.png in Resources */,
 				378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */,
+				375FF04F1AAA8A07003E56F1 /* front_wall.png in Resources */,
 				373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */,
 				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
 				3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */,
@@ -848,6 +855,7 @@
 				374FCCBD1A86FCAF00B14ACB /* game_guides.obj in Resources */,
 				378EDAF71A79BB7100397989 /* Gau Font Cube Big.txt in Resources */,
 				3758D1311A7C6F1F00982ABE /* main_menu_settings.mtl in Resources */,
+				375FF0511AAA8A42003E56F1 /* front_wall.mtl in Resources */,
 				3758D11C1A7C61A900982ABE /* main_menu_play.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

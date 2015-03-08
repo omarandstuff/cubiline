@@ -25,6 +25,7 @@
 	int m_cubeFaceSlotLimit;
 	bool m_noZone;
 	bool m_noZoneFase;
+	bool m_bufferedInNoZone;
 	
 	// Camera control
 	float m_radious;
@@ -1538,6 +1539,15 @@
 			
 			m_inComplex = false;
 			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
+			
 			return;
 		}
 	}
@@ -1557,6 +1567,15 @@
 			m_toNew = true;
 			
 			m_inComplex = false;
+			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
 			
 			return;
 		}
@@ -1578,6 +1597,15 @@
 			
 			m_inComplex = false;
 			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
+			
 			return;
 		}
 	}
@@ -1597,6 +1625,15 @@
 			m_toNew = true;
 			
 			m_inComplex = false;
+			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
 			
 			return;
 		}
@@ -1618,6 +1655,15 @@
 			
 			m_inComplex = false;
 			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
+			
 			return;
 		}
 	}
@@ -1637,6 +1683,15 @@
 			m_toNew = true;
 			
 			m_inComplex = false;
+			
+			if(!m_bufferedInNoZone)
+			{
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+				m_justBuffered = true;
+			}
+			else
+				m_bufferedInNoZone = false;
 			
 			return;
 		}
@@ -1935,6 +1990,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_UP_RIGHT;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -1956,6 +2012,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_UP_LEFT;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -1977,6 +2034,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_DOWN_RIGHT;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -1998,6 +2056,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_DOWN_LEFT;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -2019,6 +2078,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_RIGHT_UP;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -2040,6 +2100,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_RIGHT_DOWN;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -2061,6 +2122,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_LEFT_UP;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -2082,6 +2144,7 @@
 	if(m_noZone && !m_noZoneFase)
 	{
 		m_bufferTurn = CL_TURN_LEFT_DOWN;
+		m_bufferedInNoZone = true;
 		return;
 	}
 	
@@ -2387,6 +2450,19 @@
 	TopWall = [m_renderBox NewModelFromFileName:@"top_wall"];
 	BottomWall = [m_renderBox NewModelFromFileName:@"bottom_wall"];
 	
+	FrontWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	FrontWall.TextureCompressionTransitionTime = 0.3f;
+	BackWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	BackWall.TextureCompressionTransitionTime = 0.3f;
+	RightWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	RightWall.TextureCompressionTransitionTime = 0.3f;
+	LeftWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	LeftWall.TextureCompressionTransitionTime = 0.3f;
+	TopWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	TopWall.TextureCompressionTransitionTime = 0.3f;
+	BottomWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	BottomWall.TextureCompressionTransitionTime = 0.3f;
+	
 	m_guides = [m_renderBox NewModelFromFileName:@"game_guides"];
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
@@ -2451,12 +2527,13 @@
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
 	
 	// Add models to scene
-	[Scene addModel:FrontWall];
+	
 	[Scene addModel:BackWall];
 	[Scene addModel:RightWall];
 	[Scene addModel:LeftWall];
 	[Scene addModel:TopWall];
 	[Scene addModel:BottomWall];
+	[Scene addModel:FrontWall];
 	[Scene addModel:Leader];
 	[Scene addModel:Food];
 	[Scene addModel:m_guides];
@@ -2472,9 +2549,6 @@
 	FocusedCamera.Far = 60.0f;
 	FocusedCamera.Near = 5.0f;
 	FocusedCamera.FocusRange = 15.0f;
-	
-	if(m_graphics == CL_GRAPHICS_HIGH)
-			FocusedCamera.DepthOfField = true;
 	
 	// Body and slots
 	Body = [[NSMutableArray alloc] init];
@@ -2494,6 +2568,13 @@
 		
 		m_guides.Scale = GuidesSmallSizeVector;
 		m_guides.TextureCompression = SmallSizeVector;
+		
+		FrontWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		BackWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		RightWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		LeftWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		TopWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		BottomWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
 		
 		m_cubeEdgeLimit = 5.0f;
 		m_cubeEdgeLogicalLimit = 4.0f;
@@ -2516,6 +2597,13 @@
 		m_guides.Scale = GuidesNormalSizeVector;
 		m_guides.TextureCompression = NormalSizeVector;
 		
+		FrontWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		BackWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		RightWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		LeftWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		TopWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		BottomWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		
 		m_cubeEdgeLimit = 8.0f;
 		m_cubeEdgeLogicalLimit = 7.0f;
 		
@@ -2536,6 +2624,13 @@
 		
 		m_guides.Scale = GuidesBigSizeVector;
 		m_guides.TextureCompression = BigSizeVector;
+
+		FrontWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		BackWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		RightWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		LeftWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		TopWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		BottomWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
 		
 		m_cubeEdgeLimit = 11.0f;
 		m_cubeEdgeLogicalLimit = 10.0f;
