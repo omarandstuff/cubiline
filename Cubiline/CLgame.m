@@ -68,6 +68,11 @@
 		m_gameHolder.GameData = m_gameData;
 		[m_gameHolder Resize];
 		m_gameHolder.Level = m_cubilineLevel;
+		m_renderBox.MainView.Scene = m_gameHolder.Scene;
+		[m_gameHolder Frame:0.0];
+		[m_gameHolder Render];
+		[m_renderBox Frame:0.0f];
+		[m_renderBox Render];
 		
 		m_renderBox.MainView.ClearColor = BackgroundColor;
 		m_renderBox.MainView.Scene = m_mainMenu.Scene;

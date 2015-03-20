@@ -12,4 +12,3 @@ newmtl front_wall_mtl
 	Kd 0.1000 0.1000 0.1000
 	Ks 1.5000 1.5000 1.5000
 	Ke 0.0000 0.0000 0.0000
-	map_Kd front_wall.png

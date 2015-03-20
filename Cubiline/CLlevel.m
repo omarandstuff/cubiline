@@ -2164,6 +2164,8 @@
 - (void)Finish
 {
 	Finished = true;
+	Leader.Color = GLKVector3Make(1.0f, 0.3f, 0.3f);
+	Leader.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 }
 
 - (void)ManageColloisions
@@ -2425,8 +2427,10 @@
 	
 	// Leader
 	Leader = [m_renderBox NewModelFromFileName:@"quad"];
-	Leader.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	Leader.Color = BodyColor;
+	Leader.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	Leader.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	Leader.ColorTransitionTime = 0.3f;
 	Leader.PositionTransitionSpeed = 3.0f;
 	
 	// Ghost
@@ -2434,7 +2438,7 @@
 	LeaderGhost.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	
 	// Food
-	Food = [m_renderBox NewModelFromFileName:@"geosphere_medium"];
+	Food = [m_renderBox NewModelFromFileName:@"quad"];
 	Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	Food.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	Food.ScaleTransitionTime = 0.2f;
@@ -2467,13 +2471,6 @@
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
-	
-	if(m_graphics == CL_GRAPHICS_VERYLOW)
-		m_guides.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
-	else if(m_graphics == CL_GRAPHICS_LOW || m_graphics == CL_GRAPHICS_MEDIUM)
-		m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
-	else
-		m_guides.ForcedRenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
 	
 	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -2566,15 +2563,15 @@
 		TopWall.Scale = SmallSizeVector;
 		BottomWall.Scale = SmallSizeVector;
 		
-		m_guides.Scale = GuidesSmallSizeVector;
-		m_guides.TextureCompression = SmallSizeVector;
+		//m_guides.Scale = GuidesSmallSizeVector;
+		//m_guides.TextureCompression = SmallSizeVector;
 		
-		FrontWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		BackWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		RightWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		LeftWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		TopWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		BottomWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//FrontWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//BackWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//RightWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//LeftWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//TopWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
+		//BottomWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
 		
 		m_cubeEdgeLimit = 5.0f;
 		m_cubeEdgeLogicalLimit = 4.0f;
@@ -2594,15 +2591,15 @@
 		TopWall.Scale = NormalSizeVector;
 		BottomWall.Scale = NormalSizeVector;
 		
-		m_guides.Scale = GuidesNormalSizeVector;
-		m_guides.TextureCompression = NormalSizeVector;
+		//m_guides.Scale = GuidesNormalSizeVector;
+		//m_guides.TextureCompression = NormalSizeVector;
 		
-		FrontWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		BackWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		RightWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		LeftWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		TopWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		BottomWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//FrontWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//BackWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//RightWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//LeftWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//TopWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		//BottomWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
 		
 		m_cubeEdgeLimit = 8.0f;
 		m_cubeEdgeLogicalLimit = 7.0f;
@@ -2622,15 +2619,15 @@
 		TopWall.Scale = BigSizeVector;
 		BottomWall.Scale = BigSizeVector;
 		
-		m_guides.Scale = GuidesBigSizeVector;
-		m_guides.TextureCompression = BigSizeVector;
+		//m_guides.Scale = GuidesBigSizeVector;
+		//m_guides.TextureCompression = BigSizeVector;
 
-		FrontWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		BackWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		RightWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		LeftWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		TopWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		BottomWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//FrontWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//BackWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//RightWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//LeftWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//TopWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		//BottomWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
 		
 		m_cubeEdgeLimit = 11.0f;
 		m_cubeEdgeLogicalLimit = 10.0f;
@@ -2797,6 +2794,8 @@
 {
 	[self SwitchZoneColor:Zone NewZone:zone];
 	Leader.Opasity = 1.0f;
+	Leader.Color = BodyColor;
+	Leader.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	Zone = zone;
 	ZoneUp = up;
 	

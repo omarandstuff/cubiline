@@ -115,25 +115,20 @@
 		377A85611A79EAE9004F88F7 /* VEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85391A79EAE9004F88F7 /* VEview.m */; };
 		377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A853B1A79EAE9004F88F7 /* VEwatch.m */; };
 		378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378001B21A6D9948009FFCC8 /* StoreKit.framework */; };
-		378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */; };
-		378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */; };
-		378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */; };
-		378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */; };
-		378EDAF41A79BB7100397989 /* Aharoni.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE61A79BB7100397989 /* Aharoni.png */; };
-		378EDAF51A79BB7100397989 /* Aharoni.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE71A79BB7100397989 /* Aharoni.txt */; };
 		378EDAF61A79BB7100397989 /* Gau Font Cube Big.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */; };
 		378EDAF71A79BB7100397989 /* Gau Font Cube Big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */; };
 		378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */; };
 		378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */; };
 		378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */; };
 		378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */; };
-		378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEE1A79BB7100397989 /* Tahoma.png */; };
-		378EDAFD1A79BB7100397989 /* Tahoma.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEF1A79BB7100397989 /* Tahoma.txt */; };
 		378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAFE1A79CFF700397989 /* Cubiline.png */; };
 		378EDB011A79D49800397989 /* Cubiline Half.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB001A79D49800397989 /* Cubiline Half.png */; };
 		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
 		37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 37A1F7471A75F5B90035BB91 /* dome.jpg */; };
 		37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A35A8C1A6D040E00E36F43 /* GameKit.framework */; };
+		37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FED1ABBD50A00D5C120 /* white_cube.mtl */; };
+		37A44FF11ABBD50A00D5C120 /* white_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEE1ABBD50A00D5C120 /* white_cube.obj */; };
+		37A44FF21ABBD50A00D5C120 /* white_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEF1ABBD50A00D5C120 /* white_texture.png */; };
 		37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7611A89ABB500FB84CF /* game_setup_play.png */; };
 		37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7621A89ABB500FB84CF /* game_setup_size.png */; };
 		37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7631A89ABB500FB84CF /* game_setup_speed.png */; };
@@ -318,24 +313,19 @@
 		377A853A1A79EAE9004F88F7 /* VEwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEwatch.h; path = Cubiline/VEwatch.h; sourceTree = "<group>"; };
 		377A853B1A79EAE9004F88F7 /* VEwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEwatch.m; path = Cubiline/VEwatch.m; sourceTree = "<group>"; };
 		378001B21A6D9948009FFCC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Fan Heiti Std.png"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.png"; sourceTree = "<group>"; };
-		378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Adobe Fan Heiti Std.txt"; path = "Cubiline/Fonts/Adobe Fan Heiti Std.txt"; sourceTree = "<group>"; };
-		378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Adobe Gothic Std.png"; path = "Cubiline/Fonts/Adobe Gothic Std.png"; sourceTree = "<group>"; };
-		378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Adobe Gothic Std.txt"; path = "Cubiline/Fonts/Adobe Gothic Std.txt"; sourceTree = "<group>"; };
-		378EDAE61A79BB7100397989 /* Aharoni.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Aharoni.png; path = Cubiline/Fonts/Aharoni.png; sourceTree = "<group>"; };
-		378EDAE71A79BB7100397989 /* Aharoni.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Aharoni.txt; path = Cubiline/Fonts/Aharoni.txt; sourceTree = "<group>"; };
 		378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Big.png"; path = "Cubiline/Fonts/Gau Font Cube Big.png"; sourceTree = "<group>"; };
 		378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Big.txt"; path = "Cubiline/Fonts/Gau Font Cube Big.txt"; sourceTree = "<group>"; };
 		378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Medium.png"; path = "Cubiline/Fonts/Gau Font Cube Medium.png"; sourceTree = "<group>"; };
 		378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Medium.txt"; path = "Cubiline/Fonts/Gau Font Cube Medium.txt"; sourceTree = "<group>"; };
 		378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Small.png"; path = "Cubiline/Fonts/Gau Font Cube Small.png"; sourceTree = "<group>"; };
 		378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Small.txt"; path = "Cubiline/Fonts/Gau Font Cube Small.txt"; sourceTree = "<group>"; };
-		378EDAEE1A79BB7100397989 /* Tahoma.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Tahoma.png; path = Cubiline/Fonts/Tahoma.png; sourceTree = "<group>"; };
-		378EDAEF1A79BB7100397989 /* Tahoma.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Tahoma.txt; path = Cubiline/Fonts/Tahoma.txt; sourceTree = "<group>"; };
 		378EDAFE1A79CFF700397989 /* Cubiline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cubiline.png; path = Cubiline/Resources/Cubiline.png; sourceTree = "<group>"; };
 		378EDB001A79D49800397989 /* Cubiline Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cubiline Half.png"; path = "Cubiline/Resources/Cubiline Half.png"; sourceTree = "<group>"; };
 		37A1F7471A75F5B90035BB91 /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
 		37A35A8C1A6D040E00E36F43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		37A44FED1ABBD50A00D5C120 /* white_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.mtl; path = Cubiline/Resources/white_cube.mtl; sourceTree = "<group>"; };
+		37A44FEE1ABBD50A00D5C120 /* white_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.obj; path = Cubiline/Resources/white_cube.obj; sourceTree = "<group>"; };
+		37A44FEF1ABBD50A00D5C120 /* white_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white_texture.png; path = Cubiline/Resources/white_texture.png; sourceTree = "<group>"; };
 		37ADE7611A89ABB500FB84CF /* game_setup_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_play.png; path = Cubiline/Resources/game_setup_play.png; sourceTree = "<group>"; };
 		37ADE7621A89ABB500FB84CF /* game_setup_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_size.png; path = Cubiline/Resources/game_setup_size.png; sourceTree = "<group>"; };
 		37ADE7631A89ABB500FB84CF /* game_setup_speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_speed.png; path = Cubiline/Resources/game_setup_speed.png; sourceTree = "<group>"; };
@@ -390,6 +380,9 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37A44FED1ABBD50A00D5C120 /* white_cube.mtl */,
+				37A44FEE1ABBD50A00D5C120 /* white_cube.obj */,
+				37A44FEF1ABBD50A00D5C120 /* white_texture.png */,
 				37436E421A86D5A700167D31 /* back_wall.obj */,
 				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
 				378EDB001A79D49800397989 /* Cubiline Half.png */,
@@ -598,20 +591,12 @@
 		378EDAE11A79BB5800397989 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				378EDAE21A79BB7100397989 /* Adobe Fan Heiti Std.png */,
-				378EDAE31A79BB7100397989 /* Adobe Fan Heiti Std.txt */,
-				378EDAE41A79BB7100397989 /* Adobe Gothic Std.png */,
-				378EDAE51A79BB7100397989 /* Adobe Gothic Std.txt */,
-				378EDAE61A79BB7100397989 /* Aharoni.png */,
-				378EDAE71A79BB7100397989 /* Aharoni.txt */,
 				378EDAE81A79BB7100397989 /* Gau Font Cube Big.png */,
 				378EDAE91A79BB7100397989 /* Gau Font Cube Big.txt */,
 				378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */,
 				378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */,
 				378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */,
 				378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */,
-				378EDAEE1A79BB7100397989 /* Tahoma.png */,
-				378EDAEF1A79BB7100397989 /* Tahoma.txt */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -788,12 +773,9 @@
 				3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */,
 				3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */,
 				37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */,
-				378EDAF11A79BB7100397989 /* Adobe Fan Heiti Std.txt in Resources */,
 				373E62A11AA232A500ACC243 /* diffuse_shader.fsh in Resources */,
-				378EDAFD1A79BB7100397989 /* Tahoma.txt in Resources */,
 				3728F5E71A6C4FF6004F7244 /* depth_texture_shader.vsh in Resources */,
 				374FCCBC1A86FCAF00B14ACB /* game_guides.mtl in Resources */,
-				378EDAF51A79BB7100397989 /* Aharoni.txt in Resources */,
 				37BCAAEA1A91760200FFFE6D /* game_gc.png in Resources */,
 				3734C5B11A7229400039269D /* geosphere_medium.mtl in Resources */,
 				378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */,
@@ -818,10 +800,10 @@
 				378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */,
 				3728F5EC1A6C4FF6004F7244 /* vertex_light_shader.fsh in Resources */,
 				373E629F1AA232A500ACC243 /* color_diffuse_shader.fsh in Resources */,
+				37A44FF11ABBD50A00D5C120 /* white_cube.obj in Resources */,
 				378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */,
 				3758D12A1A7C6D2D00982ABE /* main_menu_game_center.png in Resources */,
 				37AF23241A7D5A1300E0829E /* main_menu_about.obj in Resources */,
-				378EDAF21A79BB7100397989 /* Adobe Gothic Std.png in Resources */,
 				37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */,
 				37BCAAE91A91760200FFFE6D /* game_exit.png in Resources */,
 				3728F5E01A6C4FF6004F7244 /* vertex_color_light_shader.fsh in Resources */,
@@ -830,15 +812,13 @@
 				37436E4E1A86D5A700167D31 /* left_wall.obj in Resources */,
 				3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */,
 				37436E4A1A86D5A700167D31 /* back_wall.obj in Resources */,
+				37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */,
 				378EDAF61A79BB7100397989 /* Gau Font Cube Big.png in Resources */,
 				373E62B01AA28ABE00ACC243 /* color_light_shader.fsh in Resources */,
 				3758D11B1A7C61A900982ABE /* main_menu_play.obj in Resources */,
 				3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */,
-				378EDAF01A79BB7100397989 /* Adobe Fan Heiti Std.png in Resources */,
 				3758D1341A7C73E600982ABE /* main_menu_settings.png in Resources */,
 				37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */,
-				378EDAF41A79BB7100397989 /* Aharoni.png in Resources */,
-				378EDAFC1A79BB7100397989 /* Tahoma.png in Resources */,
 				375FF04F1AAA8A07003E56F1 /* front_wall.png in Resources */,
 				373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */,
 				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
@@ -848,11 +828,11 @@
 				37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */,
 				373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */,
 				3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */,
-				378EDAF31A79BB7100397989 /* Adobe Gothic Std.txt in Resources */,
 				373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */,
 				3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */,
 				37AF23231A7D5A1300E0829E /* main_menu_about.mtl in Resources */,
 				374FCCBD1A86FCAF00B14ACB /* game_guides.obj in Resources */,
+				37A44FF21ABBD50A00D5C120 /* white_texture.png in Resources */,
 				378EDAF71A79BB7100397989 /* Gau Font Cube Big.txt in Resources */,
 				3758D1311A7C6F1F00982ABE /* main_menu_settings.mtl in Resources */,
 				375FF0511AAA8A42003E56F1 /* front_wall.mtl in Resources */,

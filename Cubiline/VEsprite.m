@@ -71,6 +71,7 @@
 
 - (void)Render
 {
+	if(m_opasity.Value == 0.0f)return;
     // Get the PVM Matrix.
     m_mvpMatrix = GLKMatrix4Multiply(*ViewMatrix, m_finalMatrix);
     m_mvpMatrix = GLKMatrix4Multiply(*ProjectionMatrix, m_mvpMatrix);

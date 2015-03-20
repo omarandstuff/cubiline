@@ -25,11 +25,7 @@
 	// Multipler screen resolution base device.
 	NSString* deviceCategory = [self deviceCategory];
 	if([deviceCategory isEqualToString:@"very low"])
-		m_multipler = 1.0f;
-	else if([deviceCategory isEqualToString:@"low"])
-		m_multipler = 1.0f;
-	else if([deviceCategory isEqualToString:@"medium"])
-		m_multipler = 1.5f;
+		m_multipler = 1.8f;
 	else
 		m_multipler = 2.0f;
 	
