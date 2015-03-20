@@ -887,8 +887,6 @@
 		m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, 7.5f);
 		m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, -7.5f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-		
-		Level.BackWall.Color = FrontColor;
 	}
 	
 	if(Level.Zone == CL_ZONE_RIGHT)
@@ -896,8 +894,6 @@
 		m_cubeCamera.Pivot = GLKVector3Make(-7.5f, 0.0f, 0.0f);
 		m_cubeCamera.Position = GLKVector3Make(7.5f, 0.0f, 0.0f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-		
-		Level.RightWall.Color = FrontColor;
 	}
 	
 	if(Level.Zone == CL_ZONE_LEFT)
@@ -905,8 +901,6 @@
 		m_cubeCamera.Pivot = GLKVector3Make(7.5f, 0.0f, 0.0f);
 		m_cubeCamera.Position = GLKVector3Make(-7.5f, 0.0f, 0.0f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-		
-		Level.LeftWall.Color = FrontColor;
 	}
 	
 	if(Level.Zone == CL_ZONE_TOP)
@@ -914,8 +908,6 @@
 		m_cubeCamera.Pivot = GLKVector3Make(0.0f, -7.5f, 0.0f);
 		m_cubeCamera.Position = GLKVector3Make(0.0f, 7.5f, 0.0f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-		
-		Level.TopWall.Color = FrontColor;
 	}
 	
 	if(Level.Zone == CL_ZONE_BOTTOM)
@@ -923,8 +915,6 @@
 		m_cubeCamera.Pivot = GLKVector3Make(0.0f, 7.5f, 0.0f);
 		m_cubeCamera.Position = GLKVector3Make(0.0f, -7.5f, 0.0f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-		
-		Level.BottomWall.Color = FrontColor;
 	}
 
 	[m_watch Reset];

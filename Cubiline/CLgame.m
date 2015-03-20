@@ -56,8 +56,8 @@
 		m_cubilineLevel = [[CLLevel alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		m_cubilineLevel.Grown = m_gameData.Grown;
 		m_cubilineLevel.HighScore = m_gameData.HighScore;
-		m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
-		//m_cubilineLevel.BodyColor = GLKVector3Make(0.25, 0.45, 0.50);
+		//m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
+		m_cubilineLevel.BodyColor = PrimaryColor;
 		
 		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		[m_gameSetUp Resize];

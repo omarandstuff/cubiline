@@ -6,6 +6,8 @@
 	
 	VELight* m_light;
 	
+	VEModel* m_cube;
+	
 	VEModel* m_playIcon;
 	VEModel* m_sideFront;
 	
@@ -179,6 +181,10 @@
 		m_light.AttenuationDistance = 100.0f;
 		m_light.AmbientCoefficient = 0.5f;
 		
+		m_cube = [m_renderBox NewModelFromFileName:@"white_cube"];
+		m_cube.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cube.RotationTransitionTime = 0.13f;
+		
 		m_text = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Play"];
 		if(m_renderBox.ScreenWidth > m_renderBox.ScreenHeight)
 			m_text.FontSize = m_renderBox.ScreenHeight / 8.0f;
@@ -188,17 +194,17 @@
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
-		[m_cubeScene addModel:m_sideFront];
-		[m_cubeScene addModel:m_sideRight];
-		[m_cubeScene addModel:m_sideBack];
-		[m_cubeScene addModel:m_sideLeft];
-		[m_cubeScene addModel:m_sideBottom];
+		[m_cubeScene addModel:m_cube];
+//		[m_cubeScene addModel:m_sideFront];
+//		[m_cubeScene addModel:m_sideRight];
+//		[m_cubeScene addModel:m_sideBack];
+//		[m_cubeScene addModel:m_sideLeft];
+//		[m_cubeScene addModel:m_sideBottom];
 		[m_cubeScene addLight:m_light];
 		[m_cubeScene addModel:m_playIcon];
 		[m_cubeScene addModel:m_gameCenterIcon];
 		[m_cubeScene addModel:m_settingsIcon];
 		[m_cubeScene addModel:m_aboutIcon];
-		
 		
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_text];
@@ -208,9 +214,9 @@
 		m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
 		m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;
-		m_cubeCamera.PivotTransitionTime = 0.8f; //
+		m_cubeCamera.PivotTransitionTime = 0.8f;
 		m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
-		m_cubeCamera.PositionTransitionTime = 0.8f; //
+		m_cubeCamera.PositionTransitionTime = 0.8f;
 		m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_EASE;
 		m_cubeCamera.PivotRotationEase = 0.5f;
 		m_cubeCamera.PivotRotationTransitionTime = 7.0f;
@@ -306,6 +312,8 @@
 	m_aboutIcon.Rotation = newRotation;
 	
 	m_sideBottom.Rotation = newRotation;
+	
+	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
 	
@@ -426,6 +434,8 @@
 	m_aboutIcon.Rotation = newRotation;
 	
 	m_sideBottom.Rotation = newRotation;
+	
+	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
 }

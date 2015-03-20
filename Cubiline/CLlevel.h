@@ -16,14 +16,6 @@
 @property VE3DObject* LeaderGhost;
 @property VEModel* Food;
 @property NSMutableArray* Body;
-@property VEModel* FrontWall;
-@property VEModel* BackWall;
-@property VEModel* RightWall;
-@property VEModel* LeftWall;
-@property VEModel* TopWall;
-@property VEModel* BottomWall;
-@property VELight* TopLight;
-@property VELight* BottomLight;
 @property VEScene* Scene;
 
 @property enum CL_SIZE Size;

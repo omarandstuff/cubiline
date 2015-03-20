@@ -24,10 +24,8 @@
 	
 	// Multipler screen resolution base device.
 	NSString* deviceCategory = [self deviceCategory];
-	if([deviceCategory isEqualToString:@"very low"])
-		m_multipler = 1.8f;
-	else
-		m_multipler = 2.0f;
+
+	m_multipler = 2.0f;
 	
 	// Create the context object
 	m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];

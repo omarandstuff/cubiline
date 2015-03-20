@@ -8,6 +8,11 @@
 	VERenderBox* m_renderBox;
 	VEModel* m_guides;
 	
+	//Level
+	VEModel* m_levelModel;
+	VELight* m_topLight;
+	VELight* m_buttomLight;
+	
 	// Line control
 	GLKVector3 m_preLeaderPosition;
 	bool m_toNew;
@@ -71,9 +76,9 @@
 - (void)Play;
 - (void)Stop;
 - (void)AddBodyWithSize:(float)size;
-- (void)MannageBody;
+- (void)ManageBody;
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone;
-- (void)MannageZones;
+- (void)ManageZones;
 
 // Dance
 - (void)ManageDance;
@@ -104,7 +109,7 @@
 - (void)RemoveFirstSlot;
 
 // Feed
-- (void)MannageFood;
+- (void)ManageFood;
 - (void)RandomFood;
 
 // Camera
@@ -121,14 +126,6 @@
 @synthesize LeaderGhost;
 @synthesize Food;
 @synthesize Body;
-@synthesize FrontWall;
-@synthesize BackWall;
-@synthesize RightWall;
-@synthesize LeftWall;
-@synthesize TopWall;
-@synthesize BottomWall;
-@synthesize TopLight;
-@synthesize BottomLight;
 @synthesize Scene;
 @synthesize Size = _Size;
 @synthesize Speed;
@@ -172,25 +169,31 @@
 	
 	if(m_playing)
 	{
-		[self MannageZones];
-		[self ManageHandles];
-		[self ManageTurns];
-		
-		if(!m_toNew)
-			[self MannageBody];
-		m_toNew = false;
-		
+		if(Move)
+		{
+			[self ManageZones];
+			[self ManageHandles];
+			[self ManageTurns];
+			
+			if(!m_toNew)
+				[self ManageBody];
+			m_toNew = false;
+		}
+
 		[self ManageFollow];
 		
-		if(Feed)
-			[self MannageFood];
-		
-		if(Collide)
-			[self ManageColloisions];
+		if(Move)
+		{
+			if(Feed)
+				[self ManageFood];
+			
+			if(Collide )
+				[self ManageColloisions];
+		}
 	}
 	else
 	{
-		if(FrontWall.Scale.x >= SmallSizeLimit)
+		if(m_levelModel.Scale.x >= SmallSizeLimit)
 			[self Play];
 	}
 	
@@ -314,7 +317,7 @@
 	[Body addObject:[[CLBody alloc] initWithRenderBox:m_renderBox Scene:Scene Zone:Zone Direction:Direction BornPosition:Leader.Position Size:size Color:BodyColor]];
 }
 
-- (void)MannageBody
+- (void)ManageBody
 {
 	if(m_resizing)
 	{
@@ -361,34 +364,34 @@
 
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone
 {
-	if(prezone == CL_ZONE_FRONT)
-		FrontWall.Color = SecundaryColor;
-	if(prezone == CL_ZONE_BACK)
-		BackWall.Color = SecundaryColor;
-	if(prezone == CL_ZONE_RIGHT)
-		RightWall.Color = SecundaryColor;
-	if(prezone == CL_ZONE_LEFT)
-		LeftWall.Color = SecundaryColor;
-	if(prezone == CL_ZONE_TOP)
-		TopWall.Color = SecundaryColor;
-	if(prezone == CL_ZONE_BOTTOM)
-		BottomWall.Color = SecundaryColor;
-	
-	if(newzone == CL_ZONE_FRONT)
-		FrontWall.Color = FrontColor;
-	if(newzone == CL_ZONE_BACK)
-		BackWall.Color = BackColor;
-	if(newzone == CL_ZONE_RIGHT)
-		RightWall.Color = RightColor;
-	if(newzone == CL_ZONE_LEFT)
-		LeftWall.Color = LeftColor;
-	if(newzone == CL_ZONE_TOP)
-		TopWall.Color = TopColor;
-	if(newzone == CL_ZONE_BOTTOM)
-		BottomWall.Color = BottomColor;
+//	if(prezone == CL_ZONE_FRONT)
+//		FrontWall.Color = SecundaryColor;
+//	if(prezone == CL_ZONE_BACK)
+//		BackWall.Color = SecundaryColor;
+//	if(prezone == CL_ZONE_RIGHT)
+//		RightWall.Color = SecundaryColor;
+//	if(prezone == CL_ZONE_LEFT)
+//		LeftWall.Color = SecundaryColor;
+//	if(prezone == CL_ZONE_TOP)
+//		TopWall.Color = SecundaryColor;
+//	if(prezone == CL_ZONE_BOTTOM)
+//		BottomWall.Color = SecundaryColor;
+//	
+//	if(newzone == CL_ZONE_FRONT)
+//		FrontWall.Color = FrontColor;
+//	if(newzone == CL_ZONE_BACK)
+//		BackWall.Color = BackColor;
+//	if(newzone == CL_ZONE_RIGHT)
+//		RightWall.Color = RightColor;
+//	if(newzone == CL_ZONE_LEFT)
+//		LeftWall.Color = LeftColor;
+//	if(newzone == CL_ZONE_TOP)
+//		TopWall.Color = TopColor;
+//	if(newzone == CL_ZONE_BOTTOM)
+//		BottomWall.Color = BottomColor;
 }
 
-- (void)MannageZones
+- (void)ManageZones
 {
 	GLKVector3 leaderPosition = Leader.Position;
 	if(Zone == CL_ZONE_FRONT)
@@ -417,7 +420,7 @@
 			leaderPosition.z = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -450,7 +453,7 @@
 			leaderPosition.z = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -483,7 +486,7 @@
 			leaderPosition.z = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -516,7 +519,7 @@
 			leaderPosition.z = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -559,7 +562,7 @@
 			leaderPosition.z = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -592,7 +595,7 @@
 			leaderPosition.z = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -625,7 +628,7 @@
 			leaderPosition.z = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -658,7 +661,7 @@
 			leaderPosition.z = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -701,7 +704,7 @@
 			leaderPosition.x = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -734,7 +737,7 @@
 			leaderPosition.x = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -767,7 +770,7 @@
 			leaderPosition.x = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -800,7 +803,7 @@
 			leaderPosition.x = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -843,7 +846,7 @@
 			leaderPosition.x = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -876,7 +879,7 @@
 			leaderPosition.x = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -909,7 +912,7 @@
 			leaderPosition.x = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -942,7 +945,7 @@
 			leaderPosition.x = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -985,7 +988,7 @@
 			leaderPosition.y = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1018,7 +1021,7 @@
 			leaderPosition.y = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1051,7 +1054,7 @@
 			leaderPosition.y = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1084,7 +1087,7 @@
 			leaderPosition.y = -m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1127,7 +1130,7 @@
 			leaderPosition.y = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1160,7 +1163,7 @@
 			leaderPosition.y = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1193,7 +1196,7 @@
 			leaderPosition.y = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1226,7 +1229,7 @@
 			leaderPosition.y = m_cubeEdgeLimit;
 			Leader.Position = leaderPosition;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1533,7 +1536,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1562,7 +1565,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1591,7 +1594,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1620,7 +1623,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1649,7 +1652,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -1678,7 +1681,7 @@
 			Direction = m_nextDirection;
 			m_toTurn = false;
 			
-			[self MannageBody];
+			[self ManageBody];
 			[self AddBodyWithSize:0.0f];
 			m_toNew = true;
 			
@@ -2273,7 +2276,7 @@
 	[m_slots removeObjectAtIndex:0];
 }
 
-- (void)MannageFood
+- (void)ManageFood
 {
 	float dist = GLKVector3Length(GLKVector3Subtract(Food.Position, Leader.Position));
 	
@@ -2390,7 +2393,7 @@
 	
 	Food.Position = position;
 	[Food ResetScale:GLKVector3Make(0.0f, 0.0f, 0.0f)];
-	Food.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	Food.Scale = GLKVector3Make(0.9f, 0.9f, 0.9f);
 }
 
 - (void)ManageDance
@@ -2439,6 +2442,7 @@
 	
 	// Food
 	Food = [m_renderBox NewModelFromFileName:@"quad"];
+	Food.Color = FrontColor;
 	Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	Food.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	Food.ScaleTransitionTime = 0.2f;
@@ -2447,96 +2451,38 @@
 	m_random = [[VERandom alloc] init];
 	
 	// Create Walls
-	FrontWall = [m_renderBox NewModelFromFileName:@"front_wall"];
-	BackWall = [m_renderBox NewModelFromFileName:@"back_wall"];
-	RightWall = [m_renderBox NewModelFromFileName:@"right_wall"];
-	LeftWall = [m_renderBox NewModelFromFileName:@"left_wall"];
-	TopWall = [m_renderBox NewModelFromFileName:@"top_wall"];
-	BottomWall = [m_renderBox NewModelFromFileName:@"bottom_wall"];
-	
-	FrontWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	FrontWall.TextureCompressionTransitionTime = 0.3f;
-	BackWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BackWall.TextureCompressionTransitionTime = 0.3f;
-	RightWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	RightWall.TextureCompressionTransitionTime = 0.3f;
-	LeftWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	LeftWall.TextureCompressionTransitionTime = 0.3f;
-	TopWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	TopWall.TextureCompressionTransitionTime = 0.3f;
-	BottomWall.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BottomWall.TextureCompressionTransitionTime = 0.3f;
+	m_levelModel = [m_renderBox NewModelFromFileName:@"white_cube"];
+	m_levelModel.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_levelModel.ScaleTransitionTime = 0.2f;
 	
 	m_guides = [m_renderBox NewModelFromFileName:@"game_guides"];
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
 	m_guides.Opasity = 0.25f;
-	
-	FrontWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BackWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	RightWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	LeftWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	TopWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BottomWall.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	
 	m_guides.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	
-	FrontWall.ScaleTransitionTime = 0.2f;
-	BackWall.ScaleTransitionTime = 0.2f;
-	RightWall.ScaleTransitionTime = 0.2f;
-	LeftWall.ScaleTransitionTime = 0.2f;
-	TopWall.ScaleTransitionTime = 0.2f;
-	BottomWall.ScaleTransitionTime = 0.2f;
-	
 	m_guides.ScaleTransitionTime = 0.2f;
 	
-	FrontWall.Color = FrontColor;
-	BackWall.Color = SecundaryColor;
-	RightWall.Color = SecundaryColor;
-	LeftWall.Color = SecundaryColor;
-	TopWall.Color = SecundaryColor;
-	BottomWall.Color = SecundaryColor;
-	
-	FrontWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BackWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	RightWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	LeftWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	TopWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	BottomWall.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-	
-	FrontWall.ColorTransitionTime = 0.4f;
-	BackWall.ColorTransitionTime = 0.4f;
-	RightWall.ColorTransitionTime = 0.4f;
-	LeftWall.ColorTransitionTime = 0.4f;
-	TopWall.ColorTransitionTime = 0.4f;
-	BottomWall.ColorTransitionTime = 0.4f;
-	
 	// Lights
-	TopLight = [m_renderBox NewLight];
-	TopLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
-	TopLight.Intensity = 1.95f;
+	m_topLight = [m_renderBox NewLight];
+	m_topLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
+	m_topLight.Intensity = 1.85f;
 	
-	BottomLight = [m_renderBox NewLight];
-	BottomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
-	BottomLight.Intensity = 2.15f;
+	m_buttomLight = [m_renderBox NewLight];
+	m_buttomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
+	m_buttomLight.Intensity = 1.95f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
 	
 	// Add models to scene
 	
-	[Scene addModel:BackWall];
-	[Scene addModel:RightWall];
-	[Scene addModel:LeftWall];
-	[Scene addModel:TopWall];
-	[Scene addModel:BottomWall];
-	[Scene addModel:FrontWall];
+	[Scene addModel:m_levelModel];
 	[Scene addModel:Leader];
 	[Scene addModel:Food];
-	[Scene addModel:m_guides];
+	//[Scene addModel:m_guides];
 	
-	[Scene addLight:TopLight];
-	[Scene addLight:BottomLight];
+	[Scene addLight:m_topLight];
+	[Scene addLight:m_buttomLight];
 	
 	// Camera.
 	FocusedCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
@@ -2556,23 +2502,8 @@
 {
 	if(size == CL_SIZE_SMALL)
 	{
-		FrontWall.Scale = SmallSizeVector;
-		BackWall.Scale = SmallSizeVector;
-		RightWall.Scale = SmallSizeVector;
-		LeftWall.Scale = SmallSizeVector;
-		TopWall.Scale = SmallSizeVector;
-		BottomWall.Scale = SmallSizeVector;
-		
-		//m_guides.Scale = GuidesSmallSizeVector;
-		//m_guides.TextureCompression = SmallSizeVector;
-		
-		//FrontWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		//BackWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		//RightWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		//LeftWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		//TopWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		//BottomWall.TextureCompression = GLKVector3DivideScalar(SmallSizeVector, 2);
-		
+		m_levelModel.Scale = SmallSizeVector;
+
 		m_cubeEdgeLimit = 5.0f;
 		m_cubeEdgeLogicalLimit = 4.0f;
 		
@@ -2584,22 +2515,7 @@
 	}
 	else if(size == CL_SIZE_NORMAL)
 	{
-		FrontWall.Scale = NormalSizeVector;
-		BackWall.Scale = NormalSizeVector;
-		RightWall.Scale = NormalSizeVector;
-		LeftWall.Scale = NormalSizeVector;
-		TopWall.Scale = NormalSizeVector;
-		BottomWall.Scale = NormalSizeVector;
-		
-		//m_guides.Scale = GuidesNormalSizeVector;
-		//m_guides.TextureCompression = NormalSizeVector;
-		
-		//FrontWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		//BackWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		//RightWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		//LeftWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		//TopWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
-		//BottomWall.TextureCompression = GLKVector3DivideScalar(NormalSizeVector, 2);
+		m_levelModel.Scale = NormalSizeVector;
 		
 		m_cubeEdgeLimit = 8.0f;
 		m_cubeEdgeLogicalLimit = 7.0f;
@@ -2612,22 +2528,7 @@
 	}
 	else if(size == CL_SIZE_BIG)
 	{
-		FrontWall.Scale = BigSizeVector;
-		BackWall.Scale = BigSizeVector;
-		RightWall.Scale = BigSizeVector;
-		LeftWall.Scale = BigSizeVector;
-		TopWall.Scale = BigSizeVector;
-		BottomWall.Scale = BigSizeVector;
-		
-		//m_guides.Scale = GuidesBigSizeVector;
-		//m_guides.TextureCompression = BigSizeVector;
-
-		//FrontWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		//BackWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		//RightWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		//LeftWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		//TopWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
-		//BottomWall.TextureCompression = GLKVector3DivideScalar(BigSizeVector, 2);
+		m_levelModel.Scale = BigSizeVector;
 		
 		m_cubeEdgeLimit = 11.0f;
 		m_cubeEdgeLogicalLimit = 10.0f;
@@ -2694,12 +2595,7 @@
 
 - (void)Restore
 {
-	FrontWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-	BackWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-	RightWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-	LeftWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-	TopWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-	BottomWall.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	m_levelModel.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	
 	m_guides.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	m_guides.TextureCompression = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -2718,7 +2614,7 @@
 {
 	GLKVector3 leaderPosition = Leader.Position;
 	GLKVector3 bodyPosition;
-	float size = FrontWall.Scale.z / 2.0f + 0.5f;
+	float size = m_levelModel.Scale.z / 2.0f + 0.5f;
 	
 	if(Zone == CL_ZONE_FRONT)
 	{
@@ -2780,7 +2676,7 @@
 		[body.Model Frame:0.0f];
 	}
 	
-	m_resizing = FrontWall.ScaleIsActive;
+	m_resizing = m_levelModel.ScaleIsActive;
 	
 	[self Play];
 }
