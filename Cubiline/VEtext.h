@@ -4,6 +4,7 @@
 #import "VErenderableobject.h"
 #import "VEtexturedispatcher.h"
 #import "VEtextshader.h"
+#import "VEcamera.h"
 
 @interface Letter : NSObject
 @property float CoordX;
@@ -14,6 +15,7 @@
 
 @interface VEText : VERenderableObject
 
+@property VECamera* Camera;
 @property VETextureDispatcher* TextureDispatcher;
 @property VETextShader* TextShader;
 @property GLKMatrix4* ProjectionMatrix;

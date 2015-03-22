@@ -13,7 +13,7 @@
 @property VEGameCenter* GameCenter;
 @property CLData* GameData;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
+- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite*)background Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;

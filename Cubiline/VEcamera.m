@@ -99,7 +99,7 @@
         m_recalZoom = true;
         ViewMatrix = GLKMatrix4Identity;
 		
-		PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+		PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
     }
 	
 	return self;
@@ -144,37 +144,37 @@
 		GLKVector3 pivotRotation = m_pivotRotation.Vector;
 		
 		GLKMatrix4 pivotRotationMatrix = GLKMatrix4Identity;
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_XYZ)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_XYZ)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateX(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.x));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y), 0.0f, 1.0f, 0.0f);
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z), 0.0f, 0.0f, 1.0f);
 		}
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_XZY)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_XZY)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateX(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.x));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z), 0.0f, 0.0f, 1.0f);
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y), 0.0f, 1.0f, 0.0f);
 		}
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_YXZ)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_YXZ)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateY(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.x), 1.0f, 0.0f, 0.0f);
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z), 0.0f, 0.0f, 1.0f);
 		}
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_YZX)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_YZX)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateY(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z), 0.0f, 0.0f, 1.0f);
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.x), 1.0f, 0.0f, 0.0f);
 		}
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_ZXY)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_ZXY)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateZ(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.x), 1.0f, 0.0f, 0.0f);
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y), 0.0f, 1.0f, 0.0f);
 		}
-		if(PivotRotationStyle == VE_PIVOT_ROTATION_ZYX)
+		if(PivotRotationStyle == VE_ROTATION_STYLE_ZYX)
 		{
 			pivotRotationMatrix = GLKMatrix4RotateZ(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.z));
 			pivotRotationMatrix = GLKMatrix4Rotate(pivotRotationMatrix, GLKMathDegreesToRadians(pivotRotation.y), 0.0f, 1.0f, 0.0f);

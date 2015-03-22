@@ -109,6 +109,16 @@
 	return m_color.IsActive;
 }
 
+- (void)ResetColor
+{
+	[m_color Reset];
+}
+
+- (void)ResetColor:(GLKVector3)state
+{
+	[m_color Reset:state];
+}
+
 ////////// Texture compression /////////////////
 - (void)setTextureCompression:(GLKVector3)textureCompression
 {
@@ -165,6 +175,16 @@
 	return m_textureCompression.IsActive;
 }
 
+- (void)ResetTextureCompression
+{
+	[m_textureCompression Reset];
+}
+
+- (void)ResetTextureCompression:(GLKVector3)state
+{
+	[m_textureCompression Reset:state];
+}
+
 ////////// Opasity /////////////////
 - (void)setOpasity:(float)opasity
 {
@@ -219,6 +239,16 @@
 - (bool)OpasityIsActive
 {
 	return m_opasity.IsActive;
+}
+
+- (void)ResetOpasity
+{
+	[m_opasity Reset];
+}
+
+- (void)ResetOpasity:(float)state
+{
+	[m_opasity Reset:state];
 }
 
 @end

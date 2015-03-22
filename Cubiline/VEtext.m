@@ -30,6 +30,7 @@
 
 @implementation VEText
 
+@synthesize Camera;
 @synthesize Text;
 @synthesize TextureDispatcher;
 @synthesize TextShader;
@@ -63,9 +64,19 @@
 
 - (void)Render
 {
+	if(m_opasity.Value == 0.0f)return;
+	
 	// Get the PVM Matrix.
-	m_mvpMatrix = GLKMatrix4Multiply(*ViewMatrix, m_finalMatrix);
-	m_mvpMatrix = GLKMatrix4Multiply(*ProjectionMatrix, m_mvpMatrix);
+	if(Camera)
+	{
+		m_mvpMatrix = GLKMatrix4Multiply(Camera.ViewMatrix, m_finalMatrix);
+		m_mvpMatrix = GLKMatrix4Multiply(Camera.ProjectionMatrix, m_mvpMatrix);
+	}
+	else
+	{
+		m_mvpMatrix = GLKMatrix4Multiply(*ViewMatrix, m_finalMatrix);
+		m_mvpMatrix = GLKMatrix4Multiply(*ProjectionMatrix, m_mvpMatrix);
+	}
 	
 	// Set the shader parameters.
 	[TextShader Render:&m_mvpMatrix TextureID:m_fontTexture.TextureID Color:m_color.Vector Opasity:m_opasity.Value];
@@ -170,7 +181,7 @@
 	FontSize = size;
 	Height = size;
 	Width = m_realWidth * size;
-	[m_scale Reset:GLKVector3Make(FontSize, FontSize, 0.0f)];
+	[self ResetScale:GLKVector3Make(FontSize, FontSize, 0.0f)];
 }
 
 - (void)InitBuffer

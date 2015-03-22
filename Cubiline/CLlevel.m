@@ -13,6 +13,11 @@
 	VELight* m_topLight;
 	VELight* m_buttomLight;
 	
+	VEText* m_pointsShower;
+	VEText* m_specialPoints1Shower;
+	VEText* m_specialPoints2Shower;
+	VEText* m_specialPoints3Shower;
+	
 	// Line control
 	GLKVector3 m_preLeaderPosition;
 	bool m_toNew;
@@ -22,6 +27,24 @@
 	bool m_eating;
 	float m_stepGrown;
 	float m_toGrow;
+	
+	bool m_specialFood1Waiting;
+	VEWatch* m_specialFood1Watch;
+	float m_specialFood1MinTime;
+	float m_specialFood1MaxTime;
+	float m_specialFood1ShowTime;
+	
+	bool m_specialFood2Waiting;
+	VEWatch* m_specialFood2Watch;
+	float m_specialFood2MinTime;
+	float m_specialFood2MaxTime;
+	float m_specialFood2ShowTime;
+	
+	bool m_specialFood3Waiting;
+	VEWatch* m_specialFood3Watch;
+	float m_specialFood3MinTime;
+	float m_specialFood3MaxTime;
+	float m_specialFood3ShowTime;
 	
 	// Edge control
 	float m_cubeEdgeLimit;
@@ -38,6 +61,7 @@
 	// Turn control
 	enum CL_TURN m_bufferTurn;
 	bool m_justBuffered;
+	bool m_rested;
 	enum CL_HANDLE m_nextHandle;
 	enum CL_ZONE m_nextDirection;
 	bool m_inComplex;
@@ -110,7 +134,8 @@
 
 // Feed
 - (void)ManageFood;
-- (void)RandomFood;
+- (void)RandomFood:(VEModel*)food;
+- (void)PositionateTextByPoint:(VEText*)text Position:(GLKVector3)position Offset:(float)offset;
 
 // Camera
 - (void)FocusLeaderInCamera;
@@ -125,6 +150,11 @@
 @synthesize Leader;
 @synthesize LeaderGhost;
 @synthesize Food;
+@synthesize Food1;
+@synthesize Food2;
+@synthesize SpecialFood1;
+@synthesize SpecialFood2;
+@synthesize SpecialFood3;
 @synthesize Body;
 @synthesize Scene;
 @synthesize Size = _Size;
@@ -166,6 +196,9 @@
 - (void)Frame:(float)time
 {
 	[LeaderGhost Frame:time];
+	[m_specialFood1Watch Frame:time];
+	[m_specialFood2Watch Frame:time];
+	[m_specialFood3Watch Frame:time];
 	
 	if(m_playing)
 	{
@@ -431,6 +464,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_RIGHT];
 			
@@ -464,6 +498,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_LEFT];
 			
@@ -497,6 +532,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_TOP];
 			
@@ -530,6 +566,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_BOTTOM];
 
@@ -573,6 +610,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_LEFT];
 			
@@ -606,6 +644,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_RIGHT];
 			
@@ -639,6 +678,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_TOP];
 			
@@ -672,6 +712,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BACK NewZone:CL_ZONE_BOTTOM];
 			
@@ -715,6 +756,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BACK];
 			
@@ -748,6 +790,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_FRONT];
 			
@@ -781,6 +824,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_TOP];
 			
@@ -814,6 +858,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_RIGHT NewZone:CL_ZONE_BOTTOM];
 			
@@ -857,6 +902,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_FRONT];
 			
@@ -890,6 +936,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BACK];
 			
@@ -923,6 +970,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_TOP];
 			
@@ -956,6 +1004,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_LEFT NewZone:CL_ZONE_BOTTOM];
 			
@@ -999,6 +1048,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_FRONT];
 			
@@ -1032,6 +1082,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_BACK];
 			
@@ -1065,6 +1116,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_RIGHT];
 			
@@ -1098,6 +1150,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_TOP NewZone:CL_ZONE_LEFT];
 			
@@ -1141,6 +1194,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_FRONT];
 			
@@ -1174,6 +1228,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_BACK];
 			
@@ -1207,6 +1262,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_RIGHT];
 			
@@ -1240,6 +1296,7 @@
 			[self doTurn:m_bufferTurn];
 			m_bufferTurn = CL_TURN_NONE;
 			m_justBuffered = true;
+			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_BOTTOM NewZone:CL_ZONE_LEFT];
 			
@@ -1250,7 +1307,7 @@
 
 - (void)ManageHandles
 {
-	if(m_nextHandle == CL_HANDLE_NONE || m_inComplex || (m_noZone && !m_noZoneFase)) return;
+	if(m_nextHandle == CL_HANDLE_NONE || m_inComplex || (m_noZone && !m_noZoneFase))return;
 	if(m_justBuffered)
 	{
 		m_justBuffered = false;
@@ -1551,6 +1608,13 @@
 			else
 				m_bufferedInNoZone = false;
 			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
+			
 			return;
 		}
 	}
@@ -1579,6 +1643,13 @@
 			}
 			else
 				m_bufferedInNoZone = false;
+			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
 			
 			return;
 		}
@@ -1609,6 +1680,13 @@
 			else
 				m_bufferedInNoZone = false;
 			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
+			
 			return;
 		}
 	}
@@ -1637,6 +1715,13 @@
 			}
 			else
 				m_bufferedInNoZone = false;
+			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
 			
 			return;
 		}
@@ -1667,6 +1752,13 @@
 			else
 				m_bufferedInNoZone = false;
 			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
+			
 			return;
 		}
 	}
@@ -1695,6 +1787,13 @@
 			}
 			else
 				m_bufferedInNoZone = false;
+			
+			if(m_rested)
+			{
+				m_rested = false;
+				[self doTurn:m_bufferTurn];
+				m_bufferTurn = CL_TURN_NONE;
+			}
 			
 			return;
 		}
@@ -2279,8 +2378,10 @@
 - (void)ManageFood
 {
 	float dist = GLKVector3Length(GLKVector3Subtract(Food.Position, Leader.Position));
+	float dist1 = GLKVector3Length(GLKVector3Subtract(Food1.Position, Leader.Position));
+	float dist2 = GLKVector3Length(GLKVector3Subtract(Food2.Position, Leader.Position));
 	
-	if(dist < 0.5f)
+	if(dist < 0.5f || dist1 < 0.5f || dist2 < 0.5f)
 	{
 		m_toGrow += 1.0f;
 		m_slotControl += 1;
@@ -2291,11 +2392,143 @@
 		HighScore = MAX(HighScore, Score);
 		
 		m_eating = true;
-		[self RandomFood];
+	
+		if(dist < 0.5f)
+			[self PositionateTextByPoint:m_pointsShower Position:Food.Position Offset:1.5f];
+		else if(dist1 < 0.5f)
+			[self PositionateTextByPoint:m_pointsShower Position:Food1.Position Offset:1.5f];
+		else
+			[self PositionateTextByPoint:m_pointsShower Position:Food2.Position Offset:1.5f];
+		
+		
+		[self RandomFood:Food];
+		[self RandomFood:Food1];
+		[self RandomFood:Food2];
+	}
+	
+	if(m_specialFood1Waiting)
+	{
+		if(!m_specialFood1Watch.Active)
+		{
+			if(_Size == CL_SIZE_SMALL)
+				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime];
+			else if(_Size == CL_SIZE_NORMAL)
+				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime + 5.0f];
+			else if(_Size == CL_SIZE_BIG)
+				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime + 10.0f];
+			
+			[self RandomFood:SpecialFood1];
+			
+			m_specialFood1Waiting = false;
+		}
+	}
+	else
+	{
+		float distspecial = GLKVector3Length(GLKVector3Subtract(SpecialFood1.Position, Leader.Position));
+		
+		if(distspecial < 0.5f)
+		{
+			m_toGrow += 10.0f;
+			m_slotControl += 10;
+			
+			Score += 10;
+			Grown += 10;
+			
+			HighScore = MAX(HighScore, Score);
+			
+			m_eating = true;
+			
+			[self PositionateTextByPoint:m_specialPoints1Shower Position:SpecialFood1.Position Offset:1.51f];
+			
+			[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];
+			m_specialFood1Waiting = true;
+			SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		}
+		else if(!m_specialFood1Watch.Active)
+		{
+			[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];
+			SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			m_specialFood1Waiting = true;
+		}
+	}
+	
+	if(m_specialFood2Waiting)
+	{
+		if(!m_specialFood2Watch.Active)
+		{
+			if(_Size == CL_SIZE_SMALL)
+				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime];
+			else if(_Size == CL_SIZE_NORMAL)
+				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime + 5.0f];
+			else if(_Size == CL_SIZE_BIG)
+				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime + 10.0f];
+			
+			[self RandomFood:SpecialFood2];
+			
+			m_specialFood2Waiting = false;
+		}
+	}
+	else
+	{
+		float distspecial = GLKVector3Length(GLKVector3Subtract(SpecialFood2.Position, Leader.Position));
+		
+		if(distspecial < 0.5f)
+		{
+			Score += 10;
+			HighScore = MAX(HighScore, Score);
+			
+			[self PositionateTextByPoint:m_specialPoints2Shower Position:SpecialFood2.Position Offset:1.52f];
+			
+			[m_specialFood2Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood2MinTime Max:m_specialFood2MaxTime]];
+			m_specialFood2Waiting = true;
+			SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		}
+		else if(!m_specialFood2Watch.Active)
+		{
+			[m_specialFood2Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood2MinTime Max:m_specialFood2MaxTime]];
+			SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			m_specialFood2Waiting = true;
+		}
+	}
+	
+	if(m_specialFood3Waiting)
+	{
+		if(!m_specialFood3Watch.Active)
+		{
+			if(_Size == CL_SIZE_SMALL)
+				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime];
+			else if(_Size == CL_SIZE_NORMAL)
+				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime + 5.0f];
+			else if(_Size == CL_SIZE_BIG)
+				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime + 10.0f];
+			
+			[self RandomFood:SpecialFood3];
+			
+			m_specialFood3Waiting = false;
+		}
+	}
+	else
+	{
+		float distspecial = GLKVector3Length(GLKVector3Subtract(SpecialFood3.Position, Leader.Position));
+		
+		if(distspecial < 0.5f)
+		{
+			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
+			
+			[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
+			m_specialFood3Waiting = true;
+			SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		}
+		else if(!m_specialFood3Watch.Active)
+		{
+			[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
+			SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			m_specialFood3Waiting = true;
+		}
 	}
 }
 
-- (void)RandomFood
+- (void)RandomFood:(VEModel*)food
 {
 	GLKVector3 position;
 	int face;
@@ -2307,9 +2540,9 @@
 	
 	do
 	{
-		face = [m_random NextIntegerWithMin:0 Max:5];
+		face = [m_random NextIntegerWithMin:0 Max:1];
 		randomthreshold++;
-		if(randomthreshold > 50)
+		if(randomthreshold > 10)
 		{
 			for(int i = 0; i < 6; i++)
 			{
@@ -2391,9 +2624,205 @@
 		position.z = nowY;
 	}
 	
-	Food.Position = position;
-	[Food ResetScale:GLKVector3Make(0.0f, 0.0f, 0.0f)];
-	Food.Scale = GLKVector3Make(0.9f, 0.9f, 0.9f);
+	food.Position = position;
+	[food ResetScale:GLKVector3Make(0.0f, 0.0f, 0.0f)];
+	food.Scale = GLKVector3Make(0.9f, 0.9f, 0.9f);
+}
+
+- (void)PositionateTextByPoint:(VEText*)text Position:(GLKVector3)position Offset:(float)offset
+{
+	GLKVector3 rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	float toUp = 3.0f;
+	
+	if(Zone == CL_ZONE_FRONT)
+	{
+		position.z += offset;
+		[text ResetPosition:position];
+		
+		text.RotationStyle = VE_ROTATION_STYLE_ZYX;
+		if(ZoneUp == CL_ZONE_RIGHT)
+		{
+			rotation.z = -90.0f;
+			position.x += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_LEFT)
+		{
+			rotation.z = 90.0f;
+			position.x -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_TOP)
+		{
+			rotation.z = 0.0f;
+			position.y += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BOTTOM)
+		{
+			rotation.z = 180.0f;
+			position.y -= toUp;
+		}
+
+		[text ResetRotation:rotation];
+	}
+	else if(Zone == CL_ZONE_BACK)
+	{
+		position.z -= offset;
+		[text ResetPosition:position];
+		
+		rotation.y = 180.0f;
+		text.RotationStyle = VE_ROTATION_STYLE_ZYX;
+		if(ZoneUp == CL_ZONE_RIGHT)
+		{
+			rotation.z = -90.0f;
+			position.x += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_LEFT)
+		{
+			rotation.z = 90.0f;
+			position.x -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_TOP)
+		{
+			rotation.z = 0.0f;
+			position.y += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BOTTOM)
+		{
+			rotation.z = 180.0f;
+			position.y -= toUp;
+		}
+		
+		[text ResetRotation:rotation];
+	}
+	else if(Zone == CL_ZONE_RIGHT)
+	{
+		position.x += offset;
+		[text ResetPosition:position];
+		
+		rotation.y = 90.0f;
+		text.RotationStyle = VE_ROTATION_STYLE_XYZ;
+		if(ZoneUp == CL_ZONE_FRONT)
+		{
+			rotation.x = 90.0f;
+			position.z += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BACK)
+		{
+			rotation.x = -90.0f;
+			position.z -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_TOP)
+		{
+			rotation.x = 0.0f;
+			position.y += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BOTTOM)
+		{
+			rotation.x = 180.0f;
+			position.y -= toUp;
+		}
+
+		[text ResetRotation:rotation];
+	}
+	else if(Zone == CL_ZONE_LEFT)
+	{
+		position.x -= offset;
+		[text ResetPosition:position];
+		
+		rotation.y = -90.0f;
+		text.RotationStyle = VE_ROTATION_STYLE_XYZ;
+		if(ZoneUp == CL_ZONE_FRONT)
+		{
+			rotation.x = 90.0f;
+			position.z += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BACK)
+		{
+			rotation.x = -90.0f;
+			position.z -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_TOP)
+		{
+			rotation.x = 0.0f;
+			position.y += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BOTTOM)
+		{
+			rotation.x = 180.0f;
+			position.y -= toUp;
+		}
+
+		[text ResetRotation:rotation];
+	}
+	else if(Zone == CL_ZONE_TOP)
+	{
+		position.y += offset;
+		[text ResetPosition:position];
+		
+		rotation.x = -90.0f;
+		text.RotationStyle = VE_ROTATION_STYLE_YXZ;
+		if(ZoneUp == CL_ZONE_FRONT)
+		{
+			rotation.y = 180.0f;
+			position.z += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BACK)
+		{
+			rotation.y = 0.0f;
+			position.z -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_RIGHT)
+		{
+			rotation.y = -90.0f;
+			position.x += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_LEFT)
+		{
+			rotation.y = 90.0f;
+			position.x -= toUp;
+		}
+		
+		[text ResetRotation:rotation];
+	}
+	else if(Zone == CL_ZONE_BOTTOM)
+	{
+		position.y -= offset;
+		[text ResetPosition:position];
+		
+		rotation.x = 90.0f;
+		text.RotationStyle = VE_ROTATION_STYLE_YXZ;
+		if(ZoneUp == CL_ZONE_FRONT)
+		{
+			rotation.y = 0.0f;
+			position.z += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_BACK)
+		{
+			rotation.y = 180.0f;
+			position.z -= toUp;
+		}
+		else if(ZoneUp == CL_ZONE_RIGHT)
+		{
+			rotation.y = 90.0f;
+			position.x += toUp;
+		}
+		else if(ZoneUp == CL_ZONE_LEFT)
+		{
+			rotation.y = -90.0f;
+			position.x -= toUp;
+		}
+		
+		[text ResetRotation:rotation];
+	}
+	
+	[text ResetFontSize:0.0f];
+	[text ResetOpasity:1.0f];
+	
+	[text Frame:0.0f];
+	
+	text.Position = position;
+	text.FontSize = 2.0f;
+	text.Opasity = 0.0f;
+
 }
 
 - (void)ManageDance
@@ -2447,6 +2876,94 @@
 	Food.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	Food.ScaleTransitionTime = 0.2f;
 	
+	Food1 = [m_renderBox NewModelFromFileName:@"quad"];
+	Food1.Color = FrontColor;
+	Food1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	Food1.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	Food1.ScaleTransitionTime = 0.2f;
+	
+	Food2 = [m_renderBox NewModelFromFileName:@"quad"];
+	Food2.Color = FrontColor;
+	Food2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	Food2.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	Food2.ScaleTransitionTime = 0.2f;
+	
+	SpecialFood1 = [m_renderBox NewModelFromFileName:@"quad"];
+	SpecialFood1.Color = RightColor;
+	SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood1.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	SpecialFood1.ScaleTransitionTime = 0.2f;
+	m_specialFood1Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
+	m_specialFood1MinTime = 1.0f;
+	m_specialFood1MaxTime = 2.0f;
+	m_specialFood1ShowTime = 50.0f;
+	
+	SpecialFood2 = [m_renderBox NewModelFromFileName:@"quad"];
+	SpecialFood2.Color = BottomColor;
+	SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood2.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	SpecialFood2.ScaleTransitionTime = 0.2f;
+	m_specialFood2Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
+	m_specialFood2MinTime = 1.0f;
+	m_specialFood2MaxTime = 2.0f;
+	m_specialFood2ShowTime = 50.0f;
+	
+	SpecialFood3 = [m_renderBox NewModelFromFileName:@"quad"];
+	SpecialFood3.Color = TopColor;
+	SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood3.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	SpecialFood3.ScaleTransitionTime = 0.2f;
+	m_specialFood3Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
+	m_specialFood3MinTime = 1.0f;
+	m_specialFood3MaxTime = 2.0f;
+	m_specialFood3ShowTime = 50.0f;
+	
+	
+	// Text
+	m_pointsShower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"1+"];
+	m_pointsShower.FontSize = 0.0f;
+	m_pointsShower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_pointsShower.ScaleTransitionTime = 0.4f;
+	m_pointsShower.Color = FrontColor;
+	m_pointsShower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_pointsShower.PositionTransitionTime = 0.3f;
+	m_pointsShower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_pointsShower.OpasityEase = 0.1f;
+	m_pointsShower.OpasityTransitionTime = 1.8f;
+	
+	m_specialPoints1Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"10+"];
+	m_specialPoints1Shower.FontSize = 0.0f;
+	m_specialPoints1Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints1Shower.ScaleTransitionTime = 0.4f;
+	m_specialPoints1Shower.Color = RightColor;
+	m_specialPoints1Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints1Shower.PositionTransitionTime = 0.3f;
+	m_specialPoints1Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_specialPoints1Shower.OpasityEase = 0.1f;
+	m_specialPoints1Shower.OpasityTransitionTime = 1.8f;
+	
+	m_specialPoints2Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"[10+]"];
+	m_specialPoints2Shower.FontSize = 0.0f;
+	m_specialPoints2Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints2Shower.ScaleTransitionTime = 0.4f;
+	m_specialPoints2Shower.Color = BottomColor;
+	m_specialPoints2Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints2Shower.PositionTransitionTime = 0.3f;
+	m_specialPoints2Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_specialPoints2Shower.OpasityEase = 0.1f;
+	m_specialPoints2Shower.OpasityTransitionTime = 1.8f;
+	
+	m_specialPoints3Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Coins"];
+	m_specialPoints3Shower.FontSize = 0.0f;
+	m_specialPoints3Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints3Shower.ScaleTransitionTime = 0.4f;
+	m_specialPoints3Shower.Color = TopColor;
+	m_specialPoints3Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints3Shower.PositionTransitionTime = 0.3f;
+	m_specialPoints3Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_specialPoints3Shower.OpasityEase = 0.1f;
+	m_specialPoints3Shower.OpasityTransitionTime = 1.8f;
+	
 	// Random.
 	m_random = [[VERandom alloc] init];
 	
@@ -2475,10 +2992,18 @@
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
 	
 	// Add models to scene
-	
 	[Scene addModel:m_levelModel];
 	[Scene addModel:Leader];
 	[Scene addModel:Food];
+	[Scene addModel:Food1];
+	[Scene addModel:Food2];
+	[Scene addModel:SpecialFood1];
+	[Scene addModel:SpecialFood2];
+	[Scene addModel:SpecialFood3];
+	[Scene addText3D:m_pointsShower];
+	[Scene addText3D:m_specialPoints1Shower];
+	[Scene addText3D:m_specialPoints2Shower];
+	[Scene addText3D:m_specialPoints3Shower];
 	//[Scene addModel:m_guides];
 	
 	[Scene addLight:m_topLight];
@@ -2600,6 +3125,11 @@
 	m_guides.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	m_guides.TextureCompression = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	
+	Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
 	self.Feed = false;
 	Leader.Opasity = 0.0f;
 
@@ -2690,7 +3220,7 @@
 {
 	[self SwitchZoneColor:Zone NewZone:zone];
 	Leader.Opasity = 1.0f;
-	Leader.Color = BodyColor;
+	[Leader ResetColor:PrimaryColor];
 	Leader.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	Zone = zone;
 	ZoneUp = up;
@@ -2779,9 +3309,7 @@
 		if(up == CL_ZONE_LEFT)
 			Direction = CL_ZONE_FRONT;
 	}
-	
-	//FocusedCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-	
+
 	// Body.
 	[Body removeAllObjects];
 	[self AddBodyWithSize:3.0f];
@@ -2797,8 +3325,22 @@
 	m_inComplex = false;
 	Score = 0;
 	m_bufferTurn = CL_TURN_NONE;
+	m_justBuffered = false;
+	m_rested = false;
 	Finished = false;
 	m_restarted = true;
+	
+	m_specialFood1Waiting = true;
+	[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];
+	SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
+	m_specialFood2Waiting = true;
+	[m_specialFood2Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood2MinTime Max:m_specialFood2MaxTime]];
+	SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
+	m_specialFood3Waiting = true;
+	[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
+	SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 
 	LeaderGhost.Position = Leader.Position;
 	m_preLeaderPosition = Leader.Position;
@@ -2898,9 +3440,17 @@
 {
 	Feed = feed;
 	if(feed)
-		[self RandomFood];
+	{
+		[self RandomFood:Food];
+		[self RandomFood:Food1];
+		[self RandomFood:Food2];
+	}
 	else
+	{
 		Food.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		Food1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		Food2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	}
 }
 
 - (bool)Feed

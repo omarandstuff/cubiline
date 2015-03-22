@@ -13,6 +13,8 @@
 	VEGameCenter* m_gameCenter;
 	CLData* m_gameData;
 	
+	VESprite* m_background;
+	
 	enum GAME_STATE
 	{
 		GAME_STATE_MAIN_MENU,
@@ -45,11 +47,16 @@
 		m_gameCenter = gamecenter;
 		m_graphics = graphics;
 		
+		m_background = [m_renderBox NewSpriteFromFileName:@"background.png"];
+		m_background.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_background.ColorTransitionTime = 0.3f;
+		m_background.Scale = GLKVector3Make(m_renderBox.ScreenWidth, -m_renderBox.ScreenHeight, 0.0f);
+		
 		// Game data.
 		m_gameData = [CLData loadInstanceWithGameCenter:m_gameCenter];
 		
 		// Main menu.
-		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
+		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
 		m_mainMenu.GameCenter = m_gameCenter;
 		[m_mainMenu Resize];
 		
@@ -59,11 +66,11 @@
 		//m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
 		m_cubilineLevel.BodyColor = PrimaryColor;
 		
-		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
+		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
 		[m_gameSetUp Resize];
 		m_gameSetUp.Level = m_cubilineLevel;
 		
-		m_gameHolder = [[CLGameHolder alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
+		m_gameHolder = [[CLGameHolder alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
 		m_gameHolder.GameCenter = m_gameCenter;
 		m_gameHolder.GameData = m_gameData;
 		[m_gameHolder Resize];
@@ -187,6 +194,7 @@
 
 - (void)Resize
 {
+	m_background.Scale = GLKVector3Make(m_renderBox.ScreenWidth, -m_renderBox.ScreenHeight, 0.0f);
 	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Resize];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)

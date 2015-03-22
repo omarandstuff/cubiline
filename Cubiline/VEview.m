@@ -90,6 +90,12 @@
 		 [model Render:RenderMode];
      }];
 	
+	[Scene.Texts3D enumerateObjectsUsingBlock:^(VEText* text3d, NSUInteger index, BOOL *stop)
+	 {
+		 text3d.Camera = Camera;
+		 [text3d Render];
+	 }];
+	
     if(Camera.DepthOfField)
     {
         // First pass blur.

@@ -124,10 +124,9 @@
     [EAGLContext setCurrentContext:m_context];
     
     // OpenGl setup.
-    glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendEquation(GL_FUNC_ADD);
+	//glBlendEquation(GL_FUNC_ADD);
     
 	// Create the shader objects.
 	m_textureShader = [[VETextureShader alloc] init];

@@ -14,6 +14,7 @@
 
 @synthesize Models;
 @synthesize Elements2D;
+@synthesize Texts3D;
 @synthesize Lights;
 @synthesize Name;
 
@@ -25,6 +26,7 @@
     {
 		Models = [[NSMutableArray alloc] init];
         Elements2D = [[NSMutableArray alloc] init];
+		Texts3D = [[NSMutableArray alloc] init];
 		Lights = [[NSMutableArray alloc] init];
         Name = name;
     }
@@ -56,6 +58,11 @@
 	newElement.Element = text;
 	newElement.Kind = @"Tx";
 	[Elements2D addObject:newElement];
+}
+
+- (void)addText3D:(VEText*)text
+{
+	[Texts3D addObject:text];
 }
 
 - (void)addLight:(VELight*)light
@@ -92,6 +99,18 @@
 		 if (text == element.Element)
 		 {
 			 [Elements2D removeObjectAtIndex:index];
+		 }
+	 }];
+}
+
+
+- (void)ReleaseText3D:(VEText *)text
+{
+	[Texts3D enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(VEText* textA, NSUInteger index, BOOL *stop)
+	 {
+		 if (text == textA)
+		 {
+			 [Texts3D removeObjectAtIndex:index];
 		 }
 	 }];
 }

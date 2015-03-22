@@ -18,6 +18,9 @@
 @property float ColorEase;
 @property (readonly) bool ColorIsActive;
 
+- (void)ResetColor;
+- (void)ResetColor:(GLKVector3)state;
+
 /// Texture compresion
 @property GLKVector3 TextureCompression;
 @property enum VE_TRANSITION_EFFECT TextureCompressionTransitionEffect;
@@ -26,6 +29,9 @@
 @property float TextureCompressionEase;
 @property (readonly) bool TextureCompressionIsActive;
 
+- (void)ResetTextureCompression;
+- (void)ResetTextureCompression:(GLKVector3)state;
+
 /// Opsity
 @property float Opasity;
 @property enum VE_TRANSITION_EFFECT OpasityTransitionEffect;
@@ -33,6 +39,9 @@
 @property float OpasityTransitionSpeed;
 @property float OpasityEase;
 @property (readonly) bool OpasityIsActive;
+
+- (void)ResetOpasity;
+- (void)ResetOpasity:(float)state;
 
 - (void)Frame:(float)time;
 

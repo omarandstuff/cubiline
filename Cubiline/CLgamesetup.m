@@ -7,6 +7,9 @@
 	VESprite* m_cubeImage;
 	VECamera* m_cubeCamera;
 	
+	
+	VESprite* m_background;
+	
 	GLKVector3 m_prePosition;
 	
 	VEText* m_playText;
@@ -58,7 +61,7 @@
 @synthesize Level;
 @synthesize Scene;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
+- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite *)background Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -66,23 +69,18 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		m_background = background;
 		
 		// Scene for full screen presentation.
 		Scene = [m_renderBox NewSceneWithName:@"SetUpGameScene"];
 		
 		// Cube view
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
-		m_cubeView.ClearColor = WhiteBackgroundColor;
+		m_cubeView.ClearColor = BackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeView.Camera = m_cubeCamera;
-		
-		if(m_graphics == CL_GRAPHICS_HIGH)
-			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
-		else if(m_graphics == CL_GRAPHICS_MEDIUM)
-			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
-		else
-			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
+		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Camera SetUp
 		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -96,9 +94,6 @@
 		m_cubeCamera.Near = 5.0f;
 		m_cubeCamera.FocusRange = 15.0f;
 		m_cubeCamera.PivotRotation = GLKVector3Make(-30.0f, 30.0f, 0.0f);
-		
-		if(graphics == CL_GRAPHICS_HIGH)
-			m_cubeCamera.DepthOfField = true;
 		
 		// Back
 		m_playText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Play"];
@@ -161,6 +156,7 @@
 		m_sizeButton.LockAspect = true;
 		
 		// Scene viewable objects
+		[Scene addSprite:background];
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_playText];
 		[Scene addText:m_speedText];
@@ -576,6 +572,8 @@
 	m_speedText.Opasity = 0.0f;
 	
 	m_cubeView.Camera = Level.FocusedCamera;
+	
+	m_background.Color = SecundaryColor;
 	
 	[m_renderBox Frame:0.0f];
 	

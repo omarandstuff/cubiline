@@ -15,6 +15,11 @@
 @property VEModel* Leader;
 @property VE3DObject* LeaderGhost;
 @property VEModel* Food;
+@property VEModel* Food1;
+@property VEModel* Food2;
+@property VEModel* SpecialFood1;
+@property VEModel* SpecialFood2;
+@property VEModel* SpecialFood3;
 @property NSMutableArray* Body;
 @property VEScene* Scene;
 
@@ -37,6 +42,7 @@
 @property (readonly)unsigned int Score;
 @property unsigned int HighScore;
 @property unsigned int Grown;
+@property unsigned int Coins;
 
 @property bool Finished;
 

@@ -36,7 +36,6 @@
     [super Frame:time];
     // Get the normal matrix
     m_normalMatrix = GLKMatrix4GetMatrix3(m_rotationMatrix);
-    
 }
 
 - (void)Render:(enum VE_RENDER_MODE)rendermode;

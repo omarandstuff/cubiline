@@ -22,6 +22,8 @@
 	
 	VEModel* m_sideBottom;
 	
+	VESprite* m_background;
+	
 	GLKVector3 m_preRotation;
 	
 	bool m_toProceed;
@@ -63,7 +65,7 @@
 
 @synthesize GameCenter;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
+- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite *)background Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -71,6 +73,7 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		m_background = background;
 		
 		Scene = [m_renderBox NewSceneWithName:@"MainMenuScene"];
 		
@@ -78,16 +81,7 @@
 		
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:(float)m_renderBox.ScreenHeight Height:(float)m_renderBox.ScreenHeight];
 		m_cubeView.ClearColor = BackgroundColor;
-		
-		/// Graphics
-		if(graphics == CL_GRAPHICS_VERYLOW)
-			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
-		else if(graphics == CL_GRAPHICS_LOW)
-			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
-		else if(graphics == CL_GRAPHICS_MEDIUM)
-			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
-		else if(graphics == CL_GRAPHICS_HIGH)
-			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
+		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_cubeView.Scene = m_cubeScene;
 		
@@ -182,6 +176,8 @@
 		m_light.AmbientCoefficient = 0.5f;
 		
 		m_cube = [m_renderBox NewModelFromFileName:@"white_cube"];
+		m_cube.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cube.ScaleTransitionTime = 0.09f;
 		m_cube.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_cube.RotationTransitionTime = 0.13f;
 		
@@ -194,6 +190,8 @@
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
+		background.Color = SecundaryColor;
+	
 		[m_cubeScene addModel:m_cube];
 //		[m_cubeScene addModel:m_sideFront];
 //		[m_cubeScene addModel:m_sideRight];
@@ -206,6 +204,7 @@
 		[m_cubeScene addModel:m_settingsIcon];
 		[m_cubeScene addModel:m_aboutIcon];
 		
+		[Scene addSprite:background];
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_text];
 		
@@ -220,14 +219,6 @@
 		m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_EASE;
 		m_cubeCamera.PivotRotationEase = 0.5f;
 		m_cubeCamera.PivotRotationTransitionTime = 7.0f;
-		
-		m_cubeCamera.FocusDistance = 2.45f;
-		m_cubeCamera.FocusRange = 50.0f;
-		m_cubeCamera.Far = 15.0f;
-		m_cubeCamera.Near = 1.0f;
-		
-		if(graphics == CL_GRAPHICS_HIGH)
-			m_cubeCamera.DepthOfField = true;
 		
 		m_cubeView.Camera = m_cubeCamera;
 		
@@ -375,6 +366,8 @@
 	m_aboutIcon.Scale = newScale;
 	
 	m_sideBottom.Scale = newScale;
+	
+	m_cube.Scale = newScale;
 }
 
 - (void)ReleaseCube
@@ -409,6 +402,8 @@
 			m_aboutIcon.Scale = newScale;
 		
 		m_sideBottom.Scale = newScale;
+		
+		m_cube.Scale = newScale;
 	}
 	
 	if(m_inCube)
@@ -655,6 +650,9 @@
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -7.3f);
 	m_cubeCamera.PivotRotation = GLKVector3Make(26.5650501f, 0.0f, 0.0f);
 	m_text.Opasity = 0.0f;
+	
+	m_background.Color = PrimaryColor;
+	
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];
 }

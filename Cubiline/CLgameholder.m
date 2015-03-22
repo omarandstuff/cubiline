@@ -11,6 +11,8 @@
 	VEText* m_bestScore;
 	VEText* m_totalEaten;
 	
+	VESprite* m_background;
+	
 	VESprite* m_scoreFinish;
 	
 	VESprite* m_pauseButton;
@@ -82,7 +84,7 @@
 @synthesize GameCenter;
 @synthesize GameData;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
+- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite *)background Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -90,20 +92,16 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		m_background = background;
 		
 		// Scene for full screen presentation.
 		Scene = [m_renderBox NewSceneWithName:@"PlayGameScene"];
 		
 		// Cube view
 		m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:10 Height:10];
-		m_cubeView.ClearColor = WhiteBackgroundColor;
+		m_cubeView.ClearColor = BackgroundColor;
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
-		if(m_graphics == CL_GRAPHICS_HIGH)
-			m_cubeView.RenderMode = VE_RENDER_MODE_FRAGMENT_LIGHT;
-		else if(m_graphics == CL_GRAPHICS_MEDIUM)
-			m_cubeView.RenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
-		else
-			m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
+		m_cubeView.RenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		// Points text
 		m_points = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
@@ -222,7 +220,6 @@
 		m_cubeCamera.PositionTransitionTime = 0.4f;
 		m_cubeCamera.PivotRotationTransitionTime = 0.2f;
 		m_cubeCamera.LockLookAt = true;
-		m_cubeCamera.DepthOfField = false;
 		m_cubeCamera.Far = 60.0f;
 		m_cubeCamera.Near = 1.0f;
 		m_cubeCamera.FocusRange = 15.0f;
@@ -234,8 +231,8 @@
 		m_scoreFinish.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_scoreFinish.ScaleTransitionTime = 0.1f;
 		
-		
 		// Scene viewable objects
+		//[Scene addSprite:background];
 		[Scene addSprite:m_cubeImage];
 		[Scene addSprite:m_scoreFinish];
 		[Scene addText:m_points];
@@ -429,25 +426,25 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_TOP)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, -x / 4.0f, 0.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, x / 4.0f, 0.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_RIGHT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, y / 4.0f, 0.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_LEFT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, -y / 4.0f, 0.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
@@ -456,26 +453,26 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_TOP)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, -x / 4.0f, 0.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, x / 4.0f, 0.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_RIGHT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, -y / 4.0f, 0.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_LEFT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
-				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, -y / 4.0f, 0.0f));
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, y / 4.0f, 0.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
 		}
@@ -483,25 +480,25 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_TOP)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_YZX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -x / 4.0f, y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_YZX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, -y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_FRONT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -y / 4.0f, -x / 4.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BACK)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, y / 4.0f, x / 4.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
@@ -510,25 +507,25 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_TOP)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_YZX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -x / 4.0f, -y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BOTTOM)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_YZX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_YZX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_FRONT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, y / 4.0f, -x / 4.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BACK)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZYX;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZYX;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, -y / 4.0f, x / 4.0f));
 				newRotation.y = MIN(MAX(newRotation.y, -60.0f), 60.0f);
 			}
@@ -537,25 +534,25 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_FRONT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, 0.0f, -x / 4.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BACK)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
-				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, 0.0f, -x / 4.0f));
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
+				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, 0.0f, x / 4.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_RIGHT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_XZY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, 0.0f, -y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_LEFT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_XZY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, 0.0f, y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
@@ -564,25 +561,25 @@
 		{
 			if(Level.ZoneUp == CL_ZONE_FRONT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-y / 4.0f, 0.0f, -x / 4.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_BACK)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_ZXY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_ZXY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(y / 4.0f, 0.0f,  x / 4.0f));
 				newRotation.x = MIN(MAX(newRotation.x, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_RIGHT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_XZY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(-x / 4.0f, 0.0f, y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
 			else if(Level.ZoneUp == CL_ZONE_LEFT)
 			{
-				m_cubeCamera.PivotRotationStyle = VE_PIVOT_ROTATION_XZY;
+				m_cubeCamera.PivotRotationStyle = VE_ROTATION_STYLE_XZY;
 				newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(x / 4.0f, 0.0f, -y / 4.0f));
 				newRotation.z = MIN(MAX(newRotation.z, -60.0f), 60.0f);
 			}
@@ -916,6 +913,8 @@
 		m_cubeCamera.Position = GLKVector3Make(0.0f, -7.5f, 0.0f);
 		m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	}
+	
+	m_background.Color = FrontColor;
 
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.5f];

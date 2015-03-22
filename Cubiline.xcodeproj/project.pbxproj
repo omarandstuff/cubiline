@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3710BA411ABD021200B60B7F /* paper_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA3E1ABD021200B60B7F /* paper_cube.mtl */; };
+		3710BA421ABD021200B60B7F /* paper_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA3F1ABD021200B60B7F /* paper_cube.obj */; };
+		3710BA431ABD021200B60B7F /* paper_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA401ABD021200B60B7F /* paper_texture.png */; };
+		3710BA451ABD03F000B60B7F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA441ABD03F000B60B7F /* background.png */; };
 		3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BB1A6C4FEB004F7244 /* quad.mtl */; };
 		3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BC1A6C4FEB004F7244 /* quad.obj */; };
 		3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BF1A6C4FEB004F7244 /* wall.mtl */; };
@@ -128,6 +132,7 @@
 		37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FED1ABBD50A00D5C120 /* white_cube.mtl */; };
 		37A44FF11ABBD50A00D5C120 /* white_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEE1ABBD50A00D5C120 /* white_cube.obj */; };
 		37A44FF21ABBD50A00D5C120 /* white_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEF1ABBD50A00D5C120 /* white_texture.png */; };
+		37A44FF41ABBE66A00D5C120 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A44FF31ABBE66A00D5C120 /* iAd.framework */; };
 		37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7611A89ABB500FB84CF /* game_setup_play.png */; };
 		37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7621A89ABB500FB84CF /* game_setup_size.png */; };
 		37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7631A89ABB500FB84CF /* game_setup_speed.png */; };
@@ -157,6 +162,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3710BA3E1ABD021200B60B7F /* paper_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = paper_cube.mtl; path = Cubiline/Resources/paper_cube.mtl; sourceTree = "<group>"; };
+		3710BA3F1ABD021200B60B7F /* paper_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = paper_cube.obj; path = Cubiline/Resources/paper_cube.obj; sourceTree = "<group>"; };
+		3710BA401ABD021200B60B7F /* paper_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paper_texture.png; path = Cubiline/Resources/paper_texture.png; sourceTree = "<group>"; };
+		3710BA441ABD03F000B60B7F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Cubiline/Resources/background.png; sourceTree = "<group>"; };
 		3728F5BB1A6C4FEB004F7244 /* quad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.mtl; path = Cubiline/Resources/quad.mtl; sourceTree = "<group>"; };
 		3728F5BC1A6C4FEB004F7244 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.obj; path = Cubiline/Resources/quad.obj; sourceTree = "<group>"; };
 		3728F5BF1A6C4FEB004F7244 /* wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.mtl; path = Cubiline/Resources/wall.mtl; sourceTree = "<group>"; };
@@ -324,6 +333,7 @@
 		37A44FED1ABBD50A00D5C120 /* white_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.mtl; path = Cubiline/Resources/white_cube.mtl; sourceTree = "<group>"; };
 		37A44FEE1ABBD50A00D5C120 /* white_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.obj; path = Cubiline/Resources/white_cube.obj; sourceTree = "<group>"; };
 		37A44FEF1ABBD50A00D5C120 /* white_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white_texture.png; path = Cubiline/Resources/white_texture.png; sourceTree = "<group>"; };
+		37A44FF31ABBE66A00D5C120 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		37ADE7611A89ABB500FB84CF /* game_setup_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_play.png; path = Cubiline/Resources/game_setup_play.png; sourceTree = "<group>"; };
 		37ADE7621A89ABB500FB84CF /* game_setup_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_size.png; path = Cubiline/Resources/game_setup_size.png; sourceTree = "<group>"; };
 		37ADE7631A89ABB500FB84CF /* game_setup_speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_speed.png; path = Cubiline/Resources/game_setup_speed.png; sourceTree = "<group>"; };
@@ -357,6 +367,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37A44FF41ABBE66A00D5C120 /* iAd.framework in Frameworks */,
 				3728F5F61A6C503A004F7244 /* AudioToolbox.framework in Frameworks */,
 				3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */,
 				378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */,
@@ -378,6 +389,7 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3710BA441ABD03F000B60B7F /* background.png */,
 				37436E421A86D5A700167D31 /* back_wall.obj */,
 				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
 				378EDB001A79D49800397989 /* Cubiline Half.png */,
@@ -414,6 +426,9 @@
 				3758D12F1A7C6F1F00982ABE /* main_menu_settings.mtl */,
 				3758D1301A7C6F1F00982ABE /* main_menu_settings.obj */,
 				3758D1331A7C73E600982ABE /* main_menu_settings.png */,
+				3710BA3E1ABD021200B60B7F /* paper_cube.mtl */,
+				3710BA3F1ABD021200B60B7F /* paper_cube.obj */,
+				3710BA401ABD021200B60B7F /* paper_texture.png */,
 				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
 				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
 				37436E481A86D5A700167D31 /* right_wall.obj */,
@@ -576,6 +591,7 @@
 		3728F5F01A6C5016004F7244 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37A44FF31ABBE66A00D5C120 /* iAd.framework */,
 				378001B21A6D9948009FFCC8 /* StoreKit.framework */,
 				37A35A8C1A6D040E00E36F43 /* GameKit.framework */,
 				3728F5F51A6C503A004F7244 /* AudioToolbox.framework */,
@@ -755,6 +771,7 @@
 				3728F5E11A6C4FF6004F7244 /* vertex_color_light_shader.vsh in Resources */,
 				37AF23261A7D5A7500E0829E /* main_menu_about.png in Resources */,
 				3758D11A1A7C61A900982ABE /* main_menu_play.mtl in Resources */,
+				3710BA411ABD021200B60B7F /* paper_cube.mtl in Resources */,
 				374FCCBF1A86FFEA00B14ACB /* game_guides.png in Resources */,
 				37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */,
 				37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */,
@@ -787,6 +804,7 @@
 				37BCAAE31A9165A300FFFE6D /* game_pause.png in Resources */,
 				374FCCAB1A86D89700B14ACB /* top_wall.obj in Resources */,
 				37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */,
+				3710BA451ABD03F000B60B7F /* background.png in Resources */,
 				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,
 				3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */,
 				3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */,
@@ -815,9 +833,11 @@
 				3758D1321A7C6F1F00982ABE /* main_menu_settings.obj in Resources */,
 				3758D1341A7C73E600982ABE /* main_menu_settings.png in Resources */,
 				37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */,
+				3710BA421ABD021200B60B7F /* paper_cube.obj in Resources */,
 				375FF04F1AAA8A07003E56F1 /* front_wall.png in Resources */,
 				373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */,
 				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
+				3710BA431ABD021200B60B7F /* paper_texture.png in Resources */,
 				3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */,
 				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
 				3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */,
