@@ -40,6 +40,7 @@
 @synthesize ScreenWidth;
 @synthesize ScreenHeight;
 @synthesize Timer;
+@synthesize MaxTextureSize;
 
 - (id)initWithContext:(EAGLContext *)context GLKView:(GLKView*)glkview Timer:(VETimer*)timer Width:(int)width Height:(int)height
 {
@@ -126,6 +127,7 @@
     // OpenGl setup.
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glGetIntegerv(GL_MAX_TEXTURE_SIZE, &MaxTextureSize);
 	//glBlendEquation(GL_FUNC_ADD);
     
 	// Create the shader objects.

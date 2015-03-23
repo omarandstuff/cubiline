@@ -105,7 +105,7 @@
 			if(buffer.Material.DiffuseMap == NULL)
 				[VertexColorLightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
 			else
-				[VertexLightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Opasity:opasity];
+				[VertexLightShader Render:mvpmatrix ModelMatrix:modelmatrix NormalMatrix:normalmatrix CameraPosition:position Lights:lights TextureID:buffer.Material.DiffuseMap.TextureID TextureCompression:texturecompression MaterialSpecular:buffer.Material.Shininess MaterialSpecularColor:buffer.Material.Ks MaterialGlossiness:buffer.Material.Glossiness Color:color Opasity:opasity];
 			
 			glEnableVertexAttribArray(GLKVertexAttribPosition);
 			glEnableVertexAttribArray(GLKVertexAttribTexCoord0);

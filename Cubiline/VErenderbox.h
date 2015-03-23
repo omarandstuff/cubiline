@@ -11,6 +11,8 @@
 @property int ScreenWidth;
 @property int ScreenHeight;
 @property (readonly) VETimer* Timer;
+@property (readonly) GLint MaxTextureSize;
+@property NSString* DeviceType;
 
 - (id)initWithContext:(EAGLContext *)context GLKView:(GLKView*)glkview Timer:(VETimer*)timer Width:(int)width Height:(int)height;
 - (void)Frame:(float)time;

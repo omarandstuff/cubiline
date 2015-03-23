@@ -12,6 +12,7 @@
 		UNIFORM_TEXTURE,
 		UNIFORM_MATERIAL_SPECULAR,
 		UNIFORM_MATERIAL_SPECULAR_COLOR,
+		UNIFORM_COLOR,
 		UNIFORM_OPASITY,
 		UNIFORM_TEXTURE_COMPRESSION,
 		NUM_UNIFORMS
@@ -48,7 +49,7 @@
 	
 }
 
-- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureID:(GLuint)textureid TextureCompression:(GLKVector3)texturecompression MaterialSpecular:(float)specular MaterialSpecularColor:(GLKVector3)specularcolor MaterialGlossiness:(float)glossiness Opasity:(float)opasity
+- (void)Render:(GLKMatrix4*)mvpmatrix ModelMatrix:(GLKMatrix4*)modelmatrix NormalMatrix:(GLKMatrix3*)normalmatrix CameraPosition:(GLKVector3)position Lights:(NSMutableArray*)lights TextureID:(GLuint)textureid TextureCompression:(GLKVector3)texturecompression MaterialSpecular:(float)specular MaterialSpecularColor:(GLKVector3)specularcolor MaterialGlossiness:(float)glossiness Color:(GLKVector3)color Opasity:(float)opasity
 {
 	glUseProgram(m_glProgram);
 	
@@ -73,7 +74,8 @@
 	glUniformMatrix3fv(m_uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalmatrix->m);
 	glUniform3fv(m_uniforms[UNIFORM_CAMERA_POSITION], 1, position.v);
 	
-	// Opasity.
+	// The color what we want to tint the image and the opasity.
+	glUniform4fv(m_uniforms[UNIFORM_COLOR], 1, GLKVector4Make(color.r, color.g, color.b, 1.0f).v);
 	glUniform1f(m_uniforms[UNIFORM_OPASITY], opasity);
 	
 	// Testure compression.
@@ -100,6 +102,7 @@
 	m_uniforms[UNIFORM_TEXTURE] = glGetUniformLocation(m_glProgram, "TextureOut");
 	m_uniforms[UNIFORM_MATERIAL_SPECULAR] = glGetUniformLocation(m_glProgram, "MaterialSpecular");
 	m_uniforms[UNIFORM_MATERIAL_SPECULAR_COLOR] = glGetUniformLocation(m_glProgram, "MaterialSpecularColor");
+	m_uniforms[UNIFORM_COLOR] = glGetUniformLocation(m_glProgram, "ColorOut");
 	m_uniforms[UNIFORM_OPASITY] = glGetUniformLocation(m_glProgram, "OpasityOut");
 	m_uniforms[UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(m_glProgram, "TextureCompressionIn");
 	

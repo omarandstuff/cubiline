@@ -14,6 +14,7 @@
 
 @synthesize HighScore;
 @synthesize Grown;
+@synthesize Coins;
 @synthesize GameCenter;
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -24,6 +25,7 @@
 	{
 		HighScore = [decoder decodeIntForKey:@"HighScore"];
 		Grown = [decoder decodeIntForKey:@"Grown"];
+		Coins = [decoder decodeIntForKey:@"Coins"];
 	}
 	
 	return self;
@@ -97,6 +99,7 @@
 {
 	[encoder encodeInt:self.HighScore forKey:@"HighScore"];
 	[encoder encodeInt:self.Grown forKey:@"Grown"];
+	[encoder encodeInt:self.Coins forKey:@"Coins"];
 }
 
 + (NSString*)filePath
@@ -150,8 +153,20 @@
 	[self save];
 }
 
-- (unsigned int)Grown{
+- (unsigned int)Grown
+{
 	return Grown;
+}
+
+- (void)setCoins:(unsigned int)coins
+{
+	Coins = coins;
+	[self save];
+}
+
+- (unsigned int)Coins
+{
+	return Coins;
 }
 
 @end

@@ -186,7 +186,7 @@
 			m_text.FontSize = m_renderBox.ScreenHeight / 8.0f;
 		else
 			m_text.FontSize = m_renderBox.ScreenWidth / 8.0f;
-		m_text.Color = TextColor;
+		m_text.Color = PrimaryColor;
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
@@ -204,7 +204,7 @@
 		[m_cubeScene addModel:m_settingsIcon];
 		[m_cubeScene addModel:m_aboutIcon];
 		
-		[Scene addSprite:background];
+		//[Scene addSprite:background];
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_text];
 		
@@ -323,7 +323,7 @@
 	
 }
 
-- (void)TouchTap:(float)x Y:(float)y Fingers:(int)fingers
+- (void)TouchTap:(float)x Y:(float)y Fingers:(int)fingers Taps:(int)taps
 {
 	
 }

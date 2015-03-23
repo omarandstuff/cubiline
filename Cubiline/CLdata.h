@@ -7,6 +7,7 @@
 
 @property unsigned int HighScore;
 @property unsigned int Grown;
+@property unsigned int Coins;
 
 @property VEGameCenter* GameCenter;
 

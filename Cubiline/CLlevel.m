@@ -171,6 +171,7 @@
 @synthesize Score;
 @synthesize HighScore;
 @synthesize Grown;
+@synthesize Coins;
 @synthesize Move;
 @synthesize Finished;
 
@@ -196,14 +197,15 @@
 - (void)Frame:(float)time
 {
 	[LeaderGhost Frame:time];
-	[m_specialFood1Watch Frame:time];
-	[m_specialFood2Watch Frame:time];
-	[m_specialFood3Watch Frame:time];
-	
+
 	if(m_playing)
 	{
 		if(Move)
 		{
+			[m_specialFood1Watch Frame:time];
+			[m_specialFood2Watch Frame:time];
+			[m_specialFood3Watch Frame:time];
+			
 			[self ManageZones];
 			[self ManageHandles];
 			[self ManageTurns];
@@ -398,7 +400,7 @@
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone
 {
 //	if(prezone == CL_ZONE_FRONT)
-//		FrontWall.Color = SecundaryColor;
+//		m_guides.Color = SecundaryColor;
 //	if(prezone == CL_ZONE_BACK)
 //		BackWall.Color = SecundaryColor;
 //	if(prezone == CL_ZONE_RIGHT)
@@ -409,19 +411,19 @@
 //		TopWall.Color = SecundaryColor;
 //	if(prezone == CL_ZONE_BOTTOM)
 //		BottomWall.Color = SecundaryColor;
-//	
-//	if(newzone == CL_ZONE_FRONT)
-//		FrontWall.Color = FrontColor;
-//	if(newzone == CL_ZONE_BACK)
-//		BackWall.Color = BackColor;
-//	if(newzone == CL_ZONE_RIGHT)
-//		RightWall.Color = RightColor;
-//	if(newzone == CL_ZONE_LEFT)
-//		LeftWall.Color = LeftColor;
-//	if(newzone == CL_ZONE_TOP)
-//		TopWall.Color = TopColor;
-//	if(newzone == CL_ZONE_BOTTOM)
-//		BottomWall.Color = BottomColor;
+	
+	if(newzone == CL_ZONE_FRONT)
+		m_guides.Color = FrontColor;
+	if(newzone == CL_ZONE_BACK)
+		m_guides.Color = BackColor;
+	if(newzone == CL_ZONE_RIGHT)
+		m_guides.Color = RightColor;
+	if(newzone == CL_ZONE_LEFT)
+		m_guides.Color = LeftColor;
+	if(newzone == CL_ZONE_TOP)
+		m_guides.Color = TopColor;
+	if(newzone == CL_ZONE_BOTTOM)
+		m_guides.Color = BottomColor;
 }
 
 - (void)ManageZones
@@ -2381,7 +2383,7 @@
 	float dist1 = GLKVector3Length(GLKVector3Subtract(Food1.Position, Leader.Position));
 	float dist2 = GLKVector3Length(GLKVector3Subtract(Food2.Position, Leader.Position));
 	
-	if(dist < 0.5f || dist1 < 0.5f || dist2 < 0.5f)
+	if(dist < 0.5f)
 	{
 		m_toGrow += 1.0f;
 		m_slotControl += 1;
@@ -2392,17 +2394,43 @@
 		HighScore = MAX(HighScore, Score);
 		
 		m_eating = true;
-	
-		if(dist < 0.5f)
-			[self PositionateTextByPoint:m_pointsShower Position:Food.Position Offset:1.5f];
-		else if(dist1 < 0.5f)
-			[self PositionateTextByPoint:m_pointsShower Position:Food1.Position Offset:1.5f];
-		else
-			[self PositionateTextByPoint:m_pointsShower Position:Food2.Position Offset:1.5f];
-		
+
+		[self PositionateTextByPoint:m_pointsShower Position:Food.Position Offset:1.5f];
 		
 		[self RandomFood:Food];
+	}
+	
+	if(dist1 < 0.5f)
+	{
+		m_toGrow += 1.0f;
+		m_slotControl += 1;
+		
+		Score += 1;
+		Grown += 1;
+		
+		HighScore = MAX(HighScore, Score);
+		
+		m_eating = true;
+		
+		[self PositionateTextByPoint:m_pointsShower Position:Food1.Position Offset:1.5f];
+		
 		[self RandomFood:Food1];
+	}
+	
+	if(dist2 < 0.5f)
+	{
+		m_toGrow += 1.0f;
+		m_slotControl += 1;
+		
+		Score += 1;
+		Grown += 1;
+		
+		HighScore = MAX(HighScore, Score);
+		
+		m_eating = true;
+		
+		[self PositionateTextByPoint:m_pointsShower Position:Food2.Position Offset:1.5f];
+		
 		[self RandomFood:Food2];
 	}
 	
@@ -2513,6 +2541,8 @@
 		
 		if(distspecial < 0.5f)
 		{
+			Coins += 100;
+			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
 			[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
@@ -2540,7 +2570,7 @@
 	
 	do
 	{
-		face = [m_random NextIntegerWithMin:0 Max:1];
+		face = [m_random NextIntegerWithMin:0 Max:5];
 		randomthreshold++;
 		if(randomthreshold > 10)
 		{
@@ -2893,30 +2923,33 @@
 	SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	SpecialFood1.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	SpecialFood1.ScaleTransitionTime = 0.2f;
-	m_specialFood1Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
-	m_specialFood1MinTime = 1.0f;
-	m_specialFood1MaxTime = 2.0f;
-	m_specialFood1ShowTime = 50.0f;
+	m_specialFood1Watch = [[VEWatch alloc] init];
+	m_specialFood1Watch.Style = VE_WATCH_STYLE_REVERSE;
+	m_specialFood1MinTime = 30.0f;
+	m_specialFood1MaxTime = 180.0f;
+	m_specialFood1ShowTime = 15.0f;
 	
 	SpecialFood2 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood2.Color = BottomColor;
 	SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	SpecialFood2.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	SpecialFood2.ScaleTransitionTime = 0.2f;
-	m_specialFood2Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
-	m_specialFood2MinTime = 1.0f;
-	m_specialFood2MaxTime = 2.0f;
-	m_specialFood2ShowTime = 50.0f;
+	m_specialFood2Watch = [[VEWatch alloc] init];
+	m_specialFood2Watch.Style = VE_WATCH_STYLE_REVERSE;
+	m_specialFood2MinTime = 60.0f;
+	m_specialFood2MaxTime = 300.0f;
+	m_specialFood2ShowTime = 15.0f;
 	
 	SpecialFood3 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood3.Color = TopColor;
 	SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 	SpecialFood3.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	SpecialFood3.ScaleTransitionTime = 0.2f;
-	m_specialFood3Watch = [m_renderBox NewWatchWithStyle:VE_WATCH_STYLE_REVERSE];
-	m_specialFood3MinTime = 1.0f;
-	m_specialFood3MaxTime = 2.0f;
-	m_specialFood3ShowTime = 50.0f;
+	m_specialFood3Watch = [[VEWatch alloc] init];
+	m_specialFood3Watch.Style = VE_WATCH_STYLE_REVERSE;
+	m_specialFood3MinTime = 30.0f;
+	m_specialFood3MaxTime = 180.0f;
+	m_specialFood3ShowTime = 15.0f;
 	
 	
 	// Text
@@ -2928,7 +2961,7 @@
 	m_pointsShower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_pointsShower.PositionTransitionTime = 0.3f;
 	m_pointsShower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
-	m_pointsShower.OpasityEase = 0.1f;
+	m_pointsShower.OpasityEase = 0.05f;
 	m_pointsShower.OpasityTransitionTime = 1.8f;
 	
 	m_specialPoints1Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"10+"];
@@ -2939,7 +2972,7 @@
 	m_specialPoints1Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints1Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints1Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
-	m_specialPoints1Shower.OpasityEase = 0.1f;
+	m_specialPoints1Shower.OpasityEase = 0.05f;
 	m_specialPoints1Shower.OpasityTransitionTime = 1.8f;
 	
 	m_specialPoints2Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"[10+]"];
@@ -2950,7 +2983,7 @@
 	m_specialPoints2Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints2Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints2Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
-	m_specialPoints2Shower.OpasityEase = 0.1f;
+	m_specialPoints2Shower.OpasityEase = 0.05f;
 	m_specialPoints2Shower.OpasityTransitionTime = 1.8f;
 	
 	m_specialPoints3Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Coins"];
@@ -2961,7 +2994,7 @@
 	m_specialPoints3Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints3Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints3Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
-	m_specialPoints3Shower.OpasityEase = 0.1f;
+	m_specialPoints3Shower.OpasityEase = 0.05f;
 	m_specialPoints3Shower.OpasityTransitionTime = 1.8f;
 	
 	// Random.
@@ -2972,21 +3005,24 @@
 	m_levelModel.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_levelModel.ScaleTransitionTime = 0.2f;
 	
-	m_guides = [m_renderBox NewModelFromFileName:@"game_guides"];
+	m_guides = [m_renderBox NewModelFromFileName:@"single_guides_low"];
 	m_guides.TextureCompressionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.TextureCompressionTransitionTime = 0.3f;
-	m_guides.Opasity = 0.25f;
+	m_guides.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_guides.ColorTransitionTime = 0.3f;
 	m_guides.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_guides.ScaleTransitionTime = 0.2f;
+	m_guides.Opasity = 1.0f;
+	m_guides.ForcedRenderMode = VE_RENDER_MODE_VERTEX_LIGHT;
 	
 	// Lights
 	m_topLight = [m_renderBox NewLight];
-	m_topLight.Position = GLKVector3Make(-45.0, 40.0f, 40.0f);
-	m_topLight.Intensity = 1.85f;
+	m_topLight.Position = GLKVector3Make(-45.0, 45.0f, 45.0f);
+	m_topLight.Intensity = 1.75f;
 	
 	m_buttomLight = [m_renderBox NewLight];
-	m_buttomLight.Position = GLKVector3Make(45.0, -40.0f, -40.0);
-	m_buttomLight.Intensity = 1.95f;
+	m_buttomLight.Position = GLKVector3Make(45.0, -45.0f, -45.0);
+	m_buttomLight.Intensity = 1.8f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];
@@ -3004,7 +3040,7 @@
 	[Scene addText3D:m_specialPoints1Shower];
 	[Scene addText3D:m_specialPoints2Shower];
 	[Scene addText3D:m_specialPoints3Shower];
-	//[Scene addModel:m_guides];
+	[Scene addModel:m_guides];
 	
 	[Scene addLight:m_topLight];
 	[Scene addLight:m_buttomLight];
@@ -3036,6 +3072,9 @@
 		
 		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
 		
+		m_guides.Scale = GuidesSmallSizeVector;
+		m_guides.TextureCompression = SmallSizeVector;
+		
 		m_cubeFaceSlotLimit = (SmallSizeLimit * SmallSizeLimit * 4);
 	}
 	else if(size == CL_SIZE_NORMAL)
@@ -3049,6 +3088,9 @@
 		
 		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
 		
+		m_guides.Scale = GuidesNormalSizeVector;
+		m_guides.TextureCompression = NormalSizeVector;
+		
 		m_cubeFaceSlotLimit = (NormalSizeLimit * NormalSizeLimit * 4);
 	}
 	else if(size == CL_SIZE_BIG)
@@ -3061,6 +3103,9 @@
 		m_radious = BigSizeLimit * 2.3f * 2.0f;
 		
 		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
+		
+		m_guides.Scale = GuidesBigSizeVector;
+		m_guides.TextureCompression = BigSizeVector;
 		
 		m_cubeFaceSlotLimit = (BigSizeLimit * BigSizeLimit * 4);
 	}

@@ -13,6 +13,8 @@
 @property VEGameCenter* GameCenter;
 @property CLData* GameData;
 
+@property (readonly)bool Adiable;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite*)background Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Render;
@@ -21,6 +23,8 @@
 - (void)Begin;
 - (void)OutToMainMenu;
 - (bool)OutReady;
+
+- (void)Pause;
 
 @end
 

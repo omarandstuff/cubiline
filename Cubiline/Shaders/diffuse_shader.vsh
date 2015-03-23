@@ -2,6 +2,8 @@ attribute vec4 PositionIn;
 attribute vec2 TexCoordIn;
 attribute vec3 NormalIn;
 
+uniform vec2 TextureCompressionIn;
+
 uniform mat4 ModelViewProjectionMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 ModelMatrix;
@@ -46,5 +48,5 @@ void main()
 	}
 	
 	gl_Position = ModelViewProjectionMatrix * PositionIn;
-	TexCoordOut = TexCoordIn;
+	TexCoordOut = TexCoordIn * TextureCompressionIn;
 }

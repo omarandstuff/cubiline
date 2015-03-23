@@ -10,9 +10,28 @@
 	VETimer* m_timer;
 	
 	float m_multipler;
+	
+	AppDelegate* m_appDelegate;
+	
+	
+	/// iAds
+	ADBannerView *m_adBanner;
+	bool m_bannerPresented;
+	bool m_bannerLoaded;
+	bool m_bannerInteracting;
+	bool m_bannerAllowed;
+	
+	NSString* m_device;
 }
 
 - (NSString*)deviceCategory;
+- (NSString*)deviceModelName;
+
+- (void)PresentBanner;
+- (void)GetBannerOnScreen;
+- (void)GetBannerOffScreen;
+- (void)RemoveBanner;
+- (CGRect)RectForBanner;
 
 @end
 
@@ -22,10 +41,22 @@
 {
 	[super viewDidLoad];
 	
+	// App delegate
+	m_appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	
 	// Multipler screen resolution base device.
 	NSString* deviceCategory = [self deviceCategory];
+	m_device = [self deviceModelName];
 
-	m_multipler = 2.0f;
+	if([deviceCategory isEqualToString:@"very low"])
+		m_multipler = 2.0f;
+	else if([deviceCategory isEqualToString:@"low"])
+		m_multipler = 2.0f;
+	else if([deviceCategory isEqualToString:@"medium"])
+		m_multipler = 2.0f;
+	else
+		m_multipler = 3.0f;
+	
 	
 	// Create the context object
 	m_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
@@ -41,6 +72,10 @@
 	longPressRecognizer.minimumPressDuration = 0.0f;
 	longPressRecognizer.allowableMovement = 20.0f;
 	[self.view addGestureRecognizer:longPressRecognizer];
+	
+	UITapGestureRecognizer *doubleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(TapHandler:)];
+	doubleTapRecognizer.numberOfTapsRequired = 2;
+	[self.view addGestureRecognizer:doubleTapRecognizer];
 
 	
 	panRecognizer.delegate = self;
@@ -61,6 +96,8 @@
 	
 	// Create the renderbox object.
 	m_renderBox = [[VERenderBox alloc] initWithContext:m_context GLKView:view Timer:m_timer Width:self.view.bounds.size.width * m_multipler Height:self.view.bounds.size.height * m_multipler];
+	
+	m_renderBox.DeviceType = m_device;
     
     // Create the audiobox object.
 	m_audioBox = [[VEAudioBox alloc] init];
@@ -81,6 +118,8 @@
 	else
 		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_HIGH];
 
+	// Delegate
+	m_appDelegate.Game = m_game;
 	
 	[m_renderBox Frame:0.0f];
 	[m_game Frame:0.0f];
@@ -149,18 +188,197 @@
 	
 	NSString *deviceName = commonNamesDictionary[machineName];
 	
-	if (deviceName == nil) {
+	if (deviceName == nil)
+	{
 		deviceName = machineName;
 	}
 	
 	return deviceName;
 }
 
+- (NSString*)deviceModelName
+{
+	struct utsname systemInfo;
+	uname(&systemInfo);
+	NSString *machineName = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+	NSDictionary *commonNamesDictionary =
+  @{
+	@"i386":     @"iPhone",
+	@"x86_64":   @"iPad",
+	
+	@"iPhone1,1":    @"iPhone",
+	@"iPhone1,2":    @"iPhone",
+	@"iPhone2,1":    @"iPhone",
+	@"iPhone3,1":    @"iPhone",
+	@"iPhone4,1":    @"iPhone",
+	@"iPhone5,1":    @"iPhone",
+	@"iPhone5,2":    @"iPhone",
+	
+	@"iPad1,1":  @"iPad",
+	@"iPad2,1":  @"iPad",
+	@"iPad2,2":  @"iPad",
+	@"iPad2,3":  @"iPad",
+	@"iPad2,4":  @"iPad",
+	@"iPad2,5":  @"iPad",
+	@"iPad2,6":  @"iPad",
+	@"iPad2,7":  @"iPad",
+	@"iPad3,1":  @"iPad",
+	@"iPad3,2":  @"iPad",
+	@"iPad3,3":  @"iPad",
+	@"iPad3,4":  @"iPad",
+	@"iPad3,5":  @"iPad",
+	@"iPad3,6":  @"iPad",
+	
+	@"iPod1,1":  @"iPhone",
+	@"iPod2,1":  @"iPhone",
+	@"iPod3,1":  @"iPhone",
+	@"iPod4,1":  @"iPhone",
+	@"iPod5,1":  @"iPhone",
+	
+	};
+	
+	NSString *deviceName = commonNamesDictionary[machineName];
+	
+	if (deviceName == nil)
+	{
+		deviceName = machineName;
+	}
+	
+	return deviceName;
+}
+
+///// iAds
+
+- (void)PresentBanner
+{
+	if(!m_bannerPresented)
+	{
+		if(m_adBanner && m_bannerLoaded)
+		{
+			NSLog(@"The Ad is already loaded, presenting.");
+			[self GetBannerOnScreen];
+		}
+		else if (!m_adBanner)
+		{
+			NSLog(@"Ad requested.");
+			
+			CGRect rect = [self RectForBanner];
+			rect.origin.y += rect.size.height;
+			
+			m_adBanner = [[ADBannerView alloc] initWithFrame:rect];
+			m_adBanner.delegate = self;
+			
+			[self.view addSubview:m_adBanner];
+		}
+	}
+}
+
+- (void)RemoveBanner
+{
+	if(m_bannerPresented)
+	{
+		NSLog(@"Ad removed from view.");
+		[self GetBannerOffScreen];
+	}
+}
+
+- (void)GetBannerOnScreen
+{
+	if (m_adBanner.superview == nil)
+	{
+		[self.view addSubview:m_adBanner];
+	}
+	
+	CGRect rect = [self RectForBanner];
+	
+	[UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+	
+	m_adBanner.frame = rect;
+	
+	[UIView commitAnimations];
+	
+	m_bannerPresented = true;
+}
+
+- (void)GetBannerOffScreen
+{
+	CGRect rect = [self RectForBanner];
+	rect.origin.y += rect.size.height;
+	
+	[UIView animateWithDuration:1.0f animations:^{
+		m_adBanner.frame = rect;
+	}
+	completion:^(BOOL finished){
+		[m_adBanner removeFromSuperview];
+	}];
+	
+	m_bannerPresented = false;
+}
+
+- (CGRect)RectForBanner;
+{
+	int width = self.view.bounds.size.width;
+	int height = self.view.bounds.size.height;
+	if([m_device isEqual:@"iPhone"])
+	{
+		if(width > height)
+		{
+			return CGRectMake(0, height - 32, width, 32);
+		}
+		else
+		{
+			return CGRectMake(0, height - 50, width, 50);
+		}
+	}
+	else
+	{
+		return CGRectMake(0, height - 66, width, 66);
+	}
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+	m_bannerLoaded = true;
+	
+	if(m_bannerAllowed)
+	{
+		NSLog(@"Ad retrieve successful. Presenting");
+		[self GetBannerOnScreen];
+	}
+	else
+	{
+		NSLog(@"Ad retrieve successful but not allowed.");
+	}
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+	NSLog(@"Failed to retrieve ad");
+	
+	if (m_bannerPresented)
+	{
+		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+		
+		// Assumes the banner view is placed at the bottom of the screen.
+		banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
+		
+		[UIView commitAnimations];
+		
+		m_bannerPresented = NO;
+	}
+}
+
+///////////////////////////////
+///////////////////////////////
+///////////////////////////////
+
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
 	[m_gameCenter AuthenticateLocalPlayer];
+	
+	[self PresentBanner];
 }
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
@@ -191,12 +409,17 @@
     
     // Resize the game.
 	[m_game Resize];
+	
+	if(m_bannerPresented)
+		[self GetBannerOnScreen];
+	else
+		[self GetBannerOffScreen];
 }
 
 - (void)update
 {
 	// The authentification View Controller is presented.
-	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting) return;
+	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting || m_bannerInteracting) return;
 	
 	// Update the timer to adjust the time we wnat to use.
 	[m_timer Frame:self.timeSinceLastUpdate];
@@ -209,6 +432,18 @@
     
 	// Update the game.
 	[m_game Frame:m_timer.LastUpdateTime];
+	
+	// Ads
+	if(m_game.Adiable)
+	{
+		m_bannerAllowed = true;
+		[self PresentBanner];
+	}
+	else
+	{
+		m_bannerAllowed = false;
+		[self RemoveBanner];
+	}
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect
@@ -240,7 +475,7 @@
     float x = point.x * m_multipler;
     float y = point.y * m_multipler;
 	
-	[m_game TouchTap:x Y:y Fingers:(int)gestureRecognizer.numberOfTouches];
+	[m_game TouchTap:x Y:y Fingers:(int)gestureRecognizer.numberOfTouches Taps:(int)gestureRecognizer.numberOfTapsRequired];
 }
 
 - (void)LongPressHandler:(UILongPressGestureRecognizer*)gestureRecognizer

@@ -5,21 +5,17 @@
 #import "CLgamesetup.h"
 #import "CLgameholder.h"
 
-@interface CLGame : NSObject
+@interface CLGame : CLTouchable
 
-- (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers;
-- (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers;
-- (void)TouchPanEnd:(float)x Y:(float)y Fingers:(int)fingers;
-
-- (void)TouchTap:(float)x Y:(float)y Fingers:(int)fingers;
-
-- (void)TouchDown:(float)x Y:(float)y Fingers:(int)fingers;
-- (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
+@property (readonly)bool Adiable;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox *)audiobox GameCenter:(VEGameCenter *)gamecenter Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;
+
+- (void)Pause;
+
 @end
 
 #endif
