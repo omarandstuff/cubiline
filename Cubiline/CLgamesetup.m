@@ -584,8 +584,6 @@
 	
 	m_cubeView.Camera = Level.FocusedCamera;
 	
-	m_background.Color = SecundaryColor;
-	
 	[m_renderBox Frame:0.0f];
 	
 	[m_watch Reset];

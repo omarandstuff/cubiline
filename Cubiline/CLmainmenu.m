@@ -190,8 +190,6 @@
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
-		background.Color = SecundaryColor;
-	
 		[m_cubeScene addModel:m_cube];
 //		[m_cubeScene addModel:m_sideFront];
 //		[m_cubeScene addModel:m_sideRight];
@@ -650,8 +648,6 @@
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -7.3f);
 	m_cubeCamera.PivotRotation = GLKVector3Make(26.5650501f, 0.0f, 0.0f);
 	m_text.Opasity = 0.0f;
-	
-	m_background.Color = PrimaryColor;
 	
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];

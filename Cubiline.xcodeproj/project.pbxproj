@@ -142,6 +142,8 @@
 		37AF23261A7D5A7500E0829E /* main_menu_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 37AF23251A7D5A7500E0829E /* main_menu_about.png */; };
 		37AFD0101ABFE31B00700003 /* single_guides_low.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */; };
 		37AFD0111ABFE31B00700003 /* single_guides_low.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD00F1ABFE31B00700003 /* single_guides_low.obj */; };
+		37AFD0141ABFE8BC00700003 /* single_guides_high.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */; };
+		37AFD0151ABFE8BC00700003 /* single_guides_high.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD0131ABFE8BC00700003 /* single_guides_high.obj */; };
 		37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6631A7836CE00084D7B /* text_shader.fsh */; };
 		37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6641A7836CE00084D7B /* text_shader.vsh */; };
 		37BCAAE31A9165A300FFFE6D /* game_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE21A9165A300FFFE6D /* game_pause.png */; };
@@ -348,6 +350,8 @@
 		37AF23251A7D5A7500E0829E /* main_menu_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_about.png; path = Cubiline/Resources/main_menu_about.png; sourceTree = "<group>"; };
 		37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_low.mtl; path = Cubiline/Resources/single_guides_low.mtl; sourceTree = "<group>"; };
 		37AFD00F1ABFE31B00700003 /* single_guides_low.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_low.obj; path = Cubiline/Resources/single_guides_low.obj; sourceTree = "<group>"; };
+		37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_high.mtl; path = Cubiline/Resources/single_guides_high.mtl; sourceTree = "<group>"; };
+		37AFD0131ABFE8BC00700003 /* single_guides_high.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_high.obj; path = Cubiline/Resources/single_guides_high.obj; sourceTree = "<group>"; };
 		37B3D6631A7836CE00084D7B /* text_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.fsh; path = Cubiline/Shaders/text_shader.fsh; sourceTree = "<group>"; };
 		37B3D6641A7836CE00084D7B /* text_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.vsh; path = Cubiline/Shaders/text_shader.vsh; sourceTree = "<group>"; };
 		37BCAAE21A9165A300FFFE6D /* game_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_pause.png; path = Cubiline/Resources/game_pause.png; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */,
+				37AFD0131ABFE8BC00700003 /* single_guides_high.obj */,
 				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
 				37AFD00F1ABFE31B00700003 /* single_guides_low.obj */,
 				37FE7DF81ABE69A600923882 /* coin_icon.png */,
@@ -810,6 +816,7 @@
 				3734C5B21A7229400039269D /* geosphere_medium.obj in Resources */,
 				373E62A21AA232A500ACC243 /* diffuse_shader.vsh in Resources */,
 				374FCCAA1A86D89700B14ACB /* bottom_wall.obj in Resources */,
+				37AFD0151ABFE8BC00700003 /* single_guides_high.obj in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
 				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
 				3728F5E51A6C4FF6004F7244 /* depth_shader.vsh in Resources */,
@@ -818,6 +825,7 @@
 				37AFD0111ABFE31B00700003 /* single_guides_low.obj in Resources */,
 				3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */,
 				37BCAAE31A9165A300FFFE6D /* game_pause.png in Resources */,
+				37AFD0141ABFE8BC00700003 /* single_guides_high.mtl in Resources */,
 				374FCCAB1A86D89700B14ACB /* top_wall.obj in Resources */,
 				37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */,
 				3710BA451ABD03F000B60B7F /* background.png in Resources */,

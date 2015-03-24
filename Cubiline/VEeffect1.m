@@ -247,7 +247,10 @@
             if (m_translationByTime)
             {
                 m_transTargTime = TransitionTime;
-                m_transSpeed = m_transDist / m_transTargTime;
+				if(m_transTargTime == 0.0f)
+					m_transSpeed = 0.0f;
+				else
+					m_transSpeed = m_transDist / m_transTargTime;
             }
             else
             {

@@ -49,7 +49,7 @@
 	m_device = [self deviceModelName];
 
 	if([deviceCategory isEqualToString:@"very low"])
-		m_multipler = 2.0f;
+		m_multipler = 1.0f;
 	else if([deviceCategory isEqualToString:@"low"])
 		m_multipler = 2.0f;
 	else if([deviceCategory isEqualToString:@"medium"])
@@ -121,8 +121,11 @@
 	// Delegate
 	m_appDelegate.Game = m_game;
 	
-	[m_renderBox Frame:0.0f];
-	[m_game Frame:0.0f];
+	[m_timer Frame:1.0f];
+	[m_renderBox Frame:m_timer.LastUpdateTime];
+	[m_audioBox Frame:m_timer.LastUpdateTime];
+	[m_game Frame:m_timer.LastUpdateTime];
+	[m_game Render];
 	[m_renderBox Render];
 }
 
@@ -135,15 +138,15 @@
 
 	NSDictionary *commonNamesDictionary =
 	@{
-	  @"i386":     @"low",
-	  @"x86_64":   @"low",
+	  @"i386":     @"very low",
+	  @"x86_64":   @"very low",
 	  
 	  @"iPhone1,1":    @"very low",
 	  @"iPhone1,2":    @"very low",
 	  @"iPhone2,1":    @"very low",
-	  @"iPhone3,1":    @"very low",
-	  @"iPhone3,2":    @"very low",
-	  @"iPhone3,3":    @"very low",
+	  @"iPhone3,1":    @"low",
+	  @"iPhone3,2":    @"low",
+	  @"iPhone3,3":    @"low",
 	  @"iPhone4,1":    @"low",
 	  @"iPhone5,1":    @"medium",
 	  @"iPhone5,2":    @"medium",
