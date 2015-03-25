@@ -124,8 +124,6 @@
 		378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */; };
 		378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */; };
 		378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */; };
-		378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAFE1A79CFF700397989 /* Cubiline.png */; };
-		378EDB011A79D49800397989 /* Cubiline Half.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDB001A79D49800397989 /* Cubiline Half.png */; };
 		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
 		379A65611ABF6A32009C3A6C /* VEiads.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A65601ABF6A32009C3A6C /* VEiads.m */; };
 		37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 37A1F7471A75F5B90035BB91 /* dome.jpg */; };
@@ -144,6 +142,8 @@
 		37AFD0111ABFE31B00700003 /* single_guides_low.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD00F1ABFE31B00700003 /* single_guides_low.obj */; };
 		37AFD0141ABFE8BC00700003 /* single_guides_high.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */; };
 		37AFD0151ABFE8BC00700003 /* single_guides_high.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37AFD0131ABFE8BC00700003 /* single_guides_high.obj */; };
+		37B3B4F21AC217AC001D7EBA /* menu_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 37B3B4F01AC217AC001D7EBA /* menu_left.png */; };
+		37B3B4F31AC217AC001D7EBA /* menu_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 37B3B4F11AC217AC001D7EBA /* menu_right.png */; };
 		37B3D6651A7836CE00084D7B /* text_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6631A7836CE00084D7B /* text_shader.fsh */; };
 		37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37B3D6641A7836CE00084D7B /* text_shader.vsh */; };
 		37BCAAE31A9165A300FFFE6D /* game_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE21A9165A300FFFE6D /* game_pause.png */; };
@@ -151,6 +151,7 @@
 		37BCAAEA1A91760200FFFE6D /* game_gc.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE61A91760200FFFE6D /* game_gc.png */; };
 		37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE71A91760200FFFE6D /* game_restart.png */; };
 		37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAEC1A9176BE00FFFE6D /* game_continue.png */; };
+		37DEE6581AC272B7005E29AE /* CubilineTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 37DEE6571AC272B7005E29AE /* CubilineTitle.png */; };
 		37FA76B21A901A9E0097497D /* CLgameholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FA76B11A901A9E0097497D /* CLgameholder.m */; };
 		37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37FB26251A6C4EFD00DB4E6C /* Main.storyboard */; };
 		37FB26381A6C4EFD00DB4E6C /* CubilineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */; };
@@ -332,8 +333,6 @@
 		378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Medium.txt"; path = "Cubiline/Fonts/Gau Font Cube Medium.txt"; sourceTree = "<group>"; };
 		378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Small.png"; path = "Cubiline/Fonts/Gau Font Cube Small.png"; sourceTree = "<group>"; };
 		378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Small.txt"; path = "Cubiline/Fonts/Gau Font Cube Small.txt"; sourceTree = "<group>"; };
-		378EDAFE1A79CFF700397989 /* Cubiline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cubiline.png; path = Cubiline/Resources/Cubiline.png; sourceTree = "<group>"; };
-		378EDB001A79D49800397989 /* Cubiline Half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Cubiline Half.png"; path = "Cubiline/Resources/Cubiline Half.png"; sourceTree = "<group>"; };
 		379A65601ABF6A32009C3A6C /* VEiads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEiads.m; path = Cubiline/VEiads.m; sourceTree = "<group>"; };
 		379A65621ABF6A4F009C3A6C /* VEiads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VEiads.h; path = Cubiline/VEiads.h; sourceTree = "<group>"; };
 		37A1F7471A75F5B90035BB91 /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
@@ -352,6 +351,8 @@
 		37AFD00F1ABFE31B00700003 /* single_guides_low.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_low.obj; path = Cubiline/Resources/single_guides_low.obj; sourceTree = "<group>"; };
 		37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_high.mtl; path = Cubiline/Resources/single_guides_high.mtl; sourceTree = "<group>"; };
 		37AFD0131ABFE8BC00700003 /* single_guides_high.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = single_guides_high.obj; path = Cubiline/Resources/single_guides_high.obj; sourceTree = "<group>"; };
+		37B3B4F01AC217AC001D7EBA /* menu_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_left.png; path = Cubiline/Resources/menu_left.png; sourceTree = "<group>"; };
+		37B3B4F11AC217AC001D7EBA /* menu_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_right.png; path = Cubiline/Resources/menu_right.png; sourceTree = "<group>"; };
 		37B3D6631A7836CE00084D7B /* text_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.fsh; path = Cubiline/Shaders/text_shader.fsh; sourceTree = "<group>"; };
 		37B3D6641A7836CE00084D7B /* text_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = text_shader.vsh; path = Cubiline/Shaders/text_shader.vsh; sourceTree = "<group>"; };
 		37BCAAE21A9165A300FFFE6D /* game_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_pause.png; path = Cubiline/Resources/game_pause.png; sourceTree = "<group>"; };
@@ -359,6 +360,7 @@
 		37BCAAE61A91760200FFFE6D /* game_gc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_gc.png; path = Cubiline/Resources/game_gc.png; sourceTree = "<group>"; };
 		37BCAAE71A91760200FFFE6D /* game_restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_restart.png; path = Cubiline/Resources/game_restart.png; sourceTree = "<group>"; };
 		37BCAAEC1A9176BE00FFFE6D /* game_continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_continue.png; path = Cubiline/Resources/game_continue.png; sourceTree = "<group>"; };
+		37DEE6571AC272B7005E29AE /* CubilineTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CubilineTitle.png; path = Cubiline/Resources/CubilineTitle.png; sourceTree = "<group>"; };
 		37FA76B01A901A9E0097497D /* CLgameholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgameholder.h; path = Cubiline/CLgameholder.h; sourceTree = "<group>"; };
 		37FA76B11A901A9E0097497D /* CLgameholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgameholder.m; path = Cubiline/CLgameholder.m; sourceTree = "<group>"; };
 		37FB26141A6C4EFD00DB4E6C /* Cubiline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cubiline.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -402,6 +404,9 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37DEE6571AC272B7005E29AE /* CubilineTitle.png */,
+				37B3B4F01AC217AC001D7EBA /* menu_left.png */,
+				37B3B4F11AC217AC001D7EBA /* menu_right.png */,
 				37AFD0121ABFE8BC00700003 /* single_guides_high.mtl */,
 				37AFD0131ABFE8BC00700003 /* single_guides_high.obj */,
 				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
@@ -410,8 +415,6 @@
 				3710BA441ABD03F000B60B7F /* background.png */,
 				37436E421A86D5A700167D31 /* back_wall.obj */,
 				374FCCA81A86D89700B14ACB /* bottom_wall.obj */,
-				378EDB001A79D49800397989 /* Cubiline Half.png */,
-				378EDAFE1A79CFF700397989 /* Cubiline.png */,
 				3734C5B31A7229AD0039269D /* dome.jpg */,
 				375FF0501AAA8A42003E56F1 /* front_wall.mtl */,
 				37436E441A86D5A700167D31 /* front_wall.obj */,
@@ -796,7 +799,6 @@
 				37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */,
 				37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */,
 				37AFD0101ABFE31B00700003 /* single_guides_low.mtl in Resources */,
-				378EDB011A79D49800397989 /* Cubiline Half.png in Resources */,
 				373E62B11AA28ABE00ACC243 /* color_light_shader.vsh in Resources */,
 				37B3D6661A7836CE00084D7B /* text_shader.vsh in Resources */,
 				37436E501A86D5A700167D31 /* right_wall.obj in Resources */,
@@ -812,13 +814,13 @@
 				374FCCBC1A86FCAF00B14ACB /* game_guides.mtl in Resources */,
 				37BCAAEA1A91760200FFFE6D /* game_gc.png in Resources */,
 				3734C5B11A7229400039269D /* geosphere_medium.mtl in Resources */,
-				378EDAFF1A79CFF700397989 /* Cubiline.png in Resources */,
 				3734C5B21A7229400039269D /* geosphere_medium.obj in Resources */,
 				373E62A21AA232A500ACC243 /* diffuse_shader.vsh in Resources */,
 				374FCCAA1A86D89700B14ACB /* bottom_wall.obj in Resources */,
 				37AFD0151ABFE8BC00700003 /* single_guides_high.obj in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
 				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
+				37B3B4F31AC217AC001D7EBA /* menu_right.png in Resources */,
 				3728F5E51A6C4FF6004F7244 /* depth_shader.vsh in Resources */,
 				3728F5E61A6C4FF6004F7244 /* depth_texture_shader.fsh in Resources */,
 				37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */,
@@ -832,6 +834,7 @@
 				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,
 				3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */,
 				3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */,
+				37DEE6581AC272B7005E29AE /* CubilineTitle.png in Resources */,
 				378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */,
 				373E62B21AA28ABE00ACC243 /* light_shader.fsh in Resources */,
 				3728F5E21A6C4FF6004F7244 /* depth_of_field_shader.fsh in Resources */,
@@ -868,6 +871,7 @@
 				3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */,
 				37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */,
 				373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */,
+				37B3B4F21AC217AC001D7EBA /* menu_left.png in Resources */,
 				3758D1281A7C6BF200982ABE /* main_menu_game_center.obj in Resources */,
 				373CC3151A6DF886003BEE7F /* color_shader.vsh in Resources */,
 				3728F5EB1A6C4FF6004F7244 /* gaussian_blur_shader.vsh in Resources */,

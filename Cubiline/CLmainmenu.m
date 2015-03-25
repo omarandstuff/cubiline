@@ -9,20 +9,16 @@
 	VEModel* m_cube;
 	
 	VEModel* m_playIcon;
-	VEModel* m_sideFront;
-	
 	VEModel* m_gameCenterIcon;
-	VEModel* m_sideRight;
-	
 	VEModel* m_settingsIcon;
-	VEModel* m_sideBack;
-	
 	VEModel* m_aboutIcon;
-	VEModel* m_sideLeft;
 	
-	VEModel* m_sideBottom;
+	VESprite* m_title;
 	
-	VESprite* m_background;
+	VESprite* m_right;
+	Rect m_rightRect;
+	VESprite* m_left;
+	Rect m_leftRect;
 	
 	GLKVector3 m_preRotation;
 	
@@ -48,12 +44,18 @@
 	VERandom* m_random;
 	
 	enum CL_GRAPHICS m_graphics;
+	
+	float spriteSize;
+	
+	bool m_inButton;
 }
 
 - (void)PressCube;
 - (void)ReleaseCube;
 - (void)ProperCube;
 - (void)DoSelect;
+
+- (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
 
 @end
 
@@ -73,7 +75,6 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
-		m_background = background;
 		
 		Scene = [m_renderBox NewSceneWithName:@"MainMenuScene"];
 		
@@ -123,50 +124,18 @@
 		m_aboutIcon.OpasityTransitionTime = 0.3f;
 		m_aboutIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
-		m_sideFront = [m_renderBox NewModelFromFileName:@"front_wall"];
-		m_sideFront.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideFront.ScaleTransitionTime = 0.1f;
-		m_sideFront.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideFront.ColorTransitionTime = 0.1f;
-		m_sideFront.Color = FrontColor;
-		m_sideFront.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideFront.RotationTransitionTime = 0.1f;
+		m_right = [m_renderBox NewSpriteFromFileName:@"menu_right.png"];
+		m_left = [m_renderBox NewSpriteFromFileName:@"menu_left.png"];
+		CommonButtonStyle(m_right);
+		CommonButtonStyle(m_left);
+		m_right.LockAspect = m_left.LockAspect = true;
+		m_right.Opasity = 1.0f;
+		m_left.Opasity = 1.0f;
 		
-		m_sideRight = [m_renderBox NewModelFromFileName:@"right_wall"];
-		m_sideRight.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideRight.ScaleTransitionTime = 0.1f;
-		m_sideRight.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideRight.ColorTransitionTime = 0.1f;
-		m_sideRight.Color = SecundaryColor;
-		m_sideRight.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideRight.RotationTransitionTime = 0.1f;
-		
-		m_sideBack = [m_renderBox NewModelFromFileName:@"back_wall"];
-		m_sideBack.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBack.ScaleTransitionTime = 0.1f;
-		m_sideBack.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBack.ColorTransitionTime = 0.1f;
-		m_sideBack.Color = SecundaryColor;
-		m_sideBack.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBack.RotationTransitionTime = 0.1f;
-		
-		m_sideLeft = [m_renderBox NewModelFromFileName:@"left_wall"];
-		m_sideLeft.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideLeft.ScaleTransitionTime = 0.1f;
-		m_sideLeft.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideLeft.ColorTransitionTime = 0.1f;
-		m_sideLeft.Color = SecundaryColor;
-		m_sideLeft.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideLeft.RotationTransitionTime = 0.1f;
-		
-		m_sideBottom = [m_renderBox NewModelFromFileName:@"bottom_wall"];
-		m_sideBottom.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBottom.ScaleTransitionTime = 0.1f;
-		m_sideBottom.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBottom.ColorTransitionTime = 0.1f;
-		m_sideBottom.Color = SecundaryColor;
-		m_sideBottom.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_sideBottom.RotationTransitionTime = 0.1f;
+		m_title = [m_renderBox NewSpriteFromFileName:@"CubilineTitle.png"];
+		CommonButtonStyle(m_title);
+		m_title.LockAspect = true;
+		m_title.Opasity = 1.0f;
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);
@@ -191,20 +160,17 @@
 		m_text.OpasityTransitionTime = 0.3f;
 		
 		[m_cubeScene addModel:m_cube];
-//		[m_cubeScene addModel:m_sideFront];
-//		[m_cubeScene addModel:m_sideRight];
-//		[m_cubeScene addModel:m_sideBack];
-//		[m_cubeScene addModel:m_sideLeft];
-//		[m_cubeScene addModel:m_sideBottom];
 		[m_cubeScene addLight:m_light];
 		[m_cubeScene addModel:m_playIcon];
 		[m_cubeScene addModel:m_gameCenterIcon];
 		[m_cubeScene addModel:m_settingsIcon];
 		[m_cubeScene addModel:m_aboutIcon];
 		
-		//[Scene addSprite:background];
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_text];
+		[Scene addSprite:m_right];
+		[Scene addSprite:m_left];
+		[Scene addSprite:m_title];
 		
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeCamera.LockLookAt = true;
@@ -262,7 +228,6 @@
 {
 	float width = m_renderBox.ScreenWidth;
 	float height = m_renderBox.ScreenHeight;
-	float spriteSize;
 	
 	// Best size from the screen.
 	if(width > height)
@@ -276,39 +241,50 @@
 	
 	m_text.Position = GLKVector3Make(0.0f, -spriteSize / 3.0f, 0.0f);
 	
+	m_right.Position = GLKVector3Make(spriteSize * 0.4f, 0.0f, 0.0f);
+	m_left.Position = GLKVector3Make(-spriteSize * 0.4f, 0.0f, 0.0f);
+	
+	m_rightRect.top = spriteSize / 3.0f;
+	m_rightRect.bottom = -spriteSize / 3.0f;
+	m_rightRect.right = spriteSize / 2.0f;
+	m_rightRect.left = m_rightRect.right - spriteSize / 5.0f;
+	
+	m_leftRect.top = m_rightRect.top;
+	m_leftRect.bottom = m_rightRect.bottom;
+	m_leftRect.right = -m_rightRect.left;
+	m_leftRect.left = -m_rightRect.right;
+	
+	m_right.Width = m_left.Width = spriteSize / 10.0f;
+	
+	m_title.Position = GLKVector3Make(0.0f, spriteSize * 0.25f + (height / 2.0f - spriteSize * 0.25f) / 2.0f, 0.0f);
+	m_title.Width = spriteSize * 0.85f;
+	
 	m_cubeLimit = spriteSize / 3.5f;
+}
+
+- (bool)TestButton:(Rect)button X:(float)x Y:(float)y
+{
+	return (button.top > y && button.bottom < y && button.left < x && button.right > x);
 }
 
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
 {
-	m_preRotation = m_sideFront.Rotation;
+	m_preRotation = m_cube.Rotation;
 }
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, x / 4.0f, 0.0f));
+	float move = x * 180.0f / spriteSize;
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, move, 0.0f));
 	
-	m_sideFront.Rotation = newRotation;
 	m_playIcon.Rotation = newRotation;
-	
-	m_sideRight.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
-	
-	m_sideBack.Rotation = newRotation;
 	m_settingsIcon.Rotation = newRotation;
-	
-	m_sideLeft.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
-	
-	m_sideBottom.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
-	
-	m_cubeCamera.PivotRotationTransitionTime = 1.0f;
-	m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
-	[m_watch Reset];
 	
 	[self DoSelect];
 	
@@ -332,7 +308,22 @@
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
 	m_selected = false;
-	if(rx < m_cubeLimit && rx > -m_cubeLimit && ry < m_cubeLimit && ry > -m_cubeLimit)
+	
+	m_cubeCamera.PivotRotationTransitionTime = 1.0f;
+	m_cubeCamera.PivotRotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	[m_watch Reset];
+	
+	if([self TestButton:m_rightRect X:rx Y:ry])
+	{
+		m_right.Width = spriteSize / 15.0f;
+		m_inButton = true;
+	}
+	else if([self TestButton:m_leftRect X:rx Y:ry])
+	{
+		m_left.Width = spriteSize / 15.0f;
+		m_inButton = true;
+	}
+	else if(rx < m_cubeLimit && rx > -m_cubeLimit && ry < m_cubeLimit && ry > -m_cubeLimit)
 	{
 		m_inCube = true;
 		m_toProceed = true;
@@ -343,27 +334,42 @@
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers;
 {
-
-	[self ProperCube];
-	[self ReleaseCube];
+	float rx = x - (m_renderBox.ScreenWidth / 2);
+	float ry = -(y - (m_renderBox.ScreenHeight / 2));
+	
+	m_right.Width = spriteSize / 10.0f;
+	m_left.Width = spriteSize / 10.0f;
+	
+	
+	
+	if([self TestButton:m_rightRect X:rx Y:ry] && m_inButton)
+	{
+		m_realRotation -= 90.0f;
+		[self DoSelect];
+		[self ProperCube];
+	}
+	else if([self TestButton:m_leftRect X:rx Y:ry] && m_inButton)
+	{
+		m_realRotation += 90.0f;
+		[self DoSelect];
+		[self ProperCube];
+	}
+	else
+	{
+		[self ProperCube];
+		[self ReleaseCube];
+	}
+	
+	m_inButton = false;
 }
 
 - (void)PressCube
 {
 	GLKVector3 newScale = GLKVector3Make(0.9f, 0.9f, 0.9f);
-	m_sideFront.Scale = newScale;
 	m_playIcon.Scale = newScale;
-	
-	m_sideRight.Scale = newScale;
 	m_gameCenterIcon.Scale = newScale;
-	
-	m_sideBack.Scale = newScale;
 	m_settingsIcon.Scale = newScale;
-	
-	m_sideLeft.Scale = newScale;
 	m_aboutIcon.Scale = newScale;
-	
-	m_sideBottom.Scale = newScale;
 	
 	m_cube.Scale = newScale;
 }
@@ -373,33 +379,27 @@
 	GLKVector3 newScale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	GLKVector3 newSelectedScale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 	
-	if(!GLKVector3AllEqualToVector3(m_sideFront.Scale, newScale))
+	if(!GLKVector3AllEqualToVector3(m_cube.Scale, newScale))
 	{
-		m_sideFront.Scale = newScale;
 		if(Selection == CL_MAIN_MENU_SELECTION_PLAY)
 			m_playIcon.Scale = newSelectedScale;
 		else
 			m_playIcon.Scale = newScale;
 		
-		m_sideRight.Scale = newScale;
 		if(Selection == CL_MAIN_MENU_SELECTION_GC)
 			m_gameCenterIcon.Scale = newSelectedScale;
 		else
 			m_gameCenterIcon.Scale = newScale;
 		
-		m_sideBack.Scale = newScale;
 		if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)
 			m_settingsIcon.Scale = newSelectedScale;
 		else
 			m_settingsIcon.Scale = newScale;
-	
-		m_sideLeft.Scale = newScale;
+
 		if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)
 			m_aboutIcon.Scale = newSelectedScale;
 		else
 			m_aboutIcon.Scale = newScale;
-		
-		m_sideBottom.Scale = newScale;
 		
 		m_cube.Scale = newScale;
 	}
@@ -414,19 +414,10 @@
 {
 	GLKVector3 newRotation = GLKVector3Make(0.0f, m_properRotation, 0.0f);
 	
-	m_sideFront.Rotation = newRotation;
 	m_playIcon.Rotation = newRotation;
-	
-	m_sideRight.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
-	
-	m_sideBack.Rotation = newRotation;
 	m_settingsIcon.Rotation = newRotation;
-	
-	m_sideLeft.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
-	
-	m_sideBottom.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
 	
@@ -443,10 +434,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
 			Selection = CL_MAIN_MENU_SELECTION_PLAY;
-			m_sideFront.Color = FrontColor;
-			
-			m_sideRight.Color = SecundaryColor;
-			m_sideLeft.Color = SecundaryColor;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -465,10 +452,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)return;
 			Selection = CL_MAIN_MENU_SELECTION_ABOUT;
-			m_sideLeft.Color = LeftColor;
-			
-			m_sideFront.Color = SecundaryColor;
-			m_sideBack.Color = SecundaryColor;
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -487,10 +470,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
 			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
-			m_sideBack.Color = BackColor;
-			
-			m_sideLeft.Color = SecundaryColor;
-			m_sideRight.Color = SecundaryColor;
 			
 			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -509,10 +488,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_GC)return;
 			Selection = CL_MAIN_MENU_SELECTION_GC;
-			m_sideRight.Color = RightColor;
-			
-			m_sideFront.Color = SecundaryColor;
-			m_sideBack.Color = SecundaryColor;
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -533,10 +508,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
 			Selection = CL_MAIN_MENU_SELECTION_PLAY;
-			m_sideFront.Color = FrontColor;
-			
-			m_sideRight.Color = SecundaryColor;
-			m_sideLeft.Color = SecundaryColor;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -554,10 +525,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_GC)return;
 			Selection = CL_MAIN_MENU_SELECTION_GC;
-			m_sideRight.Color = RightColor;
-			
-			m_sideFront.Color = SecundaryColor;
-			m_sideBack.Color = SecundaryColor;
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -575,10 +542,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
 			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
-			m_sideBack.Color = BackColor;
-			
-			m_sideLeft.Color = SecundaryColor;
-			m_sideRight.Color = SecundaryColor;
 			
 			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -596,10 +559,6 @@
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)return;
 			Selection = CL_MAIN_MENU_SELECTION_ABOUT;
-			m_sideLeft.Color = LeftColor;
-			
-			m_sideFront.Color = SecundaryColor;
-			m_sideBack.Color = SecundaryColor;
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
@@ -632,6 +591,10 @@
 	m_cubeCamera.PositionTransitionTime = 0.1f;
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
+	
+	m_right.Opasity = 1.0f;
+	m_left.Opasity = 1.0f;
+	m_title.Opasity = 1.0f;
 }
 
 - (void)OutToPlay
@@ -648,6 +611,10 @@
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -7.3f);
 	m_cubeCamera.PivotRotation = GLKVector3Make(26.5650501f, 0.0f, 0.0f);
 	m_text.Opasity = 0.0f;
+	
+	m_right.Opasity = 0.0f;
+	m_left.Opasity = 0.0f;
+	m_title.Opasity = 0.0f;
 	
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];

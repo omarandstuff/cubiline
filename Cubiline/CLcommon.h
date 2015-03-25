@@ -115,7 +115,7 @@ struct rect
 #define RightColor GLKVector3Make(0.0f, 1.0f, 0.4f)
 #define LeftColor GLKVector3Make(1.0f, 0.36f, 0.0f)
 #define TopColor GLKVector3Make(1.0f, 0.96f, 0.0f)
-#define BottomColor GLKVector3Make(1.0f, 0.48f, 0.02f)
+#define BottomColor GLKVector3Make(1.0f, 0.12f, 0.12f)
 
 #define SmallSizeVector GLKVector3Make(9.0f, 9.0f, 9.0f)
 #define NormalSizeVector GLKVector3Make(15.0f, 15.0f, 15.0f)

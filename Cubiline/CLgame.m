@@ -87,7 +87,7 @@
 		m_gameState = GAME_STATE_MAIN_MENU;
 		
 		// Sound
-		NSString *path = [NSString stringWithFormat:@"%@/test_song_2.mp3", [[NSBundle mainBundle] resourcePath]];
+		NSString *path = [NSString stringWithFormat:@"%@/10 Fire Meet Gasoline.mp3", [[NSBundle mainBundle] resourcePath]];
 		NSURL *soundUrl = [NSURL fileURLWithPath:path];
 		
 		// Create audio player object and initialize with URL to sound
@@ -178,6 +178,7 @@
 		{
 			m_gameState = GAME_STATE_MAIN_MENU;
 			m_renderBox.MainView.Scene = m_mainMenu.Scene;
+			[m_mainMenu Resize];
 			[m_mainMenu InFromPlaying];
 		}
 	}

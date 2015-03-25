@@ -2850,7 +2850,12 @@
 	[text Frame:0.0f];
 	
 	text.Position = position;
-	text.FontSize = 2.0f;
+	if(_Size == CL_SIZE_SMALL)
+		text.FontSize = 2.0f;
+	else if(_Size == CL_SIZE_NORMAL)
+		text.FontSize = 3.0f;
+	else
+		text.FontSize = 4.0f;
 	text.Opasity = 0.0f;
 
 }
@@ -2962,7 +2967,7 @@
 	m_pointsShower.PositionTransitionTime = 0.3f;
 	m_pointsShower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 	m_pointsShower.OpasityEase = 0.05f;
-	m_pointsShower.OpasityTransitionTime = 1.8f;
+	m_pointsShower.OpasityTransitionTime = 2.2f;
 	
 	m_specialPoints1Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"10+"];
 	m_specialPoints1Shower.FontSize = 0.0f;
@@ -2973,7 +2978,7 @@
 	m_specialPoints1Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints1Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 	m_specialPoints1Shower.OpasityEase = 0.05f;
-	m_specialPoints1Shower.OpasityTransitionTime = 1.8f;
+	m_specialPoints1Shower.OpasityTransitionTime = 2.2f;
 	
 	m_specialPoints2Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"[10+]"];
 	m_specialPoints2Shower.FontSize = 0.0f;
@@ -2984,7 +2989,7 @@
 	m_specialPoints2Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints2Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 	m_specialPoints2Shower.OpasityEase = 0.05f;
-	m_specialPoints2Shower.OpasityTransitionTime = 1.8f;
+	m_specialPoints2Shower.OpasityTransitionTime = 2.2f;
 	
 	m_specialPoints3Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Coins"];
 	m_specialPoints3Shower.FontSize = 0.0f;
@@ -2995,7 +3000,7 @@
 	m_specialPoints3Shower.PositionTransitionTime = 0.3f;
 	m_specialPoints3Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 	m_specialPoints3Shower.OpasityEase = 0.05f;
-	m_specialPoints3Shower.OpasityTransitionTime = 1.8f;
+	m_specialPoints3Shower.OpasityTransitionTime = 2.2f;
 	
 	// Random.
 	m_random = [[VERandom alloc] init];

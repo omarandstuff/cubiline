@@ -308,7 +308,7 @@
 	CGRect rect = [self RectForBanner];
 	rect.origin.y += rect.size.height;
 	
-	[UIView animateWithDuration:1.0f animations:^{
+	[UIView animateWithDuration:0.5f animations:^{
 		m_adBanner.frame = rect;
 	}
 	completion:^(BOOL finished){
