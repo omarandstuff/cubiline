@@ -76,11 +76,6 @@
 		m_gameHolder.GameData = m_gameData;
 		[m_gameHolder Resize];
 		m_gameHolder.Level = m_cubilineLevel;
-		m_renderBox.MainView.Scene = m_gameHolder.Scene;
-		[m_gameHolder Frame:0.0];
-		[m_gameHolder Render];
-		[m_renderBox Frame:0.0f];
-		[m_renderBox Render];
 		
 		m_renderBox.MainView.ClearColor = BackgroundColor;
 		m_renderBox.MainView.Scene = m_mainMenu.Scene;
@@ -132,6 +127,7 @@
 			m_renderBox.MainView.Scene = m_gameSetUp.Scene;
 			[m_gameSetUp Begin];
 			m_gameState = GAME_STATE_GAME_SETUP;
+			[m_gameSetUp Resize];
 			m_cubilineLevel.Move = true;
 			m_cubilineLevel.Follow = false;
 		}
@@ -199,9 +195,9 @@
 	m_background.Scale = GLKVector3Make(m_renderBox.ScreenWidth, -m_renderBox.ScreenHeight, 0.0f);
 	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Resize];
-	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
+	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_gameSetUp Resize];
-	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU)
+	else if(m_gameState == GAME_STATE_PLAYING || m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
 		[m_gameHolder Resize];
 }
 
@@ -273,7 +269,7 @@
 
 - (bool)Adiable
 {
-	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP || m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY)
+	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP || m_gameState == GAME_STATE_GAME_SETUP)
 		return true;
 	
 	return m_gameHolder.Adiable;

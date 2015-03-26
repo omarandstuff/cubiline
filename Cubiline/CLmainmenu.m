@@ -48,6 +48,9 @@
 	float spriteSize;
 	
 	bool m_inButton;
+	
+	bool m_start;
+	VEWatch* m_startWatch;
 }
 
 - (void)PressCube;
@@ -56,6 +59,8 @@
 - (void)DoSelect;
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
+
+- (void)PresentShit;
 
 @end
 
@@ -129,13 +134,12 @@
 		CommonButtonStyle(m_right);
 		CommonButtonStyle(m_left);
 		m_right.LockAspect = m_left.LockAspect = true;
-		m_right.Opasity = 1.0f;
-		m_left.Opasity = 1.0f;
+		m_right.Opasity = 0.0f;
+		m_left.Opasity = 0.0f;
 		
 		m_title = [m_renderBox NewSpriteFromFileName:@"CubilineTitle.png"];
 		CommonButtonStyle(m_title);
 		m_title.LockAspect = true;
-		m_title.Opasity = 1.0f;
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);
@@ -156,6 +160,7 @@
 		else
 			m_text.FontSize = m_renderBox.ScreenWidth / 8.0f;
 		m_text.Color = PrimaryColor;
+		m_text.Opasity = 0.0f;
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
@@ -174,12 +179,12 @@
 		
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeCamera.LockLookAt = true;
-		m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
-		m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
-		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;
-		m_cubeCamera.PivotTransitionTime = 0.8f;
-		m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
-		m_cubeCamera.PositionTransitionTime = 0.8f;
+		m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 600.0f);
+		m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -600.0f);
+		m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cubeCamera.PivotTransitionTime = 0.1f;
+		m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_cubeCamera.PositionTransitionTime = 0.1f;
 		m_cubeCamera.PivotRotationTransitionEffect = VE_TRANSITION_EFFECT_EASE;
 		m_cubeCamera.PivotRotationEase = 0.5f;
 		m_cubeCamera.PivotRotationTransitionTime = 7.0f;
@@ -194,6 +199,11 @@
 		[m_watch SetLimitInSeconds:7.0f];
 		[m_watch Reset];
 		
+		m_startWatch = [[VEWatch alloc] init];
+		m_startWatch.Style = VE_WATCH_STYLE_LIMITED;
+		[m_startWatch SetLimitInSeconds:0.01f];
+		[m_startWatch Reset];
+		
 		m_random = [[VERandom alloc] init];
 	}
 	
@@ -203,6 +213,13 @@
 - (void)Frame:(float)time
 {
 	[m_watch Frame:time];
+	[m_startWatch Frame:time];
+	
+	if(!m_startWatch.Active && !m_start)
+	{
+		[self PresentShit];
+		m_start = true;
+	}
 	
 	static bool flip = false;
 	
@@ -257,9 +274,23 @@
 	m_right.Width = m_left.Width = spriteSize / 10.0f;
 	
 	m_title.Position = GLKVector3Make(0.0f, spriteSize * 0.25f + (height / 2.0f - spriteSize * 0.25f) / 2.0f, 0.0f);
-	m_title.Width = spriteSize * 0.85f;
+	m_title.Width = spriteSize * 0.85;
 	
 	m_cubeLimit = spriteSize / 3.5f;
+}
+
+- (void)PresentShit
+{
+	[m_title ResetOpasity:0.0f];
+	m_title.Opasity = 1.0f;
+	[m_text ResetOpasity:0.0f];
+	m_text.Opasity = 1.0f;
+	[m_right ResetOpasity:0.0f];
+	m_right.Opasity = 1.0f;
+	[m_left ResetOpasity:0.0f];
+	m_left.Opasity = 1.0f;
+	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
+	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
@@ -599,6 +630,11 @@
 
 - (void)OutToPlay
 {
+	m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	m_cubeCamera.PivotTransitionTime = 0.8f;
+	m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	m_cubeCamera.PositionTransitionTime = 0.8f;
+	
 	m_playIcon.Opasity = 0.0f;
 	m_gameCenterIcon.Opasity = 0.0f;
 	m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;

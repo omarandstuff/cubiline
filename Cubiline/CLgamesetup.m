@@ -7,7 +7,6 @@
 	VESprite* m_cubeImage;
 	VECamera* m_cubeCamera;
 	
-	
 	VESprite* m_background;
 	
 	GLKVector3 m_prePosition;
@@ -15,6 +14,7 @@
 	VEText* m_playText;
 	VEText* m_speedText;
 	VEText* m_sizeText;
+	VEText* m_optionsText;
 	VESprite* m_plusButton;
 	VESprite* m_minusButton;
 	VESprite* m_playButton;
@@ -99,6 +99,7 @@
 		m_playText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Play"];
 		m_speedText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Speed"];
 		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Size"];
+		m_optionsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Game Mode"];
 		
 		m_playText.Opasity = 0.0f;
 		m_playText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -114,6 +115,11 @@
 		m_sizeText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_sizeText.OpasityTransitionTime = 0.5f;
 		m_sizeText.Color = GrayColor;
+		
+		m_optionsText.Opasity = 0.0f;
+		m_optionsText.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_optionsText.OpasityTransitionTime = 0.5f;
+		m_optionsText.Color = GrayColor;
 		
 		m_plusButton = [m_renderBox NewSpriteFromFileName:@"game_setup_plus.png"];
 		m_minusButton = [m_renderBox NewSpriteFromFileName:@"game_setup_minus.png"];
@@ -161,6 +167,7 @@
 		[Scene addText:m_playText];
 		[Scene addText:m_speedText];
 		[Scene addText:m_sizeText];
+		[Scene addText:m_optionsText];
 		[Scene addSprite:m_plusButton];
 		[Scene addSprite:m_minusButton];
 		[Scene addSprite:m_playButton];
@@ -276,6 +283,9 @@
 
 	m_sizeText.FontSize = m_playText.FontSize = m_speedText.FontSize;
 	m_sizeText.Position = GLKVector3Make(-m_buttonSize, m_playButtonRect.top + m_playText.Height * 0.3f, 0.0f);
+	
+	m_optionsText.Width = spriteSize * 0.9;
+	m_optionsText.Position = GLKVector3Make(0, height / 2.0f - m_buttonSize * 1.3f, 0.0f);
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size
@@ -553,6 +563,7 @@
 	m_playText.Opasity = 1.0f;
 	m_speedText.Opasity = 1.0f;
 	m_sizeText.Opasity = 1.0f;
+	m_optionsText.Opasity = 1.0f;
 	m_playButton.Opasity = 1.0f;
 	m_speedButton.Opasity = 1.0f;
 	m_sizeButton.Opasity = 0.5f;
@@ -572,6 +583,7 @@
 	m_playText.OpasityTransitionTime = 0.1f;
 	m_sizeText.OpasityTransitionTime = 0.1f;
 	m_speedText.OpasityTransitionTime = 0.1f;
+	m_optionsText.OpasityTransitionTime = 0.1f;
 	
 	m_playButton.Opasity = 0.0f;
 	m_sizeButton.Opasity = 0.0f;
@@ -581,6 +593,7 @@
 	m_playText.Opasity = 0.0f;
 	m_sizeText.Opasity = 0.0f;
 	m_speedText.Opasity = 0.0f;
+	m_optionsText.Opasity = 0.0f;
 	
 	m_cubeView.Camera = Level.FocusedCamera;
 	

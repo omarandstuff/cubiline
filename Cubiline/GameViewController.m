@@ -49,7 +49,7 @@
 	m_device = [self deviceModelName];
 
 	if([deviceCategory isEqualToString:@"very low"])
-		m_multipler = 1.0f;
+		m_multipler = 2.0f;
 	else if([deviceCategory isEqualToString:@"low"])
 		m_multipler = 2.0f;
 	else if([deviceCategory isEqualToString:@"medium"])
@@ -86,6 +86,7 @@
 	view.context = m_context;
 	view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
 	view.contentScaleFactor = m_multipler;
+	view.backgroundColor = [[UIColor alloc] initWithRed:0.9f green:0.93f blue:0.93f alpha:0.5f];
 	
 	// Create the Game Center manager object.
 	m_gameCenter = [[VEGameCenter alloc] init];
@@ -121,12 +122,10 @@
 	// Delegate
 	m_appDelegate.Game = m_game;
 	
-	[m_timer Frame:1.0f];
-	[m_renderBox Frame:m_timer.LastUpdateTime];
-	[m_audioBox Frame:m_timer.LastUpdateTime];
-	[m_game Frame:m_timer.LastUpdateTime];
-	[m_game Render];
-	[m_renderBox Render];
+	glClearColor(0.9f, 0.95f, 0.95f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 }
 
 - (NSString*)deviceCategory;
@@ -415,8 +414,6 @@
 	
 	if(m_bannerPresented)
 		[self GetBannerOnScreen];
-	else
-		[self GetBannerOffScreen];
 }
 
 - (void)update
