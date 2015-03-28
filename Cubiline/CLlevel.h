@@ -8,6 +8,7 @@
 @property int CoordX;
 @property int CoordY;
 @property bool inZone;
+@property VEModel* Model;
 @end
 
 @interface CLLevel : NSObject

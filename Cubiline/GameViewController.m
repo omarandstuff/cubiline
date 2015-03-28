@@ -13,25 +13,13 @@
 	
 	AppDelegate* m_appDelegate;
 	
-	
-	/// iAds
-	ADBannerView *m_adBanner;
-	bool m_bannerPresented;
-	bool m_bannerLoaded;
-	bool m_bannerInteracting;
-	bool m_bannerAllowed;
-	
 	NSString* m_device;
+	
+	VEAds* m_ads;
 }
 
 - (NSString*)deviceCategory;
 - (NSString*)deviceModelName;
-
-- (void)PresentBanner;
-- (void)GetBannerOnScreen;
-- (void)GetBannerOffScreen;
-- (void)RemoveBanner;
-- (CGRect)RectForBanner;
 
 @end
 
@@ -40,6 +28,9 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
+	
+	//Ads
+	m_ads = [VEAds loadSaredVEAdsWithViewController:self];
 	
 	// App delegate
 	m_appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -55,7 +46,7 @@
 	else if([deviceCategory isEqualToString:@"medium"])
 		m_multipler = 2.0f;
 	else
-		m_multipler = 3.0f;
+		m_multipler = 2.0f;
 	
 	
 	// Create the context object
@@ -124,10 +115,11 @@
 	
 	glClearColor(0.9f, 0.95f, 0.95f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
+{
 	
 }
-
 - (NSString*)deviceCategory;
 {
 	struct utsname systemInfo;
@@ -249,138 +241,11 @@
 	return deviceName;
 }
 
-///// iAds
-
-- (void)PresentBanner
-{
-	if(!m_bannerPresented)
-	{
-		if(m_adBanner && m_bannerLoaded)
-		{
-			NSLog(@"The Ad is already loaded, presenting.");
-			[self GetBannerOnScreen];
-		}
-		else if (!m_adBanner)
-		{
-			NSLog(@"Ad requested.");
-			
-			CGRect rect = [self RectForBanner];
-			rect.origin.y += rect.size.height;
-			
-			m_adBanner = [[ADBannerView alloc] initWithFrame:rect];
-			m_adBanner.delegate = self;
-			
-			[self.view addSubview:m_adBanner];
-		}
-	}
-}
-
-- (void)RemoveBanner
-{
-	if(m_bannerPresented)
-	{
-		NSLog(@"Ad removed from view.");
-		[self GetBannerOffScreen];
-	}
-}
-
-- (void)GetBannerOnScreen
-{
-	if (m_adBanner.superview == nil)
-	{
-		[self.view addSubview:m_adBanner];
-	}
-	
-	CGRect rect = [self RectForBanner];
-	
-	[UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-	
-	m_adBanner.frame = rect;
-	
-	[UIView commitAnimations];
-	
-	m_bannerPresented = true;
-}
-
-- (void)GetBannerOffScreen
-{
-	CGRect rect = [self RectForBanner];
-	rect.origin.y += rect.size.height;
-	
-	[UIView animateWithDuration:0.5f animations:^{
-		m_adBanner.frame = rect;
-	}
-	completion:^(BOOL finished){
-		[m_adBanner removeFromSuperview];
-	}];
-	
-	m_bannerPresented = false;
-}
-
-- (CGRect)RectForBanner;
-{
-	int width = self.view.bounds.size.width;
-	int height = self.view.bounds.size.height;
-	if([m_device isEqual:@"iPhone"])
-	{
-		if(width > height)
-		{
-			return CGRectMake(0, height - 32, width, 32);
-		}
-		else
-		{
-			return CGRectMake(0, height - 50, width, 50);
-		}
-	}
-	else
-	{
-		return CGRectMake(0, height - 66, width, 66);
-	}
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-	m_bannerLoaded = true;
-	
-	if(m_bannerAllowed)
-	{
-		NSLog(@"Ad retrieve successful. Presenting");
-		[self GetBannerOnScreen];
-	}
-	else
-	{
-		NSLog(@"Ad retrieve successful but not allowed.");
-	}
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-	NSLog(@"Failed to retrieve ad");
-	
-	if (m_bannerPresented)
-	{
-		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-		
-		// Assumes the banner view is placed at the bottom of the screen.
-		banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
-		
-		[UIView commitAnimations];
-		
-		m_bannerPresented = NO;
-	}
-}
-
-///////////////////////////////
-///////////////////////////////
-///////////////////////////////
-
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
 	[m_gameCenter AuthenticateLocalPlayer];
-	
-	[self PresentBanner];
 }
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
@@ -411,15 +276,12 @@
     
     // Resize the game.
 	[m_game Resize];
-	
-	if(m_bannerPresented)
-		[self GetBannerOnScreen];
 }
 
 - (void)update
 {
 	// The authentification View Controller is presented.
-	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting || m_bannerInteracting) return;
+	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting || m_ads.PresentingFullScreen) return;
 	
 	// Update the timer to adjust the time we wnat to use.
 	[m_timer Frame:self.timeSinceLastUpdate];
@@ -432,18 +294,6 @@
     
 	// Update the game.
 	[m_game Frame:m_timer.LastUpdateTime];
-	
-	// Ads
-	if(m_game.Adiable)
-	{
-		m_bannerAllowed = true;
-		[self PresentBanner];
-	}
-	else
-	{
-		m_bannerAllowed = false;
-		[self RemoveBanner];
-	}
 }
 
 - (void)glkView:(GLKView*)view drawInRect:(CGRect)rect

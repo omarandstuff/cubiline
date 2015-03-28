@@ -11,6 +11,10 @@
 		3710BA421ABD021200B60B7F /* paper_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA3F1ABD021200B60B7F /* paper_cube.obj */; };
 		3710BA431ABD021200B60B7F /* paper_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA401ABD021200B60B7F /* paper_texture.png */; };
 		3710BA451ABD03F000B60B7F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3710BA441ABD03F000B60B7F /* background.png */; };
+		3723C0C01AC3B6BA00DD3477 /* UnityAds.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3723C0BE1AC3B6BA00DD3477 /* UnityAds.bundle */; };
+		3723C0C11AC3B6BA00DD3477 /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3723C0BF1AC3B6BA00DD3477 /* UnityAds.framework */; };
+		3723C0C31AC3B6F000DD3477 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3723C0C21AC3B6F000DD3477 /* AdSupport.framework */; };
+		3723C0C71AC3BCCE00DD3477 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3723C0C61AC3BCCE00DD3477 /* SystemConfiguration.framework */; };
 		3728F5CA1A6C4FEB004F7244 /* quad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BB1A6C4FEB004F7244 /* quad.mtl */; };
 		3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BC1A6C4FEB004F7244 /* quad.obj */; };
 		3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 3728F5BF1A6C4FEB004F7244 /* wall.mtl */; };
@@ -125,7 +129,7 @@
 		378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */; };
 		378EDAFB1A79BB7100397989 /* Gau Font Cube Small.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */; };
 		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
-		379A65611ABF6A32009C3A6C /* VEiads.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A65601ABF6A32009C3A6C /* VEiads.m */; };
+		379A65611ABF6A32009C3A6C /* VEads.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A65601ABF6A32009C3A6C /* VEads.m */; };
 		37A1F7491A75F5CA0035BB91 /* dome.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 37A1F7471A75F5B90035BB91 /* dome.jpg */; };
 		37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A35A8C1A6D040E00E36F43 /* GameKit.framework */; };
 		37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FED1ABBD50A00D5C120 /* white_cube.mtl */; };
@@ -173,6 +177,11 @@
 		3710BA3F1ABD021200B60B7F /* paper_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = paper_cube.obj; path = Cubiline/Resources/paper_cube.obj; sourceTree = "<group>"; };
 		3710BA401ABD021200B60B7F /* paper_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = paper_texture.png; path = Cubiline/Resources/paper_texture.png; sourceTree = "<group>"; };
 		3710BA441ABD03F000B60B7F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Cubiline/Resources/background.png; sourceTree = "<group>"; };
+		3723C0BE1AC3B6BA00DD3477 /* UnityAds.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = UnityAds.bundle; path = "Cubiline/unity-ads-sdk-master/UnityAds.bundle"; sourceTree = "<group>"; };
+		3723C0BF1AC3B6BA00DD3477 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = "Cubiline/unity-ads-sdk-master/UnityAds.framework"; sourceTree = "<group>"; };
+		3723C0C21AC3B6F000DD3477 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		3723C0C41AC3BB9700DD3477 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3723C0C61AC3BCCE00DD3477 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3728F5BB1A6C4FEB004F7244 /* quad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.mtl; path = Cubiline/Resources/quad.mtl; sourceTree = "<group>"; };
 		3728F5BC1A6C4FEB004F7244 /* quad.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quad.obj; path = Cubiline/Resources/quad.obj; sourceTree = "<group>"; };
 		3728F5BF1A6C4FEB004F7244 /* wall.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = wall.mtl; path = Cubiline/Resources/wall.mtl; sourceTree = "<group>"; };
@@ -333,8 +342,8 @@
 		378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Medium.txt"; path = "Cubiline/Fonts/Gau Font Cube Medium.txt"; sourceTree = "<group>"; };
 		378EDAEC1A79BB7100397989 /* Gau Font Cube Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Small.png"; path = "Cubiline/Fonts/Gau Font Cube Small.png"; sourceTree = "<group>"; };
 		378EDAED1A79BB7100397989 /* Gau Font Cube Small.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Small.txt"; path = "Cubiline/Fonts/Gau Font Cube Small.txt"; sourceTree = "<group>"; };
-		379A65601ABF6A32009C3A6C /* VEiads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEiads.m; path = Cubiline/VEiads.m; sourceTree = "<group>"; };
-		379A65621ABF6A4F009C3A6C /* VEiads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VEiads.h; path = Cubiline/VEiads.h; sourceTree = "<group>"; };
+		379A65601ABF6A32009C3A6C /* VEads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEads.m; path = Cubiline/VEads.m; sourceTree = "<group>"; };
+		379A65621ABF6A4F009C3A6C /* VEads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VEads.h; path = Cubiline/VEads.h; sourceTree = "<group>"; };
 		37A1F7471A75F5B90035BB91 /* dome.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = dome.jpg; path = Cubiline/Resources/dome.jpg; sourceTree = "<group>"; };
 		37A35A8C1A6D040E00E36F43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		37A44FED1ABBD50A00D5C120 /* white_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.mtl; path = Cubiline/Resources/white_cube.mtl; sourceTree = "<group>"; };
@@ -382,10 +391,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3723C0C71AC3BCCE00DD3477 /* SystemConfiguration.framework in Frameworks */,
+				3723C0C31AC3B6F000DD3477 /* AdSupport.framework in Frameworks */,
+				378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */,
 				37A44FF41ABBE66A00D5C120 /* iAd.framework in Frameworks */,
+				3723C0C11AC3B6BA00DD3477 /* UnityAds.framework in Frameworks */,
 				3728F5F61A6C503A004F7244 /* AudioToolbox.framework in Frameworks */,
 				3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */,
-				378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */,
 				3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */,
 				37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */,
 			);
@@ -519,10 +531,10 @@
 				37604EDC1A88019200F77B76 /* CLmainmenu.m */,
 				37604EDD1A88019200F77B76 /* CLtouchable.h */,
 				37604EDE1A88019200F77B76 /* CLtouchable.m */,
+				379A65621ABF6A4F009C3A6C /* VEads.h */,
+				379A65601ABF6A32009C3A6C /* VEads.m */,
 				373E62A31AA2713600ACC243 /* VEgamecenter.h */,
 				373E62A41AA2713600ACC243 /* VEgamecenter.m */,
-				379A65621ABF6A4F009C3A6C /* VEiads.h */,
-				379A65601ABF6A32009C3A6C /* VEiads.m */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -614,6 +626,11 @@
 		3728F5F01A6C5016004F7244 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3723C0C61AC3BCCE00DD3477 /* SystemConfiguration.framework */,
+				3723C0C41AC3BB9700DD3477 /* CFNetwork.framework */,
+				3723C0C21AC3B6F000DD3477 /* AdSupport.framework */,
+				3723C0BE1AC3B6BA00DD3477 /* UnityAds.bundle */,
+				3723C0BF1AC3B6BA00DD3477 /* UnityAds.framework */,
 				37A44FF31ABBE66A00D5C120 /* iAd.framework */,
 				378001B21A6D9948009FFCC8 /* StoreKit.framework */,
 				37A35A8C1A6D040E00E36F43 /* GameKit.framework */,
@@ -807,6 +824,7 @@
 				3728F5CF1A6C4FEB004F7244 /* wall.obj in Resources */,
 				378EDAFA1A79BB7100397989 /* Gau Font Cube Small.png in Resources */,
 				3728F5CE1A6C4FEB004F7244 /* wall.mtl in Resources */,
+				3723C0C01AC3B6BA00DD3477 /* UnityAds.bundle in Resources */,
 				3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */,
 				37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */,
 				373E62A11AA232A500ACC243 /* diffuse_shader.fsh in Resources */,
@@ -925,7 +943,7 @@
 				377A85471A79EAE9004F88F7 /* VEeffect1.m in Sources */,
 				374FCCB21A86DD0300B14ACB /* CLbody.m in Sources */,
 				377A854D1A79EAE9004F88F7 /* VElight.m in Sources */,
-				379A65611ABF6A32009C3A6C /* VEiads.m in Sources */,
+				379A65611ABF6A32009C3A6C /* VEads.m in Sources */,
 				3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */,
 				377A854A1A79EAE9004F88F7 /* VEfullscreenshader.m in Sources */,
 				377A85461A79EAE9004F88F7 /* VEdepthshader.m in Sources */,
@@ -1068,6 +1086,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/omarD/Downloads/unity-ads-sdk-master",
+					"$(PROJECT_DIR)/Cubiline/unity-ads-sdk-master",
+				);
 				INFOPLIST_FILE = Cubiline/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1083,6 +1106,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/omarD/Downloads/unity-ads-sdk-master",
+					"$(PROJECT_DIR)/Cubiline/unity-ads-sdk-master",
+				);
 				INFOPLIST_FILE = Cubiline/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

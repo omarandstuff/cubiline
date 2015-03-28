@@ -78,6 +78,9 @@
 	enum CL_GRAPHICS m_graphics;
 	
 	bool m_toNew;
+	
+	//Ads
+	VEAds* m_ads;
 }
 
 - (void)Create;
@@ -108,6 +111,8 @@
 		m_renderBox = renderbox;
 		m_graphics = graphics;
 		m_background = background;
+		
+		m_ads = [VEAds sharedVEAds];
 		
 		[self Create];
 	}
@@ -1237,6 +1242,8 @@
 	
 	[self Resize];
 	[self PresentFinishMenu];
+	
+	[m_ads presentUnityAd];
 	
 	m_showing = true;
 }

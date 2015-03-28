@@ -22,11 +22,16 @@
 	GLKVector3 m_preLeaderPosition;
 	bool m_toNew;
 	bool m_playing;
+	int m_bodyLegth;
 	
 	// Eating control
 	bool m_eating;
 	float m_stepGrown;
+	float m_stepUnGrown;
 	float m_toGrow;
+	float m_toUnGrow;
+	int m_grown;
+	int m_unGrown;
 	
 	bool m_specialFood1Waiting;
 	VEWatch* m_specialFood1Watch;
@@ -371,14 +376,49 @@
 	
 	if(m_eating)
 	{
-		m_stepGrown += delta;
-		
-		if(m_stepGrown >= m_toGrow)
+		if(m_toGrow > 0)
 		{
-			[first Grow:-(m_stepGrown - m_toGrow)];
-			m_eating = false;
+			m_stepGrown += delta;
+			m_stepUnGrown = 0.0f;
+			
+
+			if(m_stepGrown >= m_toGrow)
+			{
+				[first Grow:-(m_stepGrown - m_toGrow)];
+				m_eating = false;
+				m_stepGrown = 0.0f;
+				m_toGrow = 0.0f;
+				m_grown = 0;
+				m_unGrown = 0;
+			}
+		}
+		else
+		{
+			m_stepUnGrown -= delta;
 			m_stepGrown = 0.0f;
-			m_toGrow = 0.0f;
+			
+			float ex = 0.0f;
+			
+			if(m_stepUnGrown <= m_toGrow)
+			{
+				ex = delta + (m_stepUnGrown - m_toGrow);
+				delta -= ex;
+				m_eating = false;
+				m_stepUnGrown = 0.0f;
+				m_toGrow = 0.0f;
+				m_grown = 0;
+				m_unGrown = 0;
+			}
+			
+			delta = [first Grow:-delta * 2.0f - ex];
+			
+			if(delta <= 0.0f)
+			{
+				[m_renderBox ReleaseModel:first.Model];
+				[Scene ReleaseModel:first.Model];
+				[Body removeObjectAtIndex:0];
+				[[Body firstObject] Grow:delta];
+			}
 		}
 	}
 	else
@@ -2322,8 +2362,22 @@
 	{
 		[self RemoveFirstSlot];
 	}
+	else if (m_slotControl < 0)
+	{
+		m_slotControl += 1;
+		[self RemoveFirstSlot];
+		[self RemoveFirstSlot];
+		
+		m_bodyLegth -= 1;
+		m_unGrown -= 1;
+	}
 	else
+	{
 		m_slotControl--;
+		m_bodyLegth++;
+		m_grown++;
+	}
+	
 	
 	if([self CheckColition:Zone CoordX:nowX CoordY:nowY] && !m_restarted)
 	{
@@ -2352,6 +2406,11 @@
 	newSlot.CoordY = coordy;
 	newSlot.inZone = inzone;
 	
+	newSlot.Model = [m_renderBox NewModelFromFileName:@"geosphere_medium"];
+	newSlot.Model.Position = position;
+	newSlot.Model.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
+	[Scene addModel:newSlot.Model];
+	
 	if(inzone)
 		m_occupied[zone]++;
 	
@@ -2373,6 +2432,9 @@
 	
 	if(first.inZone)
 		m_occupied[first.Zone]--;
+	
+	[Scene ReleaseModel:first.Model];
+	[m_renderBox ReleaseModel:first.Model];
 	
 	[m_slots removeObjectAtIndex:0];
 }
@@ -2502,6 +2564,27 @@
 		
 		if(distspecial < 0.5f)
 		{
+			int grownleft = m_toGrow - m_grown - 1;
+			
+			if(m_toGrow > 0)
+			{
+				m_toGrow = m_grown + 1;
+				m_slotControl = 1;
+			}
+			else
+			{
+				int fixUnUngrown = m_bodyLegth > 14 ? 10 : m_bodyLegth - 4;
+				
+				if(fixUnUngrown > 0)
+				{
+					m_toGrow -= fixUnUngrown;
+					m_slotControl -= fixUnUngrown;
+					m_eating = true;
+				}
+			}
+			
+			
+			
 			Score += 10;
 			HighScore = MAX(HighScore, Score);
 			
@@ -2570,7 +2653,7 @@
 	
 	do
 	{
-		face = [m_random NextIntegerWithMin:0 Max:5];
+		face = [m_random NextIntegerWithMin:0 Max:1] ? 0 : 0;
 		randomthreshold++;
 		if(randomthreshold > 10)
 		{
@@ -2930,8 +3013,8 @@
 	SpecialFood1.ScaleTransitionTime = 0.2f;
 	m_specialFood1Watch = [[VEWatch alloc] init];
 	m_specialFood1Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood1MinTime = 30.0f;
-	m_specialFood1MaxTime = 180.0f;
+	m_specialFood1MinTime = 1.0f;
+	m_specialFood1MaxTime = 2.0f;
 	m_specialFood1ShowTime = 15.0f;
 	
 	SpecialFood2 = [m_renderBox NewModelFromFileName:@"quad"];
@@ -2941,8 +3024,8 @@
 	SpecialFood2.ScaleTransitionTime = 0.2f;
 	m_specialFood2Watch = [[VEWatch alloc] init];
 	m_specialFood2Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood2MinTime = 60.0f;
-	m_specialFood2MaxTime = 300.0f;
+	m_specialFood2MinTime = 1.0f;
+	m_specialFood2MaxTime = 2.0f;
 	m_specialFood2ShowTime = 15.0f;
 	
 	SpecialFood3 = [m_renderBox NewModelFromFileName:@"quad"];
@@ -3379,6 +3462,7 @@
 	m_rested = false;
 	Finished = false;
 	m_restarted = true;
+	m_bodyLegth = 4;
 	
 	m_specialFood1Waiting = true;
 	[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];

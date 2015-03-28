@@ -1,2 +1,0 @@
-#import "VEiads.h"
-
