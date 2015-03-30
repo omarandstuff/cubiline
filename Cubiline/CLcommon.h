@@ -101,8 +101,8 @@ struct rect
 //#define SecundaryColor GLKVector3Make(0.4705f, 0.5294f, 0.5490f)
 //#define TertiaryColor GLKVector3Make(0.3f, 0.35f, 0.4f) (0.1372f, 0.1568f, 0.1647f, 1.0f)
 
-#define ColorWhite GLKVector3Make(1.0f, 1.0f, 1.0f);
-#define ColorBlack GLKVector3Make(0.0f, 0.0f, 0.0f);
+#define ColorWhite GLKVector3Make(1.0f, 1.0f, 1.0f)
+#define ColorBlack GLKVector3Make(0.0f, 0.0f, 0.0f)
 #define PrimaryColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 #define SecundaryColor GLKVector3Make(0.1372f, 0.1568f, 0.1647f)
 #define TertiaryColor GLKVector3Make(1.0f, 1.0f, 1.0f)
@@ -130,8 +130,8 @@ struct rect
 #define NormalSizeLimit 7.5f
 #define BigSizeLimit 10.5f
 
-#define CommonButtonStyle(Button) Button.Opasity = 0.0f; Button.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.OpasityTransitionTime = 0.15f; Button.LockAspect = true; Button.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.ScaleTransitionTime = 0.1f
+#define CommonButtonStyle(Button) Button.Opasity = 0.0f; Button.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.OpasityTransitionTime = 0.13f; Button.LockAspect = true; Button.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.ScaleTransitionTime = 0.1f
 
-#define CommonTextStyle(Text) Text.Color = TextColor; Text.Opasity = 0.0f; Text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Text.OpasityTransitionTime = 0.15f; Text.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Text.ScaleTransitionTime = 0.1f
+#define CommonTextStyle(Text) Text.Color = TextColor; Text.Opasity = 0.0f; Text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Text.OpasityTransitionTime = 0.13f; Text.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Text.ScaleTransitionTime = 0.1f
 
 #endif

@@ -39,6 +39,11 @@
 		[[UnityAds sharedInstance] show];
 }
 
+- (void)setUnityRewardedZone
+{
+	[[UnityAds sharedInstance] setZone:@"rewardedVideoZone"];
+}
+
 - (void)unityAdsDidHide
 {
 	

@@ -12,6 +12,7 @@
 
 - (bool)unityAdsCanShow;
 - (void)presentUnityAd;
+- (void)setUnityRewardedZone;
 
 
 @end

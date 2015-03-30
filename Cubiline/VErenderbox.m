@@ -295,13 +295,18 @@
 
 - (VEText*)NewTextWithFontName:(NSString*)fontname Text:(NSString*)text
 {
+	return [self NewTextWithFontName:fontname Text:text Align:VE_TEXT_ALIGN_CENTER];
+}
+
+- (VEText*)NewTextWithFontName:(NSString*)fontname Text:(NSString*)text Align:(enum VE_TEXT_ALIGN)align
+{
 	VEText* newText = [VEText alloc];
 	
 	// Set the properties for the text.
 	newText.TextureDispatcher = m_textureDispatcher;
 	newText.TextShader = m_textShader;
 	
-	newText = [newText initWithFontName:fontname Text:text];
+	newText = [newText initWithFontName:fontname Text:text Align:align];
 	
 	// Keep tracking.
 	[m_texts addObject:newText];

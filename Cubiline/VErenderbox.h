@@ -28,6 +28,7 @@
 - (VECamera*)NewCamera:(enum VE_CAMERA_TYPE)cameratype;
 - (VELight*)NewLight;
 - (VEText*)NewTextWithFontName:(NSString*)fontname Text:(NSString*)text;
+- (VEText*)NewTextWithFontName:(NSString*)fontname Text:(NSString*)text Align:(enum VE_TEXT_ALIGN)align;
 - (VEWatch*)NewWatchWithStyle:(enum VE_WATCH_STYLE)style;
 
 - (void)ReleaseModel:(VEModel*)model;

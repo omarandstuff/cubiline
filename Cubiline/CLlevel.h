@@ -21,6 +21,8 @@
 @property VEModel* SpecialFood1;
 @property VEModel* SpecialFood2;
 @property VEModel* SpecialFood3;
+@property VEModel* SpecialFood4;
+@property VEModel* SpecialFood5;
 @property NSMutableArray* Body;
 @property VEScene* Scene;
 
@@ -47,10 +49,22 @@
 
 @property bool Finished;
 
+@property (readonly)bool IsGhost;
+@property (readonly)float GhostLeft;
+
+@property (readonly)bool Special1Active;
+@property (readonly)bool Special2Active;
+@property (readonly)bool Special3Active;
+@property (readonly)bool Special4Active;
+@property (readonly)bool Special5Active;
+
 - (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
+
+- (void)Reduction;
+- (void)MakeGhost;
 
 - (void)doTurn:(enum CL_TURN)turn;
 

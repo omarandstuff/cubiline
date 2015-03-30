@@ -17,20 +17,25 @@
 	VEText* m_specialPoints1Shower;
 	VEText* m_specialPoints2Shower;
 	VEText* m_specialPoints3Shower;
+	VEText* m_specialPoints4Shower;
+	VEText* m_specialPoints5Shower;
 	
 	// Line control
 	GLKVector3 m_preLeaderPosition;
 	bool m_toNew;
 	bool m_playing;
 	int m_bodyLegth;
+	int m_targetBodyLength;
 	
 	// Eating control
 	bool m_eating;
 	float m_stepGrown;
-	float m_stepUnGrown;
 	float m_toGrow;
-	float m_toUnGrow;
 	int m_grown;
+	
+	bool m_unEating;
+	float m_stepUnGrown;
+	float m_toUnGrow;
 	int m_unGrown;
 	
 	bool m_specialFood1Waiting;
@@ -51,6 +56,18 @@
 	float m_specialFood3MaxTime;
 	float m_specialFood3ShowTime;
 	
+	bool m_specialFood4Waiting;
+	VEWatch* m_specialFood4Watch;
+	float m_specialFood4MinTime;
+	float m_specialFood4MaxTime;
+	float m_specialFood4ShowTime;
+	
+	bool m_specialFood5Waiting;
+	VEWatch* m_specialFood5Watch;
+	float m_specialFood5MinTime;
+	float m_specialFood5MaxTime;
+	float m_specialFood5ShowTime;
+	
 	// Edge control
 	float m_cubeEdgeLimit;
 	float m_cubeEdgeLogicalLimit;
@@ -62,7 +79,7 @@
 	
 	// Camera control
 	float m_radious;
-
+	
 	// Turn control
 	enum CL_TURN m_bufferTurn;
 	bool m_justBuffered;
@@ -73,7 +90,7 @@
 	GLKVector3 m_toTurnPosition;
 	GLKVector3 m_nextDirectionPosition;
 	bool m_toTurn;
-
+	
 	// Resizing control.
 	bool m_resizing;
 	
@@ -83,11 +100,15 @@
 	int m_leaderFaceY;
 	enum CL_ZONE m_leaderFaceZone;
 	int m_slotControl;
+	int m_slotControlUnGrow;
 	bool* m_facesMap[CL_ZONE_NUMBER];
 	int m_occupied[CL_ZONE_NUMBER];
 	
 	// Feed control.
 	VERandom* m_random;
+	
+	// ghsot
+	VEWatch* m_ghostTime;
 	
 	bool m_restarted;
 	
@@ -148,6 +169,10 @@
 - (GLKVector2)CameraRotationBase:(float)base Horizontal:(float)horizontal Vertical:(float)vertical;
 - (void)ManageFollow;
 
+// powers
+- (void)OutGhost;
+- (void)ManageGhost;
+
 @end
 
 @implementation CLLevel
@@ -160,6 +185,8 @@
 @synthesize SpecialFood1;
 @synthesize SpecialFood2;
 @synthesize SpecialFood3;
+@synthesize SpecialFood4;
+@synthesize SpecialFood5;
 @synthesize Body;
 @synthesize Scene;
 @synthesize Size = _Size;
@@ -179,6 +206,12 @@
 @synthesize Coins;
 @synthesize Move;
 @synthesize Finished;
+@synthesize IsGhost;
+@synthesize Special1Active;
+@synthesize Special2Active;
+@synthesize Special3Active;
+@synthesize Special4Active;
+@synthesize Special5Active;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
@@ -202,7 +235,7 @@
 - (void)Frame:(float)time
 {
 	[LeaderGhost Frame:time];
-
+	
 	if(m_playing)
 	{
 		if(Move)
@@ -210,6 +243,11 @@
 			[m_specialFood1Watch Frame:time];
 			[m_specialFood2Watch Frame:time];
 			[m_specialFood3Watch Frame:time];
+			[m_specialFood4Watch Frame:time];
+			[m_specialFood5Watch Frame:time];
+			[m_ghostTime Frame:time];
+			
+			[self ManageGhost];
 			
 			[self ManageZones];
 			[self ManageHandles];
@@ -219,7 +257,7 @@
 				[self ManageBody];
 			m_toNew = false;
 		}
-
+		
 		[self ManageFollow];
 		
 		if(Move)
@@ -354,7 +392,7 @@
 
 - (void)AddBodyWithSize:(float)size
 {
-	[Body addObject:[[CLBody alloc] initWithRenderBox:m_renderBox Scene:Scene Zone:Zone Direction:Direction BornPosition:Leader.Position Size:size Color:BodyColor]];
+	[Body addObject:[[CLBody alloc] initWithRenderBox:m_renderBox Scene:Scene Zone:Zone Direction:Direction BornPosition:Leader.Position Size:size Color:BodyColor Opasity:Leader.Opasity TargetOpasity:IsGhost ? 0.02f : 1.0f]];
 }
 
 - (void)ManageBody
@@ -368,7 +406,7 @@
 		else if(Zone == CL_ZONE_TOP || Zone == CL_ZONE_BOTTOM)
 			m_preLeaderPosition.y = Leader.Position.y;
 	}
-
+	
 	float delta = GLKVector3Length(GLKVector3Subtract(m_preLeaderPosition, Leader.Position));
 	[[Body lastObject] Grow:delta];
 	
@@ -376,53 +414,45 @@
 	
 	if(m_eating)
 	{
-		if(m_toGrow > 0)
+		m_stepGrown += delta;
+		
+		if(m_stepGrown >= m_toGrow)
 		{
-			m_stepGrown += delta;
-			m_stepUnGrown = 0.0f;
-			
-
-			if(m_stepGrown >= m_toGrow)
-			{
-				[first Grow:-(m_stepGrown - m_toGrow)];
-				m_eating = false;
-				m_stepGrown = 0.0f;
-				m_toGrow = 0.0f;
-				m_grown = 0;
-				m_unGrown = 0;
-			}
-		}
-		else
-		{
-			m_stepUnGrown -= delta;
+			[first Grow:-(m_stepGrown - m_toGrow)];
+			m_eating = false;
 			m_stepGrown = 0.0f;
-			
-			float ex = 0.0f;
-			
-			if(m_stepUnGrown <= m_toGrow)
-			{
-				ex = delta + (m_stepUnGrown - m_toGrow);
-				delta -= ex;
-				m_eating = false;
-				m_stepUnGrown = 0.0f;
-				m_toGrow = 0.0f;
-				m_grown = 0;
-				m_unGrown = 0;
-			}
-			
-			delta = [first Grow:-delta * 2.0f - ex];
-			
-			if(delta <= 0.0f)
-			{
-				[m_renderBox ReleaseModel:first.Model];
-				[Scene ReleaseModel:first.Model];
-				[Body removeObjectAtIndex:0];
-				[[Body firstObject] Grow:delta];
-			}
+			m_toGrow = 0.0f;
+			m_grown = 0;
 		}
 	}
 	else
 	{
+		float deltaX = [first Grow:-delta];
+		
+		if(deltaX <= 0.0f)
+		{
+			[m_renderBox ReleaseModel:first.Model];
+			[Scene ReleaseModel:first.Model];
+			[Body removeObjectAtIndex:0];
+			[[Body firstObject] Grow:deltaX];
+		}
+	}
+	
+	first = [Body firstObject];
+	
+	if(m_unEating)
+	{
+		m_stepUnGrown += delta;
+		
+		if(m_stepUnGrown >= m_toUnGrow)
+		{
+			delta -= (m_stepUnGrown - m_toUnGrow);
+			m_unEating = false;
+			m_stepUnGrown = 0.0f;
+			m_toUnGrow = 0;
+			m_unGrown = 0;
+		}
+		
 		delta = [first Grow:-delta];
 		
 		if(delta <= 0.0f)
@@ -439,18 +469,18 @@
 
 - (void)SwitchZoneColor:(enum CL_ZONE)prezone NewZone:(enum CL_ZONE)newzone
 {
-//	if(prezone == CL_ZONE_FRONT)
-//		m_guides.Color = SecundaryColor;
-//	if(prezone == CL_ZONE_BACK)
-//		BackWall.Color = SecundaryColor;
-//	if(prezone == CL_ZONE_RIGHT)
-//		RightWall.Color = SecundaryColor;
-//	if(prezone == CL_ZONE_LEFT)
-//		LeftWall.Color = SecundaryColor;
-//	if(prezone == CL_ZONE_TOP)
-//		TopWall.Color = SecundaryColor;
-//	if(prezone == CL_ZONE_BOTTOM)
-//		BottomWall.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_FRONT)
+	//		m_guides.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_BACK)
+	//		BackWall.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_RIGHT)
+	//		RightWall.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_LEFT)
+	//		LeftWall.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_TOP)
+	//		TopWall.Color = SecundaryColor;
+	//	if(prezone == CL_ZONE_BOTTOM)
+	//		BottomWall.Color = SecundaryColor;
 	
 	if(newzone == CL_ZONE_FRONT)
 		m_guides.Color = FrontColor;
@@ -611,7 +641,7 @@
 			m_rested = true;
 			
 			[self SwitchZoneColor:CL_ZONE_FRONT NewZone:CL_ZONE_BOTTOM];
-
+			
 			return;
 		}
 	}
@@ -2362,24 +2392,22 @@
 	{
 		[self RemoveFirstSlot];
 	}
-	else if (m_slotControl < 0)
-	{
-		m_slotControl += 1;
-		[self RemoveFirstSlot];
-		[self RemoveFirstSlot];
-		
-		m_bodyLegth -= 1;
-		m_unGrown -= 1;
-	}
 	else
 	{
-		m_slotControl--;
 		m_bodyLegth++;
 		m_grown++;
+		m_slotControl--;
 	}
 	
+	if(m_slotControlUnGrow)
+	{
+		m_bodyLegth--;
+		m_unGrown++;
+		m_slotControlUnGrow--;
+		[self RemoveFirstSlot];
+	}
 	
-	if([self CheckColition:Zone CoordX:nowX CoordY:nowY] && !m_restarted)
+	if([self CheckColition:Zone CoordX:nowX CoordY:nowY] && !m_restarted && !IsGhost)
 	{
 		[self Finish];
 		return;
@@ -2406,11 +2434,6 @@
 	newSlot.CoordY = coordy;
 	newSlot.inZone = inzone;
 	
-	newSlot.Model = [m_renderBox NewModelFromFileName:@"geosphere_medium"];
-	newSlot.Model.Position = position;
-	newSlot.Model.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
-	[Scene addModel:newSlot.Model];
-	
 	if(inzone)
 		m_occupied[zone]++;
 	
@@ -2433,9 +2456,6 @@
 	if(first.inZone)
 		m_occupied[first.Zone]--;
 	
-	[Scene ReleaseModel:first.Model];
-	[m_renderBox ReleaseModel:first.Model];
-	
 	[m_slots removeObjectAtIndex:0];
 }
 
@@ -2456,7 +2476,7 @@
 		HighScore = MAX(HighScore, Score);
 		
 		m_eating = true;
-
+		
 		[self PositionateTextByPoint:m_pointsShower Position:Food.Position Offset:1.5f];
 		
 		[self RandomFood:Food];
@@ -2564,27 +2584,6 @@
 		
 		if(distspecial < 0.5f)
 		{
-			int grownleft = m_toGrow - m_grown - 1;
-			
-			if(m_toGrow > 0)
-			{
-				m_toGrow = m_grown + 1;
-				m_slotControl = 1;
-			}
-			else
-			{
-				int fixUnUngrown = m_bodyLegth > 14 ? 10 : m_bodyLegth - 4;
-				
-				if(fixUnUngrown > 0)
-				{
-					m_toGrow -= fixUnUngrown;
-					m_slotControl -= fixUnUngrown;
-					m_eating = true;
-				}
-			}
-			
-			
-			
 			Score += 10;
 			HighScore = MAX(HighScore, Score);
 			
@@ -2624,7 +2623,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Coins += 100;
+			Coins += 500;
 			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
@@ -2637,6 +2636,78 @@
 			[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
 			SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 			m_specialFood3Waiting = true;
+		}
+	}
+	
+	if(m_specialFood4Waiting)
+	{
+		if(!m_specialFood4Watch.Active)
+		{
+			if(_Size == CL_SIZE_SMALL)
+				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime];
+			else if(_Size == CL_SIZE_NORMAL)
+				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime + 5.0f];
+			else if(_Size == CL_SIZE_BIG)
+				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime + 10.0f];
+			
+			[self RandomFood:SpecialFood4];
+			
+			m_specialFood4Waiting = false;
+		}
+	}
+	else
+	{
+		float distspecial = GLKVector3Length(GLKVector3Subtract(SpecialFood4.Position, Leader.Position));
+		
+		if(distspecial < 0.5f)
+		{
+			[self Reduction];
+			
+			[m_specialFood4Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood4MinTime Max:m_specialFood4MaxTime]];
+			m_specialFood4Waiting = true;
+			SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		}
+		else if(!m_specialFood2Watch.Active)
+		{
+			[m_specialFood4Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood4MinTime Max:m_specialFood4MaxTime]];
+			SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			m_specialFood4Waiting = true;
+		}
+	}
+	
+	if(m_specialFood5Waiting)
+	{
+		if(!m_specialFood5Watch.Active)
+		{
+			if(_Size == CL_SIZE_SMALL)
+				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime];
+			else if(_Size == CL_SIZE_NORMAL)
+				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime + 5.0f];
+			else if(_Size == CL_SIZE_BIG)
+				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime + 10.0f];
+			
+			[self RandomFood:SpecialFood5];
+			
+			m_specialFood5Waiting = false;
+		}
+	}
+	else
+	{
+		float distspecial = GLKVector3Length(GLKVector3Subtract(SpecialFood5.Position, Leader.Position));
+		
+		if(distspecial < 0.5f)
+		{
+			[self MakeGhost];
+			
+			[m_specialFood5Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood5MinTime Max:m_specialFood5MaxTime]];
+			m_specialFood5Waiting = true;
+			SpecialFood5.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		}
+		else if(!m_specialFood5Watch.Active)
+		{
+			[m_specialFood5Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood5MinTime Max:m_specialFood5MaxTime]];
+			SpecialFood5.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			m_specialFood5Waiting = true;
 		}
 	}
 }
@@ -2653,7 +2724,7 @@
 	
 	do
 	{
-		face = [m_random NextIntegerWithMin:0 Max:1] ? 0 : 0;
+		face = [m_random NextIntegerWithMin:0 Max:5];
 		randomthreshold++;
 		if(randomthreshold > 10)
 		{
@@ -2773,7 +2844,7 @@
 			rotation.z = 180.0f;
 			position.y -= toUp;
 		}
-
+		
 		[text ResetRotation:rotation];
 	}
 	else if(Zone == CL_ZONE_BACK)
@@ -2833,7 +2904,7 @@
 			rotation.x = 180.0f;
 			position.y -= toUp;
 		}
-
+		
 		[text ResetRotation:rotation];
 	}
 	else if(Zone == CL_ZONE_LEFT)
@@ -2863,7 +2934,7 @@
 			rotation.x = 180.0f;
 			position.y -= toUp;
 		}
-
+		
 		[text ResetRotation:rotation];
 	}
 	else if(Zone == CL_ZONE_TOP)
@@ -2940,7 +3011,7 @@
 	else
 		text.FontSize = 4.0f;
 	text.Opasity = 0.0f;
-
+	
 }
 
 - (void)ManageDance
@@ -2968,6 +3039,53 @@
 			if(leaderPosition.y < -SmallSizeLimit + 1.5f)
 				m_nextHandle = CL_HANDLE_RIGHT;
 		}
+	}
+}
+
+- (void)Reduction
+{
+	int togrow = (m_bodyLegth + (m_toGrow - m_grown) - (m_toUnGrow - m_unGrown)) > 14 ? 10 : (m_bodyLegth + (m_toGrow - m_grown) - (m_toUnGrow - m_unGrown) - 4);
+	
+	if(togrow > 0)
+	{
+		m_toUnGrow += (float)togrow;
+		m_slotControlUnGrow += togrow;
+		
+		m_unEating = true;
+		
+		[self PositionateTextByPoint:m_specialPoints4Shower Position:Leader.Position Offset:1.54f];
+	}
+}
+
+- (void)MakeGhost
+{
+	for(CLBody* body in Body)
+	{
+		body.Model.Opasity = 0.02f;
+	}
+	Leader.Opasity = 0.5f;
+	IsGhost = true;
+	[m_ghostTime SetLimitInSeconds:10.0f];
+	[m_ghostTime Reset];
+	
+	[self PositionateTextByPoint:m_specialPoints5Shower Position:Leader.Position Offset:1.54f];
+}
+
+- (void)OutGhost
+{
+	for(CLBody* body in Body)
+	{
+		body.Model.Opasity = 1.0f;
+	}
+	Leader.Opasity = 1.0f;
+	IsGhost = false;
+}
+
+- (void)ManageGhost
+{
+	if(!m_ghostTime.Active && IsGhost)
+	{
+		[self OutGhost];
 	}
 }
 
@@ -3013,9 +3131,9 @@
 	SpecialFood1.ScaleTransitionTime = 0.2f;
 	m_specialFood1Watch = [[VEWatch alloc] init];
 	m_specialFood1Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood1MinTime = 1.0f;
-	m_specialFood1MaxTime = 2.0f;
-	m_specialFood1ShowTime = 15.0f;
+	m_specialFood1MinTime = 45.0f;
+	m_specialFood1MaxTime = 240.0f;
+	m_specialFood1ShowTime = 8.0f;
 	
 	SpecialFood2 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood2.Color = BottomColor;
@@ -3024,9 +3142,9 @@
 	SpecialFood2.ScaleTransitionTime = 0.2f;
 	m_specialFood2Watch = [[VEWatch alloc] init];
 	m_specialFood2Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood2MinTime = 1.0f;
-	m_specialFood2MaxTime = 2.0f;
-	m_specialFood2ShowTime = 15.0f;
+	m_specialFood2MinTime = 45.0f;
+	m_specialFood2MaxTime = 240.0f;
+	m_specialFood2ShowTime = 8.0f;
 	
 	SpecialFood3 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood3.Color = TopColor;
@@ -3035,10 +3153,31 @@
 	SpecialFood3.ScaleTransitionTime = 0.2f;
 	m_specialFood3Watch = [[VEWatch alloc] init];
 	m_specialFood3Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood3MinTime = 30.0f;
-	m_specialFood3MaxTime = 180.0f;
-	m_specialFood3ShowTime = 15.0f;
+	m_specialFood3MinTime = 45.0f;
+	m_specialFood3MaxTime = 240.0f;
+	m_specialFood3ShowTime = 8.0f;
 	
+	SpecialFood4 = [m_renderBox NewModelFromFileName:@"quad"];
+	SpecialFood4.Color = PrimaryColor;
+	SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood4.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	SpecialFood4.ScaleTransitionTime = 0.2f;
+	m_specialFood4Watch = [[VEWatch alloc] init];
+	m_specialFood4Watch.Style = VE_WATCH_STYLE_REVERSE;
+	m_specialFood4MinTime = 45.0f;
+	m_specialFood4MaxTime = 240.0f;
+	m_specialFood4ShowTime = 8.0f;
+	
+	SpecialFood5 = [m_renderBox NewModelFromFileName:@"quad"];
+	SpecialFood5.Color = ColorWhite;
+	SpecialFood5.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	SpecialFood5.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	SpecialFood5.ScaleTransitionTime = 0.2f;
+	m_specialFood5Watch = [[VEWatch alloc] init];
+	m_specialFood5Watch.Style = VE_WATCH_STYLE_REVERSE;
+	m_specialFood5MinTime = 45.0f;
+	m_specialFood5MaxTime = 240.0f;
+	m_specialFood5ShowTime = 8.0f;
 	
 	// Text
 	m_pointsShower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"1+"];
@@ -3085,6 +3224,32 @@
 	m_specialPoints3Shower.OpasityEase = 0.05f;
 	m_specialPoints3Shower.OpasityTransitionTime = 2.2f;
 	
+	m_specialPoints4Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@">10<"];
+	m_specialPoints4Shower.FontSize = 0.0f;
+	m_specialPoints4Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints4Shower.ScaleTransitionTime = 0.4f;
+	m_specialPoints4Shower.Color = PrimaryColor;
+	m_specialPoints4Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints4Shower.PositionTransitionTime = 0.3f;
+	m_specialPoints4Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_specialPoints4Shower.OpasityEase = 0.05f;
+	m_specialPoints4Shower.OpasityTransitionTime = 2.2f;
+	
+	m_specialPoints5Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Ghost"];
+	m_specialPoints5Shower.FontSize = 0.0f;
+	m_specialPoints5Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints5Shower.ScaleTransitionTime = 0.4f;
+	m_specialPoints5Shower.Color = ColorWhite;
+	m_specialPoints5Shower.PositionTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	m_specialPoints5Shower.PositionTransitionTime = 0.3f;
+	m_specialPoints5Shower.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
+	m_specialPoints5Shower.OpasityEase = 0.05f;
+	m_specialPoints5Shower.OpasityTransitionTime = 2.2f;
+	
+	// ghost
+	m_ghostTime = [[VEWatch alloc] init];
+	m_ghostTime.Style = VE_WATCH_STYLE_REVERSE;
+	
 	// Random.
 	m_random = [[VERandom alloc] init];
 	
@@ -3117,18 +3282,23 @@
 	
 	// Add models to scene
 	[Scene addModel:m_levelModel];
-	[Scene addModel:Leader];
+	[Scene addModel:m_guides];
 	[Scene addModel:Food];
 	[Scene addModel:Food1];
 	[Scene addModel:Food2];
 	[Scene addModel:SpecialFood1];
 	[Scene addModel:SpecialFood2];
 	[Scene addModel:SpecialFood3];
+	[Scene addModel:SpecialFood4];
+	[Scene addModel:SpecialFood5];
+	[Scene addModel:Leader];
 	[Scene addText3D:m_pointsShower];
 	[Scene addText3D:m_specialPoints1Shower];
 	[Scene addText3D:m_specialPoints2Shower];
 	[Scene addText3D:m_specialPoints3Shower];
-	[Scene addModel:m_guides];
+	[Scene addText3D:m_specialPoints4Shower];
+	[Scene addText3D:m_specialPoints5Shower];
+	
 	
 	[Scene addLight:m_topLight];
 	[Scene addLight:m_buttomLight];
@@ -3152,7 +3322,7 @@
 	if(size == CL_SIZE_SMALL)
 	{
 		m_levelModel.Scale = SmallSizeVector;
-
+		
 		m_cubeEdgeLimit = 5.0f;
 		m_cubeEdgeLogicalLimit = 4.0f;
 		
@@ -3265,7 +3435,7 @@
 	
 	self.Feed = false;
 	Leader.Opasity = 0.0f;
-
+	
 	[Body removeAllObjects];
 	
 	FocusedCamera.ViewUp = GLKVector3Make(0.0f, 1.0f, 0.0f);
@@ -3355,8 +3525,12 @@
 	Leader.Opasity = 1.0f;
 	[Leader ResetColor:PrimaryColor];
 	Leader.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	[Leader ResetOpasity:1.0f];
 	Zone = zone;
 	ZoneUp = up;
+	
+	// If ghost
+	[self OutGhost];
 	
 	if(zone == CL_ZONE_FRONT)
 	{
@@ -3442,12 +3616,12 @@
 		if(up == CL_ZONE_LEFT)
 			Direction = CL_ZONE_FRONT;
 	}
-
+	
 	// Body.
 	[Body removeAllObjects];
 	[self AddBodyWithSize:3.0f];
 	
-
+	
 	// Interactions
 	m_toTurn = false;
 	m_toNew = false;
@@ -3463,6 +3637,11 @@
 	Finished = false;
 	m_restarted = true;
 	m_bodyLegth = 4;
+	m_toUnGrow = 0.0f;
+	m_grown = 0;
+	m_unGrown = 0;
+	m_unEating = false;
+	m_stepUnGrown = 0.0f;
 	
 	m_specialFood1Waiting = true;
 	[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];
@@ -3475,7 +3654,15 @@
 	m_specialFood3Waiting = true;
 	[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
 	SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
-
+	
+	m_specialFood4Waiting = true;
+	[m_specialFood4Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood4MinTime Max:m_specialFood4MaxTime]];
+	SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
+	m_specialFood5Waiting = true;
+	[m_specialFood5Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood5MinTime Max:m_specialFood5MaxTime]];
+	SpecialFood5.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
 	LeaderGhost.Position = Leader.Position;
 	m_preLeaderPosition = Leader.Position;
 	
@@ -3544,7 +3731,6 @@
 	[Leader ResetPosition:leaderPosition];
 	
 	[self Play];
-	
 }
 
 - (void)setSize:(enum CL_SIZE)size
@@ -3617,6 +3803,31 @@
 - (GLKVector3)BodyColor
 {
 	return BodyColor;
+}
+
+- (bool)Special1Active
+{
+	return !m_specialFood1Waiting;
+}
+
+- (bool)Special2Active
+{
+	return !m_specialFood2Waiting;
+}
+
+- (bool)Special3Active
+{
+	return !m_specialFood3Waiting;
+}
+
+- (bool)Special4Active
+{
+	return !m_specialFood4Waiting;
+}
+
+- (bool)Special5Active
+{
+	return !m_specialFood5Waiting;
 }
 
 @end

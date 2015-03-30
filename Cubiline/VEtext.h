@@ -24,11 +24,13 @@
 @property float FontSize;
 @property float Width;
 @property float Height;
+@property enum VE_TEXT_ALIGN Aling;
 
 - (void)ResetFontSize:(float)size;
 
 - (id)initWithFontName:(NSString*)font;
 - (id)initWithFontName:(NSString*)font Text:(NSString*)text;
+- (id)initWithFontName:(NSString*)font Text:(NSString*)text Align:(enum VE_TEXT_ALIGN)align;
 
 - (void)Render;
 

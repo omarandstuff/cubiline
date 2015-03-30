@@ -16,7 +16,7 @@
 @synthesize Zone;
 @synthesize Direction;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Scene:(VEScene*)scene Zone:(enum CL_ZONE)zone Direction:(enum CL_ZONE)direction BornPosition:(GLKVector3)bornposition Size:(float)size  Color:(GLKVector3)color
+- (id)initWithRenderBox:(VERenderBox*)renderbox Scene:(VEScene*)scene Zone:(enum CL_ZONE)zone Direction:(enum CL_ZONE)direction BornPosition:(GLKVector3)bornposition Size:(float)size  Color:(GLKVector3)color Opasity:(float)opasity TargetOpasity:(float)targetopasity
 {
     self = [super init];
     
@@ -26,6 +26,10 @@
 		m_scene = scene;
 		Model = [m_renderBox NewModelFromFileName:@"quad"];
 		Model.Color = color;
+		Model.Opasity = opasity;
+		Model.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		Model.OpasityTransitionTime = 0.1f;
+		Model.Opasity = targetopasity;
 		[m_scene addModel:Model];
 		
         Zone = zone;

@@ -210,28 +210,17 @@
 	float width = m_renderBox.ScreenWidth;
 	float height = m_renderBox.ScreenHeight;
 	float spriteSize;
-	float offset;
 	
 	// Best size from the screen.
 	if(width > height)
 	{
 		spriteSize = height;
 		m_buttonSize = height / 5.0f;
-		
-		if([m_renderBox.DeviceType isEqual:@"iPhone"])
-			offset = 64;
-		else
-			offset = 132;
 	}
 	else
 	{
 		spriteSize = width;
 		m_buttonSize = width / 5.0f;
-		
-		if([m_renderBox.DeviceType isEqual:@"iPhone"])
-			offset = 100;
-		else
-			offset = 132;
 	}
 	
 	// Resize elements.
@@ -244,13 +233,13 @@
 	m_speedButton.Height = m_buttonSize;
 	m_sizeButton.Height = m_buttonSize;
 	
-	m_plusButton.Position = GLKVector3Make(width / 2 - m_buttonSize / 1.9f, -height / 2.0f + m_buttonSize / 1.9f * 2.0f + offset, 0.0f);
-	m_minusButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 1.9f, -height / 2.0f + m_buttonSize / 1.9f * 2.0f + offset, 0.0f);
-	m_playButton.Position = GLKVector3Make(m_buttonSize, -height / 2.0f + m_buttonSize / 1.9f + offset, 0.0f);
-	m_speedButton.Position = GLKVector3Make(0.0f, -height / 2.0f + m_buttonSize / 1.9f + offset, 0.0f);
-	m_sizeButton.Position = GLKVector3Make(-m_buttonSize, -height / 2.0f + m_buttonSize / 1.9f + offset, 0.0f);
+	m_plusButton.Position = GLKVector3Make(width / 2 - m_buttonSize / 1.9f, -height / 2.0f + m_buttonSize / 1.9f * 2.0f, 0.0f);
+	m_minusButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 1.9f, -height / 2.0f + m_buttonSize / 1.9f * 2.0f, 0.0f);
+	m_playButton.Position = GLKVector3Make(m_buttonSize, -height / 2.0f + m_buttonSize / 1.9f, 0.0f);
+	m_speedButton.Position = GLKVector3Make(0.0f, -height / 2.0f + m_buttonSize / 1.9f, 0.0f);
+	m_sizeButton.Position = GLKVector3Make(-m_buttonSize, -height / 2.0f + m_buttonSize / 1.9f, 0.0f);
 	
-	m_plusButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f * 2.0f + m_buttonSize / 2.0f + offset;
+	m_plusButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f * 2.0f + m_buttonSize / 2.0f;
 	m_plusButtonRect.bottom = m_plusButtonRect.top - m_buttonSize;
 	m_plusButtonRect.left = width / 2 - m_buttonSize / 1.9 - m_buttonSize / 2.0f;
 	m_plusButtonRect.right = m_plusButtonRect.left + m_buttonSize;
@@ -260,17 +249,17 @@
 	m_minusButtonRect.left = -width / 2 + m_buttonSize / 1.9 - m_buttonSize / 2.0f;
 	m_minusButtonRect.right = m_minusButtonRect.left + m_buttonSize;
 	
-	m_playButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f + offset;
+	m_playButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f;
 	m_playButtonRect.bottom = m_playButtonRect.top - m_buttonSize;
 	m_playButtonRect.left = m_buttonSize / 2.0f;
 	m_playButtonRect.right = m_buttonSize * 1.5f;
 	
-	m_speedButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f + offset;
+	m_speedButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f;
 	m_speedButtonRect.bottom = m_playButtonRect.top - m_buttonSize;
 	m_speedButtonRect.left = -m_buttonSize / 2.0f;
 	m_speedButtonRect.right = -m_speedButtonRect.left;
 	
-	m_sizeButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f + offset;
+	m_sizeButtonRect.top = -height / 2.0f + m_buttonSize / 1.9f + m_buttonSize / 2.0f;
 	m_sizeButtonRect.bottom = m_playButtonRect.top - m_buttonSize;
 	m_sizeButtonRect.left = -m_buttonSize * 1.5f;
 	m_sizeButtonRect.right = -m_buttonSize / 2.0f;
@@ -285,7 +274,7 @@
 	m_sizeText.Position = GLKVector3Make(-m_buttonSize, m_playButtonRect.top + m_playText.Height * 0.3f, 0.0f);
 	
 	m_optionsText.Width = spriteSize * 0.9;
-	m_optionsText.Position = GLKVector3Make(0, height / 2.0f - m_buttonSize * 1.3f, 0.0f);
+	m_optionsText.Position = GLKVector3Make(0, height / 2.0f - m_buttonSize * 0.75f, 0.0f);
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size

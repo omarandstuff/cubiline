@@ -39,13 +39,19 @@
 @synthesize FontSize;
 @synthesize Width;
 @synthesize Height;
+@synthesize Aling;
 
 - (id)initWithFontName:(NSString *)font
 {
-	return [self initWithFontName:font Text:@""];
+	return [self initWithFontName:font Text:@"" Align:VE_TEXT_ALIGN_CENTER];
 }
 
 - (id)initWithFontName:(NSString *)font Text:(NSString *)text
+{
+	return [self initWithFontName:font Text:text Align:VE_TEXT_ALIGN_CENTER];
+}
+
+- (id)initWithFontName:(NSString*)font Text:(NSString*)text Align:(enum VE_TEXT_ALIGN)align
 {
 	self = [super init];
 	
@@ -53,13 +59,13 @@
 	{
 		m_fontName = font;
 		Text = text;
+		Aling = align;
 		
 		[self LoadFont];
 		[self GenerateByText];
 	}
 	
 	return self;
-	
 }
 
 - (void)Render
@@ -240,7 +246,14 @@
 	
 	GLfloat* verticesOffset = vertices;
 	
-	float XPos = -m_realWidth / 2.0f;
+	float XPos = 0.0f;
+	
+	if(Aling == VE_TEXT_ALIGN_CENTER)
+		XPos = -m_realWidth / 2.0f;
+	else if(Aling == VE_TEXT_ALIGN_LEFT)
+		XPos = 0;
+	else if(Aling == VE_TEXT_ALIGN_LEFT)
+		XPos = -m_realWidth;
 	
 	for(int i = 0; i < stringSize; i++)
 	{
