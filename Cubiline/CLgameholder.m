@@ -113,6 +113,7 @@
 	VESprite* m_getCoinsIcon;
 	Rect m_getCoinsRect;
 	bool m_getCoinsEnable;
+	bool m_viewed;
 	
 	
 	/// reset effect
@@ -748,6 +749,8 @@
 	m_getCoinsIcon = [m_renderBox NewSpriteFromFileName:@"get_coins_icon.png"];
 	CommonButtonStyle(m_getCoinsIcon);
 	
+	[m_ads AddunityAdsVideoCompletedObjectResponder:self];
+	
 	//// Indicators
 	m_special1 = [m_renderBox NewSolidSpriteWithColor:RightColor];
 	CommonButtonStyle(m_special1);
@@ -774,7 +777,7 @@
 	m_scoreFinish = [m_renderBox NewSolidSpriteWithColor:PrimaryColor];
 	CommonButtonStyle(m_scoreFinish);
 	m_scoreFinish.LockAspect = false;
-	m_scoreFinish2 = [m_renderBox NewSolidSpriteWithColor:FrontColor];
+	m_scoreFinish2 = [m_renderBox NewSolidSpriteWithColor:ColorWhite];
 	CommonButtonStyle(m_scoreFinish2);
 	m_scoreFinish2.LockAspect = false;
 	
@@ -830,7 +833,7 @@
 	
 	[m_pauseButton ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
 	[m_pauseButton ResetOpasity:0.0f];
-	m_pauseButton.Width = m_buttonSize / 2.0f;
+	m_pauseButton.Width = m_buttonSize * 0.75f;
 	m_pauseButton.Opasity = 1.0f;
 	
 	[m_points ResetFontSize: m_viewSize / 3.5f];
@@ -923,7 +926,7 @@
 	[m_points ResetOpasity:0.0f];
 	m_points.FontSize = m_buttonSize;
 	m_points.Opasity = 1.0f;
-	m_points.Color = ColorWhite;
+	m_points.Color = FrontColor;
 	
 	[m_scoreFinish ResetScale:GLKVector3Make(m_renderBox.ScreenWidth * 1.5f, m_renderBox.ScreenHeight * 0.7f, 0.0f)];
 	[m_scoreFinish ResetOpasity:0.0f];
@@ -1548,7 +1551,6 @@
 		}
 		else if ([self TestButton:m_getCoinsRect X:rx Y:ry] && m_getCoinsEnable)
 		{
-			Level.Coins += 500;
 			m_getCoinsEnable = false;
 			m_getCoinsBack.Opasity = 0.0f;
 			m_getCoinsText.Opasity = 0.0f;
@@ -1562,6 +1564,12 @@
 		m_exitButton.Width = m_buttonSize;
 	}
 	m_touchedButton = false;
+}
+
+- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
+{
+	if(!skipped)
+		Level.Coins += 500;
 }
 
 - (void)Begin
@@ -1715,8 +1723,6 @@
 	
 	[self Resize];
 	[self PresentFinishMenu];
-	
-	[m_ads presentUnityAd];
 	
 	Level.Coins += Level.Score * 2;
 	

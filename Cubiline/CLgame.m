@@ -112,9 +112,14 @@
 				[m_mainMenu OutToPlay];
 				m_gameState = GAME_STATE_FROM_MAIN_TO_GAME_SETUP;
 			}
-			if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_GC)
+			else if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_GC)
 			{
 				[m_gameCenter presentGameCenter];
+				[m_mainMenu Reset];
+			}
+			else if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_ABOUT)
+			{
+				[m_mainMenu About];
 				[m_mainMenu Reset];
 			}
 		}

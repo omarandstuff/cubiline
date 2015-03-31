@@ -2,13 +2,25 @@
 
 @interface VEAds()
 {
-	
+	NSMutableArray* m_unityAdsVideoCompletedSelector;
 }
 
 @end
 
 @implementation VEAds
 @synthesize PresentingFullScreen;
+
+- (id)init
+{
+	self = [super init];
+	
+	if(self)
+	{
+		m_unityAdsVideoCompletedSelector = [[NSMutableArray alloc] init];
+	}
+	
+	return self;
+}
 
 + (instancetype)loadSaredVEAdsWithViewController:(UIViewController*)viewcontroller
 {
@@ -44,6 +56,11 @@
 	[[UnityAds sharedInstance] setZone:@"rewardedVideoZone"];
 }
 
+- (void)AddunityAdsVideoCompletedObjectResponder:(id)object
+{
+	[m_unityAdsVideoCompletedSelector addObject:object];
+}
+
 - (void)unityAdsDidHide
 {
 	
@@ -66,7 +83,13 @@
 
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
 {
-	
+	for(id object in m_unityAdsVideoCompletedSelector)
+	{
+		SEL selector = @selector(unityAdsVideoCompleted:skipped:);
+		IMP imp = [object methodForSelector:selector];
+		void (*func)(id, SEL, NSString*, BOOL) = (void *)imp;
+		func(object, selector, rewardItemKey, skipped);
+	}
 }
 
 - (void)unityAdsVideoStarted

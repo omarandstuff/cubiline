@@ -27,6 +27,8 @@
 
 - (void)Reset;
 
+- (void)About;
+
 @end
 
 #endif

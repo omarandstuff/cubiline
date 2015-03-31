@@ -78,7 +78,7 @@ enum CL_MAIN_MENU_SELECTION
 	CL_MAIN_MENU_SELECTION_NONE,
 	CL_MAIN_MENU_SELECTION_PLAY,
 	CL_MAIN_MENU_SELECTION_GC,
-	CL_MAIN_MENU_SELECTION_SETTINGS,
+	CL_MAIN_MENU_SELECTION_HOWTO,
 	CL_MAIN_MENU_SELECTION_ABOUT
 };
 
@@ -102,7 +102,9 @@ struct rect
 //#define TertiaryColor GLKVector3Make(0.3f, 0.35f, 0.4f) (0.1372f, 0.1568f, 0.1647f, 1.0f)
 
 #define ColorWhite GLKVector3Make(1.0f, 1.0f, 1.0f)
+#define ColorCubiline GLKVector3Make(0.9f, 0.93f, 0.93f)
 #define ColorBlack GLKVector3Make(0.0f, 0.0f, 0.0f)
+
 #define PrimaryColor GLKVector3Make(0.3f, 0.35f, 0.4f)
 #define SecundaryColor GLKVector3Make(0.1372f, 0.1568f, 0.1647f)
 #define TertiaryColor GLKVector3Make(1.0f, 1.0f, 1.0f)

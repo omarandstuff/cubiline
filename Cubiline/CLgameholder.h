@@ -4,7 +4,7 @@
 #import "CLlevel.h"
 #import "CLtouchable.h"
 
-@interface CLGameHolder : CLTouchable
+@interface CLGameHolder : CLTouchable<UnityAdsDelegate>
 
 @property CLLevel* Level;
 @property (readonly)VEScene* Scene;

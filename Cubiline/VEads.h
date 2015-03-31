@@ -14,6 +14,8 @@
 - (void)presentUnityAd;
 - (void)setUnityRewardedZone;
 
+- (void)AddunityAdsVideoCompletedObjectResponder:(id)object;
+
 
 @end
 

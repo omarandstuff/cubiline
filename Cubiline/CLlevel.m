@@ -109,6 +109,8 @@
 	
 	// ghsot
 	VEWatch* m_ghostTime;
+	bool m_ghostDeapering;
+	
 	
 	bool m_restarted;
 	
@@ -240,11 +242,14 @@
 	{
 		if(Move)
 		{
-			[m_specialFood1Watch Frame:time];
-			[m_specialFood2Watch Frame:time];
-			[m_specialFood3Watch Frame:time];
-			[m_specialFood4Watch Frame:time];
-			[m_specialFood5Watch Frame:time];
+			if(!Dance)
+			{
+				[m_specialFood1Watch Frame:time];
+				[m_specialFood2Watch Frame:time];
+				[m_specialFood3Watch Frame:time];
+				[m_specialFood4Watch Frame:time];
+				[m_specialFood5Watch Frame:time];
+			}
 			[m_ghostTime Frame:time];
 			
 			[self ManageGhost];
@@ -2667,7 +2672,7 @@
 			m_specialFood4Waiting = true;
 			SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
 		}
-		else if(!m_specialFood2Watch.Active)
+		else if(!m_specialFood4Watch.Active)
 		{
 			[m_specialFood4Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood4MinTime Max:m_specialFood4MaxTime]];
 			SpecialFood4.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
@@ -3065,8 +3070,10 @@
 	}
 	Leader.Opasity = 0.5f;
 	IsGhost = true;
-	[m_ghostTime SetLimitInSeconds:10.0f];
+	[m_ghostTime SetLimitInSeconds:[m_ghostTime GetTotalTimeinSeconds] + 10.0f];
 	[m_ghostTime Reset];
+	
+	m_ghostDeapering = false;
 	
 	[self PositionateTextByPoint:m_specialPoints5Shower Position:Leader.Position Offset:1.54f];
 }
@@ -3083,10 +3090,35 @@
 
 - (void)ManageGhost
 {
+	if(!IsGhost)return;
+	
+	static float reachFlash;
+	
+ 	if([m_ghostTime GetTotalTimeinSeconds] <= 5.0f && !m_ghostDeapering)
+	{
+		m_ghostDeapering = true;
+		reachFlash = 5.0f;
+	}
+	
 	if(!m_ghostTime.Active && IsGhost)
 	{
 		[self OutGhost];
+		return;
 	}
+	
+	Leader.Opasity = 0.5f;
+	
+	if([m_ghostTime GetTotalTimeinSeconds] <= reachFlash && [m_ghostTime GetTotalTimeinSeconds] > 0.2f)
+	{
+		for(CLBody* body in Body)
+		{
+			[body.Model ResetOpasity:1.0f];
+			body.Model.Opasity = 0.02f;
+		}
+		[Leader ResetOpasity:1.0f];
+		reachFlash /= 2.0f;
+	}
+
 }
 
 - (void)CreateLevel
@@ -3525,6 +3557,8 @@
 	Leader.Opasity = 1.0f;
 	[Leader ResetColor:PrimaryColor];
 	Leader.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+	Leader.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+	Leader.OpasityTransitionTime = 0.2f;
 	[Leader ResetOpasity:1.0f];
 	Zone = zone;
 	ZoneUp = up;

@@ -10,7 +10,7 @@
 	
 	VEModel* m_playIcon;
 	VEModel* m_gameCenterIcon;
-	VEModel* m_settingsIcon;
+	VEModel* m_howToIcon;
 	VEModel* m_aboutIcon;
 	
 	VESprite* m_title;
@@ -51,6 +51,12 @@
 	
 	bool m_start;
 	VEWatch* m_startWatch;
+	
+	
+	/// About
+	bool m_viewing;
+	VESprite* m_background;
+	VESprite* m_logo;
 }
 
 - (void)PressCube;
@@ -61,6 +67,8 @@
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
 
 - (void)PresentShit;
+
+- (void)PresentAbout;
 
 @end
 
@@ -111,14 +119,14 @@
 		m_gameCenterIcon.OpasityTransitionTime = 0.3f;
 		m_gameCenterIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
-		m_settingsIcon = [m_renderBox NewModelFromFileName:@"main_menu_settings"];
-		m_settingsIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_settingsIcon.ScaleTransitionTime = 0.1f;
-		m_settingsIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_settingsIcon.RotationTransitionTime = 0.1f;
-		m_settingsIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
-		m_settingsIcon.OpasityTransitionTime = 0.3f;
-		m_settingsIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
+		m_howToIcon = [m_renderBox NewModelFromFileName:@"main_menu_howto"];
+		m_howToIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_howToIcon.ScaleTransitionTime = 0.1f;
+		m_howToIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_howToIcon.RotationTransitionTime = 0.1f;
+		m_howToIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
+		m_howToIcon.OpasityTransitionTime = 0.3f;
+		m_howToIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
 		m_aboutIcon = [m_renderBox NewModelFromFileName:@"main_menu_about"];
 		m_aboutIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -140,6 +148,21 @@
 		m_title = [m_renderBox NewSpriteFromFileName:@"CubilineTitle.png"];
 		CommonButtonStyle(m_title);
 		m_title.LockAspect = true;
+		
+		
+		
+		
+		//// About /////
+		m_background = [m_renderBox NewSolidSpriteWithColor:ColorCubiline];
+		m_background.Opasity = 0.0f;
+		m_background.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_background.OpasityTransitionTime = 0.15f;
+		
+		m_logo = [m_renderBox NewSpriteFromFileName:@"Logo.png"];
+		CommonButtonStyle(m_logo);
+		m_logo.LockAspect = true;
+		
+		/////////////
 		
 		m_light = [m_renderBox NewLight];
 		m_light.Position = GLKVector3Make(0.0f, 2.0f, 5.0f);
@@ -168,7 +191,7 @@
 		[m_cubeScene addLight:m_light];
 		[m_cubeScene addModel:m_playIcon];
 		[m_cubeScene addModel:m_gameCenterIcon];
-		[m_cubeScene addModel:m_settingsIcon];
+		[m_cubeScene addModel:m_howToIcon];
 		[m_cubeScene addModel:m_aboutIcon];
 		
 		[Scene addSprite:m_cubeImage];
@@ -176,6 +199,9 @@
 		[Scene addSprite:m_right];
 		[Scene addSprite:m_left];
 		[Scene addSprite:m_title];
+		
+		[Scene addSprite:m_background];
+		[Scene addSprite:m_logo];
 		
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeCamera.LockLookAt = true;
@@ -277,6 +303,9 @@
 	m_title.Width = spriteSize * 0.85;
 	
 	m_cubeLimit = spriteSize / 3.5f;
+	
+	m_background.Width = width;
+	m_background.Height = height;
 }
 
 - (void)PresentShit
@@ -293,6 +322,22 @@
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
 }
 
+- (void)About
+{
+	m_viewing = true;
+	[self PresentAbout];
+}
+
+- (void)PresentAbout
+{
+	m_background.Opasity = 0.96f;
+	
+	[m_logo ResetScale:GLKVector3Make(spriteSize / 2.0f, spriteSize / 2.0f, 0.0f)];
+	[m_logo ResetOpasity];
+	m_logo.Width = spriteSize * 0.75f;
+	m_logo.Opasity = 1.0f;
+}
+
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
 {
 	return (button.top > y && button.bottom < y && button.left < x && button.right > x);
@@ -305,12 +350,14 @@
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
+	if(m_viewing)return;
+	
 	float move = x * 180.0f / spriteSize;
 	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, move, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
-	m_settingsIcon.Rotation = newRotation;
+	m_howToIcon.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
@@ -337,6 +384,8 @@
 {
 	float rx = x - (m_renderBox.ScreenWidth / 2);
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
+	
+	if(m_viewing)return;
 	
 	m_selected = false;
 	
@@ -368,10 +417,10 @@
 	float rx = x - (m_renderBox.ScreenWidth / 2);
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
+	if(m_viewing)return;
+	
 	m_right.Width = spriteSize / 10.0f;
 	m_left.Width = spriteSize / 10.0f;
-	
-	
 	
 	if([self TestButton:m_rightRect X:rx Y:ry] && m_inButton)
 	{
@@ -399,7 +448,7 @@
 	GLKVector3 newScale = GLKVector3Make(0.9f, 0.9f, 0.9f);
 	m_playIcon.Scale = newScale;
 	m_gameCenterIcon.Scale = newScale;
-	m_settingsIcon.Scale = newScale;
+	m_howToIcon.Scale = newScale;
 	m_aboutIcon.Scale = newScale;
 	
 	m_cube.Scale = newScale;
@@ -422,10 +471,10 @@
 		else
 			m_gameCenterIcon.Scale = newScale;
 		
-		if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)
-			m_settingsIcon.Scale = newSelectedScale;
+		if(Selection == CL_MAIN_MENU_SELECTION_HOWTO)
+			m_howToIcon.Scale = newSelectedScale;
 		else
-			m_settingsIcon.Scale = newScale;
+			m_howToIcon.Scale = newScale;
 
 		if(Selection == CL_MAIN_MENU_SELECTION_ABOUT)
 			m_aboutIcon.Scale = newSelectedScale;
@@ -447,7 +496,7 @@
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
-	m_settingsIcon.Rotation = newRotation;
+	m_howToIcon.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
@@ -486,7 +535,7 @@
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-			m_settingsIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+			m_howToIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
 			if(m_properRotation < m_realRotation)
 				m_properRotation += 90.0f;
@@ -499,10 +548,10 @@
 		
 		if(normal >= 135.0f && normal < 225.0f)
 		{
-			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
-			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
+			if(Selection == CL_MAIN_MENU_SELECTION_HOWTO)return;
+			Selection = CL_MAIN_MENU_SELECTION_HOWTO;
 			
-			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
+			m_howToIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			m_aboutIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
@@ -512,7 +561,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Settings";
+			m_text.Text = @"How To Play";
 		}
 		
 		if(normal >= 225.0f && normal < 315.0f)
@@ -522,7 +571,7 @@
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-			m_settingsIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+			m_howToIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
 			if(m_properRotation < m_realRotation)
 				m_properRotation += 90.0f;
@@ -559,7 +608,7 @@
 			
 			m_gameCenterIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-			m_settingsIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+			m_howToIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
 			if(m_properRotation < m_realRotation)
 				m_properRotation += 90.0f;
@@ -571,10 +620,10 @@
 		}
 		if(normal <= -135.0f && normal > -225.0f)
 		{
-			if(Selection == CL_MAIN_MENU_SELECTION_SETTINGS)return;
-			Selection = CL_MAIN_MENU_SELECTION_SETTINGS;
+			if(Selection == CL_MAIN_MENU_SELECTION_HOWTO)return;
+			Selection = CL_MAIN_MENU_SELECTION_HOWTO;
 			
-			m_settingsIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
+			m_howToIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			m_aboutIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
@@ -584,7 +633,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Settings";
+			m_text.Text = @"How To Play";
 		}
 		if(normal <= -225.0f && normal > -315.0f)
 		{
@@ -593,7 +642,7 @@
 			
 			m_aboutIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_playIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
-			m_settingsIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
+			m_howToIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
 			if(m_properRotation < m_realRotation)
 				m_properRotation += 90.0f;
