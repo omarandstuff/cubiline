@@ -133,7 +133,6 @@
 		37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FED1ABBD50A00D5C120 /* white_cube.mtl */; };
 		37A44FF11ABBD50A00D5C120 /* white_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEE1ABBD50A00D5C120 /* white_cube.obj */; };
 		37A44FF21ABBD50A00D5C120 /* white_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEF1ABBD50A00D5C120 /* white_texture.png */; };
-		37A44FF41ABBE66A00D5C120 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A44FF31ABBE66A00D5C120 /* iAd.framework */; };
 		37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7611A89ABB500FB84CF /* game_setup_play.png */; };
 		37ADE7651A89ABB500FB84CF /* game_setup_size.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7621A89ABB500FB84CF /* game_setup_size.png */; };
 		37ADE7661A89ABB500FB84CF /* game_setup_speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 37ADE7631A89ABB500FB84CF /* game_setup_speed.png */; };
@@ -153,6 +152,7 @@
 		37BCAAEA1A91760200FFFE6D /* game_gc.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE61A91760200FFFE6D /* game_gc.png */; };
 		37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE71A91760200FFFE6D /* game_restart.png */; };
 		37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAEC1A9176BE00FFFE6D /* game_continue.png */; };
+		37C83FC71ACB624D000CBE9F /* VEinapppurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C83FC61ACB624D000CBE9F /* VEinapppurchase.m */; };
 		37DEE6581AC272B7005E29AE /* CubilineTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 37DEE6571AC272B7005E29AE /* CubilineTitle.png */; };
 		37E23EEE1AC9FAC8007D6210 /* main_menu_howto.png in Resources */ = {isa = PBXBuildFile; fileRef = 37E23EED1AC9FAC8007D6210 /* main_menu_howto.png */; };
 		37E23EF11AC9FAF4007D6210 /* main_menu_howto.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37E23EEF1AC9FAF4007D6210 /* main_menu_howto.mtl */; };
@@ -352,7 +352,6 @@
 		37A44FED1ABBD50A00D5C120 /* white_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.mtl; path = Cubiline/Resources/white_cube.mtl; sourceTree = "<group>"; };
 		37A44FEE1ABBD50A00D5C120 /* white_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.obj; path = Cubiline/Resources/white_cube.obj; sourceTree = "<group>"; };
 		37A44FEF1ABBD50A00D5C120 /* white_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = white_texture.png; path = Cubiline/Resources/white_texture.png; sourceTree = "<group>"; };
-		37A44FF31ABBE66A00D5C120 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		37ADE7611A89ABB500FB84CF /* game_setup_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_play.png; path = Cubiline/Resources/game_setup_play.png; sourceTree = "<group>"; };
 		37ADE7621A89ABB500FB84CF /* game_setup_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_size.png; path = Cubiline/Resources/game_setup_size.png; sourceTree = "<group>"; };
 		37ADE7631A89ABB500FB84CF /* game_setup_speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_speed.png; path = Cubiline/Resources/game_setup_speed.png; sourceTree = "<group>"; };
@@ -372,6 +371,8 @@
 		37BCAAE61A91760200FFFE6D /* game_gc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_gc.png; path = Cubiline/Resources/game_gc.png; sourceTree = "<group>"; };
 		37BCAAE71A91760200FFFE6D /* game_restart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_restart.png; path = Cubiline/Resources/game_restart.png; sourceTree = "<group>"; };
 		37BCAAEC1A9176BE00FFFE6D /* game_continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_continue.png; path = Cubiline/Resources/game_continue.png; sourceTree = "<group>"; };
+		37C83FC51ACB624D000CBE9F /* VEinapppurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEinapppurchase.h; path = Cubiline/VEinapppurchase.h; sourceTree = "<group>"; };
+		37C83FC61ACB624D000CBE9F /* VEinapppurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEinapppurchase.m; path = Cubiline/VEinapppurchase.m; sourceTree = "<group>"; };
 		37DEE6571AC272B7005E29AE /* CubilineTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CubilineTitle.png; path = Cubiline/Resources/CubilineTitle.png; sourceTree = "<group>"; };
 		37E23EED1AC9FAC8007D6210 /* main_menu_howto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_howto.png; path = Cubiline/Resources/main_menu_howto.png; sourceTree = "<group>"; };
 		37E23EEF1AC9FAF4007D6210 /* main_menu_howto.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_howto.mtl; path = Cubiline/Resources/main_menu_howto.mtl; sourceTree = "<group>"; };
@@ -404,7 +405,6 @@
 				3723C0C71AC3BCCE00DD3477 /* SystemConfiguration.framework in Frameworks */,
 				3723C0C31AC3B6F000DD3477 /* AdSupport.framework in Frameworks */,
 				378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */,
-				37A44FF41ABBE66A00D5C120 /* iAd.framework in Frameworks */,
 				3728F5F61A6C503A004F7244 /* AudioToolbox.framework in Frameworks */,
 				3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */,
 				3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */,
@@ -550,6 +550,8 @@
 				379A65601ABF6A32009C3A6C /* VEads.m */,
 				373E62A31AA2713600ACC243 /* VEgamecenter.h */,
 				373E62A41AA2713600ACC243 /* VEgamecenter.m */,
+				37C83FC51ACB624D000CBE9F /* VEinapppurchase.h */,
+				37C83FC61ACB624D000CBE9F /* VEinapppurchase.m */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -646,7 +648,6 @@
 				3728F5F11A6C5027004F7244 /* AVFoundation.framework */,
 				3723C0C41AC3BB9700DD3477 /* CFNetwork.framework */,
 				37A35A8C1A6D040E00E36F43 /* GameKit.framework */,
-				37A44FF31ABBE66A00D5C120 /* iAd.framework */,
 				3728F5F31A6C5033004F7244 /* OpenAL.framework */,
 				378001B21A6D9948009FFCC8 /* StoreKit.framework */,
 				3723C0C61AC3BCCE00DD3477 /* SystemConfiguration.framework */,
@@ -947,6 +948,7 @@
 				377A85481A79EAE9004F88F7 /* VEeffect3.m in Sources */,
 				377880151AA3897400BDECB4 /* CLdata.m in Sources */,
 				373E62A51AA2713600ACC243 /* VEgamecenter.m in Sources */,
+				37C83FC71ACB624D000CBE9F /* VEinapppurchase.m in Sources */,
 				377A85521A79EAE9004F88F7 /* VErandom.m in Sources */,
 				377A85601A79EAE9004F88F7 /* VEtimer.m in Sources */,
 				377A85611A79EAE9004F88F7 /* VEview.m in Sources */,

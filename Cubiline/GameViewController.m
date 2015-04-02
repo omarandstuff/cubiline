@@ -16,6 +16,7 @@
 	NSString* m_device;
 	
 	VEAds* m_ads;
+	VEIAPurchase* m_iAPurchase;
 }
 
 - (NSString*)deviceCategory;
@@ -31,6 +32,9 @@
 	
 	//Ads
 	m_ads = [VEAds loadSaredVEAdsWithViewController:self];
+	
+	/// InApp purchase
+	m_iAPurchase = [VEIAPurchase sharedVEIAPurchase];
 	
 	// App delegate
 	m_appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

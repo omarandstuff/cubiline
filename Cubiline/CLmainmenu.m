@@ -57,6 +57,9 @@
 	bool m_viewing;
 	VESprite* m_background;
 	VESprite* m_logo;
+	VEText* m_version;
+	VEText* m_developed;
+	VEText* m_byOmarDeAnda;
 }
 
 - (void)PressCube;
@@ -65,9 +68,7 @@
 - (void)DoSelect;
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
-
 - (void)PresentShit;
-
 - (void)PresentAbout;
 
 @end
@@ -150,8 +151,6 @@
 		m_title.LockAspect = true;
 		
 		
-		
-		
 		//// About /////
 		m_background = [m_renderBox NewSolidSpriteWithColor:ColorCubiline];
 		m_background.Opasity = 0.0f;
@@ -161,6 +160,16 @@
 		m_logo = [m_renderBox NewSpriteFromFileName:@"Logo.png"];
 		CommonButtonStyle(m_logo);
 		m_logo.LockAspect = true;
+		
+		m_version = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Version: 1.0.0"];
+		CommonTextStyle(m_version);
+		
+		m_developed = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Developed by"];
+		CommonTextStyle(m_developed);
+		
+		m_byOmarDeAnda = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"David de Anda"];
+		CommonTextStyle(m_byOmarDeAnda);
+		m_byOmarDeAnda.Color = FrontColor;
 		
 		/////////////
 		
@@ -202,6 +211,9 @@
 		
 		[Scene addSprite:m_background];
 		[Scene addSprite:m_logo];
+		[Scene addText:m_version];
+		[Scene addText:m_developed];
+		[Scene addText:m_byOmarDeAnda];
 		
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeCamera.LockLookAt = true;
@@ -304,8 +316,28 @@
 	
 	m_cubeLimit = spriteSize / 3.5f;
 	
+	/// About
 	m_background.Width = width;
 	m_background.Height = height;
+	
+	GLKVector3 position;
+	
+	if(width > height)
+		position = GLKVector3Make(0.0f, spriteSize / 6.0f, 0.0f);
+	else
+		position = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	
+	m_logo.Position = position;
+	
+	position.y -= spriteSize * 0.30f;
+	m_version.Position = position;
+	
+	position.y -= spriteSize * 0.15f;
+	m_developed.Position = position;
+	
+	position.y -= spriteSize * 0.13f;
+	m_byOmarDeAnda.Position = position;
+	
 }
 
 - (void)PresentShit
@@ -336,6 +368,21 @@
 	[m_logo ResetOpasity];
 	m_logo.Width = spriteSize * 0.75f;
 	m_logo.Opasity = 1.0f;
+	
+	[m_version ResetFontSize:spriteSize * 0.1f];
+	[m_version ResetOpasity];
+	m_version.FontSize = spriteSize * 0.05f;
+	m_version.Opasity = 1.0f;
+	
+	[m_developed ResetFontSize:spriteSize * 0.2f];
+	[m_developed ResetOpasity];
+	m_developed.FontSize = spriteSize * 0.1f;
+	m_developed.Opasity = 1.0f;
+	
+	[m_byOmarDeAnda ResetFontSize:spriteSize * 0.15f];
+	[m_byOmarDeAnda ResetOpasity];
+	m_byOmarDeAnda.FontSize = spriteSize * 0.08f;
+	m_byOmarDeAnda.Opasity = 1.0f;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
@@ -417,7 +464,16 @@
 	float rx = x - (m_renderBox.ScreenWidth / 2);
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
-	if(m_viewing)return;
+	if(m_viewing)
+	{
+		m_logo.Opasity = 0.0f;
+		m_version.Opasity = 0.0f;
+		m_developed.Opasity = 0.0f;
+		m_byOmarDeAnda.Opasity = 0.0f;
+		m_background.Opasity = 0.0f;
+		m_viewing = false;
+		return;
+	}
 	
 	m_right.Width = spriteSize / 10.0f;
 	m_left.Width = spriteSize / 10.0f;

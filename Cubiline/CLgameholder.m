@@ -9,7 +9,9 @@
 	VEText* m_points;
 	VEEffect1* m_pointsEffect;
 	VEText* m_bestScore;
+	
 	VEText* m_coins;
+	VEText* m_coinsC;
 	VESprite* m_coinsIcon;
 	VEEffect1* m_coinsEffect;
 	
@@ -152,6 +154,8 @@
 		m_background = background;
 		
 		m_ads = [VEAds sharedVEAds];
+		
+		m_totalCoins = -20;
 		
 		[self Create];
 	}
@@ -306,9 +310,15 @@
 		active = m_coinsEffect.IsActive;
 		[m_coinsEffect Frame:time];
 
-		if(Level.Coins != m_coinsEffect.Value)
+		if(Level.Coins != m_totalCoins)
 		{
 			int delta = Level.Coins - m_totalCoins;
+			if(m_totalCoins == -1)
+			{
+				m_totalCoins = 0;
+				delta = 0;
+				active = true;
+			}
 			m_totalCoins = Level.Coins;
 			
 			if(GameData.Coins > m_totalCoins)
@@ -339,8 +349,10 @@
 
 		if(active)
 		{
-			m_coins.Text = [NSString stringWithFormat:@"%d", (int)m_coinsEffect.Value];
+			m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
 			m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
+			
+			m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, -m_renderBox.ScreenHeight / 2.0f + m_buttonSize / 4.0f, 0.0f);
 		}
 	}
 	else if(m_stage == FINISHED)
@@ -391,8 +403,10 @@
 		}
 		if(active)
 		{
-			m_coins.Text = [NSString stringWithFormat:@"%d", (int)m_coinsEffect.Value];
+			m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
 			m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
+			
+			m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, -m_renderBox.ScreenHeight / 2.0f + m_buttonSize / 4.0f, 0.0f);
 		}
 	}
 	else if(m_stage == FINISHED_TO_RESTART)
@@ -437,8 +451,10 @@
 	{
 		[m_coinsEffect Frame:time];
 
-		m_coins.Text = [NSString stringWithFormat:@"%d", (int)m_coinsEffect.Value];
+		m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
 		m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
+		
+		m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, -m_renderBox.ScreenHeight / 2.0f + m_buttonSize / 4.0f, 0.0f);
 		
 		m_spendText.Text = [NSString stringWithFormat:@"-$%d", m_totalCoins - (int)m_coinsEffect.Value];
 		[m_spendTextTime Reset];
@@ -482,6 +498,7 @@
 	// Coins text
 	m_coins.Position = GLKVector3Make(0.0f, -height / 2.0f + m_buttonSize / 4.0f, 0.0f);
 	m_coinsIcon.Position = GLKVector3Make(0.0f, -height / 2.0f + m_buttonSize / 4.0f + m_viewSize / 92.0f, 0.0f);
+	m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, -height / 2.0f + m_buttonSize / 4.0f, 0.0f);
 	
 	m_spendText.Position = GLKVector3Make(0.0f, -height / 2.0f + m_buttonSize / 1.5f + m_viewSize / 92.0f, 0.0f);
 	
@@ -661,12 +678,16 @@
 	m_bestScore.Color = FrontColor;
 	
 	// Coins text.
-	m_coins = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0"];
+	m_coins = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0   "];
 	CommonTextStyle(m_coins);
 	m_coins.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
 	m_coinsIcon = [m_renderBox NewSolidSpriteWithColor:TopColor];
 	CommonButtonStyle(m_coinsIcon);
 	m_coinsIcon.LockAspect = false;
+	
+	m_coinsC = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"c" Align:VE_TEXT_ALIGN_RIGHT];
+	CommonTextStyle(m_coinsC);
+	m_coinsC.Color = BottomColor;
 	
 	// Effects for scores
 	m_pointsEffect = [[VEEffect1 alloc] init];
@@ -790,6 +811,7 @@
 	[Scene addText:m_bestScore];
 	[Scene addSprite:m_coinsIcon];
 	[Scene addText:m_coins];
+	[Scene addText:m_coinsC];
 	[Scene addSprite:m_timeButton];
 	[Scene addSprite:m_reductButton];
 	[Scene addSprite:m_ghostButton];
@@ -857,6 +879,11 @@
 	m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
 	m_coinsIcon.Opasity = 1.0f;
 	
+	[m_coinsC ResetFontSize:fontsize * 2.0f];
+	[m_coinsC ResetOpasity:0.0f];
+	m_coinsC.FontSize = fontsize * 1.5f;;
+	m_coinsC.Opasity = 1.0f;
+
 	[m_timeButton ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
 	[m_timeButton ResetOpasity:0.0f];
 	m_timeButton.Width = m_buttonSize * 0.75f;
@@ -1010,6 +1037,11 @@
 	[m_coinsIcon ResetOpasity:0.0f];
 	m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
 	m_coinsIcon.Opasity = 1.0f;
+	
+	[m_coinsC ResetFontSize:fontsize * 2.0f];
+	[m_coinsC ResetOpasity:0.0f];
+	m_coinsC.FontSize = fontsize * 1.5f;;
+	m_coinsC.Opasity = 1.0f;
 
 }
 
@@ -1246,6 +1278,7 @@
 				
 				m_coins.Opasity = 0.0f;
 				m_coinsIcon.Opasity = 0.0f;
+				m_coinsC.Opasity = 0.0f;
 			}
 			m_showing = false;
 			
@@ -1458,6 +1491,7 @@
 			m_timeButton.Opasity = 0.0f;
 			m_coins.Opasity = 0.0f;
 			m_coinsIcon.Opasity = 0.0f;
+			m_coinsC.Opasity = 0.0f;
 		}
 		m_timeButton.Width = m_buttonSize * 0.75f;
 	}
@@ -1535,6 +1569,7 @@
 			
 			m_coins.Opasity = 0.0f;
 			m_coinsIcon.Opasity = 0.0f;
+			m_coinsC.Opasity = 0.0f;
 			
 			m_cubeCamera.PivotRotationTransitionTime = 0.1;
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.PivotRotation;
@@ -1569,7 +1604,7 @@
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
 {
 	if(!skipped)
-		Level.Coins += 500;
+		Level.Coins += 1000;
 }
 
 - (void)Begin
@@ -1581,8 +1616,8 @@
 	m_points.Text = @"0";
 	
 	[m_coinsEffect Reset];
-	m_totalCoins = 0;
-	m_coins.Text = @"0";
+	m_totalCoins = -1;
+	m_coins.Text = @"0   ";
 	
 	[self Resize];
 	[self PresentInterface];
@@ -1613,6 +1648,7 @@
 	m_points.Opasity = 0.0f;
 	m_coins.Opasity = 0.0f;
 	m_coinsIcon.Opasity = 0.0f;
+	m_coinsC.Opasity = 0.0f;
 	m_newRecord.Opasity = 0.0f;
 	//m_title.Opasity = 0.0f;
 	

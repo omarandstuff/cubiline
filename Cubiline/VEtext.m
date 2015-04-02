@@ -252,7 +252,7 @@
 		XPos = -m_realWidth / 2.0f;
 	else if(Aling == VE_TEXT_ALIGN_LEFT)
 		XPos = 0;
-	else if(Aling == VE_TEXT_ALIGN_LEFT)
+	else if(Aling == VE_TEXT_ALIGN_RIGHT)
 		XPos = -m_realWidth;
 	
 	for(int i = 0; i < stringSize; i++)

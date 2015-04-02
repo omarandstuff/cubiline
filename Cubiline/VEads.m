@@ -90,6 +90,7 @@
 		void (*func)(id, SEL, NSString*, BOOL) = (void *)imp;
 		func(object, selector, rewardItemKey, skipped);
 	}
+	[[UnityAds sharedInstance] hide];
 }
 
 - (void)unityAdsVideoStarted
