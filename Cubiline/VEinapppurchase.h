@@ -12,6 +12,8 @@
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
 - (void)buyProduct:(SKProduct *)product;
 
+- (void)addPaymentTransactionObserver:(id)object;
+
 
 @end
 

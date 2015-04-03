@@ -25,12 +25,20 @@ static ALCcontext *openALContext;
     
     if(self)
     {
-
-        
         [self SetUpAudioTools];
     }
     
     return self;
+}
+
++ (instancetype)sharedVEAudioBox
+{
+	static VEAudioBox* sharedVEAudioBox;
+	static dispatch_once_t onceToken;
+	
+	dispatch_once(&onceToken, ^{sharedVEAudioBox = [[VEAudioBox alloc] init];});
+	
+	return sharedVEAudioBox;
 }
 
 - (void)Frame:(float)time

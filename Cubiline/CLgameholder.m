@@ -15,8 +15,6 @@
 	VESprite* m_coinsIcon;
 	VEEffect1* m_coinsEffect;
 	
-	VESprite* m_background;
-	
 	VESprite* m_scoreFinish;
 	VESprite* m_scoreFinish2;
 	
@@ -92,6 +90,7 @@
 	
 	int m_highScore;
 	int m_totalCoins;
+	int m_grown;
 	
 	//  buttons
 	bool m_touchedButton;
@@ -121,6 +120,9 @@
 	/// reset effect
 	bool m_resetEffect;
 	VEWatch* m_resetEffectTime;
+	
+	VEAudioBox* m_audioBox;
+	VESound* m_boopSound;
 }
 
 - (void)Create;
@@ -143,7 +145,7 @@
 @synthesize GameCenter;
 @synthesize GameData;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite *)background Graphics:(enum CL_GRAPHICS)graphics
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -151,7 +153,8 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
-		m_background = background;
+		
+		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		
 		m_ads = [VEAds sharedVEAds];
 		
@@ -353,6 +356,18 @@
 			m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
 			
 			m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, -m_renderBox.ScreenHeight / 2.0f + m_buttonSize / 4.0f, 0.0f);
+		}
+		
+		if(Level.Grown != m_grown)
+		{
+			m_grown = Level.Grown;
+			if(GameData.Grown > m_grown)
+			{
+				m_grown = GameData.Grown;
+				Level.Grown = m_grown;
+			}
+			else
+				GameData.Grown = m_grown;
 		}
 	}
 	else if(m_stage == FINISHED)
@@ -689,13 +704,14 @@
 	CommonTextStyle(m_coinsC);
 	m_coinsC.Color = BottomColor;
 	
+	m_coinsEffect = [[VEEffect1 alloc] init];
+	m_coinsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
+	m_coinsEffect.TransitionTime = 0.4f;
+	
 	// Effects for scores
 	m_pointsEffect = [[VEEffect1 alloc] init];
 	m_pointsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_pointsEffect.TransitionTime = 0.4f;
-	m_coinsEffect = [[VEEffect1 alloc] init];
-	m_coinsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
-	m_coinsEffect.TransitionTime = 0.4f;
 	
 	/// Puse background.
 	m_pauseFade = [m_renderBox NewSolidSpriteWithColor:GrayColor];
@@ -847,6 +863,9 @@
 	
 	m_resetEffectTime = [[VEWatch alloc] init];
 	m_resetEffectTime.Style = VE_WATCH_STYLE_LIMITED;
+	
+	/// Sounds
+	//m_boopSound = [m_audioBox NewSoundWithFileName:@"boop_sound.wav"];
 }
 
 - (void)PresentInterface
@@ -1604,7 +1623,7 @@
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
 {
 	if(!skipped)
-		Level.Coins += 1000;
+		Level.Coins += 800;
 }
 
 - (void)Begin

@@ -4,12 +4,13 @@
 #import "CLlevel.h"
 #import "CLtouchable.h"
 
-@interface CLGameSetpUp : CLTouchable
+@interface CLGameSetpUp : CLTouchable<SKPaymentTransactionObserver>
 
 @property CLLevel* Level;
 @property (readonly)VEScene* Scene;
+@property CLData* GameData;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite*)background Graphics:(enum CL_GRAPHICS)graphics;
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;

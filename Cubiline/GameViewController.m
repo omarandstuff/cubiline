@@ -96,7 +96,7 @@
 	m_renderBox.DeviceType = m_device;
     
     // Create the audiobox object.
-	m_audioBox = [[VEAudioBox alloc] init];
+	m_audioBox = [VEAudioBox sharedVEAudioBox];
 	
 	// Audio Session
 	BOOL success = [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryAmbient error: nil];

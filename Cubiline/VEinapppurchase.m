@@ -3,6 +3,7 @@
 @interface VEIAPurchase()
 {
 	SKProductsRequest* m_productsRequest;
+	NSMutableArray* m_paymentTransactionObservers;
 }
 
 - (void)requestProducts:(NSSet*)productIdentifiers;
@@ -18,7 +19,7 @@
 	static VEIAPurchase* sharedVEIAPurchase;
 	static dispatch_once_t onceToken;
 	
-	dispatch_once(&onceToken, ^{sharedVEIAPurchase = [[VEIAPurchase alloc] initWithProductIdentifiers:[NSSet setWithObjects:@"cubiline_10000_coins", nil]];});
+	dispatch_once(&onceToken, ^{sharedVEIAPurchase = [[VEIAPurchase alloc] initWithProductIdentifiers:[NSSet setWithObjects:@"cubiline_10000_extra_coins", nil]];});
 	
 	return sharedVEIAPurchase;
 }
@@ -30,6 +31,7 @@
 	if (self)
 	{
 		Products = [[NSMutableDictionary alloc] init];
+		m_paymentTransactionObservers = [[NSMutableArray alloc] init];
 		
 		[self requestProducts:productIdentifiers];
 		
@@ -64,21 +66,18 @@
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-	for (SKPaymentTransaction * transaction in transactions)
+	for(id object in m_paymentTransactionObservers)
 	{
-		SKPaymentTransactionState st = transaction.transactionState;
-		NSLog(@"%@", transaction.error);
-		switch (st)
-		{
-			case SKPaymentTransactionStatePurchased:
-				break;
-			case SKPaymentTransactionStateFailed:
-				break;
-			case SKPaymentTransactionStateRestored:
-			default:
-				break;
-		}
-	};
+		SEL selector = @selector(paymentQueue:updatedTransactions:);
+		IMP imp = [object methodForSelector:selector];
+		void (*func)(id, SEL, SKPaymentQueue*, NSArray*) = (void *)imp;
+		func(object, selector, queue, transactions);
+	}
+}
+
+- (void)addPaymentTransactionObserver:(id)object
+{
+	[m_paymentTransactionObservers addObject:object];
 }
 
 @end

@@ -56,7 +56,7 @@
 		m_gameData = [CLData loadInstanceWithGameCenter:m_gameCenter];
 		
 		// Main menu.
-		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
+		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		m_mainMenu.GameCenter = m_gameCenter;
 		[m_mainMenu Resize];
 		
@@ -67,11 +67,12 @@
 		//m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
 		m_cubilineLevel.BodyColor = PrimaryColor;
 		
-		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
+		m_gameSetUp = [[CLGameSetpUp alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
+		m_gameSetUp.GameData = m_gameData;
 		[m_gameSetUp Resize];
 		m_gameSetUp.Level = m_cubilineLevel;
 		
-		m_gameHolder = [[CLGameHolder alloc] initWithRenderBox:m_renderBox Background:m_background Graphics:m_graphics];
+		m_gameHolder = [[CLGameHolder alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		m_gameHolder.GameCenter = m_gameCenter;
 		m_gameHolder.GameData = m_gameData;
 		[m_gameHolder Resize];
@@ -82,7 +83,7 @@
 		m_gameState = GAME_STATE_MAIN_MENU;
 		
 		// Sound
-		NSString *path = [NSString stringWithFormat:@"%@/10 Fire Meet Gasoline.mp3", [[NSBundle mainBundle] resourcePath]];
+		NSString *path = [NSString stringWithFormat:@"%@/5-Seasons.mp3", [[NSBundle mainBundle] resourcePath]];
 		NSURL *soundUrl = [NSURL fileURLWithPath:path];
 		
 		// Create audio player object and initialize with URL to sound

@@ -10,6 +10,8 @@
 
 @property VECamera* Listener;
 
++ (instancetype)sharedVEAudioBox;
+
 - (void)Frame:(float)time;
 - (VESound*)NewSoundWithFileName:(NSString*)filename;
 - (void)ReleaseSound:(VESound*)sound;

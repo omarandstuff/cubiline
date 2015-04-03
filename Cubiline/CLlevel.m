@@ -2628,7 +2628,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Coins += 1000;
+			Coins += 400;
 			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
@@ -3196,8 +3196,8 @@
 	SpecialFood4.ScaleTransitionTime = 0.2f;
 	m_specialFood4Watch = [[VEWatch alloc] init];
 	m_specialFood4Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood4MinTime = 45.0f;
-	m_specialFood4MaxTime = 240.0f;
+	m_specialFood4MinTime = 120.0f;
+	m_specialFood4MaxTime = 460.0f;
 	m_specialFood4ShowTime = 8.0f;
 	
 	SpecialFood5 = [m_renderBox NewModelFromFileName:@"quad"];

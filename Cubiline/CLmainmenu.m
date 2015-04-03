@@ -81,7 +81,7 @@
 
 @synthesize GameCenter;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox Background:(VESprite *)background Graphics:(enum CL_GRAPHICS)graphics
+- (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -103,8 +103,9 @@
 		m_cubeImage = [m_renderBox NewSpriteFromTexture:m_cubeView.Color];
 		
 		m_playIcon = [m_renderBox NewModelFromFileName:@"main_menu_play"];
+		m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 		m_playIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_playIcon.ScaleTransitionTime = 0.1f;
+		m_playIcon.ScaleTransitionTime = 0.15f;
 		m_playIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_playIcon.RotationTransitionTime = 0.1f;
 		m_playIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
@@ -113,7 +114,7 @@
 		
 		m_gameCenterIcon = [m_renderBox NewModelFromFileName:@"main_menu_game_center"];
 		m_gameCenterIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_gameCenterIcon.ScaleTransitionTime = 0.1f;
+		m_gameCenterIcon.ScaleTransitionTime = 0.15f;
 		m_gameCenterIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_gameCenterIcon.RotationTransitionTime = 0.1f;
 		m_gameCenterIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
@@ -122,7 +123,7 @@
 		
 		m_howToIcon = [m_renderBox NewModelFromFileName:@"main_menu_howto"];
 		m_howToIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_howToIcon.ScaleTransitionTime = 0.1f;
+		m_howToIcon.ScaleTransitionTime = 0.15f;
 		m_howToIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_howToIcon.RotationTransitionTime = 0.1f;
 		m_howToIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
@@ -131,7 +132,7 @@
 		
 		m_aboutIcon = [m_renderBox NewModelFromFileName:@"main_menu_about"];
 		m_aboutIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_aboutIcon.ScaleTransitionTime = 0.1f;
+		m_aboutIcon.ScaleTransitionTime = 0.15f;
 		m_aboutIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_aboutIcon.RotationTransitionTime = 0.1f;
 		m_aboutIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
