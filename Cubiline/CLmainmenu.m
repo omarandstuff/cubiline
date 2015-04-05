@@ -61,6 +61,7 @@
 	VEText* m_version;
 	VEText* m_developed;
 	VEText* m_byOmarDeAnda;
+	VEText* m_cubilineDotCom;
 	
 	
 	/// Sounds
@@ -251,6 +252,9 @@
 		CommonTextStyle(m_byOmarDeAnda);
 		m_byOmarDeAnda.Color = FrontColor;
 		
+		m_cubilineDotCom = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"www.cubiline.com"];
+		CommonTextStyle(m_cubilineDotCom);
+		
 		/////////////
 		
 		m_light = [m_renderBox NewLight];
@@ -396,6 +400,7 @@
 		[Scene addText:m_version];
 		[Scene addText:m_developed];
 		[Scene addText:m_byOmarDeAnda];
+		[Scene addText:m_cubilineDotCom];
 		
 		[Scene addSprite:m_moveUp];
 		[Scene addSprite:m_moveDown];
@@ -565,11 +570,14 @@
 	position.y -= spriteSize * 0.30f;
 	m_version.Position = position;
 	
-	position.y -= spriteSize * 0.15f;
+	position.y -= spriteSize * 0.1f;
 	m_developed.Position = position;
 	
-	position.y -= spriteSize * 0.13f;
+	position.y -= spriteSize * 0.1f;
 	m_byOmarDeAnda.Position = position;
+	
+	position.y -= spriteSize * 0.1f;
+	m_cubilineDotCom.Position = position;
 	
 	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
 	m_audioSetUpOff.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
@@ -702,6 +710,11 @@
 	[m_byOmarDeAnda ResetOpasity];
 	m_byOmarDeAnda.FontSize = spriteSize * 0.08f;
 	m_byOmarDeAnda.Opasity = 1.0f;
+	
+	[m_cubilineDotCom ResetFontSize:spriteSize * 0.15f];
+	[m_cubilineDotCom ResetOpasity];
+	m_cubilineDotCom.FontSize = spriteSize * 0.045f;
+	m_cubilineDotCom.Opasity = 1.0f;
 }
 
 - (void)PresentHowTo
@@ -1034,6 +1047,7 @@
 		m_developed.Opasity = 0.0f;
 		m_byOmarDeAnda.Opasity = 0.0f;
 		m_background.Opasity = 0.0f;
+		m_cubilineDotCom.Opasity = 0.0f;
 		m_viewing = false;
 		return;
 	}
