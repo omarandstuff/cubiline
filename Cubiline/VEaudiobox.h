@@ -9,6 +9,7 @@
 @interface VEAudioBox : NSObject
 
 @property VECamera* Listener;
+@property bool Mute;
 
 + (instancetype)sharedVEAudioBox;
 

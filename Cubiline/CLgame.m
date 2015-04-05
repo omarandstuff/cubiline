@@ -29,13 +29,19 @@
 	AVAudioPlayer* m_player;
 	
 	enum CL_GRAPHICS m_graphics;
+	
+
+	VESound* m_outSetUp;
+	VESound* m_inSetUp;
+	
+	bool m_mute;
 }
 
 @end
 
 @implementation CLGame
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox *)audiobox GameCenter:(VEGameCenter *)gamecenter Graphics:(enum CL_GRAPHICS)graphics
+- (id)initWithRenderBox:(VERenderBox*)renderbox GameCenter:(VEGameCenter *)gamecenter Graphics:(enum CL_GRAPHICS)graphics
 {
 	self = [super init];
 	
@@ -43,7 +49,7 @@
 	{
         // Get the renderbox and audiobox
 		m_renderBox = renderbox;
-        m_audioBox = audiobox;
+        m_audioBox = [VEAudioBox sharedVEAudioBox];
 		m_gameCenter = gamecenter;
 		m_graphics = graphics;
 		
@@ -58,12 +64,18 @@
 		// Main menu.
 		m_mainMenu = [[CLMainMenu alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		m_mainMenu.GameCenter = m_gameCenter;
+		m_mainMenu.GameData = m_gameData;
 		[m_mainMenu Resize];
 		
 		m_cubilineLevel = [[CLLevel alloc] initWithRenderBox:m_renderBox Graphics:m_graphics];
 		m_cubilineLevel.Grown = m_gameData.Grown;
 		m_cubilineLevel.HighScore = m_gameData.HighScore;
 		m_cubilineLevel.Coins = m_gameData.Coins;
+		if(!m_gameData.New)
+		{
+			m_cubilineLevel.Coins = 50000;
+			m_gameData.Coins = 50000;
+		}
 		//m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
 		m_cubilineLevel.BodyColor = PrimaryColor;
 		
@@ -83,14 +95,20 @@
 		m_gameState = GAME_STATE_MAIN_MENU;
 		
 		// Sound
-		NSString *path = [NSString stringWithFormat:@"%@/5-Seasons.mp3", [[NSBundle mainBundle] resourcePath]];
+		NSString *path = [NSString stringWithFormat:@"%@/background.mp3", [[NSBundle mainBundle] resourcePath]];
 		NSURL *soundUrl = [NSURL fileURLWithPath:path];
 		
 		// Create audio player object and initialize with URL to sound
 		m_player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
 		m_player.numberOfLoops = 100000;
 		
-		//[m_player play];
+		[m_player play];
+		
+		m_outSetUp = [m_audioBox NewSoundWithFileName:@"out.wav"];
+		m_inSetUp = [m_audioBox NewSoundWithFileName:@"out.wav"];
+		
+		m_audioBox.Mute = m_gameData.Mute;
+		m_mute = m_gameData.Mute;
 	}
 	
 	return self;
@@ -98,6 +116,23 @@
 
 - (void)Frame:(float)time
 {
+	if(m_player.isPlaying)
+	{
+		if(m_audioBox.Mute)
+			[m_player stop];
+	}
+	else
+	{
+		if(!m_audioBox.Mute)
+			[m_player play];
+	}
+	
+	if(m_mute != m_audioBox.Mute)
+	{
+		m_mute = m_audioBox.Mute;
+		m_gameData.Mute = m_mute;
+	}
+	
 	[m_gameData Frame];
 	if(m_gameState == GAME_STATE_MAIN_MENU)
 	{
@@ -112,6 +147,8 @@
 				
 				[m_mainMenu OutToPlay];
 				m_gameState = GAME_STATE_FROM_MAIN_TO_GAME_SETUP;
+				
+				[m_inSetUp Play];
 			}
 			else if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_GC)
 			{
@@ -121,6 +158,11 @@
 			else if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_ABOUT)
 			{
 				[m_mainMenu About];
+				[m_mainMenu Reset];
+			}
+			else if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_HOWTO)
+			{
+				[m_mainMenu HowTo];
 				[m_mainMenu Reset];
 			}
 		}
@@ -171,6 +213,8 @@
 		{
 			[m_gameHolder OutToMainMenu];
 			m_gameState = GAME_STATE_FROM_PLAYING_TO_MAIN_MENU;
+			
+			[m_outSetUp Play];
 		}
 	}
 	else if(m_gameState == GAME_STATE_FROM_PLAYING_TO_MAIN_MENU)

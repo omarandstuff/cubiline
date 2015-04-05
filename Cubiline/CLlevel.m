@@ -115,6 +115,16 @@
 	bool m_restarted;
 	
 	enum CL_GRAPHICS m_graphics;
+	
+	
+	/// Audio
+	VEAudioBox* m_audioBox;
+	VESound* m_1UpSound;
+	VESound* m_10UpSound;
+	VESound* m_10xSound;
+	VESound* m_coinsSound;
+	VESound* m_stretchSound;
+	VESound* m_ghostSound;
 }
 
 
@@ -223,6 +233,8 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		
+		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		
 		_Size = 456;
 		ZoneUp = CL_ZONE_TOP;
@@ -2485,6 +2497,9 @@
 		[self PositionateTextByPoint:m_pointsShower Position:Food.Position Offset:1.5f];
 		
 		[self RandomFood:Food];
+		
+		[m_1UpSound Stop];
+		[m_1UpSound Play];
 	}
 	
 	if(dist1 < 0.5f)
@@ -2502,6 +2517,9 @@
 		[self PositionateTextByPoint:m_pointsShower Position:Food1.Position Offset:1.5f];
 		
 		[self RandomFood:Food1];
+		
+		[m_1UpSound Stop];
+		[m_1UpSound Play];
 	}
 	
 	if(dist2 < 0.5f)
@@ -2519,6 +2537,9 @@
 		[self PositionateTextByPoint:m_pointsShower Position:Food2.Position Offset:1.5f];
 		
 		[self RandomFood:Food2];
+		
+		[m_1UpSound Stop];
+		[m_1UpSound Play];
 	}
 	
 	if(m_specialFood1Waiting)
@@ -2558,6 +2579,8 @@
 			[m_specialFood1Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood1MinTime Max:m_specialFood1MaxTime]];
 			m_specialFood1Waiting = true;
 			SpecialFood1.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
+			[m_10UpSound Play];
 		}
 		else if(!m_specialFood1Watch.Active)
 		{
@@ -2597,6 +2620,8 @@
 			[m_specialFood2Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood2MinTime Max:m_specialFood2MaxTime]];
 			m_specialFood2Waiting = true;
 			SpecialFood2.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
+			[m_10xSound Play];
 		}
 		else if(!m_specialFood2Watch.Active)
 		{
@@ -2635,6 +2660,8 @@
 			[m_specialFood3Watch ResetInSeconds:[m_random NextFloatWithMin:m_specialFood3MinTime Max:m_specialFood3MaxTime]];
 			m_specialFood3Waiting = true;
 			SpecialFood3.Scale = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
+			[m_coinsSound Play];
 		}
 		else if(!m_specialFood3Watch.Active)
 		{
@@ -3047,7 +3074,7 @@
 	}
 }
 
-- (void)Reduction
+- (bool)Reduction
 {
 	int togrow = (m_bodyLegth + (m_toGrow - m_grown) - (m_toUnGrow - m_unGrown)) > 14 ? 10 : (m_bodyLegth + (m_toGrow - m_grown) - (m_toUnGrow - m_unGrown) - 4);
 	
@@ -3059,7 +3086,12 @@
 		m_unEating = true;
 		
 		[self PositionateTextByPoint:m_specialPoints4Shower Position:Leader.Position Offset:1.54f];
+		
+		[m_stretchSound Stop];
+		[m_stretchSound Play];
+		return true;
 	}
+	return false;
 }
 
 - (void)MakeGhost
@@ -3075,7 +3107,10 @@
 	
 	m_ghostDeapering = false;
 	
-	[self PositionateTextByPoint:m_specialPoints5Shower Position:Leader.Position Offset:1.54f];
+	[m_ghostSound Stop];
+	[m_ghostSound Play];
+	
+	[self PositionateTextByPoint:m_specialPoints5Shower Position:Leader.Position Offset:1.55f];
 }
 
 - (void)OutGhost
@@ -3197,7 +3232,7 @@
 	m_specialFood4Watch = [[VEWatch alloc] init];
 	m_specialFood4Watch.Style = VE_WATCH_STYLE_REVERSE;
 	m_specialFood4MinTime = 120.0f;
-	m_specialFood4MaxTime = 460.0f;
+	m_specialFood4MaxTime = 360.0f;
 	m_specialFood4ShowTime = 8.0f;
 	
 	SpecialFood5 = [m_renderBox NewModelFromFileName:@"quad"];
@@ -3347,6 +3382,15 @@
 	// Body and slots
 	Body = [[NSMutableArray alloc] init];
 	m_slots = [[NSMutableArray alloc] init];
+	
+	
+	/// Audio
+	m_1UpSound = [m_audioBox NewSoundWithFileName:@"1up.wav"];
+	m_10UpSound = [m_audioBox NewSoundWithFileName:@"10up.wav"];
+	m_10xSound = [m_audioBox NewSoundWithFileName:@"10x.wav"];
+	m_coinsSound = [m_audioBox NewSoundWithFileName:@"coins.wav"];
+	m_ghostSound = [m_audioBox NewSoundWithFileName:@"ghost.wav"];
+	m_stretchSound = [m_audioBox NewSoundWithFileName:@"stretch.wav"];
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size

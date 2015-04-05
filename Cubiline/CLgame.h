@@ -9,7 +9,7 @@
 
 @property (readonly)bool Adiable;
 
-- (id)initWithRenderBox:(VERenderBox*)renderbox AudioBox:(VEAudioBox *)audiobox GameCenter:(VEGameCenter *)gamecenter Graphics:(enum CL_GRAPHICS)graphics;
+- (id)initWithRenderBox:(VERenderBox*)renderbox GameCenter:(VEGameCenter *)gamecenter Graphics:(enum CL_GRAPHICS)graphics;
 - (void)Frame:(float)time;
 - (void)Render;
 - (void)Resize;

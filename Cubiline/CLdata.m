@@ -16,6 +16,10 @@
 @synthesize Grown;
 @synthesize Coins;
 @synthesize GameCenter;
+@synthesize Mute;
+@synthesize Speed;
+@synthesize Size = Size_;
+@synthesize New;
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
@@ -26,6 +30,10 @@
 		HighScore = [decoder decodeIntForKey:@"HighScore"];
 		Grown = [decoder decodeIntForKey:@"Grown"];
 		Coins = [decoder decodeIntForKey:@"Coins"];
+		Mute = [decoder decodeBoolForKey:@"Mute"];
+		Speed = [decoder decodeIntForKey:@"Speed"];
+		Size_ = [decoder decodeIntForKey:@"Size"];
+		New = [decoder decodeBoolForKey:@"New"];
 	}
 	
 	return self;
@@ -100,6 +108,10 @@
 	[encoder encodeInt:self.HighScore forKey:@"HighScore"];
 	[encoder encodeInt:self.Grown forKey:@"Grown"];
 	[encoder encodeInt:self.Coins forKey:@"Coins"];
+	[encoder encodeBool:self.Mute forKey:@"Mute"];
+	[encoder encodeInt:self.Speed forKey:@"Speed"];
+	[encoder encodeInt:self.Size forKey:@"Size"];
+	[encoder encodeBool:self.New forKey:@"New"];
 }
 
 + (NSString*)filePath
@@ -167,6 +179,50 @@
 - (unsigned int)Coins
 {
 	return Coins;
+}
+
+- (void)setMute:(bool)mute
+{
+	Mute = mute;
+	[self save];
+}
+
+- (bool)Mute
+{
+	return Mute;
+}
+
+- (void)setSize:(unsigned int)size
+{
+	Size_ = size;
+	[self save];
+}
+
+- (unsigned int)Size
+{
+	return Size_;
+}
+
+- (void)setSpeed:(unsigned int)speed
+{
+	Speed = speed;
+	[self save];
+}
+
+- (unsigned int)Speed
+{
+	return Speed;
+}
+
+- (void)setNew:(bool)new
+{
+	New = new;
+	[self save];
+}
+
+- (bool)New
+{
+	return New;
 }
 
 @end

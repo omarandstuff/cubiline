@@ -63,7 +63,7 @@
 - (void)Reset;
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 
-- (void)Reduction;
+- (bool)Reduction;
 - (void)MakeGhost;
 
 - (void)doTurn:(enum CL_TURN)turn;

@@ -8,6 +8,10 @@
 @property unsigned int HighScore;
 @property unsigned int Grown;
 @property unsigned int Coins;
+@property bool Mute;
+@property unsigned int Size;
+@property unsigned int Speed;
+@property bool New;
 
 @property VEGameCenter* GameCenter;
 

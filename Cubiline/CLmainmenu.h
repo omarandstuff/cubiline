@@ -11,6 +11,7 @@
 @property enum CL_MAIN_MENU_SELECTION Selection;
 
 @property VEGameCenter* GameCenter;
+@property CLData* GameData;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics;
 
@@ -28,6 +29,7 @@
 - (void)Reset;
 
 - (void)About;
+- (void)HowTo;
 
 @end
 

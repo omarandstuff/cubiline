@@ -18,6 +18,7 @@ static ALCdevice *openALDevice;
 static ALCcontext *openALContext;
 
 @synthesize Listener;
+@synthesize Mute;
 
 - (id)init
 {
@@ -137,6 +138,24 @@ void AudioInterruptionListenerCallback(void* user_data, UInt32 interruption_stat
              [m_sounds removeObjectAtIndex:index];
          }
      }];
+}
+
+- (void)setMute:(bool)mute
+{
+	if(mute != Mute)
+	{
+		Mute = mute;
+		for(VESound* sound in m_sounds)
+		{
+			[sound Stop];
+			sound.Mute = Mute;
+		}
+	}
+}
+
+- (bool)Mute
+{
+	return Mute;
 }
 
 @end

@@ -106,13 +106,13 @@
 	
 	//Create the game place.
 	if([deviceCategory isEqualToString:@"very low"])
-		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_VERYLOW];
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_VERYLOW];
 	else if([deviceCategory isEqualToString:@"low"])
-		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_LOW];
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_LOW];
 	else if([deviceCategory isEqualToString:@"medium"])
-		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_MEDIUM];
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_MEDIUM];
 	else
-		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox AudioBox:m_audioBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_HIGH];
+		m_game = [[CLGame alloc] initWithRenderBox:m_renderBox GameCenter:m_gameCenter Graphics:CL_GRAPHICS_HIGH];
 
 	// Delegate
 	m_appDelegate.Game = m_game;

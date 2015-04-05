@@ -42,6 +42,7 @@
 	enum CL_GRAPHICS m_graphics;
 	
 	float spriteSize;
+	float m_buttonAudioSize;
 	
 	/// Coins
 	VEText* m_coins;
@@ -58,6 +59,21 @@
 	VEText* m_buyPrice;
 	VESprite* m_buyButton;
 	Rect m_buyButtonRect;
+	
+	
+	/// Sound
+	VEAudioBox* m_audioBox;
+	VESound* m_coinsSound;
+	VESound* m_sizeSound;
+	VESound* m_speedSound;
+	VESound* m_playSound;
+	
+	VESprite* m_audioSetUpOn;
+	VESprite* m_audioSetUpOff;
+	Rect m_audioSetUpRect;
+	
+	VESprite* m_background;
+	VEText* m_gameModeText;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size;
@@ -82,6 +98,7 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		
 		// Purchase
 		[[VEIAPurchase sharedVEIAPurchase] addPaymentTransactionObserver:self];
@@ -163,8 +180,27 @@
 		
 		//////
 		
+		//// Audio SetUp
+		m_audioSetUpOn = [m_renderBox NewSpriteFromFileName:@"sound_button_on.png"];
+		m_audioSetUpOff = [m_renderBox NewSpriteFromFileName:@"sound_button_off.png"];
+		CommonButtonStyle(m_audioSetUpOn);
+		CommonButtonStyle(m_audioSetUpOff);
+		
+		
+		/// back
+		m_background = [m_renderBox NewSolidSpriteWithColor:ColorWhite];
+		m_background.Opasity = 0.0f;
+		m_background.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_background.OpasityTransitionTime = 0.15f;
+		
+		/// text game mode
+		m_gameModeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Level Options"];
+		CommonTextStyle(m_gameModeText);
+		
+		
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
+		[Scene addSprite:m_background];
 		[Scene addText:m_speedText];
 		[Scene addText:m_sizeText];
 		[Scene addSprite:m_plusSpeedButton];
@@ -180,12 +216,21 @@
 		[Scene addText:m_buyCoinsC];
 		[Scene addSprite:m_buyButton];
 		[Scene addText:m_buyPrice];
+		[Scene addSprite:m_audioSetUpOn];
+		[Scene addSprite:m_audioSetUpOff];
+		[Scene addText:m_gameModeText];
 		
 		m_watch = [[VEWatch alloc] init];
 		m_watch.Style = VE_WATCH_STYLE_LIMITED;
 		
 		m_size = CL_SIZE_NORMAL;
 		m_speed = CL_SIZE_NORMAL;
+		
+		// Sound
+		m_coinsSound = [m_audioBox NewSoundWithFileName:@"coins.wav"];
+		m_sizeSound = [m_audioBox NewSoundWithFileName:@"size.wav"];
+		m_speedSound = [m_audioBox NewSoundWithFileName:@"speed.wav"];
+		m_playSound = [m_audioBox NewSoundWithFileName:@"play.wav"];
 	}
 	
 	return self;
@@ -258,6 +303,8 @@
 	else
 		spriteSize = width;
 	
+	m_buttonAudioSize = spriteSize / 5.0f;
+	
 	buttonspace = spriteSize / 100.0f;
 	m_buttonSize = (spriteSize - buttonspace * 6.0f) / 6.0f;
 	
@@ -313,12 +360,16 @@
 	position.x += buttonspace * 1.5f + m_buttonSize * 2.0f;
 	m_speedText.Position = position;
 	
+	position.y += m_buttonSize * 0.5f;
+	position.x = m_plusSizeButtonRect.right + buttonspace / 2.0f;
+	m_gameModeText.Position = position;
+	
 	// Coins text
 	m_coins.Position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 0.5f, 0.0f);
 	m_coinsIcon.Position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 0.5f + buttonspace * 1.5f, 0.0f);
 	m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, height / 2.0f - m_buttonSize * 0.5f, 0.0f);
 	
-	position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 1.1f, 0.0f);
+	position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 1.5f, 0.0f);
 	
 	m_backBuyCoins.Position = position;
 	m_backBuyCoins.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 0.6f, 0.0f);
@@ -340,6 +391,19 @@
 	m_buyButtonRect.bottom = m_buyButtonRect.top - m_buttonSize * 0.7f;
 	m_buyButtonRect.left = position.x - (m_buyPrice.Width + m_buttonSize / 4.0f) / 2.0f;
 	m_buyButtonRect.right = m_buyButtonRect.left + m_buyPrice.Width + m_buttonSize / 4.0f;
+	
+	/// Audio
+	
+	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonAudioSize / 3.0f, height / 2.0f - m_buttonAudioSize / 3.0f, 0.0f);
+	m_audioSetUpOff.Position = GLKVector3Make(width / 2.0f - m_buttonAudioSize / 3.0f, height / 2.0f - m_buttonAudioSize / 3.0f, 0.0f);
+	
+	m_audioSetUpRect.bottom = height / 2.0f - (m_buttonAudioSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.top = height / 2.0f;
+	m_audioSetUpRect.left = width / 2.0f - (m_buttonAudioSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.right = width / 2.0f;
+	
+	m_background.Width = width;
+	m_background.Height = height;
 	
 }
 
@@ -392,6 +456,11 @@
 	m_speedText.FontSize = m_buttonSize * 0.28f;
 	m_speedText.Opasity = 1.0f;
 	
+	[m_gameModeText ResetFontSize:m_buttonSize * 0.8f];
+	[m_gameModeText ResetOpasity];
+	m_gameModeText.FontSize = m_buttonSize * 0.4f;
+	m_gameModeText.Opasity = 1.0f;
+	
 	[m_coins ResetFontSize:m_buttonSize * 1.0f];
 	[m_coins ResetOpasity:0.0f];
 	m_coins.FontSize = m_buttonSize * 0.5f;;
@@ -434,6 +503,23 @@
 		m_buyButton.Scale = GLKVector3Make(m_buyPrice.Width + m_buttonSize / 5.0f, m_buttonSize * 0.7f, 0.0f);
 		m_buyButton.Opasity = 1.0f;
 	}
+	
+	if(m_audioBox.Mute)
+	{
+		[m_audioSetUpOff ResetScale:GLKVector3Make(m_buttonAudioSize, m_buttonAudioSize, 0.0f)];
+		[m_audioSetUpOff ResetOpasity];
+		m_audioSetUpOff.Width = m_buttonAudioSize / 3.0f;
+		m_audioSetUpOff.Opasity = 1.0f;
+	}
+	else
+	{
+		[m_audioSetUpOn ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_audioSetUpOn ResetOpasity];
+		m_audioSetUpOn.Width = m_buttonAudioSize / 3.0f;
+		m_audioSetUpOn.Opasity = 1.0f;
+	}
+	
+	m_background.Opasity = 0.6f;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size
@@ -454,6 +540,8 @@
 	{
 		radious = 21.0f * 2.3;
 	}
+	
+	GameData.Size = m_size;
 	
 	// Re positionate the camera view.
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, radious);
@@ -476,6 +564,8 @@
 	{
 
 	}
+	
+	GameData.Speed = m_speed;
 }
 
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
@@ -521,6 +611,11 @@
 		m_plusSpeedButton.Width = m_buttonSize * 0.5f;
 	else if([self TestButton:m_minusSpeedButtonRect X:rx Y:ry])
 		m_minusSpeedButton.Width = m_buttonSize * 0.5f;
+	else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
+	{
+		m_audioSetUpOn.Width = m_buttonSize * 0.2f;
+		m_audioSetUpOff.Height = m_buttonSize * 0.2f;
+	}
 }
 
 - (void)TouchUp:(float)x Y:(float)y Fingers:(int)fingers
@@ -538,6 +633,7 @@
 	else if([self TestButton:m_playButtonRect X:rx Y:ry])
 	{
 		m_play = true;
+		[m_playSound Play];
 	}
 	else if([self TestButton:m_plusSizeButtonRect X:rx Y:ry] && m_plusSizeButtonEnable)
 	{
@@ -554,6 +650,8 @@
 		[self ResizeLevel:m_size];
 		m_minusSizeButtonEnable = true;
 		m_minusSizeButton.Opasity = 1.0f;
+		[m_sizeSound Stop];
+		[m_sizeSound Play];
 	}
 	else if([self TestButton:m_minusSizeButtonRect X:rx Y:ry] && m_minusSizeButtonEnable)
 	{
@@ -570,6 +668,8 @@
 		[self ResizeLevel:m_size];
 		m_plusSizeButtonEnable = true;
 		m_plusSizeButton.Opasity = 1.0f;
+		[m_sizeSound Stop];
+		[m_sizeSound Play];
 	}
 	else if([self TestButton:m_plusSpeedButtonRect X:rx Y:ry] && m_plusSpeedButtonEnable)
 	{
@@ -586,6 +686,8 @@
 		[self ChangeSpeed:m_speed];
 		m_minusSpeedButtonEnable = true;
 		m_minusSpeedButton.Opasity = 1.0f;
+		[m_speedSound Stop];
+		[m_speedSound Play];
 	}
 	else if([self TestButton:m_minusSpeedButtonRect X:rx Y:ry] && m_minusSpeedButtonEnable)
 	{
@@ -602,6 +704,22 @@
 		[self ChangeSpeed:m_speed];
 		m_plusSpeedButtonEnable = true;
 		m_plusSpeedButton.Opasity = 1.0f;
+		[m_speedSound Stop];
+		[m_speedSound Play];
+	}
+	else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
+	{
+		m_audioBox.Mute = !m_audioBox.Mute;
+		if(m_audioBox.Mute)
+		{
+			m_audioSetUpOn.Opasity = 0.0f;
+			m_audioSetUpOff.Opasity = 1.0f;
+		}
+		else
+		{
+			m_audioSetUpOn.Opasity = 1.0f;
+			m_audioSetUpOff.Opasity = 0.0f;
+		}
 	}
 	
 	m_buyPrice.FontSize = m_buttonSize * 0.5f;
@@ -610,6 +728,8 @@
 	m_minusSizeButton.Width = m_buttonSize;
 	m_plusSpeedButton.Width = m_buttonSize;
 	m_minusSpeedButton.Width = m_buttonSize;
+	m_audioSetUpOn.Width = m_buttonSize / 3.0f;
+	m_audioSetUpOff.Height = m_buttonSize / 3.0f;
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
@@ -624,6 +744,8 @@
 			{
 				Level.Coins += 10000;
 				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+				[m_coinsSound Stop];
+				[m_coinsSound Play];
 			}
 			case SKPaymentTransactionStateFailed:
 				break;
@@ -721,6 +843,13 @@
 	m_buyButton.Opasity = 0.0f;
 	m_backBuyCoins.Opasity = 0.0f;
 	
+	m_audioSetUpOn.Opasity = 0.0f;
+	m_audioSetUpOff.Opasity = 0.0f;
+	
+	m_gameModeText.Opasity = 0.0f;
+	
+	m_background.Opasity = 0.0f;
+	
 	m_cubeView.Camera = Level.FocusedCamera;
 	
 	[m_renderBox Frame:0.0f];
@@ -748,6 +877,24 @@
 - (bool)Ready
 {
 	return m_play;
+}
+
+- (void)setGameData:(CLData *)gameData
+{
+	GameData = gameData;
+	if(!GameData.New)
+	{
+		GameData.Size = CL_SIZE_NORMAL;
+		GameData.Speed = CL_SIZE_NORMAL;
+	}
+	
+	m_size = GameData.Size;
+	m_speed = GameData.Speed;
+}
+
+- (CLData*)GameData
+{
+	return GameData;
 }
 
 @end

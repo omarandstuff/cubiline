@@ -104,7 +104,7 @@
 	
 	bool m_toNew;
 	bool m_new;
-	
+
 	//Ads
 	VEAds* m_ads;
 	
@@ -122,7 +122,15 @@
 	VEWatch* m_resetEffectTime;
 	
 	VEAudioBox* m_audioBox;
-	VESound* m_boopSound;
+	VESound* m_finishSound;
+	VESound* m_newRecordSound;
+	VESound* m_click;
+	VESound* m_playSound;
+	VESound* m_coinSound;
+	
+	VESprite* m_audioSetUpOn;
+	VESprite* m_audioSetUpOff;
+	Rect m_audioSetUpRect;
 }
 
 - (void)Create;
@@ -153,8 +161,6 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
-		
-		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		
 		m_ads = [VEAds sharedVEAds];
 		
@@ -204,6 +210,9 @@
 				[m_special1 ResetOpasity:0.0f];
 				m_special1.Width = m_buttonSize * 0.2f;
 				m_special1.Opasity = 1.0f;
+				
+				[m_click Stop];
+				[m_click Play];
 			}
 			else
 			{
@@ -220,6 +229,9 @@
 				[m_special2 ResetOpasity:0.0f];
 				m_special2.Width = m_buttonSize * 0.2f;
 				m_special2.Opasity = 1.0f;
+				
+				[m_click Stop];
+				[m_click Play];
 			}
 			else
 			{
@@ -236,6 +248,9 @@
 				[m_special3 ResetOpasity:0.0f];
 				m_special3.Width = m_buttonSize * 0.2f;
 				m_special3.Opasity = 1.0f;
+				
+				[m_click Stop];
+				[m_click Play];
 			}
 			else
 			{
@@ -252,6 +267,9 @@
 				[m_special4 ResetOpasity:0.0f];
 				m_special4.Width = m_buttonSize * 0.2f;
 				m_special4.Opasity = 1.0f;
+				
+				[m_click Stop];
+				[m_click Play];
 			}
 			else
 			{
@@ -268,6 +286,9 @@
 				[m_special5 ResetOpasity:0.0f];
 				m_special5.Width = m_buttonSize * 0.2f;
 				m_special5.Opasity = 1.0f;
+				
+				[m_click Stop];
+				[m_click Play];
 			}
 			else
 			{
@@ -376,6 +397,7 @@
 		if(!m_watch.Active && !m_showing)
 		{
 			[self PresentFinishMenu];
+			
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.TargetPivotRotation;
 			m_showing = true;
 		}
@@ -465,6 +487,15 @@
 	else if(m_stage == POWER)
 	{
 		[m_coinsEffect Frame:time];
+		
+		static int num = 0;
+		
+		if(abs((int)m_coinsEffect.Value - num) >= 25)
+		{
+			num = (int)m_coinsEffect.Value;
+			[m_coinSound Stop];
+			[m_coinSound Play];
+		}
 
 		m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
 		m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
@@ -525,7 +556,7 @@
 	m_timeButton.Position = GLKVector3Make(-width / 2.0f + m_buttonSize / 2.0f, -height / 2.0f + m_buttonSize * 2.0f, 0.0f);
 	m_timeRect.top = -height / 2.0f + m_buttonSize * 2.0f + m_buttonSize * 0.35f;
 	m_timeRect.bottom = m_timeRect.top - m_buttonSize * 0.75f;
-	m_timeRect.left = -width / 2.0f + m_buttonSize / 2.0f - m_buttonSize * 0.35f;
+	m_timeRect.left = -width / 2.0f;
 	m_timeRect.right = m_timeRect.left + m_buttonSize * 0.75f;
 	
 	m_reductButton.Position = GLKVector3Make(-width / 2.0f + m_buttonSize / 2.0f, -height / 2.0f + m_buttonSize * 1.25f, 0.0f);
@@ -560,6 +591,16 @@
 	m_continueRect.bottom = m_continueRect.top - m_buttonSize * 2.0f;
 	m_continueRect.left = -m_buttonSize;
 	m_continueRect.right = m_buttonSize;
+	
+	/// Audio
+	
+	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, height / 2.0f - m_buttonSize / 3.0f, 0.0f);
+	m_audioSetUpOff.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, height / 2.0f - m_buttonSize / 3.0f, 0.0f);
+	
+	m_audioSetUpRect.bottom = height / 2.0f - (m_buttonSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.top = height / 2.0f;
+	m_audioSetUpRect.left = width / 2.0f - (m_buttonSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.right = width / 2.0f;
 	
 	if(m_stage != FINISHED)
 	{
@@ -818,6 +859,12 @@
 	CommonButtonStyle(m_scoreFinish2);
 	m_scoreFinish2.LockAspect = false;
 	
+	//// Audio SetUp
+	m_audioSetUpOn = [m_renderBox NewSpriteFromFileName:@"sound_button_on.png"];
+	m_audioSetUpOff = [m_renderBox NewSpriteFromFileName:@"sound_button_off.png"];
+	CommonButtonStyle(m_audioSetUpOn);
+	CommonButtonStyle(m_audioSetUpOff);
+	
 	// Scene for full screen presentation.
 	Scene = [m_renderBox NewSceneWithName:@"PlayGameScene"];
 	[Scene addSprite:m_cubeImage];
@@ -837,6 +884,8 @@
 	[Scene addSprite:m_special4];
 	[Scene addSprite:m_special5];
 	[Scene addSprite:m_pauseButton];
+	[Scene addSprite:m_audioSetUpOn];
+	[Scene addSprite:m_audioSetUpOff];
 	
 	[Scene addSprite:m_getCoinsBack];
 	[Scene addText:m_getCoinsText];
@@ -857,6 +906,8 @@
 	[Scene addText:m_newRecord];
 	
 	
+	
+	
 	// watch for timings.
 	m_watch = [[VEWatch alloc] init];
 	m_watch.Style = VE_WATCH_STYLE_LIMITED;
@@ -864,8 +915,14 @@
 	m_resetEffectTime = [[VEWatch alloc] init];
 	m_resetEffectTime.Style = VE_WATCH_STYLE_LIMITED;
 	
+	
 	/// Sounds
-	//m_boopSound = [m_audioBox NewSoundWithFileName:@"boop_sound.wav"];
+	m_audioBox = [VEAudioBox sharedVEAudioBox];
+	m_finishSound = [m_audioBox NewSoundWithFileName:@"finish.wav"];
+	m_newRecordSound = [m_audioBox NewSoundWithFileName:@"newrecord.wav"];
+	m_click = [m_audioBox NewSoundWithFileName:@"plus_minus.wav"];
+	m_playSound = [m_audioBox NewSoundWithFileName:@"play.wav"];
+	m_coinSound = [m_audioBox NewSoundWithFileName:@"coin.wav"];
 }
 
 - (void)PresentInterface
@@ -917,6 +974,21 @@
 	[m_ghostButton ResetOpasity:0.0f];
 	m_ghostButton.Width = m_buttonSize * 0.75f;
 	m_ghostButton.Opasity = 1.0f;
+	
+	if(m_audioBox.Mute)
+	{
+		[m_audioSetUpOff ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_audioSetUpOff ResetOpasity];
+		m_audioSetUpOff.Width = m_buttonSize / 3.0f;
+		m_audioSetUpOff.Opasity = 1.0f;
+	}
+	else
+	{
+		[m_audioSetUpOn ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_audioSetUpOn ResetOpasity];
+		m_audioSetUpOn.Width = m_buttonSize / 3.0f;
+		m_audioSetUpOn.Opasity = 1.0f;
+	}
 }
 
 - (void)PresentPauseMenu
@@ -1383,6 +1455,11 @@
 		{
 			m_ghostButton.Width = m_buttonSize * 0.35f;
 		}
+		else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
+		{
+			m_audioSetUpOn.Width = m_buttonSize * 0.2f;
+			m_audioSetUpOff.Height = m_buttonSize * 0.2f;
+		}
 		else
 			m_touchedButton = false;
 	}
@@ -1465,6 +1542,8 @@
 				m_points.Opasity = 0.0f;
 				m_reductButton.Opasity = 0.0f;
 				m_ghostButton.Opasity = 0.0f;
+				m_audioSetUpOn.Opasity = 0.0f;
+				m_audioSetUpOff.Opasity = 0.0f;
 				
 				[self PresentSpend:@"-$0"];
 			}
@@ -1473,14 +1552,14 @@
 		{
 			if(m_totalCoins >= 1000)
 			{
-				m_totalCoins -= 1000;
-				Level.Coins = m_totalCoins;
-				GameData.Coins = m_totalCoins;
-				m_coinsEffect.Value = m_totalCoins;
-				
-				[Level Reduction];
-				
-				[self PresentSpend:@"-$1000"];
+				if([Level Reduction])
+				{
+					m_totalCoins -= 1000;
+					Level.Coins = m_totalCoins;
+					GameData.Coins = m_totalCoins;
+					m_coinsEffect.Value = m_totalCoins;
+					[self PresentSpend:@"-$1000"];
+				}
 			}
 		}
 		else if([self TestButton:m_ghostRect X:rx Y:ry])
@@ -1497,6 +1576,23 @@
 				[self PresentSpend:@"-$500"];
 			}
 		}
+		else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
+		{
+			m_audioBox.Mute = !m_audioBox.Mute;
+			if(m_audioBox.Mute)
+			{
+				m_audioSetUpOn.Opasity = 0.0f;
+				m_audioSetUpOff.Opasity = 1.0f;
+			}
+			else
+			{
+				m_audioSetUpOn.Opasity = 1.0f;
+				m_audioSetUpOff.Opasity = 0.0f;
+			}
+		}
+		
+		m_audioSetUpOn.Width = m_buttonSize / 3.0f;
+		m_audioSetUpOff.Height = m_buttonSize / 3.0f;
 		m_pauseButton.Width = m_buttonSize * 0.75f;
 		m_timeButton.Width = m_buttonSize * 0.75f;
 		m_reductButton.Width = m_buttonSize * 0.75f;
@@ -1544,6 +1640,12 @@
 			m_restartText.Opasity = 0.0f;
 			m_gcText.Opasity = 0.0f;
 			m_exitText.Opasity = 0.0f;
+			
+			m_special1Active = false;
+			m_special2Active = false;
+			m_special3Active = false;
+			m_special4Active = false;
+			m_special5Active = false;
 		}
 		else if([self TestButton:m_gcRect X:rx Y:ry])
 		{
@@ -1592,6 +1694,8 @@
 			
 			m_cubeCamera.PivotRotationTransitionTime = 0.1;
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.PivotRotation;
+			
+			[m_playSound Play];
 			
 			Level.Finished = false;
 		}
@@ -1669,6 +1773,8 @@
 	m_coinsIcon.Opasity = 0.0f;
 	m_coinsC.Opasity = 0.0f;
 	m_newRecord.Opasity = 0.0f;
+	m_audioSetUpOn.Opasity = 0.0f;
+	m_audioSetUpOff.Opasity = 0.0f;
 	//m_title.Opasity = 0.0f;
 	
 	m_getCoinsBack.Opasity = 0.0f;
@@ -1768,16 +1874,29 @@
 	m_timeButton.Opasity = 0.0f;
 	m_reductButton.Opasity = 0.0f;
 	m_ghostButton.Opasity = 0.0f;
+	m_audioSetUpOn.Opasity = 0.0f;
+	m_audioSetUpOff.Opasity = 0.0f;
 	m_special1.Opasity = 0.0f;
 	m_special2.Opasity = 0.0f;
 	m_special3.Opasity = 0.0f;
 	m_special4.Opasity = 0.0f;
 	m_special5.Opasity = 0.0f;
 	
+	m_special1Active = false;
+	m_special2Active = false;
+	m_special3Active = false;
+	m_special4Active = false;
+	m_special5Active = false;
+	
 	m_getCoinsEnable = [m_ads unityAdsCanShow];
 	
 	[self Resize];
 	[self PresentFinishMenu];
+	
+	if(m_toNew)
+		[m_newRecordSound Play];
+	else
+		[m_finishSound Play];
 	
 	Level.Coins += Level.Score * 2;
 	

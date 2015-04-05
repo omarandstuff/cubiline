@@ -42,6 +42,8 @@
 @synthesize SoundBufferDispatcher;
 @synthesize AudioSources;
 
+@synthesize Mute;
+
 - (id)initWithFileName:(NSString*)filename
 {
     self = [super init];
@@ -102,6 +104,7 @@
 
 - (void)Play
 {
+	if(Mute)return;
     if(m_pause)
     {
         alSourcePlay(m_audioSource);

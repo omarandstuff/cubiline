@@ -41,6 +41,7 @@
 @property (readonly) bool PitchIsActive;
 
 @property bool Loop;
+@property bool Mute;
 
 @property VESoundBufferDispatcher* SoundBufferDispatcher;
 @property NSMutableArray* AudioSources;

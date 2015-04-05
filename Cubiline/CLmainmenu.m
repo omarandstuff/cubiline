@@ -46,6 +46,7 @@
 	enum CL_GRAPHICS m_graphics;
 	
 	float spriteSize;
+	float m_buttonSize;
 	
 	bool m_inButton;
 	
@@ -60,6 +61,47 @@
 	VEText* m_version;
 	VEText* m_developed;
 	VEText* m_byOmarDeAnda;
+	
+	
+	/// Sounds
+	VEAudioBox* m_audioBox;
+	VESound* m_flipSound;
+	
+	VESprite* m_audioSetUpOn;
+	VESprite* m_audioSetUpOff;
+	Rect m_audioSetUpRect;
+	
+	
+	enum HOW_TO
+	{
+		HOW_TO_NONE,
+		HOW_TO_MOVE,
+		HOW_TO_MOVE_WELL,
+		HOW_TO_EAT,
+		HOW_TO_POWER,
+		HOW_TO_SCORE,
+		HOW_TO_LEVEL
+	};
+	
+	enum HOW_TO m_howtoFase;
+	
+	
+	//// Move
+	VESprite* m_moveUp;
+	VESprite* m_moveDown;
+	VESprite* m_moveLeft;
+	VESprite* m_moveRight;
+	VEText* m_moveText;
+	VEText* m_moveTitle;
+	
+	VESprite* m_moveWell1;
+	VESprite* m_moveWell2;
+	VESprite* m_moveWell3;
+	VESprite* m_moveWell4;
+	VEText* m_moveWellText;
+	VEText* m_moveWellTitle;
+	
+	VEText* m_tapToNextText;
 }
 
 - (void)PressCube;
@@ -70,6 +112,8 @@
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y;
 - (void)PresentShit;
 - (void)PresentAbout;
+- (void)PresentHowTo;
+- (void)PresentHowToWell;
 
 @end
 
@@ -80,6 +124,7 @@
 @synthesize Selection;
 
 @synthesize GameCenter;
+@synthesize GameData;
 
 - (id)initWithRenderBox:(VERenderBox*)renderbox Graphics:(enum CL_GRAPHICS)graphics
 {
@@ -197,6 +242,48 @@
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
 		m_text.OpasityTransitionTime = 0.3f;
 		
+		
+		//// Audio SetUp
+		m_audioSetUpOn = [m_renderBox NewSpriteFromFileName:@"sound_button_on.png"];
+		m_audioSetUpOff = [m_renderBox NewSpriteFromFileName:@"sound_button_off.png"];
+		CommonButtonStyle(m_audioSetUpOn);
+		CommonButtonStyle(m_audioSetUpOff);
+		
+		
+		
+		////////
+		
+		m_moveUp = [m_renderBox NewSpriteFromFileName:@"how_to_move_up.png"];
+		CommonButtonStyle(m_moveUp);
+		m_moveDown = [m_renderBox NewSpriteFromFileName:@"how_to_move_down.png"];
+		CommonButtonStyle(m_moveDown);
+		m_moveRight = [m_renderBox NewSpriteFromFileName:@"how_to_move_right.png"];
+		CommonButtonStyle(m_moveRight);
+		m_moveLeft = [m_renderBox NewSpriteFromFileName:@"how_to_move_left.png"];
+		CommonButtonStyle(m_moveLeft);
+		m_moveText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Drag to the side you want to turn"];
+		CommonTextStyle(m_moveText);
+		m_moveTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"How To Turn"];
+		CommonTextStyle(m_moveTitle);
+		
+		m_moveWell1 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well3.png"];
+		CommonButtonStyle(m_moveWell1);
+		m_moveWell2 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well4.png"];
+		CommonButtonStyle(m_moveWell2);
+		m_moveWell3 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well1.png"];
+		CommonButtonStyle(m_moveWell3);
+		m_moveWell4 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well2.png"];
+		CommonButtonStyle(m_moveWell4);
+		m_moveWellText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Drag to the opposite direction tilting the sweep"];
+		CommonTextStyle(m_moveWellText);
+		m_moveWellTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"How To Return Quickly"];
+		CommonTextStyle(m_moveWellTitle);
+		
+		m_tapToNextText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Tap To See Next"];
+		CommonTextStyle(m_tapToNextText);
+		
+		////
+		
 		[m_cubeScene addModel:m_cube];
 		[m_cubeScene addLight:m_light];
 		[m_cubeScene addModel:m_playIcon];
@@ -210,11 +297,31 @@
 		[Scene addSprite:m_left];
 		[Scene addSprite:m_title];
 		
+		[Scene addSprite:m_audioSetUpOn];
+		[Scene addSprite:m_audioSetUpOff];
+		
 		[Scene addSprite:m_background];
 		[Scene addSprite:m_logo];
 		[Scene addText:m_version];
 		[Scene addText:m_developed];
 		[Scene addText:m_byOmarDeAnda];
+		
+		[Scene addSprite:m_moveUp];
+		[Scene addSprite:m_moveDown];
+		[Scene addSprite:m_moveRight];
+		[Scene addSprite:m_moveLeft];
+		[Scene addText:m_moveText];
+		[Scene addText:m_moveTitle];
+		
+		[Scene addSprite:m_moveWell1];
+		[Scene addSprite:m_moveWell2];
+		[Scene addSprite:m_moveWell3];
+		[Scene addSprite:m_moveWell4];
+		[Scene addText:m_moveWellText];
+		[Scene addText:m_moveWellTitle];
+		
+		[Scene addText:m_tapToNextText];
+		
 		
 		m_cubeCamera = [m_renderBox NewCamera:VE_CAMERA_TYPE_PERSPECTIVE];
 		m_cubeCamera.LockLookAt = true;
@@ -244,6 +351,10 @@
 		[m_startWatch Reset];
 		
 		m_random = [[VERandom alloc] init];
+		
+		/// Sounds
+		m_audioBox = [VEAudioBox sharedVEAudioBox];
+		m_flipSound = [m_audioBox NewSoundWithFileName:@"flip.wav"];
 	}
 	
 	return self;
@@ -290,6 +401,8 @@
 		spriteSize = height;
 	else
 		spriteSize = width;
+	
+	m_buttonSize = spriteSize / 5.0f;
 	
 	// Resize elements.
 	[m_cubeView ResizeWithWidth:spriteSize Height:spriteSize];
@@ -339,6 +452,28 @@
 	position.y -= spriteSize * 0.13f;
 	m_byOmarDeAnda.Position = position;
 	
+	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
+	m_audioSetUpOff.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
+	
+	m_audioSetUpRect.top = -height / 2.0f + (m_buttonSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.bottom = -height / 2.0f;
+	m_audioSetUpRect.left = width / 2.0f - (m_buttonSize / 3.0f) * 1.8f;
+	m_audioSetUpRect.right = width / 2.0f;
+	
+	
+	m_moveUp.Position = GLKVector3Make(-m_buttonSize, m_buttonSize, 0.0f);
+	m_moveDown.Position = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
+	m_moveRight.Position = GLKVector3Make(-m_buttonSize, -m_buttonSize, 0.0f);
+	m_moveLeft.Position = GLKVector3Make(m_buttonSize, -m_buttonSize, 0.0f);
+	m_moveTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
+	
+	m_moveWell1.Position = GLKVector3Make(-m_buttonSize, m_buttonSize, 0.0f);
+	m_moveWell2.Position = GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f);
+	m_moveWell3.Position = GLKVector3Make(-m_buttonSize, -m_buttonSize, 0.0f);
+	m_moveWell4.Position = GLKVector3Make(m_buttonSize, -m_buttonSize, 0.0f);
+	m_moveWellTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
+	
+	m_tapToNextText.Position = GLKVector3Make(0.0f, -m_buttonSize * 2.3f, 0.0f);
 }
 
 - (void)PresentShit
@@ -353,12 +488,45 @@
 	m_left.Opasity = 1.0f;
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
+	
+	if(!GameData.New)
+	{
+		m_realRotation += 90.0f;
+		[self DoSelect];
+		m_realRotation += 90.0f;
+		[self DoSelect];
+		[self ProperCube];
+		
+		GameData.New = true;
+	}
+	
+	
+	if(m_audioBox.Mute)
+	{
+		[m_audioSetUpOff ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_audioSetUpOff ResetOpasity];
+		m_audioSetUpOff.Width = m_buttonSize / 3.0f;
+		m_audioSetUpOff.Opasity = 1.0f;
+	}
+	else
+	{
+		[m_audioSetUpOn ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_audioSetUpOn ResetOpasity];
+		m_audioSetUpOn.Width = m_buttonSize / 3.0f;
+		m_audioSetUpOn.Opasity = 1.0f;
+	}
 }
 
 - (void)About
 {
 	m_viewing = true;
 	[self PresentAbout];
+}
+
+- (void)HowTo
+{
+	m_howtoFase = HOW_TO_MOVE;
+	[self PresentHowTo];
 }
 
 - (void)PresentAbout
@@ -386,6 +554,86 @@
 	m_byOmarDeAnda.Opasity = 1.0f;
 }
 
+- (void)PresentHowTo
+{
+	m_background.Opasity = 0.96f;
+	
+	[m_tapToNextText ResetFontSize:m_buttonSize * 1.2f];
+	[m_tapToNextText ResetOpasity];
+	m_tapToNextText.FontSize = m_buttonSize * 0.35f;
+	m_tapToNextText.Opasity = 1.0f;
+	
+	[m_moveUp ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveUp ResetOpasity];
+	m_moveUp.Width = m_buttonSize * 2.0f;
+	m_moveUp.Opasity = 1.0f;
+	
+	[m_moveDown ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveDown ResetOpasity];
+	m_moveDown.Width = m_buttonSize * 2.0f;
+	m_moveDown.Opasity = 1.0f;
+	
+	[m_moveRight ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveRight ResetOpasity];
+	m_moveRight.Width = m_buttonSize * 2.0f;
+	m_moveRight.Opasity = 1.0f;
+	
+	[m_moveLeft ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveLeft ResetOpasity];
+	m_moveLeft.Width = m_buttonSize * 2.0f;
+	m_moveLeft.Opasity = 1.0f;
+	
+	[m_moveText ResetFontSize:m_buttonSize * 0.8f];
+	[m_moveText ResetOpasity];
+	m_moveText.FontSize = m_buttonSize * 0.2f;
+	m_moveText.Opasity = 1.0f;
+	
+	[m_moveTitle ResetFontSize:m_buttonSize * 1.2f];
+	[m_moveTitle ResetOpasity];
+	m_moveTitle.FontSize = m_buttonSize * 0.35f;
+	m_moveTitle.Opasity = 1.0f;
+}
+
+- (void)PresentHowToWell
+{
+	m_moveUp.Opasity = 0.0f;
+	m_moveDown.Opasity = 0.0f;
+	m_moveRight.Opasity = 0.0f;
+	m_moveLeft.Opasity = 0.0f;
+	m_moveTitle.Opasity = 0.0f;
+	m_moveText.Opasity = 0.0f;
+	
+	[m_moveWell1 ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveWell1 ResetOpasity];
+	m_moveWell1.Width = m_buttonSize * 2.0f;
+	m_moveWell1.Opasity = 1.0f;
+	
+	[m_moveWell2 ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveWell2 ResetOpasity];
+	m_moveWell2.Width = m_buttonSize * 2.0f;
+	m_moveWell2.Opasity = 1.0f;
+	
+	[m_moveWell3 ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveWell3 ResetOpasity];
+	m_moveWell3.Width = m_buttonSize * 2.0f;
+	m_moveWell3.Opasity = 1.0f;
+	
+	[m_moveWell4 ResetScale:GLKVector3Make(m_buttonSize * 3.0f, m_buttonSize * 3.0f, 0.0f)];
+	[m_moveWell4 ResetOpasity];
+	m_moveWell4.Width = m_buttonSize * 2.0f;
+	m_moveWell4.Opasity = 1.0f;
+	
+	[m_moveWellText ResetFontSize:m_buttonSize * 0.8f];
+	[m_moveWellText ResetOpasity];
+	m_moveWellText.FontSize = m_buttonSize * 0.2f;
+	m_moveWellText.Opasity = 1.0f;
+	
+	[m_moveWellTitle ResetFontSize:m_buttonSize * 1.2f];
+	[m_moveWellTitle ResetOpasity];
+	m_moveWellTitle.FontSize = m_buttonSize * 0.35f;
+	m_moveWellTitle.Opasity = 1.0f;
+}
+
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
 {
 	return (button.top > y && button.bottom < y && button.left < x && button.right > x);
@@ -398,7 +646,7 @@
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
 {
-	if(m_viewing)return;
+	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
 	
 	float move = x * 180.0f / spriteSize;
 	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, move, 0.0f));
@@ -433,7 +681,7 @@
 	float rx = x - (m_renderBox.ScreenWidth / 2);
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
-	if(m_viewing)return;
+	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
 	
 	m_selected = false;
 	
@@ -449,6 +697,12 @@
 	else if([self TestButton:m_leftRect X:rx Y:ry])
 	{
 		m_left.Width = spriteSize / 15.0f;
+		m_inButton = true;
+	}
+	else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
+	{
+		m_audioSetUpOn.Width = m_buttonSize * 0.2f;
+		m_audioSetUpOff.Width = m_buttonSize * 0.2f;
 		m_inButton = true;
 	}
 	else if(rx < m_cubeLimit && rx > -m_cubeLimit && ry < m_cubeLimit && ry > -m_cubeLimit)
@@ -476,6 +730,39 @@
 		return;
 	}
 	
+	if(m_howtoFase == HOW_TO_MOVE)
+	{
+		m_howtoFase = HOW_TO_MOVE_WELL;
+		[self PresentHowToWell];
+		return;
+	}
+	else if(m_howtoFase == HOW_TO_MOVE_WELL)
+	{
+		m_howtoFase = HOW_TO_EAT;
+		return;
+	}
+	else if(m_howtoFase == HOW_TO_EAT)
+	{
+		m_howtoFase = HOW_TO_POWER;
+		return;
+	}
+	else if(m_howtoFase == HOW_TO_POWER)
+	{
+		m_howtoFase = HOW_TO_SCORE;
+		return;
+	}
+	else if(m_howtoFase == HOW_TO_SCORE)
+	{
+		m_howtoFase = HOW_TO_LEVEL;
+		return;
+	}
+	else if(m_howtoFase == HOW_TO_LEVEL)
+	{
+		m_howtoFase = HOW_TO_NONE;
+		m_background.Opasity = 0.0f;
+		return;
+	}
+	
 	m_right.Width = spriteSize / 10.0f;
 	m_left.Width = spriteSize / 10.0f;
 	
@@ -491,11 +778,28 @@
 		[self DoSelect];
 		[self ProperCube];
 	}
+	else if([self TestButton:m_audioSetUpRect X:rx Y:ry] && m_inButton)
+	{
+		m_audioBox.Mute = !m_audioBox.Mute;
+		if(m_audioBox.Mute)
+		{
+			m_audioSetUpOn.Opasity = 0.0f;
+			m_audioSetUpOff.Opasity = 1.0f;
+		}
+		else
+		{
+			m_audioSetUpOn.Opasity = 1.0f;
+			m_audioSetUpOff.Opasity = 0.0f;
+		}
+	}
 	else
 	{
 		[self ProperCube];
 		[self ReleaseCube];
 	}
+	
+	m_audioSetUpOn.Width = m_buttonSize / 3.0f;
+	m_audioSetUpOff.Width = m_buttonSize / 3.0f;
 	
 	m_inButton = false;
 }
@@ -583,6 +887,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"Play";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		
 		if(normal >= 45.0f && normal < 135.0f)
@@ -601,6 +908,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"About";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		
 		if(normal >= 135.0f && normal < 225.0f)
@@ -619,6 +929,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"How To Play";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		
 		if(normal >= 225.0f && normal < 315.0f)
@@ -637,6 +950,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"Game Center";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 	}
 	else
@@ -657,6 +973,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"Play";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		if(normal <= -45.0f && normal > -135.0f)
 		{
@@ -674,6 +993,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"Game Center";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		if(normal <= -135.0f && normal > -225.0f)
 		{
@@ -691,6 +1013,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"How To Play";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 		if(normal <= -225.0f && normal > -315.0f)
 		{
@@ -708,6 +1033,9 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = @"About";
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
 		}
 	}
 }
@@ -732,6 +1060,16 @@
 	m_right.Opasity = 1.0f;
 	m_left.Opasity = 1.0f;
 	m_title.Opasity = 1.0f;
+	
+	if(m_audioBox.Mute)
+	{
+		m_audioSetUpOff.Opasity = 1.0f;
+	}
+	else
+	{
+		m_audioSetUpOn.Opasity = 1.0f;
+	}
+	
 }
 
 - (void)OutToPlay
@@ -758,6 +1096,9 @@
 	m_left.Opasity = 0.0f;
 	m_title.Opasity = 0.0f;
 	
+	m_audioSetUpOn.Opasity = 0.0f;
+	m_audioSetUpOff.Opasity = 0.0f;
+	
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.8f];
 }
@@ -775,6 +1116,17 @@
 - (bool)OutReady
 {
 	return !m_watch.Active;
+}
+
+- (void)setGameData:(CLData *)gameData
+{
+	GameData = gameData;
+
+}
+
+- (CLData*)GameData
+{
+	return GameData;
 }
 
 @end
