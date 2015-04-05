@@ -67,7 +67,7 @@
 {
 	if (!PlayerAuthenticated)
 	{
-		NSLog(@"Player not authenticated");
+		//NSLog(@"Player not authenticated");
 		return;
 	}
  
@@ -85,7 +85,7 @@
 {
 	if (!PlayerAuthenticated)
 	{
-		NSLog(@"Player not authenticated");
+		//NSLog(@"Player not authenticated");
 		return;
 	}
 	

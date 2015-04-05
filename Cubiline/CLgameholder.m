@@ -401,6 +401,10 @@
 		{
 			[self PresentFinishMenu];
 			
+			[m_watch Reset];
+			[m_watch SetLimitInSeconds:0.0f];
+			[m_watch Frame:1.0f];
+			
 			m_cubeCamera.PivotRotation = Level.FocusedCamera.TargetPivotRotation;
 			m_showing = true;
 		}
@@ -481,6 +485,17 @@
 			Level.Coins = m_totalCoins;
 			GameData.Coins = m_totalCoins;
 			m_coinsEffect.Value = m_totalCoins;
+			
+			if(m_special1Active)
+				m_special1.Opasity = 1.0f;
+			if(m_special2Active)
+				m_special2.Opasity = 1.0f;
+			if(m_special3Active)
+				m_special3.Opasity = 1.0f;
+			if(m_special4Active)
+				m_special4.Opasity = 1.0f;
+			if(m_special5Active)
+				m_special5.Opasity = 1.0f;
 			
 			[self PresentInterface];
 		}
@@ -1475,7 +1490,6 @@
 	}
 	else if(m_stage == FINISHED && !m_watch.Active)
 	{
-		
 		if([self TestButton:m_restartRect X:rx Y:ry])
 			m_restartButton.Width = m_buttonSize * 1.0f;
 		else if([self TestButton:m_gcRect X:rx Y:ry])
@@ -1532,6 +1546,11 @@
 				m_ghostButton.Opasity = 0.0f;
 				m_audioSetUpOn.Opasity = 0.0f;
 				m_audioSetUpOff.Opasity = 0.0f;
+				m_special1.Opasity = 0.0f;
+				m_special2.Opasity = 0.0f;
+				m_special3.Opasity = 0.0f;
+				m_special4.Opasity = 0.0f;
+				m_special5.Opasity = 0.0f;
 				
 				[self PresentSpend:@"-$0"];
 			}
@@ -1884,7 +1903,11 @@
 	else
 		[m_finishSound Play];
 	
-	Level.Coins += Level.Score * 2;
+	Level.Coins += Level.Score * 4;
+	
+	[m_watch Reset];
+	[m_watch SetLimitInSeconds:0.0f];
+	[m_watch Frame:1.0f];
 	
 	m_showing = true;
 }

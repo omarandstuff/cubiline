@@ -3204,9 +3204,9 @@
 	SpecialFood1.ScaleTransitionTime = 0.2f;
 	m_specialFood1Watch = [[VEWatch alloc] init];
 	m_specialFood1Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood1MinTime = 45.0f;
-	m_specialFood1MaxTime = 240.0f;
-	m_specialFood1ShowTime = 8.0f;
+	m_specialFood1MinTime = 40.0f;
+	m_specialFood1MaxTime = 180.0;
+	m_specialFood1ShowTime = 9.0f;
 	
 	SpecialFood2 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood2.Color = BottomColor;
@@ -3215,9 +3215,9 @@
 	SpecialFood2.ScaleTransitionTime = 0.2f;
 	m_specialFood2Watch = [[VEWatch alloc] init];
 	m_specialFood2Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood2MinTime = 45.0f;
-	m_specialFood2MaxTime = 240.0f;
-	m_specialFood2ShowTime = 8.0f;
+	m_specialFood2MinTime = 40.0f;
+	m_specialFood2MaxTime = 180.0;
+	m_specialFood2ShowTime = 9.0f;
 	
 	SpecialFood3 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood3.Color = TopColor;
@@ -3226,9 +3226,9 @@
 	SpecialFood3.ScaleTransitionTime = 0.2f;
 	m_specialFood3Watch = [[VEWatch alloc] init];
 	m_specialFood3Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood3MinTime = 45.0f;
-	m_specialFood3MaxTime = 240.0f;
-	m_specialFood3ShowTime = 8.0f;
+	m_specialFood3MinTime = 40.0f;
+	m_specialFood3MaxTime = 180.0;
+	m_specialFood3ShowTime = 9.0f;
 	
 	SpecialFood4 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood4.Color = PrimaryColor;
@@ -3237,9 +3237,9 @@
 	SpecialFood4.ScaleTransitionTime = 0.2f;
 	m_specialFood4Watch = [[VEWatch alloc] init];
 	m_specialFood4Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood4MinTime = 120.0f;
+	m_specialFood4MinTime = 100.0f;
 	m_specialFood4MaxTime = 360.0f;
-	m_specialFood4ShowTime = 8.0f;
+	m_specialFood4ShowTime = 9.0f;
 	
 	SpecialFood5 = [m_renderBox NewModelFromFileName:@"quad"];
 	SpecialFood5.Color = ColorWhite;
@@ -3248,9 +3248,9 @@
 	SpecialFood5.ScaleTransitionTime = 0.2f;
 	m_specialFood5Watch = [[VEWatch alloc] init];
 	m_specialFood5Watch.Style = VE_WATCH_STYLE_REVERSE;
-	m_specialFood5MinTime = 45.0f;
-	m_specialFood5MaxTime = 240.0f;
-	m_specialFood5ShowTime = 8.0f;
+	m_specialFood5MinTime = 40.0f;
+	m_specialFood5MaxTime = 180.0;
+	m_specialFood5ShowTime = 9.0f;
 	
 	// Text
 	m_pointsShower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"1+"];
