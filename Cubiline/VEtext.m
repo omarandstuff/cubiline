@@ -235,7 +235,7 @@
 		Letter* current = [m_lettersInf objectForKey:[NSString stringWithFormat:@"%c" , [Text characterAtIndex:i]]];
 		[chars addObject:current];
 		if(current.InRenderWith == 0.0f)
-			m_realWidth += 0.15f;
+			m_realWidth += 0.2f;
 		else
 			m_realWidth += current.InRenderWith;
 	}
@@ -261,7 +261,7 @@
 		
 		if(current.InRenderWith == 0.0f)
 		{
-			XPos += 0.15f;
+			XPos += 0.2f;
 			continue;
 		}
 		

@@ -65,7 +65,6 @@
 	Rect m_gcRect;
 	
 	VEText* m_newRecord;
-	//VESprite* m_title;
 	
 	float m_buttonSize;
 	float m_viewSize;
@@ -126,11 +125,13 @@
 	VESound* m_newRecordSound;
 	VESound* m_click;
 	VESound* m_playSound;
-	VESound* m_coinSound;
 	
 	VESprite* m_audioSetUpOn;
 	VESprite* m_audioSetUpOff;
 	Rect m_audioSetUpRect;
+	
+	
+	CLLAnguage* m_language;
 }
 
 - (void)Create;
@@ -161,6 +162,8 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		
+		m_language = [CLLAnguage sharedCLLanguage];
 		
 		m_ads = [VEAds sharedVEAds];
 		
@@ -493,8 +496,6 @@
 		if(abs((int)m_coinsEffect.Value - num) >= 25)
 		{
 			num = (int)m_coinsEffect.Value;
-			[m_coinSound Stop];
-			[m_coinSound Play];
 		}
 
 		m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
@@ -682,7 +683,6 @@
 		
 		// New record text.
 		m_newRecord.Position = GLKVector3Make(m_points.Width / 2.0f + m_buttonSize * 0.1f, m_buttonSize * 0.5f + offsetMenu, 0.0f);
-		//m_title.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize + offsetMenu + (height / 2.0f - (-m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize + offsetMenu)) / 2.0f, 0.0f);
 	}
 }
 
@@ -773,19 +773,19 @@
 	m_gcButton = [m_renderBox NewSpriteFromFileName:@"game_gc.png"];
 	CommonButtonStyle(m_gcButton);
 	
-	m_continueText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Continue"];
+	m_continueText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_continue"]];
 	CommonTextStyle(m_continueText);
 	m_continueText.Color = ColorWhite;
 	
-	m_restartText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Restart"];
+	m_restartText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_restart"]];
 	CommonTextStyle(m_restartText);
 	m_restartText.Color = ColorWhite;
 	
-	m_gcText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Scores"];
+	m_gcText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_scores"]];
 	CommonTextStyle(m_gcText);
 	m_gcText.Color = ColorWhite;
 	
-	m_exitText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Main Menu"];
+	m_exitText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_menu"]];
 	CommonTextStyle(m_exitText);
 	m_exitText.Color = ColorWhite;
 	m_newRecord.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
@@ -820,7 +820,7 @@
 	CommonButtonStyle(m_getCoinsBack);
 	m_getCoinsBack.LockAspect = false;
 	
-	m_getCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Get Coins"];
+	m_getCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_get_coins"]];
 	CommonTextStyle(m_getCoinsText);
 	m_getCoinsText.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
 
@@ -843,13 +843,9 @@
 	/////
 	
 	// New record text
-	m_newRecord = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"New Record"];
+	m_newRecord = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_record"]];
 	CommonTextStyle(m_newRecord);
 	m_newRecord.Color = BottomColor;
-	
-	// Title
-	//m_title = [m_renderBox NewSpriteFromFileName:@"CubilineTitle.png"];
-	//CommonButtonStyle(m_title);
 	
 	/// Finish background band.
 	m_scoreFinish = [m_renderBox NewSolidSpriteWithColor:PrimaryColor];
@@ -902,7 +898,6 @@
 	[Scene addText:m_restartText];
 	[Scene addText:m_gcText];
 	[Scene addText:m_exitText];
-	//[Scene addSprite:m_title];
 	[Scene addText:m_newRecord];
 	
 	
@@ -922,7 +917,6 @@
 	m_newRecordSound = [m_audioBox NewSoundWithFileName:@"newrecord.wav"];
 	m_click = [m_audioBox NewSoundWithFileName:@"plus_minus.wav"];
 	m_playSound = [m_audioBox NewSoundWithFileName:@"play.wav"];
-	m_coinSound = [m_audioBox NewSoundWithFileName:@"coin.wav"];
 }
 
 - (void)PresentInterface
@@ -1085,11 +1079,6 @@
 	[m_exitText ResetOpasity:0.0f];
 	m_exitText.FontSize = m_buttonSize * 0.25f;
 	m_exitText.Opasity = 1.0f;
-	
-	//[m_title ResetScale:GLKVector3Make(m_viewSize * 2.5f, m_viewSize * 1.5f, 0.0f)];
-	//[m_title ResetOpasity:0.0f];
-	//m_title.Width = m_viewSize * 0.85f;
-	//m_title.Opasity = 1.0f;
 	
 	if(m_toNew)
 	{
@@ -1362,7 +1351,6 @@
 				m_gcText.Opasity = 0.0f;
 				m_exitText.Opasity = 0.0f;
 				m_newRecord.Opasity = 0.0f;
-				//m_title.Opasity = 0.0f;
 				m_getCoinsBack.Opasity = 0.0f;
 				m_getCoinsText.Opasity = 0.0f;
 				m_getCoinsIcon.Opasity = 0.0f;
@@ -1682,8 +1670,7 @@
 			m_exitText.Opasity = 0.0f;
 			m_scoreFinish.Opasity = 0.0f;
 			m_scoreFinish2.Opasity = 0.0f;
-			m_newRecord.Opasity = 0.0f;
-			//m_title.Opasity = 0.0f;
+			m_newRecord.Opasity = 0.0f;;
 			m_getCoinsBack.Opasity = 0.0f;
 			m_getCoinsText.Opasity = 0.0f;
 			m_getCoinsIcon.Opasity = 0.0f;
@@ -1727,7 +1714,7 @@
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
 {
 	if(!skipped)
-		Level.Coins += 800;
+		Level.Coins += 1000;
 }
 
 - (void)Begin
@@ -1775,7 +1762,6 @@
 	m_newRecord.Opasity = 0.0f;
 	m_audioSetUpOn.Opasity = 0.0f;
 	m_audioSetUpOff.Opasity = 0.0f;
-	//m_title.Opasity = 0.0f;
 	
 	m_getCoinsBack.Opasity = 0.0f;
 	m_getCoinsText.Opasity = 0.0f;

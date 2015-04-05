@@ -73,8 +73,8 @@
 		m_cubilineLevel.Coins = m_gameData.Coins;
 		if(!m_gameData.New)
 		{
-			m_cubilineLevel.Coins = 50000;
-			m_gameData.Coins = 50000;
+			m_cubilineLevel.Coins = 444;
+			m_gameData.Coins = 444;
 		}
 		//m_cubilineLevel.BodyColor = GLKVector3Make(0.80, 0.90, 0.95);
 		m_cubilineLevel.BodyColor = PrimaryColor;

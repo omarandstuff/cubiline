@@ -125,6 +125,10 @@
 	VESound* m_coinsSound;
 	VESound* m_stretchSound;
 	VESound* m_ghostSound;
+	
+	
+	
+	CLLAnguage* m_language;
 }
 
 
@@ -235,6 +239,8 @@
 		m_graphics = graphics;
 		
 		m_audioBox = [VEAudioBox sharedVEAudioBox];
+		
+		m_language = [CLLAnguage sharedCLLanguage];
 		
 		_Size = 456;
 		ZoneUp = CL_ZONE_TOP;
@@ -2653,7 +2659,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Coins += 400;
+			Coins += 600;
 			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
@@ -3280,7 +3286,7 @@
 	m_specialPoints2Shower.OpasityEase = 0.05f;
 	m_specialPoints2Shower.OpasityTransitionTime = 2.2f;
 	
-	m_specialPoints3Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Coins"];
+	m_specialPoints3Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"level_coins"]];
 	m_specialPoints3Shower.FontSize = 0.0f;
 	m_specialPoints3Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints3Shower.ScaleTransitionTime = 0.4f;
@@ -3302,7 +3308,7 @@
 	m_specialPoints4Shower.OpasityEase = 0.05f;
 	m_specialPoints4Shower.OpasityTransitionTime = 2.2f;
 	
-	m_specialPoints5Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Ghost"];
+	m_specialPoints5Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"level_ghost"]];
 	m_specialPoints5Shower.FontSize = 0.0f;
 	m_specialPoints5Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints5Shower.ScaleTransitionTime = 0.4f;

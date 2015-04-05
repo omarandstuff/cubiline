@@ -74,6 +74,9 @@
 	
 	VESprite* m_background;
 	VEText* m_gameModeText;
+	
+	
+	CLLAnguage* m_language;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size;
@@ -99,6 +102,7 @@
 		m_renderBox = renderbox;
 		m_graphics = graphics;
 		m_audioBox = [VEAudioBox sharedVEAudioBox];
+		m_language = [CLLAnguage sharedCLLanguage];
 		
 		// Purchase
 		[[VEIAPurchase sharedVEIAPurchase] addPaymentTransactionObserver:self];
@@ -128,9 +132,9 @@
 		m_cubeCamera.PivotRotation = GLKVector3Make(-30.0f, 30.0f, 0.0f);
 		
 		// Back
-		m_speedText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Line Speed"];
+		m_speedText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_speed"]];
 		CommonTextStyle(m_speedText);
-		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Cube Size"];
+		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
 		CommonTextStyle(m_sizeText);
 		
 		
@@ -164,7 +168,7 @@
 		m_backBuyCoins = [m_renderBox NewSolidSpriteWithColor:TopColor];
 		CommonButtonStyle(m_backBuyCoins);
 		m_backBuyCoins.LockAspect = false;
-		m_buyCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Buy 10,000 " Align:VE_TEXT_ALIGN_LEFT];
+		m_buyCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_buy"] Align:VE_TEXT_ALIGN_LEFT];
 		CommonTextStyle(m_buyCoinsText);
 		m_buyCoinsText.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
 		m_buyCoinsC = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"c" Align:VE_TEXT_ALIGN_LEFT];
@@ -194,7 +198,7 @@
 		m_background.OpasityTransitionTime = 0.15f;
 		
 		/// text game mode
-		m_gameModeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Level Options"];
+		m_gameModeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_level"]];
 		CommonTextStyle(m_gameModeText);
 		
 		
@@ -374,7 +378,7 @@
 	m_backBuyCoins.Position = position;
 	m_backBuyCoins.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 0.6f, 0.0f);
 	
-	position.x = -spriteSize / 2.0f + buttonspace * 8.0f;
+	position.x = -spriteSize / 2.0f + buttonspace * 5.0f;
 	position.y -= buttonspace * 1.5f;
 	m_buyCoinsText.Position = position;
 	
@@ -737,7 +741,6 @@
 	for (SKPaymentTransaction * transaction in transactions)
 	{
 		SKPaymentTransactionState st = transaction.transactionState;
-		NSLog(@"%@", transaction.error);
 		switch (st)
 		{
 			case SKPaymentTransactionStatePurchased:

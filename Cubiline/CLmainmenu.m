@@ -78,9 +78,7 @@
 		HOW_TO_MOVE,
 		HOW_TO_MOVE_WELL,
 		HOW_TO_EAT,
-		HOW_TO_POWER,
-		HOW_TO_SCORE,
-		HOW_TO_LEVEL
+		HOW_TO_POWER
 	};
 	
 	enum HOW_TO m_howtoFase;
@@ -101,7 +99,39 @@
 	VEText* m_moveWellText;
 	VEText* m_moveWellTitle;
 	
+	VESprite* m_eatBlue;
+	VESprite* m_eatGreen;
+	VESprite* m_eatOrange;
+	VESprite* m_eatYellow;
+	VESprite* m_eatGray;
+	VESprite* m_eatWhite;
+	VEText* m_blueText;
+	VEText* m_greenText;
+	VEText* m_orangeText;
+	VEText* m_yellowText;
+	VEText* m_grayText;
+	VEText* m_whiteText;
+	VEText* m_eatTitle;
+	
+	VESprite* m_powerTime;
+	VESprite* m_powerReduct;
+	VESprite* m_powerGhost;
+	VEText* m_powerTimeText;
+	VEText* m_powerReductText;
+	VEText* m_powerGhostText;
+	VEText* m_powerTitle;
+	VEText* m_powerTimeText2;
+	VEText* m_powerReductText2;
+	VEText* m_powerGhostText2;
+	VEText* m_powerTimeText3;
+	VEText* m_powerReductText3;
+	VEText* m_powerGhostText3;
+	
 	VEText* m_tapToNextText;
+	
+	
+	/// Language
+	CLLAnguage* m_language;
 }
 
 - (void)PressCube;
@@ -114,6 +144,8 @@
 - (void)PresentAbout;
 - (void)PresentHowTo;
 - (void)PresentHowToWell;
+- (void)PresentHowToEat;
+- (void)PresentHowToPower;
 
 @end
 
@@ -134,6 +166,8 @@
 	{
 		m_renderBox = renderbox;
 		m_graphics = graphics;
+		
+		m_language = [CLLAnguage sharedCLLanguage];
 		
 		Scene = [m_renderBox NewSceneWithName:@"MainMenuScene"];
 		
@@ -207,10 +241,10 @@
 		CommonButtonStyle(m_logo);
 		m_logo.LockAspect = true;
 		
-		m_version = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Version: 1.0.0"];
+		m_version = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[NSString stringWithFormat:@"%@ 1.0.0", [m_language stringForKey:@"about_version"]]];
 		CommonTextStyle(m_version);
 		
-		m_developed = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Developed by"];
+		m_developed = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"about_developed"]];
 		CommonTextStyle(m_developed);
 		
 		m_byOmarDeAnda = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"David de Anda"];
@@ -232,7 +266,7 @@
 		m_cube.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 		m_cube.RotationTransitionTime = 0.13f;
 		
-		m_text = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Play"];
+		m_text = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"main_menu_play"]];
 		if(m_renderBox.ScreenWidth > m_renderBox.ScreenHeight)
 			m_text.FontSize = m_renderBox.ScreenHeight / 8.0f;
 		else
@@ -261,9 +295,9 @@
 		CommonButtonStyle(m_moveRight);
 		m_moveLeft = [m_renderBox NewSpriteFromFileName:@"how_to_move_left.png"];
 		CommonButtonStyle(m_moveLeft);
-		m_moveText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Drag to the side you want to turn"];
+		m_moveText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_turn_text"]];
 		CommonTextStyle(m_moveText);
-		m_moveTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"How To Turn"];
+		m_moveTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_turn_title"]];
 		CommonTextStyle(m_moveTitle);
 		
 		m_moveWell1 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well3.png"];
@@ -274,12 +308,69 @@
 		CommonButtonStyle(m_moveWell3);
 		m_moveWell4 = [m_renderBox NewSpriteFromFileName:@"how_to_move_well2.png"];
 		CommonButtonStyle(m_moveWell4);
-		m_moveWellText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Drag to the opposite direction tilting the sweep"];
+		m_moveWellText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_return_text"]];
 		CommonTextStyle(m_moveWellText);
-		m_moveWellTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"How To Return Quickly"];
+		m_moveWellTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_return_title"]];
 		CommonTextStyle(m_moveWellTitle);
 		
-		m_tapToNextText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Tap To See Next"];
+		m_eatBlue = [m_renderBox NewSpriteFromFileName:@"how_to_eat_blue.png"];
+		CommonButtonStyle(m_eatBlue);
+		m_eatGreen = [m_renderBox NewSpriteFromFileName:@"how_to_eat_green.png"];
+		CommonButtonStyle(m_eatGreen);
+		m_eatOrange = [m_renderBox NewSpriteFromFileName:@"how_to_eat_orange.png"];
+		CommonButtonStyle(m_eatOrange);
+		m_eatYellow = [m_renderBox NewSpriteFromFileName:@"how_to_eat_yellow.png"];
+		CommonButtonStyle(m_eatYellow);
+		m_eatGray = [m_renderBox NewSpriteFromFileName:@"how_to_eat_gray.png"];
+		CommonButtonStyle(m_eatGray);
+		m_eatWhite = [m_renderBox NewSpriteFromFileName:@"how_to_eat_white.png"];
+		CommonButtonStyle(m_eatWhite);
+		m_blueText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_blue_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_blueText);
+		m_greenText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_green_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_greenText);
+		m_orangeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_orange_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_orangeText);
+		m_yellowText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_yellow_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_yellowText);
+		m_grayText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_gray_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_grayText);
+		m_whiteText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_white_text"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_whiteText);
+		m_eatTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_eat_title"]];
+		CommonTextStyle(m_eatTitle);
+		
+		m_powerTime = [m_renderBox NewSpriteFromFileName:@"how_to_power_time.png"];
+		CommonButtonStyle(m_powerTime);
+		m_powerReduct = [m_renderBox NewSpriteFromFileName:@"how_to_power_reduct.png"];
+		CommonButtonStyle(m_powerReduct);
+		m_powerGhost = [m_renderBox NewSpriteFromFileName:@"how_to_power_ghost.png"];
+		CommonButtonStyle(m_powerGhost);
+		m_powerTimeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_time_text1"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerTimeText);
+		m_powerReductText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_reduct_text1"] Align:VE_TEXT_ALIGN_RIGHT];
+		CommonTextStyle(m_powerReductText);
+		m_powerGhostText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_ghost_text1"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerGhostText);
+		
+		m_powerTimeText2 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_time_text2"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerTimeText2);
+		m_powerReductText2 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_reduct_text2"] Align:VE_TEXT_ALIGN_RIGHT];
+		CommonTextStyle(m_powerReductText2);
+		m_powerGhostText2 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_ghost_text2"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerGhostText2);
+		
+		m_powerTimeText3 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_time_text3"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerTimeText3);
+		m_powerReductText3 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_reduct_text3"] Align:VE_TEXT_ALIGN_RIGHT];
+		CommonTextStyle(m_powerReductText3);
+		m_powerGhostText3 = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_ghost_text3"] Align:VE_TEXT_ALIGN_LEFT];
+		CommonTextStyle(m_powerGhostText3);
+		
+		m_powerTitle = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_howto_power_title"]];
+		CommonTextStyle(m_powerTitle);
+		
+		m_tapToNextText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"help_tap_next"]];
 		CommonTextStyle(m_tapToNextText);
 		
 		////
@@ -319,6 +410,34 @@
 		[Scene addSprite:m_moveWell4];
 		[Scene addText:m_moveWellText];
 		[Scene addText:m_moveWellTitle];
+		
+		[Scene addSprite:m_eatBlue];
+		[Scene addSprite:m_eatGreen];
+		[Scene addSprite:m_eatOrange];
+		[Scene addSprite:m_eatYellow];
+		[Scene addSprite:m_eatGray];
+		[Scene addSprite:m_eatWhite];
+		[Scene addText:m_blueText];
+		[Scene addText:m_greenText];
+		[Scene addText:m_orangeText];
+		[Scene addText:m_yellowText];
+		[Scene addText:m_grayText];
+		[Scene addText:m_whiteText];
+		[Scene addText:m_eatTitle];
+		
+		[Scene addSprite:m_powerTime];
+		[Scene addSprite:m_powerReduct];
+		[Scene addSprite:m_powerGhost];
+		[Scene addText:m_powerTimeText];
+		[Scene addText:m_powerReductText];
+		[Scene addText:m_powerGhostText];
+		[Scene addText:m_powerTimeText2];
+		[Scene addText:m_powerReductText2];
+		[Scene addText:m_powerGhostText2];
+		[Scene addText:m_powerTimeText3];
+		[Scene addText:m_powerReductText3];
+		[Scene addText:m_powerGhostText3];
+		[Scene addText:m_powerTitle];
 		
 		[Scene addText:m_tapToNextText];
 		
@@ -473,6 +592,36 @@
 	m_moveWell4.Position = GLKVector3Make(m_buttonSize, -m_buttonSize, 0.0f);
 	m_moveWellTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
 	
+	m_eatBlue.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 1.5f, 0.0f);
+	m_eatGreen.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 0.9f, 0.0f);
+	m_eatOrange.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 0.3f, 0.0f);
+	m_eatYellow.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -0.3f, 0.0f);
+	m_eatGray.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -0.9f, 0.0f);
+	m_eatWhite.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -1.5f, 0.0f);
+	
+	m_blueText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 1.5f, 0.0f);
+	m_greenText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 0.9f, 0.0f);
+	m_orangeText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 0.3f, 0.0f);
+	m_yellowText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -0.3f, 0.0f);
+	m_grayText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -0.9f, 0.0f);
+	m_whiteText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -1.5f, 0.0f);
+	m_eatTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
+	
+	m_powerTime.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.78f, m_buttonSize * 1.55f, 0.0f);
+	m_powerReduct.Position = GLKVector3Make(spriteSize / 2.0f - m_buttonSize * 0.78f, 0.0f, 0.0f);
+	m_powerGhost.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.78f, -m_buttonSize * 1.55f, 0.0f);
+	
+	m_powerTimeText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.7f, m_buttonSize * 1.55f + m_buttonSize * 0.25f, 0.0f);
+	m_powerReductText.Position = GLKVector3Make(spriteSize / 2.0f - m_buttonSize * 1.5f, m_buttonSize * 0.25f, 0.0f);
+	m_powerGhostText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.5f, -m_buttonSize * 1.55f + m_buttonSize * 0.25f, 0.0f);
+	m_powerTimeText2.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.7f, m_buttonSize * 1.55f, 0.0f);
+	m_powerReductText2.Position = GLKVector3Make(spriteSize / 2.0f - m_buttonSize * 1.5f, 0.0f, 0.0f);
+	m_powerGhostText2.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.5f, -m_buttonSize * 1.55f, 0.0f);
+	m_powerTimeText3.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.7f, m_buttonSize * 1.55f - m_buttonSize * 0.25f, 0.0f);
+	m_powerReductText3.Position = GLKVector3Make(spriteSize / 2.0f - m_buttonSize * 1.5f, -m_buttonSize * 0.25f, 0.0f);
+	m_powerGhostText3.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 1.5f, -m_buttonSize * 1.55f - m_buttonSize * 0.25f, 0.0f);
+	m_powerTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
+	
 	m_tapToNextText.Position = GLKVector3Make(0.0f, -m_buttonSize * 2.3f, 0.0f);
 }
 
@@ -526,6 +675,7 @@
 - (void)HowTo
 {
 	m_howtoFase = HOW_TO_MOVE;
+	m_tapToNextText.Text = [m_language stringForKey:@"help_tap_next"];
 	[self PresentHowTo];
 }
 
@@ -634,6 +784,164 @@
 	m_moveWellTitle.Opasity = 1.0f;
 }
 
+- (void)PresentHowToEat
+{
+	m_moveWell1.Opasity = 0.0f;
+	m_moveWell2.Opasity = 0.0f;
+	m_moveWell3.Opasity = 0.0f;
+	m_moveWell4.Opasity = 0.0f;
+	m_moveWellText.Opasity = 0.0f;
+	m_moveWellTitle.Opasity = 0.0f;
+	
+	
+	[m_eatBlue ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatBlue ResetOpasity];
+	m_eatBlue.Width = m_buttonSize * 0.6;
+	m_eatBlue.Opasity = 1.0f;
+	
+	[m_eatGreen ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatGreen ResetOpasity];
+	m_eatGreen.Width = m_buttonSize * 0.6;
+	m_eatGreen.Opasity = 1.0f;
+	
+	[m_eatOrange ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatOrange ResetOpasity];
+	m_eatOrange.Width = m_buttonSize * 0.6;
+	m_eatOrange.Opasity = 1.0f;
+	
+	[m_eatYellow ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatYellow ResetOpasity];
+	m_eatYellow.Width = m_buttonSize * 0.6;
+	m_eatYellow.Opasity = 1.0f;
+	
+	[m_eatGray ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatGray ResetOpasity];
+	m_eatGray.Width = m_buttonSize * 0.6;
+	m_eatGray.Opasity = 1.0f;
+	
+	[m_eatWhite ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+	[m_eatWhite ResetOpasity];
+	m_eatWhite.Width = m_buttonSize * 0.6;
+	m_eatWhite.Opasity = 1.0f;
+	
+	[m_blueText ResetFontSize:m_buttonSize * 0.8f];
+	[m_blueText ResetOpasity];
+	m_blueText.FontSize = m_buttonSize * 0.2f;
+	m_blueText.Opasity = 1.0f;
+	
+	[m_greenText ResetFontSize:m_buttonSize * 0.8f];
+	[m_greenText ResetOpasity];
+	m_greenText.FontSize = m_buttonSize * 0.2f;
+	m_greenText.Opasity = 1.0f;
+	
+	[m_orangeText ResetFontSize:m_buttonSize * 0.8f];
+	[m_orangeText ResetOpasity];
+	m_orangeText.FontSize = m_buttonSize * 0.2f;
+	m_orangeText.Opasity = 1.0f;
+	
+	[m_yellowText ResetFontSize:m_buttonSize * 0.8f];
+	[m_yellowText ResetOpasity];
+	m_yellowText.FontSize = m_buttonSize * 0.2f;
+	m_yellowText.Opasity = 1.0f;
+	
+	[m_grayText ResetFontSize:m_buttonSize * 0.8f];
+	[m_grayText ResetOpasity];
+	m_grayText.FontSize = m_buttonSize * 0.2f;
+	m_grayText.Opasity = 1.0f;
+	
+	[m_whiteText ResetFontSize:m_buttonSize * 0.8f];
+	[m_whiteText ResetOpasity];
+	m_whiteText.FontSize = m_buttonSize * 0.2f;
+	m_whiteText.Opasity = 1.0f;
+	
+	[m_eatTitle ResetFontSize:m_buttonSize * 1.2f];
+	[m_eatTitle ResetOpasity];
+	m_eatTitle.FontSize = m_buttonSize * 0.35f;
+	m_eatTitle.Opasity = 1.0f;
+}
+
+- (void)PresentHowToPower
+{
+	m_eatBlue.Opasity = 0.0f;
+	m_eatGreen.Opasity = 0.0f;
+	m_eatOrange.Opasity = 0.0f;
+	m_eatYellow.Opasity = 0.0f;
+	m_eatGray.Opasity = 0.0f;
+	m_eatWhite.Opasity = 0.0f;
+	m_blueText.Opasity = 0.0f;
+	m_greenText.Opasity = 0.0f;
+	m_orangeText.Opasity = 0.0f;
+	m_yellowText.Opasity = 0.0f;
+	m_grayText.Opasity = 0.0f;
+	m_whiteText.Opasity = 0.0f;
+	m_eatTitle.Opasity = 0.0f;
+	
+	[m_powerTime ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	[m_powerTime ResetOpasity];
+	m_powerTime.Width = m_buttonSize * 1.5f;
+	m_powerTime.Opasity = 1.0f;
+	
+	[m_powerReduct ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	[m_powerReduct ResetOpasity];
+	m_powerReduct.Width = m_buttonSize * 1.5f;
+	m_powerReduct.Opasity = 1.0f;
+	
+	[m_powerGhost ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	[m_powerGhost ResetOpasity];
+	m_powerGhost.Width = m_buttonSize * 1.5f;
+	m_powerGhost.Opasity = 1.0f;
+	
+	[m_powerTimeText ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerTimeText ResetOpasity];
+	m_powerTimeText.FontSize = m_buttonSize * 0.2f;
+	m_powerTimeText.Opasity = 1.0f;
+	
+	[m_powerReductText ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerReductText ResetOpasity];
+	m_powerReductText.FontSize = m_buttonSize * 0.2f;
+	m_powerReductText.Opasity = 1.0f;
+	
+	[m_powerGhostText ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerGhostText ResetOpasity];
+	m_powerGhostText.FontSize = m_buttonSize * 0.2f;
+	m_powerGhostText.Opasity = 1.0f;
+	
+	[m_powerTimeText2 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerTimeText2 ResetOpasity];
+	m_powerTimeText2.FontSize = m_buttonSize * 0.2f;
+	m_powerTimeText2.Opasity = 1.0f;
+	
+	[m_powerReductText2 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerReductText2 ResetOpasity];
+	m_powerReductText2.FontSize = m_buttonSize * 0.2f;
+	m_powerReductText2.Opasity = 1.0f;
+	
+	[m_powerGhostText2 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerGhostText2 ResetOpasity];
+	m_powerGhostText2.FontSize = m_buttonSize * 0.2f;
+	m_powerGhostText2.Opasity = 1.0f;
+	
+	[m_powerTimeText3 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerTimeText3 ResetOpasity];
+	m_powerTimeText3.FontSize = m_buttonSize * 0.2f;
+	m_powerTimeText3.Opasity = 1.0f;
+	
+	[m_powerReductText3 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerReductText3 ResetOpasity];
+	m_powerReductText3.FontSize = m_buttonSize * 0.2f;
+	m_powerReductText3.Opasity = 1.0f;
+	
+	[m_powerGhostText3 ResetFontSize:m_buttonSize * 0.8f];
+	[m_powerGhostText3 ResetOpasity];
+	m_powerGhostText3.FontSize = m_buttonSize * 0.2f;
+	m_powerGhostText3.Opasity = 1.0f;
+	
+	[m_powerTitle ResetFontSize:m_buttonSize * 1.2f];
+	[m_powerTitle ResetOpasity];
+	m_powerTitle.FontSize = m_buttonSize * 0.35f;
+	m_powerTitle.Opasity = 1.0f;
+}
+
 - (bool)TestButton:(Rect)button X:(float)x Y:(float)y
 {
 	return (button.top > y && button.bottom < y && button.left < x && button.right > x);
@@ -739,27 +1047,34 @@
 	else if(m_howtoFase == HOW_TO_MOVE_WELL)
 	{
 		m_howtoFase = HOW_TO_EAT;
+		[self PresentHowToEat];
 		return;
 	}
 	else if(m_howtoFase == HOW_TO_EAT)
 	{
 		m_howtoFase = HOW_TO_POWER;
+		m_tapToNextText.Text = [m_language stringForKey:@"help_tap_finish"];
+		[self PresentHowToPower];
 		return;
 	}
 	else if(m_howtoFase == HOW_TO_POWER)
 	{
-		m_howtoFase = HOW_TO_SCORE;
-		return;
-	}
-	else if(m_howtoFase == HOW_TO_SCORE)
-	{
-		m_howtoFase = HOW_TO_LEVEL;
-		return;
-	}
-	else if(m_howtoFase == HOW_TO_LEVEL)
-	{
 		m_howtoFase = HOW_TO_NONE;
 		m_background.Opasity = 0.0f;
+		m_powerTitle.Opasity = 0.0f;
+		m_powerTime.Opasity = 0.0f;
+		m_powerReduct.Opasity = 0.0f;
+		m_powerGhost.Opasity = 0.0f;
+		m_powerTimeText.Opasity = 0.0f;
+		m_powerTimeText2.Opasity = 0.0f;
+		m_powerTimeText3.Opasity = 0.0f;
+		m_powerReductText.Opasity = 0.0f;
+		m_powerReductText2.Opasity = 0.0f;
+		m_powerReductText3.Opasity = 0.0f;
+		m_powerGhostText.Opasity = 0.0f;
+		m_powerGhostText2.Opasity = 0.0f;
+		m_powerGhostText3.Opasity = 0.0f;
+		m_tapToNextText.Opasity = 0.0f;
 		return;
 	}
 	
@@ -886,7 +1201,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Play";
+			m_text.Text = [m_language stringForKey:@"main_menu_play"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -907,7 +1222,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"About";
+			m_text.Text = [m_language stringForKey:@"main_menu_about"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -928,7 +1243,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"How To Play";
+			m_text.Text = [m_language stringForKey:@"main_menu_howto"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -949,7 +1264,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Game Center";
+			m_text.Text = [m_language stringForKey:@"main_menu_gc"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -972,7 +1287,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Play";
+			m_text.Text = [m_language stringForKey:@"main_menu_play"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -992,7 +1307,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"Game Center";
+			m_text.Text = [m_language stringForKey:@"main_menu_gc"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -1012,7 +1327,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"How To Play";
+			m_text.Text = [m_language stringForKey:@"main_menu_howto"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -1032,7 +1347,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = @"About";
+			m_text.Text = [m_language stringForKey:@"main_menu_about"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
