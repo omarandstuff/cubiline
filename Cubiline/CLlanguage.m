@@ -29,7 +29,7 @@
 		}
 		else
 		{
-			[self setDictionaryForEnglish];
+			[self setDictionaryForSpanish];
 		}
 	}
 	

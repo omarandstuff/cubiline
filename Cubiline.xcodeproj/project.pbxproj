@@ -164,6 +164,8 @@
 		37EC3EBB1AD110B200E39E83 /* how_to_move_well2.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EC3EB71AD110B200E39E83 /* how_to_move_well2.png */; };
 		37EC3EBC1AD110B200E39E83 /* how_to_move_well3.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EC3EB81AD110B200E39E83 /* how_to_move_well3.png */; };
 		37EC3EBD1AD110B200E39E83 /* how_to_move_well4.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EC3EB91AD110B200E39E83 /* how_to_move_well4.png */; };
+		37EF21511AD20CC60099B67F /* Gau Font Cube Big.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EF214F1AD20CC60099B67F /* Gau Font Cube Big.png */; };
+		37EF21521AD20CC60099B67F /* Gau Font Cube Big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 37EF21501AD20CC60099B67F /* Gau Font Cube Big.txt */; };
 		37EFEB8E1AD19E360069380D /* how_to_eat_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EFEB881AD19E360069380D /* how_to_eat_blue.png */; };
 		37EFEB8F1AD19E360069380D /* how_to_eat_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EFEB891AD19E360069380D /* how_to_eat_gray.png */; };
 		37EFEB901AD19E360069380D /* how_to_eat_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EFEB8A1AD19E360069380D /* how_to_eat_green.png */; };
@@ -395,6 +397,8 @@
 		37EC3EB71AD110B200E39E83 /* how_to_move_well2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_move_well2.png; path = Cubiline/Resources/how_to_move_well2.png; sourceTree = "<group>"; };
 		37EC3EB81AD110B200E39E83 /* how_to_move_well3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_move_well3.png; path = Cubiline/Resources/how_to_move_well3.png; sourceTree = "<group>"; };
 		37EC3EB91AD110B200E39E83 /* how_to_move_well4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_move_well4.png; path = Cubiline/Resources/how_to_move_well4.png; sourceTree = "<group>"; };
+		37EF214F1AD20CC60099B67F /* Gau Font Cube Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Big.png"; path = "Cubiline/Fonts/Gau Font Cube Big.png"; sourceTree = "<group>"; };
+		37EF21501AD20CC60099B67F /* Gau Font Cube Big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Big.txt"; path = "Cubiline/Fonts/Gau Font Cube Big.txt"; sourceTree = "<group>"; };
 		37EFEB881AD19E360069380D /* how_to_eat_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_eat_blue.png; path = Cubiline/Resources/how_to_eat_blue.png; sourceTree = "<group>"; };
 		37EFEB891AD19E360069380D /* how_to_eat_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_eat_gray.png; path = Cubiline/Resources/how_to_eat_gray.png; sourceTree = "<group>"; };
 		37EFEB8A1AD19E360069380D /* how_to_eat_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = how_to_eat_green.png; path = Cubiline/Resources/how_to_eat_green.png; sourceTree = "<group>"; };
@@ -700,6 +704,8 @@
 		378EDAE11A79BB5800397989 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				37EF214F1AD20CC60099B67F /* Gau Font Cube Big.png */,
+				37EF21501AD20CC60099B67F /* Gau Font Cube Big.txt */,
 				378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */,
 				378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */,
 			);
@@ -910,6 +916,7 @@
 				37EC3EBB1AD110B200E39E83 /* how_to_move_well2.png in Resources */,
 				37B58F4E1AD0FCAB00AE2595 /* main_menu_howto.obj in Resources */,
 				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,
+				37EF21511AD20CC60099B67F /* Gau Font Cube Big.png in Resources */,
 				3759AF011AD05D03003539A2 /* out.wav in Resources */,
 				37B58F521AD0FDD300AE2595 /* color_gray.png in Resources */,
 				3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */,
@@ -939,6 +946,7 @@
 				37EFEB8F1AD19E360069380D /* how_to_eat_gray.png in Resources */,
 				3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */,
 				3796A97E1AD070FE00064050 /* sound_button_on.png in Resources */,
+				37EF21521AD20CC60099B67F /* Gau Font Cube Big.txt in Resources */,
 				37AABCC61ACE174C0051C6CC /* 10x.wav in Resources */,
 				3796A9861AD0976800064050 /* flip.wav in Resources */,
 				37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */,
