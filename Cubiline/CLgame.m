@@ -13,8 +13,6 @@
 	VEGameCenter* m_gameCenter;
 	CLData* m_gameData;
 	
-	VESprite* m_background;
-	
 	enum GAME_STATE
 	{
 		GAME_STATE_MAIN_MENU,
@@ -52,12 +50,7 @@
         m_audioBox = [VEAudioBox sharedVEAudioBox];
 		m_gameCenter = gamecenter;
 		m_graphics = graphics;
-		
-		m_background = [m_renderBox NewSpriteFromFileName:@"background.png"];
-		m_background.ColorTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_background.ColorTransitionTime = 0.3f;
-		m_background.Scale = GLKVector3Make(m_renderBox.ScreenWidth, -m_renderBox.ScreenHeight, 0.0f);
-		
+
 		// Game data.
 		m_gameData = [CLData loadInstanceWithGameCenter:m_gameCenter];
 		
@@ -242,7 +235,6 @@
 
 - (void)Resize
 {
-	m_background.Scale = GLKVector3Make(m_renderBox.ScreenWidth, -m_renderBox.ScreenHeight, 0.0f);
 	if(m_gameState == GAME_STATE_MAIN_MENU || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
 		[m_mainMenu Resize];
 	else if(m_gameState == GAME_STATE_GAME_SETUP || m_gameState == GAME_STATE_FROM_GAME_SETUP_TO_PLAY || m_gameState == GAME_STATE_FROM_MAIN_TO_GAME_SETUP)
