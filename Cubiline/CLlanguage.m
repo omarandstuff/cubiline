@@ -20,10 +20,10 @@
 	
 	if(self)
 	{
-		Language = [[NSLocale preferredLanguages] objectAtIndex:0];
+		Language = [NSLocale currentLocale].localeIdentifier;
 		GameStrings = [[NSMutableDictionary alloc] init];
 		
-		if([Language isEqual:@"es"])
+		if([[Language substringToIndex:2] isEqual:@"es"])
 		{
 			[self setDictionaryForSpanish];
 		}
@@ -64,26 +64,26 @@
 	[GameStrings setObject:@"Tap to continue" forKey:@"help_tap_next"];
 	[GameStrings setObject:@"Tap to finish" forKey:@"help_tap_finish"];
 	[GameStrings setObject:@"How To Turn" forKey:@"help_howto_turn_title"];
-	[GameStrings setObject:@"Drag to the side you want to turn" forKey:@"help_howto_turn_text"];
-	[GameStrings setObject:@"How To Return Quickly" forKey:@"help_howto_return_title"];
-	[GameStrings setObject:@"Drag to the opposite direction tilting the sweep" forKey:@"help_howto_return_text"];
-	[GameStrings setObject:@"How To Eat" forKey:@"help_howto_eat_title"];
-	[GameStrings setObject:@"It gives 1 point and grows the line by 1" forKey:@"help_howto_eat_blue_text"];
-	[GameStrings setObject:@"It gives 10 points and grows the line by 10" forKey:@"help_howto_eat_green_text"];
-	[GameStrings setObject:@"It gives 10 points but the line does'n grow" forKey:@"help_howto_eat_orange_text"];
-	[GameStrings setObject:@"It gives 600 coins to you" forKey:@"help_howto_eat_yellow_text"];
-	[GameStrings setObject:@"It reduce the line by 10" forKey:@"help_howto_eat_gray_text"];
-	[GameStrings setObject:@"The line becomes a ghost (can't lose)" forKey:@"help_howto_eat_white_text"];
-	[GameStrings setObject:@"How To Power" forKey:@"help_howto_power_title"];
+	[GameStrings setObject:@"Drag to the direction you want to turn to." forKey:@"help_howto_turn_text"];
+	[GameStrings setObject:@"How To U-Turn" forKey:@"help_howto_return_title"];
+	[GameStrings setObject:@"Drag to the opposite direction tilting the sweep." forKey:@"help_howto_return_text"];
+	[GameStrings setObject:@"How To Special Blocks" forKey:@"help_howto_eat_title"];
+	[GameStrings setObject:@"It gives 1 point and grows the line by 1." forKey:@"help_howto_eat_blue_text"];
+	[GameStrings setObject:@"It gives 10 points and grows the line by 10." forKey:@"help_howto_eat_green_text"];
+	[GameStrings setObject:@"It gives 10 points but the line doesn't grow." forKey:@"help_howto_eat_orange_text"];
+	[GameStrings setObject:@"It gives you 600 coins." forKey:@"help_howto_eat_yellow_text"];
+	[GameStrings setObject:@"It reduces the line by 10." forKey:@"help_howto_eat_gray_text"];
+	[GameStrings setObject:@"The line becomes a ghost (can't crash)." forKey:@"help_howto_eat_white_text"];
+	[GameStrings setObject:@"How To Use Coins" forKey:@"help_howto_power_title"];
 	[GameStrings setObject:@"Pause the game and you can" forKey:@"help_howto_power_time_text1"];
 	[GameStrings setObject:@"look around and decide what" forKey:@"help_howto_power_time_text2"];
-	[GameStrings setObject:@"to do next" forKey:@"help_howto_power_time_text3"];
+	[GameStrings setObject:@"to do next." forKey:@"help_howto_power_time_text3"];
 	[GameStrings setObject:@"For 1000 coins you can have" forKey:@"help_howto_power_reduct_text1"];
 	[GameStrings setObject:@"the same effect as the gray" forKey:@"help_howto_power_reduct_text2"];
-	[GameStrings setObject:@"food whenever you like" forKey:@"help_howto_power_reduct_text3"];
+	[GameStrings setObject:@"block whenever you like." forKey:@"help_howto_power_reduct_text3"];
 	[GameStrings setObject:@"For 500 coins you can have" forKey:@"help_howto_power_ghost_text1"];
 	[GameStrings setObject:@"the same effect as the white" forKey:@"help_howto_power_ghost_text2"];
-	[GameStrings setObject:@"food whenever you like" forKey:@"help_howto_power_ghost_text3"];
+	[GameStrings setObject:@"block whenever you like." forKey:@"help_howto_power_ghost_text3"];
 	
 	[GameStrings setObject:@"Buy 10,000 " forKey:@"setup_buy"];
 	[GameStrings setObject:@"Level Options" forKey:@"setup_level"];
@@ -115,28 +115,28 @@
 	[GameStrings setObject:@"Toca para terminar" forKey:@"help_tap_finish"];
 	[GameStrings setObject:@"Como Girar" forKey:@"help_howto_turn_title"];
 	[GameStrings setObject:@"Arrastra hacia el lado que deseas girar." forKey:@"help_howto_turn_text"];
-	[GameStrings setObject:@"Como regresar rapido" forKey:@"help_howto_return_title"];
-	[GameStrings setObject:@"Arrastra hacia la direccion contraria inlinando." forKey:@"help_howto_return_text"];
-	[GameStrings setObject:@"Como Comer" forKey:@"help_howto_eat_title"];
+	[GameStrings setObject:@"Como Girar Rapido" forKey:@"help_howto_return_title"];
+	[GameStrings setObject:@"Arrastra hacia la direccion contraria inclinando." forKey:@"help_howto_return_text"];
+	[GameStrings setObject:@"Bloques Especiales" forKey:@"help_howto_eat_title"];
 	[GameStrings setObject:@"Da 1 punto y la linea crece en 1." forKey:@"help_howto_eat_blue_text"];
 	[GameStrings setObject:@"Da 10 puntos y la linea crece en 10." forKey:@"help_howto_eat_green_text"];
 	[GameStrings setObject:@"Da 10 puntos pero la linea no crece." forKey:@"help_howto_eat_orange_text"];
 	[GameStrings setObject:@"Te da 600 moneducas." forKey:@"help_howto_eat_yellow_text"];
 	[GameStrings setObject:@"Reduce la linea en 10." forKey:@"help_howto_eat_gray_text"];
-	[GameStrings setObject:@"La linea se vuleve fantasma (No chocas)." forKey:@"help_howto_eat_white_text"];
-	[GameStrings setObject:@"Como Usar Poderes" forKey:@"help_howto_power_title"];
+	[GameStrings setObject:@"La linea se vuelve fantasma (No chocas)." forKey:@"help_howto_eat_white_text"];
+	[GameStrings setObject:@"Como Usar Las Monedas" forKey:@"help_howto_power_title"];
 	[GameStrings setObject:@"Pausa el juego y puedes" forKey:@"help_howto_power_time_text1"];
 	[GameStrings setObject:@"mirar alrededor y decidir" forKey:@"help_howto_power_time_text2"];
 	[GameStrings setObject:@"que hacer." forKey:@"help_howto_power_time_text3"];
 	[GameStrings setObject:@"Por 1000 monedas tienes el" forKey:@"help_howto_power_reduct_text1"];
-	[GameStrings setObject:@"mismo efecto que la comida gris" forKey:@"help_howto_power_reduct_text2"];
+	[GameStrings setObject:@"mismo efecto que el bloque gris" forKey:@"help_howto_power_reduct_text2"];
 	[GameStrings setObject:@"en el momento que quieras." forKey:@"help_howto_power_reduct_text3"];
 	[GameStrings setObject:@"Por 500 monedas tienes el" forKey:@"help_howto_power_ghost_text1"];
-	[GameStrings setObject:@"mismo efecto que la comida blanca" forKey:@"help_howto_power_ghost_text2"];
+	[GameStrings setObject:@"mismo efecto que el bloque blanco" forKey:@"help_howto_power_ghost_text2"];
 	[GameStrings setObject:@"en el momento que quieras." forKey:@"help_howto_power_ghost_text3"];
 	
 	[GameStrings setObject:@"Comprar 10,000 " forKey:@"setup_buy"];
-	[GameStrings setObject:@"Opciones Del Nivel" forKey:@"setup_level"];
+	[GameStrings setObject:@"Opciones del Nivel" forKey:@"setup_level"];
 	[GameStrings setObject:@"Tama\x7fo" forKey:@"setup_size"];
 	[GameStrings setObject:@"Velocidad" forKey:@"setup_speed"];
 	
