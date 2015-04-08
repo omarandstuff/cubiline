@@ -1395,34 +1395,54 @@
 		{
 			if(x > 0)
 			{
-				if(y > 0)
-					[Level doTurn:CL_TURN_RIGHT_DOWN];
+				if(fabsf(y) > m_buttonSize / 3.0f)
+				{
+					if(y > 0)
+						[Level doTurn:CL_TURN_RIGHT_DOWN];
+					else
+						[Level doTurn:CL_TURN_RIGHT_UP];
+				}
 				else
-					[Level doTurn:CL_TURN_RIGHT_UP];
+					[Level doTurn:CL_TURN_RIGHT];
 			}
 			else
 			{
-				if(y > 0)
-					[Level doTurn:CL_TURN_LEFT_DOWN];
+				if(fabsf(y) > m_buttonSize / 3.0f)
+				{
+					if(y > 0)
+						[Level doTurn:CL_TURN_LEFT_DOWN];
+					else
+						[Level doTurn:CL_TURN_LEFT_UP];
+				}
 				else
-					[Level doTurn:CL_TURN_LEFT_UP];
+					[Level doTurn:CL_TURN_LEFT];
 			}
 		}
 		else
 		{
 			if(y > 0)
 			{
-				if(x > 0)
-					[Level doTurn:CL_TURN_DOWN_RIGHT];
+				if(fabsf(x) > m_buttonSize / 3.0f)
+				{
+					if(x > 0)
+						[Level doTurn:CL_TURN_DOWN_RIGHT];
+					else
+						[Level doTurn:CL_TURN_DOWN_LEFT];
+				}
 				else
-					[Level doTurn:CL_TURN_DOWN_LEFT];
+					[Level doTurn:CL_TURN_DOWN];
 			}
 			else
 			{
-				if(x > 0)
-					[Level doTurn:CL_TURN_UP_RIGHT];
+				if(fabsf(x) > m_buttonSize / 3.0f)
+				{
+					if(x > 0)
+						[Level doTurn:CL_TURN_UP_RIGHT];
+					else
+						[Level doTurn:CL_TURN_UP_LEFT];
+				}
 				else
-					[Level doTurn:CL_TURN_UP_LEFT];
+					[Level doTurn:CL_TURN_UP];
 			}
 		}
 	}

@@ -158,12 +158,16 @@
 - (enum CL_ZONE)GetLeftOfZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up;
 - (enum CL_HANDLE)GetHandleForDirection:(enum CL_ZONE)direction;
 - (enum CL_HANDLE)GetComplexHandleForDirection:(enum CL_ZONE)direction SecundaryDirection:(enum CL_ZONE)secundarydirection;
+- (void)TurnUp;
 - (void)TurnUpRight;
 - (void)TurnUpLeft;
+- (void)TurnDown;
 - (void)TurnDownRight;
 - (void)TurnDownLeft;
+- (void)TurnRight;
 - (void)TurnRightUp;
 - (void)TurnRightDown;
+- (void)TurnLeft;
 - (void)TurnLeftUp;
 - (void)TurnLeftDown;
 
@@ -2164,22 +2168,48 @@
 
 - (void)doTurn:(enum CL_TURN)turn
 {
+	if(turn == CL_TURN_UP)
+		return [self TurnUp];
 	if(turn == CL_TURN_UP_RIGHT)
 		return [self TurnUpRight];
 	if(turn == CL_TURN_UP_LEFT)
 		return [self TurnUpLeft];
+	if(turn == CL_TURN_DOWN)
+		return [self TurnDown];
 	if(turn == CL_TURN_DOWN_RIGHT)
 		return [self TurnDownRight];
 	if(turn == CL_TURN_DOWN_LEFT)
 		return [self TurnDownLeft];
+	if(turn == CL_TURN_RIGHT)
+		return [self TurnRight];
 	if(turn == CL_TURN_RIGHT_UP)
 		return [self TurnRightUp];
 	if(turn == CL_TURN_RIGHT_DOWN)
 		return [self TurnRightDown];
+	if(turn == CL_TURN_LEFT)
+		return [self TurnLeft];
 	if(turn == CL_TURN_LEFT_UP)
 		return [self TurnLeftUp];
 	if(turn == CL_TURN_LEFT_DOWN)
 		return [self TurnLeftDown];
+}
+
+- (void)TurnUp
+{
+	if(m_noZone && !m_noZoneFase)
+	{
+		m_bufferTurn = CL_TURN_UP;
+		m_bufferedInNoZone = true;
+		return;
+	}
+	
+	m_bufferTurn = CL_TURN_UP;
+	
+	enum CL_ZONE up = [self GetUpOfZone:Zone Up:ZoneUp];
+	if(Direction == up)return;
+	
+	if(Direction != [self GetDownOfZone:Zone Up:ZoneUp])
+		m_nextHandle = [self GetHandleForDirection:up];
 }
 
 - (void)TurnUpRight
@@ -2226,6 +2256,24 @@
 		m_nextHandle = [self GetHandleForDirection:up];
 }
 
+- (void)TurnDown
+{
+	if(m_noZone && !m_noZoneFase)
+	{
+		m_bufferTurn = CL_TURN_DOWN;
+		m_bufferedInNoZone = true;
+		return;
+	}
+	
+	m_bufferTurn = CL_TURN_DOWN;
+	
+	enum CL_ZONE down = [self GetDownOfZone:Zone Up:ZoneUp];
+	if(Direction == down)return;
+	
+	if(Direction != [self GetUpOfZone:Zone Up:ZoneUp])
+		m_nextHandle = [self GetHandleForDirection:down];
+}
+
 - (void)TurnDownRight
 {
 	if(m_noZone && !m_noZoneFase)
@@ -2270,6 +2318,24 @@
 		m_nextHandle = [self GetHandleForDirection:down];
 }
 
+- (void)TurnRight
+{
+	if(m_noZone && !m_noZoneFase)
+	{
+		m_bufferTurn = CL_TURN_RIGHT;
+		m_bufferedInNoZone = true;
+		return;
+	}
+	
+	m_bufferTurn = CL_TURN_RIGHT;
+	
+	enum CL_ZONE right = [self GetRightOfZone:Zone Up:ZoneUp];
+	if(Direction == right)return;
+	
+	if(Direction != [self GetLeftOfZone:Zone Up:ZoneUp])
+		m_nextHandle = [self GetHandleForDirection:right];
+}
+
 - (void)TurnRightUp
 {
 	if(m_noZone && !m_noZoneFase)
@@ -2312,6 +2378,24 @@
 		m_nextHandle = [self GetComplexHandleForDirection:right SecundaryDirection:down];
 	else
 		m_nextHandle = [self GetHandleForDirection:right];
+}
+
+- (void)TurnLeft
+{
+	if(m_noZone && !m_noZoneFase)
+	{
+		m_bufferTurn = CL_TURN_LEFT;
+		m_bufferedInNoZone = true;
+		return;
+	}
+	
+	m_bufferTurn = CL_TURN_LEFT;
+	
+	enum CL_ZONE left = [self GetLeftOfZone:Zone Up:ZoneUp];
+	if(Direction == left)return;
+	
+	if(Direction != [self GetRightOfZone:Zone Up:ZoneUp])
+		m_nextHandle = [self GetHandleForDirection:left];
 }
 
 - (void)TurnLeftUp
