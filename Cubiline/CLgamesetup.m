@@ -53,6 +53,7 @@
 	
 	SKProduct* m_coinsProduct;
 	bool m_coinsEnabled;
+	bool m_inTransaction;
 	VESprite* m_backBuyCoins;
 	VEText* m_buyCoinsText;
 	VEText* m_buyCoinsC;
@@ -77,6 +78,7 @@
 	
 	
 	CLLAnguage* m_language;
+	
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size;
@@ -603,7 +605,7 @@
 	
 	m_pressing = true;
 	
-	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled)
+	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled && !m_inTransaction)
 		m_buyPrice.FontSize = m_buttonSize * 0.35f;
 	else if([self TestButton:m_playButtonRect X:rx Y:ry])
 		m_playButton.Width = m_buttonSize * 1.5f;
@@ -630,9 +632,11 @@
 	if(!m_pressing)return;
 	m_pressing = false;
 	
-	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled)
+	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled && !m_inTransaction)
 	{
 		[[VEIAPurchase sharedVEIAPurchase] buyProduct:[[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"]];
+		m_buyPrice.Opasity = 0.5f;
+		m_inTransaction = true;
 	}
 	else if([self TestButton:m_playButtonRect X:rx Y:ry])
 	{
@@ -741,11 +745,15 @@
 	for (SKPaymentTransaction * transaction in transactions)
 	{
 		SKPaymentTransactionState st = transaction.transactionState;
+		m_buyPrice.Opasity = 1.0f;
+		m_inTransaction = false;
 		switch (st)
 		{
 			case SKPaymentTransactionStatePurchased:
 			{
-				Level.Coins += 10000;
+				
+				GameData.Coins += 10000;
+				Level.Coins += GameData.Coins;
 				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 				[m_coinsSound Stop];
 				[m_coinsSound Play];
