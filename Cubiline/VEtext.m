@@ -233,6 +233,8 @@
 	for(int i = 0; i < stringSize; i++)
 	{
 		Letter* current = [m_lettersInf objectForKey:[NSString stringWithFormat:@"%c" , [Text characterAtIndex:i]]];
+		if(current == nil)
+			current = [m_lettersInf objectForKey:@" "];
 		[chars addObject:current];
 		if(current.InRenderWith == 0.0f)
 			m_realWidth += 0.2f;

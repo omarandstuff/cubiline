@@ -279,7 +279,7 @@
             material = [[BufferMaterial alloc] init];
             material.Name = [words objectAtIndex:1];
             Buffer* newBuffer = [[Buffer alloc] init];
-            newBuffer.material = material;
+            newBuffer.Material = material;
             [m_buffers setObject:newBuffer forKey:material.Name];
             continue;
         }

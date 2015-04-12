@@ -1395,7 +1395,7 @@
 		{
 			if(x > 0)
 			{
-				if(fabsf(y) > m_buttonSize / 5.0f && fabsf(x) > m_buttonSize / 5.0f)
+				if(fabsf(y) > m_buttonSize / 4.0f && fabsf(x) > m_buttonSize / 4.0f)
 				{
 					if(y > 0)
 						[Level doTurn:CL_TURN_RIGHT_DOWN];
@@ -1407,7 +1407,7 @@
 			}
 			else
 			{
-				if(fabsf(y) > m_buttonSize / 5.0f && fabsf(x) > m_buttonSize / 5.0f)
+				if(fabsf(y) > m_buttonSize / 4.0f && fabsf(x) > m_buttonSize / 4.0f)
 				{
 					if(y > 0)
 						[Level doTurn:CL_TURN_LEFT_DOWN];
@@ -1422,7 +1422,7 @@
 		{
 			if(y > 0)
 			{
-				if(fabsf(x) > m_buttonSize / 5.0f && fabsf(y) > m_buttonSize / 5.0f)
+				if(fabsf(x) > m_buttonSize / 4.0f && fabsf(y) > m_buttonSize / 4.0f)
 				{
 					if(x > 0)
 						[Level doTurn:CL_TURN_DOWN_RIGHT];
@@ -1434,7 +1434,7 @@
 			}
 			else
 			{
-				if(fabsf(x) > m_buttonSize / 5.0f && fabsf(y) > m_buttonSize / 5.0f)
+				if(fabsf(x) > m_buttonSize / 4.0f && fabsf(y) > m_buttonSize / 4.0f)
 				{
 					if(x > 0)
 						[Level doTurn:CL_TURN_UP_RIGHT];
@@ -1591,16 +1591,16 @@
 		}
 		else if([self TestButton:m_ghostRect X:rx Y:ry])
 		{
-			if(m_totalCoins >= 500)
+			if(m_totalCoins >= 1000)
 			{
-				m_totalCoins -= 500;
+				m_totalCoins -= 1000;
 				Level.Coins = m_totalCoins;
 				GameData.Coins = m_totalCoins;
 				m_coinsEffect.Value = m_totalCoins;
 				
 				[Level MakeGhost];
 				
-				[self PresentSpend:@"-$500"];
+				[self PresentSpend:@"-$1000"];
 			}
 		}
 		else if([self TestButton:m_audioSetUpRect X:rx Y:ry])

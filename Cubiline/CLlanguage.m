@@ -81,7 +81,7 @@
 	[GameStrings setObject:@"For 1000 coins you can have" forKey:@"help_howto_power_reduct_text1"];
 	[GameStrings setObject:@"the same effect as the gray" forKey:@"help_howto_power_reduct_text2"];
 	[GameStrings setObject:@"block whenever you like." forKey:@"help_howto_power_reduct_text3"];
-	[GameStrings setObject:@"For 500 coins you can have" forKey:@"help_howto_power_ghost_text1"];
+	[GameStrings setObject:@"For 1000 coins you can have" forKey:@"help_howto_power_ghost_text1"];
 	[GameStrings setObject:@"the same effect as the white" forKey:@"help_howto_power_ghost_text2"];
 	[GameStrings setObject:@"block whenever you like." forKey:@"help_howto_power_ghost_text3"];
 	
@@ -131,7 +131,7 @@
 	[GameStrings setObject:@"Por 1000 monedas tienes el" forKey:@"help_howto_power_reduct_text1"];
 	[GameStrings setObject:@"mismo efecto que el bloque gris" forKey:@"help_howto_power_reduct_text2"];
 	[GameStrings setObject:@"en el momento que quieras." forKey:@"help_howto_power_reduct_text3"];
-	[GameStrings setObject:@"Por 500 monedas tienes el" forKey:@"help_howto_power_ghost_text1"];
+	[GameStrings setObject:@"Por 1000 monedas tienes el" forKey:@"help_howto_power_ghost_text1"];
 	[GameStrings setObject:@"mismo efecto que el bloque blanco" forKey:@"help_howto_power_ghost_text2"];
 	[GameStrings setObject:@"en el momento que quieras." forKey:@"help_howto_power_ghost_text3"];
 	

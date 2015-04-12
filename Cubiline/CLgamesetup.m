@@ -792,7 +792,7 @@
 	{
 		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 		[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-		m_buyPrice.text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[m_coinsProduct.price floatValue]]];
+		m_buyPrice.Text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[m_coinsProduct.price floatValue]]];
 		m_coinsEnabled = true;
 	}
 	
