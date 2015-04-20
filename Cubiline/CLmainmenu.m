@@ -56,12 +56,16 @@
 	
 	/// About
 	bool m_viewing;
+	bool m_aboutB;
 	VESprite* m_background;
 	VESprite* m_logo;
 	VEText* m_version;
 	VEText* m_developed;
 	VEText* m_byOmarDeAnda;
-	VEText* m_cubilineDotCom;
+	VESprite* m_cubilineDotCom;
+	VESprite* m_faceBook;
+	Rect m_faceBookRect;
+	Rect m_cubilineDotComRect;
 	
 	
 	/// Sounds
@@ -242,7 +246,7 @@
 		CommonButtonStyle(m_logo);
 		m_logo.LockAspect = true;
 		
-		m_version = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[NSString stringWithFormat:@"%@ 1.0.0", [m_language stringForKey:@"about_version"]]];
+		m_version = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[NSString stringWithFormat:@"%@ %@", [m_language stringForKey:@"about_version"], [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"]]];
 		CommonTextStyle(m_version);
 		
 		m_developed = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"about_developed"]];
@@ -252,8 +256,11 @@
 		CommonTextStyle(m_byOmarDeAnda);
 		m_byOmarDeAnda.Color = FrontColor;
 		
-		m_cubilineDotCom = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"www.cubiline.com"];
-		CommonTextStyle(m_cubilineDotCom);
+		m_cubilineDotCom = [m_renderBox NewSpriteFromFileName:@"cubilines.png"];
+		CommonButtonStyle(m_cubilineDotCom);
+		
+		m_faceBook = [m_renderBox NewSpriteFromFileName:@"face_books.png"];
+		CommonButtonStyle(m_faceBook);
 		
 		/////////////
 		
@@ -400,7 +407,8 @@
 		[Scene addText:m_version];
 		[Scene addText:m_developed];
 		[Scene addText:m_byOmarDeAnda];
-		[Scene addText:m_cubilineDotCom];
+		[Scene addSprite:m_cubilineDotCom];
+		[Scene addSprite:m_faceBook];
 		
 		[Scene addSprite:m_moveUp];
 		[Scene addSprite:m_moveDown];
@@ -560,25 +568,52 @@
 	
 	GLKVector3 position;
 	
-	if(width > height)
-		position = GLKVector3Make(0.0f, spriteSize / 6.0f, 0.0f);
+	if([[m_renderBox DeviceType] isEqual:@"iPad"])
+		spriteSize *= 0.95f;
+	
+	if(width > height && ![[m_renderBox DeviceType] isEqual:@"iPad"])
+	{
+		position = GLKVector3Make(-width / 4.0f, 0.0f, 0.0f);
+		m_logo.Position = position;
+		
+		position.y -= spriteSize * 0.30f;
+		m_version.Position = position;
+		
+		position = GLKVector3Make(width / 4.0f, spriteSize / 12.0f , 0.0f);
+		m_developed.Position = position;
+	}
 	else
-		position = GLKVector3Make(0.0f, 0.0f, 0.0f);
-	
-	m_logo.Position = position;
-	
-	position.y -= spriteSize * 0.30f;
-	m_version.Position = position;
-	
-	position.y -= spriteSize * 0.1f;
-	m_developed.Position = position;
+	{
+		position = GLKVector3Make(0.0f, spriteSize * 0.24f, 0.0f);
+		
+		m_logo.Position = position;
+		
+		position.y -= spriteSize * 0.30f;
+		m_version.Position = position;
+		
+		position.y -= spriteSize * 0.1f;
+		m_developed.Position = position;
+	}
 	
 	position.y -= spriteSize * 0.1f;
 	m_byOmarDeAnda.Position = position;
 	
-	position.y -= spriteSize * 0.1f;
+	position.x -= spriteSize * 0.1f;
+	position.y -= spriteSize * 0.15f;
 	m_cubilineDotCom.Position = position;
 	
+	position.x += spriteSize * 0.2f;
+	m_faceBook.Position = position;
+	
+	m_faceBookRect.top = position.y + spriteSize * 0.1f;
+	m_faceBookRect.bottom = m_faceBookRect.top - spriteSize * 0.2f;
+	m_faceBookRect.left = position.x - spriteSize * 0.1f;
+	m_faceBookRect.right = m_faceBookRect.left + spriteSize * 0.2f;
+	
+	m_cubilineDotComRect = m_faceBookRect;
+	m_cubilineDotComRect.left -= spriteSize * 0.2f;
+	m_cubilineDotComRect.right -= spriteSize * 0.2f;
+
 	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
 	m_audioSetUpOff.Position = GLKVector3Make(width / 2.0f - m_buttonSize / 3.0f, -height / 2.0f + m_buttonSize / 3.0f, 0.0f);
 	
@@ -600,19 +635,27 @@
 	m_moveWell4.Position = GLKVector3Make(m_buttonSize, -m_buttonSize, 0.0f);
 	m_moveWellTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
 	
-	m_eatBlue.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 1.5f, 0.0f);
-	m_eatGreen.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 0.9f, 0.0f);
-	m_eatOrange.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * 0.3f, 0.0f);
-	m_eatYellow.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -0.3f, 0.0f);
-	m_eatGray.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -0.9f, 0.0f);
-	m_eatWhite.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.4f, m_buttonSize * -1.5f, 0.0f);
+	float caca = 0.4f;
+	if([[m_renderBox DeviceType] isEqual:@"iPad"])
+		caca = 0.2f;
 	
-	m_blueText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 1.5f, 0.0f);
-	m_greenText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 0.9f, 0.0f);
-	m_orangeText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * 0.3f, 0.0f);
-	m_yellowText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -0.3f, 0.0f);
-	m_grayText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -0.9f, 0.0f);
-	m_whiteText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.75f, m_buttonSize * -1.5f, 0.0f);
+	m_eatBlue.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 1.5f, 0.0f);
+	m_eatGreen.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 0.9f, 0.0f);
+	m_eatOrange.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 0.3f, 0.0f);
+	m_eatYellow.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -0.3f, 0.0f);
+	m_eatGray.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -0.9f, 0.0f);
+	m_eatWhite.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -1.5f, 0.0f);
+	
+	caca = 0.75;
+	if([[m_renderBox DeviceType] isEqual:@"iPad"])
+		caca = 0.55f;
+	
+	m_blueText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 1.5f, 0.0f);
+	m_greenText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 0.9f, 0.0f);
+	m_orangeText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * 0.3f, 0.0f);
+	m_yellowText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -0.3f, 0.0f);
+	m_grayText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -0.9f, 0.0f);
+	m_whiteText.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * caca, m_buttonSize * -1.5f, 0.0f);
 	m_eatTitle.Position = GLKVector3Make(0.0f, m_buttonSize * 2.2f, 0.0f);
 	
 	m_powerTime.Position = GLKVector3Make(-spriteSize / 2.0f + m_buttonSize * 0.78f, m_buttonSize * 1.55f, 0.0f);
@@ -693,7 +736,7 @@
 	
 	[m_logo ResetScale:GLKVector3Make(spriteSize / 2.0f, spriteSize / 2.0f, 0.0f)];
 	[m_logo ResetOpasity];
-	m_logo.Width = spriteSize * 0.75f;
+	m_logo.Width = spriteSize * 0.7f;
 	m_logo.Opasity = 1.0f;
 	
 	[m_version ResetFontSize:spriteSize * 0.1f];
@@ -711,10 +754,15 @@
 	m_byOmarDeAnda.FontSize = spriteSize * 0.08f;
 	m_byOmarDeAnda.Opasity = 1.0f;
 	
-	[m_cubilineDotCom ResetFontSize:spriteSize * 0.15f];
+	[m_cubilineDotCom ResetScale:GLKVector3Make(spriteSize * 0.5f, spriteSize * 0.5f, 0.0f)];
 	[m_cubilineDotCom ResetOpasity];
-	m_cubilineDotCom.FontSize = spriteSize * 0.045f;
+	m_cubilineDotCom.Width = spriteSize * 0.2f;
 	m_cubilineDotCom.Opasity = 1.0f;
+	
+	[m_faceBook ResetScale:GLKVector3Make(spriteSize * 0.5f, spriteSize * 0.5f, 0.0f)];
+	[m_faceBook ResetOpasity];
+	m_faceBook.Width = spriteSize * 0.2f;
+	m_faceBook.Opasity = 1.0f;
 }
 
 - (void)PresentHowTo
@@ -1002,7 +1050,17 @@
 	float rx = x - (m_renderBox.ScreenWidth / 2);
 	float ry = -(y - (m_renderBox.ScreenHeight / 2));
 	
-	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
+	if(m_viewing || m_howtoFase != HOW_TO_NONE)
+	{
+		m_aboutB = true;
+		if([self TestButton:m_faceBookRect X:rx Y:ry])
+			m_faceBook.Width = spriteSize * 0.15f;
+		else if([self TestButton:m_cubilineDotComRect X:rx Y:ry])
+			m_cubilineDotCom.Width = spriteSize * 0.15f;
+		else
+			m_aboutB = false;
+		return;
+	}
 	
 	m_selected = false;
 	
@@ -1042,13 +1100,35 @@
 	
 	if(m_viewing)
 	{
-		m_logo.Opasity = 0.0f;
-		m_version.Opasity = 0.0f;
-		m_developed.Opasity = 0.0f;
-		m_byOmarDeAnda.Opasity = 0.0f;
-		m_background.Opasity = 0.0f;
-		m_cubilineDotCom.Opasity = 0.0f;
-		m_viewing = false;
+		if([self TestButton:m_faceBookRect X:rx Y:ry])
+		{
+			NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/979725668724587"];
+			if ([[UIApplication sharedApplication] canOpenURL:facebookURL])
+			{
+				[[UIApplication sharedApplication] openURL:facebookURL];
+			} else
+			{
+				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://facebook.com/CubilineGame"]];
+			}
+		}
+		else if([self TestButton:m_cubilineDotComRect X:rx Y:ry])
+		{
+			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://cubiline.com"]];
+		}
+		else if(!m_aboutB)
+		{
+			m_logo.Opasity = 0.0f;
+			m_version.Opasity = 0.0f;
+			m_developed.Opasity = 0.0f;
+			m_byOmarDeAnda.Opasity = 0.0f;
+			m_background.Opasity = 0.0f;
+			m_cubilineDotCom.Opasity = 0.0f;
+			m_faceBook.Opasity = 0.0f;
+			m_viewing = false;
+		}
+		m_aboutB = false;
+		m_faceBook.Width = spriteSize * 0.2f;
+		m_cubilineDotCom.Width = spriteSize * 0.2f;
 		return;
 	}
 	

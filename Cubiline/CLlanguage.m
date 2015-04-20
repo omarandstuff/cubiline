@@ -88,9 +88,10 @@
 	[GameStrings setObject:@"Buy 10,000 " forKey:@"setup_buy"];
 	[GameStrings setObject:@"Level Options" forKey:@"setup_level"];
 	[GameStrings setObject:@"Cube Size" forKey:@"setup_size"];
-	[GameStrings setObject:@"Cube Speed" forKey:@"setup_speed"];
+	[GameStrings setObject:@"Line Speed" forKey:@"setup_speed"];
 	
 	[GameStrings setObject:@"Continue" forKey:@"game_continue"];
+	[GameStrings setObject:@"Try again" forKey:@"game_again"];
 	[GameStrings setObject:@"Restart" forKey:@"game_restart"];
 	[GameStrings setObject:@"Scores" forKey:@"game_scores"];
 	[GameStrings setObject:@"Main Menu" forKey:@"game_menu"];
@@ -141,6 +142,7 @@
 	[GameStrings setObject:@"Velocidad" forKey:@"setup_speed"];
 	
 	[GameStrings setObject:@"Continuar" forKey:@"game_continue"];
+	[GameStrings setObject:@"De nuevo" forKey:@"game_again"];
 	[GameStrings setObject:@"Reiniciar" forKey:@"game_restart"];
 	[GameStrings setObject:@"Puntajes" forKey:@"game_scores"];
 	[GameStrings setObject:@"Menu" forKey:@"game_menu"];

@@ -1004,6 +1004,8 @@
 {
 	m_pauseFade.Opasity = 0.9f;
 	
+	m_restartText.Text = [m_language stringForKey:@"game_restart"];
+	
 	[m_continueButton ResetScale:GLKVector3Make(m_buttonSize * 3.5f, m_buttonSize * 3.5f, 0.0f)];
 	[m_continueButton ResetOpasity:0.0f];
 	m_continueButton.Width = m_buttonSize * 2.0f;
@@ -1048,6 +1050,8 @@
 - (void)PresentFinishMenu
 {
 	float fontsize = m_viewSize / 23.0f;
+	
+	m_restartText.Text = [m_language stringForKey:@"game_again"];
 	
 	[m_points ResetFontSize: m_buttonSize / 2.0f];
 	[m_points ResetOpasity:0.0f];
@@ -1395,7 +1399,7 @@
 		{
 			if(x > 0)
 			{
-				if(fabsf(y) > m_buttonSize / 4.0f && fabsf(x) > m_buttonSize / 4.0f)
+				if(fabsf(y) > m_buttonSize / 5.0f && fabsf(x) > m_buttonSize / 5.0f)
 				{
 					if(y > 0)
 						[Level doTurn:CL_TURN_RIGHT_DOWN];
@@ -1407,7 +1411,7 @@
 			}
 			else
 			{
-				if(fabsf(y) > m_buttonSize / 4.0f && fabsf(x) > m_buttonSize / 4.0f)
+				if(fabsf(y) > m_buttonSize / 5.0f && fabsf(x) > m_buttonSize / 5.0f)
 				{
 					if(y > 0)
 						[Level doTurn:CL_TURN_LEFT_DOWN];
@@ -1422,7 +1426,7 @@
 		{
 			if(y > 0)
 			{
-				if(fabsf(x) > m_buttonSize / 4.0f && fabsf(y) > m_buttonSize / 4.0f)
+				if(fabsf(x) > m_buttonSize / 5.0f && fabsf(y) > m_buttonSize / 5.0f)
 				{
 					if(x > 0)
 						[Level doTurn:CL_TURN_DOWN_RIGHT];
@@ -1434,7 +1438,7 @@
 			}
 			else
 			{
-				if(fabsf(x) > m_buttonSize / 4.0f && fabsf(y) > m_buttonSize / 4.0f)
+				if(fabsf(x) > m_buttonSize / 5.0f && fabsf(y) > m_buttonSize / 5.0f)
 				{
 					if(x > 0)
 						[Level doTurn:CL_TURN_UP_RIGHT];

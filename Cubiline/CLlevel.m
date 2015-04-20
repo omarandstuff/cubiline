@@ -2743,7 +2743,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Coins += 600;
+			Coins += 200;
 			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
