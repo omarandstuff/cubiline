@@ -3428,11 +3428,13 @@
 	// Lights
 	m_topLight = [m_renderBox NewLight];
 	m_topLight.Position = GLKVector3Make(-45.0, 45.0f, 45.0f);
-	m_topLight.Intensity = 1.75f;
+	m_topLight.Intensity = 0.85f;
+	m_topLight.AmbientCoefficient = 0.3f;
 	
 	m_buttomLight = [m_renderBox NewLight];
 	m_buttomLight.Position = GLKVector3Make(45.0, -45.0f, -45.0);
-	m_buttomLight.Intensity = 1.8f;
+	m_buttomLight.Intensity = 0.90f;
+	m_buttomLight.AmbientCoefficient = 0.3f;
 	
 	// Scene
 	Scene = [m_renderBox NewSceneWithName:@"LevelScene"];

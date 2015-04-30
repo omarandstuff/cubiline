@@ -745,7 +745,7 @@
 	for (SKPaymentTransaction * transaction in transactions)
 	{
 		SKPaymentTransactionState st = transaction.transactionState;
-		m_buyPrice.Opasity = 1.0f;
+		if(m_coinsEnabled)m_buyPrice.Opasity = 1.0f;
 		m_inTransaction = false;
 		switch (st)
 		{

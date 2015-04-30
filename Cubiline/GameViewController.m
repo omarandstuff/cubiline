@@ -199,50 +199,9 @@
 	struct utsname systemInfo;
 	uname(&systemInfo);
 	NSString *machineName = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-	NSDictionary *commonNamesDictionary =
-  @{
-	@"i386":     @"iPhone",
-	@"x86_64":   @"iPad",
 	
-	@"iPhone1,1":    @"iPhone",
-	@"iPhone1,2":    @"iPhone",
-	@"iPhone2,1":    @"iPhone",
-	@"iPhone3,1":    @"iPhone",
-	@"iPhone4,1":    @"iPhone",
-	@"iPhone5,1":    @"iPhone",
-	@"iPhone5,2":    @"iPhone",
 	
-	@"iPad1,1":  @"iPad",
-	@"iPad2,1":  @"iPad",
-	@"iPad2,2":  @"iPad",
-	@"iPad2,3":  @"iPad",
-	@"iPad2,4":  @"iPad",
-	@"iPad2,5":  @"iPad",
-	@"iPad2,6":  @"iPad",
-	@"iPad2,7":  @"iPad",
-	@"iPad3,1":  @"iPad",
-	@"iPad3,2":  @"iPad",
-	@"iPad3,3":  @"iPad",
-	@"iPad3,4":  @"iPad",
-	@"iPad3,5":  @"iPad",
-	@"iPad3,6":  @"iPad",
-	
-	@"iPod1,1":  @"iPhone",
-	@"iPod2,1":  @"iPhone",
-	@"iPod3,1":  @"iPhone",
-	@"iPod4,1":  @"iPhone",
-	@"iPod5,1":  @"iPhone",
-	
-	};
-	
-	NSString *deviceName = commonNamesDictionary[machineName];
-	
-	if (deviceName == nil)
-	{
-		deviceName = machineName;
-	}
-	
-	return deviceName;
+	return [machineName characterAtIndex:2] == 'a' ? @"iPad" : ([machineName characterAtIndex:2] == 'o') ? @"iPod" : @"iPhone";
 }
 
 - (void)viewDidAppear:(BOOL)animated
