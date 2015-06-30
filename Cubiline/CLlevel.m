@@ -3607,6 +3607,7 @@
 	[Body removeAllObjects];
 	
 	FocusedCamera.ViewUp = GLKVector3Make(0.0f, 1.0f, 0.0f);
+	[LeaderGhost ResetPosition];
 	
 	_Size = 456;
 }

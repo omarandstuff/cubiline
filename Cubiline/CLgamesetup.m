@@ -829,7 +829,10 @@
 	}
 	
 	
-	[self PresentShit];
+	m_play = true;
+	[m_playSound Play];
+	
+	//[self PresentShit];
 }
 
 - (void)OutToPlay
