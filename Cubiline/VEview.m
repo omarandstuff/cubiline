@@ -103,7 +103,7 @@
         glBindFramebuffer(GL_FRAMEBUFFER, m_firstPassBlur.FrameBufferID);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        [GaussianBlurShader RenderWithTexture:m_solid.Color.TextureID TextureStep:1.0f / (float)Width BlurRadious:1.25f VHOption:true];
+        [GaussianBlurShader RenderWithTexture:m_solid.Color.TextureID TextureStep:1.0f / (float)Width BlurRadious:2.0f VHOption:true];
         
         [self RenderFullScreen];
         
@@ -112,7 +112,7 @@
         glBindFramebuffer(GL_FRAMEBUFFER, m_secondPassBlur.FrameBufferID);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        [GaussianBlurShader RenderWithTexture:m_firstPassBlur.Color.TextureID TextureStep:1.0f / (float)Width BlurRadious:1.25f VHOption:false];
+        [GaussianBlurShader RenderWithTexture:m_firstPassBlur.Color.TextureID TextureStep:1.0f / (float)Width BlurRadious:2.0f VHOption:false];
         
         [self RenderFullScreen];
         

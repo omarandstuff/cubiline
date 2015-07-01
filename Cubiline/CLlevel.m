@@ -3469,7 +3469,7 @@
 	FocusedCamera.LockLookAt = true;
 	FocusedCamera.Far = 60.0f;
 	FocusedCamera.Near = 5.0f;
-	FocusedCamera.FocusRange = 15.0f;
+	FocusedCamera.FocusRange = 5.0f;
 	
 	// Body and slots
 	Body = [[NSMutableArray alloc] init];
@@ -3612,6 +3612,42 @@
 	_Size = 456;
 }
 
+- (void)ShowSnake:(bool)force
+{
+	if (force)
+	{
+		for(CLBody* body in Body)
+			[body.Model ResetOpasity: 1.0f];
+		[Leader ResetOpasity: 1.0f];
+	}
+	else
+	{
+		for(CLBody* body in Body)
+		{
+			body.Model.Opasity = 1.0f;
+		}
+		Leader.Opasity = 1.0f;
+	}
+}
+
+- (void)HideSnake:(bool)force
+{
+	if (force)
+	{
+		for(CLBody* body in Body)
+			[body.Model ResetOpasity];
+		[Leader ResetOpasity];
+	}
+	else
+	{
+		for(CLBody* body in Body)
+		{
+			body.Model.Opasity = 0.0f;
+		}
+		Leader.Opasity = 0.0f;
+	}
+}
+
 - (void)ManageResizing
 {
 	GLKVector3 leaderPosition = Leader.Position;
@@ -3691,12 +3727,11 @@
 - (void)ResetInZone:(enum CL_ZONE)zone Up:(enum CL_ZONE)up
 {
 	[self SwitchZoneColor:Zone NewZone:zone];
-	Leader.Opasity = 1.0f;
 	[Leader ResetColor:PrimaryColor];
 	Leader.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 	Leader.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	Leader.OpasityTransitionTime = 0.2f;
-	[Leader ResetOpasity:1.0f];
+	[Leader ResetOpasity: 1.0f];
 	Zone = zone;
 	ZoneUp = up;
 	

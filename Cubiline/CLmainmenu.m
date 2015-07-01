@@ -19,10 +19,15 @@
 	Rect m_rightRect;
 	VESprite* m_left;
 	Rect m_leftRect;
+	VESprite* m_down;
+	Rect m_downRect;
 	
 	GLKVector3 m_preRotation;
 	
 	bool m_toProceed;
+	
+	bool m_loby;
+	bool m_inLoby;
 	
 	float m_realRotation;
 	float m_properRotation;
@@ -225,16 +230,18 @@
 		
 		m_right = [m_renderBox NewSpriteFromFileName:@"menu_right.png"];
 		m_left = [m_renderBox NewSpriteFromFileName:@"menu_left.png"];
+		m_down = [m_renderBox NewSpriteFromFileName:@"menu_down.png"];
 		CommonButtonStyle(m_right);
 		CommonButtonStyle(m_left);
-		m_right.LockAspect = m_left.LockAspect = true;
+		CommonButtonStyle(m_down);
+		m_right.LockAspect = m_left.LockAspect = m_down.LockAspect = true;
 		m_right.Opasity = 0.0f;
 		m_left.Opasity = 0.0f;
+		m_down.Opasity = 0.0f;
 		
 		m_title = [m_renderBox NewSpriteFromFileName:@"CubilineTitle.png"];
 		CommonButtonStyle(m_title);
 		m_title.LockAspect = true;
-		
 		
 		//// About /////
 		m_background = [m_renderBox NewSolidSpriteWithColor:ColorCubiline];
@@ -397,6 +404,7 @@
 		[Scene addText:m_text];
 		[Scene addSprite:m_right];
 		[Scene addSprite:m_left];
+		[Scene addSprite:m_down];
 		[Scene addSprite:m_title];
 		
 		[Scene addSprite:m_audioSetUpOn];
@@ -544,6 +552,7 @@
 	
 	m_right.Position = GLKVector3Make(spriteSize * 0.4f, 0.0f, 0.0f);
 	m_left.Position = GLKVector3Make(-spriteSize * 0.4f, 0.0f, 0.0f);
+	m_down.Position = GLKVector3Make(0.0f, -spriteSize * 0.45f, 0.0f);
 	
 	m_rightRect.top = spriteSize / 3.0f;
 	m_rightRect.bottom = -spriteSize / 3.0f;
@@ -555,7 +564,12 @@
 	m_leftRect.right = -m_rightRect.left;
 	m_leftRect.left = -m_rightRect.right;
 	
-	m_right.Width = m_left.Width = spriteSize / 10.0f;
+	m_downRect.top = spriteSize * -0.4f;
+	m_downRect.bottom = spriteSize * -0.5f;
+	m_downRect.left = spriteSize * -0.5f;
+	m_downRect.right = spriteSize * 0.5f;
+	
+	m_right.Width = m_left.Width = m_down.Width = spriteSize / 10.0f;
 	
 	m_title.Position = GLKVector3Make(0.0f, spriteSize * 0.25f + (height / 2.0f - spriteSize * 0.25f) / 2.0f, 0.0f);
 	m_title.Width = spriteSize * 0.85;
@@ -686,6 +700,8 @@
 	m_right.Opasity = 1.0f;
 	[m_left ResetOpasity:0.0f];
 	m_left.Opasity = 1.0f;
+	[m_down ResetOpasity];
+	m_down.Opasity = 1.0f;
 	m_cubeCamera.Position = GLKVector3Make(0.0f, 0.0f, 3.0f);
 	m_cubeCamera.Pivot = GLKVector3Make(0.0f, 0.0f, -3.0f);
 	
@@ -1018,7 +1034,7 @@
 	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
 	
 	float move = x * 180.0f / spriteSize;
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(0.0f, move, 0.0f));
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? 30.0f : 0.0f, move, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1076,6 +1092,11 @@
 	else if([self TestButton:m_leftRect X:rx Y:ry])
 	{
 		m_left.Width = spriteSize / 15.0f;
+		m_inButton = true;
+	}
+	else if([self TestButton:m_downRect X:rx Y:ry] && Selection == CL_MAIN_MENU_SELECTION_PLAY)
+	{
+		m_down.Width = spriteSize / 15.0f;
 		m_inButton = true;
 	}
 	else if([self TestButton:m_audioSetUpRect X:rx Y:ry])
@@ -1174,16 +1195,29 @@
 	
 	m_right.Width = spriteSize / 10.0f;
 	m_left.Width = spriteSize / 10.0f;
+	m_down.Width = spriteSize / 10.0f;
 	
 	if([self TestButton:m_rightRect X:rx Y:ry] && m_inButton)
 	{
+		m_loby = false;
+		m_inLoby = false;
 		m_realRotation -= 90.0f;
 		[self DoSelect];
 		[self ProperCube];
 	}
 	else if([self TestButton:m_leftRect X:rx Y:ry] && m_inButton)
 	{
+		m_loby = false;
+		m_inLoby = false;
 		m_realRotation += 90.0f;
+		[self DoSelect];
+		[self ProperCube];
+	}
+	else if([self TestButton:m_downRect X:rx Y:ry] && Selection == CL_MAIN_MENU_SELECTION_PLAY)
+	{
+		m_loby = true;
+		m_inLoby = true;
+		Selection = CL_MAIN_MENU_SELECTION_LOBY;
 		[self DoSelect];
 		[self ProperCube];
 	}
@@ -1262,7 +1296,7 @@
 
 - (void)ProperCube
 {
-	GLKVector3 newRotation = GLKVector3Make(0.0f, m_properRotation, 0.0f);
+	GLKVector3 newRotation = GLKVector3Make(m_inLoby ? -30.0f : 0.0f, m_properRotation, 0.0f);
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1272,6 +1306,12 @@
 	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
+	
+	if(Selection != CL_MAIN_MENU_SELECTION_LOBY)
+	{
+		m_loby = false;
+		m_inLoby = false;
+	}
 }
 
 - (void)DoSelect
@@ -1282,20 +1322,29 @@
 	{
 		if(normal >= 315.0f || normal < 45.0f)
 		{
-			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
-			Selection = CL_MAIN_MENU_SELECTION_PLAY;
+			if(Selection == CL_MAIN_MENU_SELECTION_PLAY && !m_loby)return;
+			if(Selection == CL_MAIN_MENU_SELECTION_LOBY && m_loby)return;
+			Selection = m_loby ? CL_MAIN_MENU_SELECTION_LOBY : CL_MAIN_MENU_SELECTION_PLAY;
+			
+			m_inLoby = m_loby;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			m_aboutIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
-			if(m_properRotation < m_realRotation)
+			if(m_properRotation < m_realRotation && !m_loby)
 				m_properRotation += 90.0f;
-			else
+			else if (!m_loby)
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
+			if(m_loby)
+				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
+			else
+				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
 			m_text.Text = [m_language stringForKey:@"main_menu_play"];
+			
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -1317,6 +1366,8 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = [m_language stringForKey:@"main_menu_about"];
+			
+			m_inLoby = false;
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -1468,6 +1519,7 @@
 	
 	m_right.Opasity = 1.0f;
 	m_left.Opasity = 1.0f;
+	m_down.Opasity = 1.0f;
 	m_title.Opasity = 1.0f;
 	
 	if(m_audioBox.Mute)
@@ -1503,6 +1555,7 @@
 	
 	m_right.Opasity = 0.0f;
 	m_left.Opasity = 0.0f;
+	m_down.Opasity = 0.0f;
 	m_title.Opasity = 0.0f;
 	
 	m_audioSetUpOn.Opasity = 0.0f;

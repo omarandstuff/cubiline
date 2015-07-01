@@ -73,6 +73,7 @@
 		37604EE01A88019200F77B76 /* CLtouchable.m in Sources */ = {isa = PBXBuildFile; fileRef = 37604EDE1A88019200F77B76 /* CLtouchable.m */; };
 		37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE31A88562900F77B76 /* game_setup_minus.png */; };
 		37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE41A88562900F77B76 /* game_setup_plus.png */; };
+		376EE5B51B436AD3003BB22C /* menu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 376EE5B41B436AD3003BB22C /* menu_down.png */; };
 		3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771AC041A6CC7B8008E74D9 /* images.xcassets */; };
 		377880151AA3897400BDECB4 /* CLdata.m in Sources */ = {isa = PBXBuildFile; fileRef = 377880141AA3897400BDECB4 /* CLdata.m */; };
 		377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */; };
@@ -273,6 +274,7 @@
 		37604EDE1A88019200F77B76 /* CLtouchable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLtouchable.m; path = Cubiline/CLtouchable.m; sourceTree = "<group>"; };
 		37604EE31A88562900F77B76 /* game_setup_minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_minus.png; path = Cubiline/Resources/game_setup_minus.png; sourceTree = "<group>"; };
 		37604EE41A88562900F77B76 /* game_setup_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_plus.png; path = Cubiline/Resources/game_setup_plus.png; sourceTree = "<group>"; };
+		376EE5B41B436AD3003BB22C /* menu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_down.png; path = Cubiline/Resources/menu_down.png; sourceTree = "<group>"; };
 		3771AC041A6CC7B8008E74D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		377880131AA3897400BDECB4 /* CLdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLdata.h; path = Cubiline/CLdata.h; sourceTree = "<group>"; };
 		377880141AA3897400BDECB4 /* CLdata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLdata.m; path = Cubiline/CLdata.m; sourceTree = "<group>"; };
@@ -458,24 +460,32 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DC09D24E1AE2FEB100DDE7B3 /* face_books.png */,
-				37AABCBE1ACE174C0051C6CC /* 1up.wav */,
-				37AABCBF1ACE174C0051C6CC /* 10up.wav */,
-				37AABCC01ACE174C0051C6CC /* 10x.wav */,
-				374868531ACF33670060FC9B /* coins.wav */,
-				DC09D2501AE318F900DDE7B3 /* cubilines.png */,
 				DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */,
+				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
+				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
+				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
+				37B58F4B1AD0FCAB00AE2595 /* main_menu_howto.mtl */,
+				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
+				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
+				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
+				37A44FED1ABBD50A00D5C120 /* white_cube.mtl */,
+				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
+				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
+				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
+				37B58F4C1AD0FCAB00AE2595 /* main_menu_howto.obj */,
+				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
+				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
+				37AFD00F1ABFE31B00700003 /* single_guides_low.obj */,
+				37A44FEE1ABBD50A00D5C120 /* white_cube.obj */,
 				37B58F4F1AD0FDD300AE2595 /* color_blue.png */,
 				37B58F501AD0FDD300AE2595 /* color_gray.png */,
+				DC09D2501AE318F900DDE7B3 /* cubilines.png */,
 				37DEE6571AC272B7005E29AE /* CubilineTitle.png */,
-				374868401ACF09D80060FC9B /* finish.wav */,
-				3796A9851AD0976800064050 /* flip.wav */,
+				DC09D24E1AE2FEB100DDE7B3 /* face_books.png */,
 				37BCAAEC1A9176BE00FFFE6D /* game_continue.png */,
 				37BCAAE51A91760200FFFE6D /* game_exit.png */,
 				37BCAAE61A91760200FFFE6D /* game_gc.png */,
 				37EADC4E1AC92693002C45BD /* game_ghost_button.png */,
-				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
-				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
 				374FCCBE1A86FFEA00B14ACB /* game_guides.png */,
 				37BCAAE21A9165A300FFFE6D /* game_pause.png */,
 				37EADC4A1AC9240F002C45BD /* game_reduct_button.png */,
@@ -486,7 +496,6 @@
 				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
 				37EADC481AC91980002C45BD /* game_time_button.png */,
 				37EADC461AC91392002C45BD /* get_coins_icon.png */,
-				37AABCC21ACE174C0051C6CC /* ghost.wav */,
 				37EFEB881AD19E360069380D /* how_to_eat_blue.png */,
 				37EFEB891AD19E360069380D /* how_to_eat_gray.png */,
 				37EFEB8A1AD19E360069380D /* how_to_eat_green.png */,
@@ -504,37 +513,31 @@
 				37EFEB941AD1B5E60069380D /* how_to_power_ghost.png */,
 				37EFEB951AD1B5E60069380D /* how_to_power_reduct.png */,
 				37EFEB961AD1B5E60069380D /* how_to_power_time.png */,
-				374868411ACF09D80060FC9B /* in_setup.wav */,
 				37550F561ACA4E030020860F /* Logo.png */,
-				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
-				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
 				37AF23251A7D5A7500E0829E /* main_menu_about.png */,
-				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
-				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
 				3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */,
-				37B58F4B1AD0FCAB00AE2595 /* main_menu_howto.mtl */,
-				37B58F4C1AD0FCAB00AE2595 /* main_menu_howto.obj */,
-				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
-				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
 				3758D1191A7C61A900982ABE /* main_menu_play.png */,
+				376EE5B41B436AD3003BB22C /* menu_down.png */,
 				37B3B4F01AC217AC001D7EBA /* menu_left.png */,
 				37B3B4F11AC217AC001D7EBA /* menu_right.png */,
+				3796A97B1AD070FE00064050 /* sound_button_off.png */,
+				3796A97C1AD070FE00064050 /* sound_button_on.png */,
+				37A44FEF1ABBD50A00D5C120 /* white_texture.png */,
+				37AABCBE1ACE174C0051C6CC /* 1up.wav */,
+				37AABCBF1ACE174C0051C6CC /* 10up.wav */,
+				37AABCC01ACE174C0051C6CC /* 10x.wav */,
+				374868531ACF33670060FC9B /* coins.wav */,
+				374868401ACF09D80060FC9B /* finish.wav */,
+				3796A9851AD0976800064050 /* flip.wav */,
+				37AABCC21ACE174C0051C6CC /* ghost.wav */,
+				374868411ACF09D80060FC9B /* in_setup.wav */,
 				374868421ACF09D80060FC9B /* newrecord.wav */,
 				3759AF001AD05D03003539A2 /* out.wav */,
 				3796A9891AD09D2F00064050 /* play.wav */,
 				374868431ACF09D80060FC9B /* plus_minus.wav */,
-				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
-				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
-				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
-				37AFD00F1ABFE31B00700003 /* single_guides_low.obj */,
 				3759AEFE1AD05B4D003539A2 /* size.wav */,
-				3796A97B1AD070FE00064050 /* sound_button_off.png */,
-				3796A97C1AD070FE00064050 /* sound_button_on.png */,
 				3796A9871AD09C3600064050 /* speed.wav */,
 				37AABCC31ACE174C0051C6CC /* stretch.wav */,
-				37A44FED1ABBD50A00D5C120 /* white_cube.mtl */,
-				37A44FEE1ABBD50A00D5C120 /* white_cube.obj */,
-				37A44FEF1ABBD50A00D5C120 /* white_texture.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -949,6 +952,7 @@
 				3728F5E01A6C4FF6004F7244 /* vertex_color_light_shader.fsh in Resources */,
 				37AABCC91ACE174C0051C6CC /* stretch.wav in Resources */,
 				3758D1271A7C6BF200982ABE /* main_menu_game_center.mtl in Resources */,
+				376EE5B51B436AD3003BB22C /* menu_down.png in Resources */,
 				37EC3EBA1AD110B200E39E83 /* how_to_move_well1.png in Resources */,
 				37EFEB8F1AD19E360069380D /* how_to_eat_gray.png in Resources */,
 				3728F5EF1A6C4FF6004F7244 /* texture_shader.vsh in Resources */,

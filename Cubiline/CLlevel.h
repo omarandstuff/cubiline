@@ -70,6 +70,9 @@
 
 - (void)Restore;
 
+- (void)ShowSnake:(bool)force;
+- (void)HideSnake:(bool)force;
+
 @end
 
 #endif

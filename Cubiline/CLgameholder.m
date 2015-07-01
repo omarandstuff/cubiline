@@ -733,6 +733,7 @@
 	m_cubeCamera.PivotRotationTransitionTime = 0.2f;
 	m_cubeCamera.Far = 60.0f;
 	m_cubeCamera.Near = 1.0f;
+	m_cubeCamera.DepthOfField = true;
 	m_cubeCamera.LockLookAt = true;
 	
 	/// Pause button.
