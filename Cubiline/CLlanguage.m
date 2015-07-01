@@ -54,6 +54,7 @@
 - (void)setDictionaryForEnglish
 {
 	[GameStrings setObject:@"Play" forKey:@"main_menu_play"];
+	[GameStrings setObject:@"Setup" forKey:@"main_menu_play_lobby"];
 	[GameStrings setObject:@"Game Center" forKey:@"main_menu_gc"];
 	[GameStrings setObject:@"About" forKey:@"main_menu_about"];
 	[GameStrings setObject:@"How To Play" forKey:@"main_menu_howto"];
@@ -105,6 +106,7 @@
 - (void)setDictionaryForSpanish
 {
 	[GameStrings setObject:@"Jugar" forKey:@"main_menu_play"];
+	[GameStrings setObject:@"Configurar" forKey:@"main_menu_play_lobby"];
 	[GameStrings setObject:@"Game Center" forKey:@"main_menu_gc"];
 	[GameStrings setObject:@"Creditos" forKey:@"main_menu_about"];
 	[GameStrings setObject:@"Como Jugar" forKey:@"main_menu_howto"];

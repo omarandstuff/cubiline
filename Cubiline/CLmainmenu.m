@@ -157,6 +157,8 @@
 - (void)PresentHowToEat;
 - (void)PresentHowToPower;
 
+- (void)AdjustText;
+
 @end
 
 @implementation CLMainMenu
@@ -234,6 +236,8 @@
 		CommonButtonStyle(m_right);
 		CommonButtonStyle(m_left);
 		CommonButtonStyle(m_down);
+		m_down.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_down.RotationTransitionTime = 0.1f;
 		m_right.LockAspect = m_left.LockAspect = m_down.LockAspect = true;
 		m_right.Opasity = 0.0f;
 		m_left.Opasity = 0.0f;
@@ -286,9 +290,10 @@
 		
 		m_text = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"main_menu_play"]];
 		if(m_renderBox.ScreenWidth > m_renderBox.ScreenHeight)
-			m_text.FontSize = m_renderBox.ScreenHeight / 8.0f;
+			m_text.FontSize = m_renderBox.ScreenHeight / 9.0f;
 		else
-			m_text.FontSize = m_renderBox.ScreenWidth / 8.0f;
+			m_text.FontSize = m_renderBox.ScreenWidth / 9.0f;
+		
 		m_text.Color = PrimaryColor;
 		m_text.Opasity = 0.0f;
 		m_text.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_EASE;
@@ -1034,7 +1039,7 @@
 	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
 	
 	float move = x * 180.0f / spriteSize;
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? 30.0f : 0.0f, move, 0.0f));
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? 90.0f : 0.0f, move, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1094,7 +1099,7 @@
 		m_left.Width = spriteSize / 15.0f;
 		m_inButton = true;
 	}
-	else if([self TestButton:m_downRect X:rx Y:ry] && Selection == CL_MAIN_MENU_SELECTION_PLAY)
+	else if([self TestButton:m_downRect X:rx Y:ry] && (Selection == CL_MAIN_MENU_SELECTION_PLAY || Selection == CL_MAIN_MENU_SELECTION_LOBY))
 	{
 		m_down.Width = spriteSize / 15.0f;
 		m_inButton = true;
@@ -1213,13 +1218,32 @@
 		[self DoSelect];
 		[self ProperCube];
 	}
-	else if([self TestButton:m_downRect X:rx Y:ry] && Selection == CL_MAIN_MENU_SELECTION_PLAY)
+	else if([self TestButton:m_downRect X:rx Y:ry] && m_inButton)
 	{
-		m_loby = true;
-		m_inLoby = true;
-		Selection = CL_MAIN_MENU_SELECTION_LOBY;
-		[self DoSelect];
-		[self ProperCube];
+		if(Selection == CL_MAIN_MENU_SELECTION_PLAY)
+		{
+			m_loby = true;
+			m_inLoby = true;
+			Selection = CL_MAIN_MENU_SELECTION_LOBY;
+			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
+			m_text.Text = [m_language stringForKey:@"main_menu_play_lobby"];
+			[self DoSelect];
+			[self ProperCube];
+			[m_flipSound Stop];
+			[m_flipSound Play];
+		}
+		else if (Selection == CL_MAIN_MENU_SELECTION_LOBY)
+		{
+			m_loby = false;
+			m_inLoby = false;
+			Selection = CL_MAIN_MENU_SELECTION_PLAY;
+			m_text.Text = [m_language stringForKey:@"main_menu_play"];
+			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			[self DoSelect];
+			[self ProperCube];
+			[m_flipSound Stop];
+			[m_flipSound Play];
+		}
 	}
 	else if([self TestButton:m_audioSetUpRect X:rx Y:ry] && m_inButton)
 	{
@@ -1296,7 +1320,7 @@
 
 - (void)ProperCube
 {
-	GLKVector3 newRotation = GLKVector3Make(m_inLoby ? -30.0f : 0.0f, m_properRotation, 0.0f);
+	GLKVector3 newRotation = GLKVector3Make(m_inLoby ? -90.0f : 0.0f, m_properRotation, 0.0f);
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1307,10 +1331,21 @@
 	
 	m_realRotation = newRotation.y;
 	
-	if(Selection != CL_MAIN_MENU_SELECTION_LOBY)
+	if(Selection == CL_MAIN_MENU_SELECTION_LOBY)
+	{
+		m_down.Opasity = 1.0f;
+	}
+	else if (Selection == CL_MAIN_MENU_SELECTION_PLAY)
+	{
+		m_down.Opasity = 1.0f;
+		m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+	}
+	else
 	{
 		m_loby = false;
 		m_inLoby = false;
+		m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+		m_down.Opasity = 0.0f;
 	}
 }
 
@@ -1332,9 +1367,9 @@
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			m_aboutIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
-			if(m_properRotation < m_realRotation && !m_loby)
+			if(m_properRotation < m_realRotation)
 				m_properRotation += 90.0f;
-			else if (!m_loby)
+			else
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
@@ -1343,12 +1378,16 @@
 			else
 				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 			
-			m_text.Text = [m_language stringForKey:@"main_menu_play"];
-			
+			if(m_inLoby)
+				m_text.Text = [m_language stringForKey:@"main_menu_play_lobby"];
+			else
+				m_text.Text = [m_language stringForKey:@"main_menu_play"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
 		}
+		else
+			m_inLoby = false;
 		
 		if(normal >= 45.0f && normal < 135.0f)
 		{
@@ -1366,8 +1405,6 @@
 			m_preProperRotation = m_realRotation;
 			
 			m_text.Text = [m_language stringForKey:@"main_menu_about"];
-			
-			m_inLoby = false;
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
@@ -1419,24 +1456,38 @@
 	{
 		if(normal <= -315.0f || normal > -45.0f)
 		{
-			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
-			Selection = CL_MAIN_MENU_SELECTION_PLAY;
+			if(Selection == CL_MAIN_MENU_SELECTION_PLAY && !m_loby)return;
+			if(Selection == CL_MAIN_MENU_SELECTION_LOBY && m_loby)return;
+			Selection = m_loby ? CL_MAIN_MENU_SELECTION_LOBY : CL_MAIN_MENU_SELECTION_PLAY;
+			
+			m_inLoby = m_loby;
 			
 			m_playIcon.Scale = GLKVector3Make(1.1f, 1.1f, 1.1f);
 			m_gameCenterIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			m_aboutIcon.Scale = GLKVector3Make(1.0f, 1.0f, 1.0f);
 			
-			if(m_properRotation < m_realRotation)
-				m_properRotation += 90.0f;
-			else
+			if(m_properRotation > m_realRotation)
 				m_properRotation -= 90.0f;
+			else
+				m_properRotation += 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_text.Text = [m_language stringForKey:@"main_menu_play"];
+			if(m_loby)
+				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
+			else
+				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
+			if(m_inLoby)
+				m_text.Text = [m_language stringForKey:@"main_menu_play_lobby"];
+			else
+				m_text.Text = [m_language stringForKey:@"main_menu_play"];
 			
 			[m_flipSound Stop];
 			[m_flipSound Play];
 		}
+		else
+			m_inLoby = false;
+
 		if(normal <= -45.0f && normal > -135.0f)
 		{
 			if(Selection == CL_MAIN_MENU_SELECTION_GC)return;
@@ -1498,6 +1549,11 @@
 			[m_flipSound Play];
 		}
 	}
+}
+
+- (void)AdjustText
+{
+	
 }
 
 - (void)InFromPlaying
