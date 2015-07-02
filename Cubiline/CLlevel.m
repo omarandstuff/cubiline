@@ -3584,8 +3584,7 @@
 	m_facesMap[CL_ZONE_LEFT] = calloc(positionsPerFace, sizeof(bool));
 	m_facesMap[CL_ZONE_TOP] = calloc(positionsPerFace, sizeof(bool));
 	m_facesMap[CL_ZONE_BOTTOM] = calloc(positionsPerFace, sizeof(bool));
-	
-	
+
 	m_resizing = true;
 }
 
@@ -3623,9 +3622,7 @@
 	else
 	{
 		for(CLBody* body in Body)
-		{
 			body.Model.Opasity = 1.0f;
-		}
 		Leader.Opasity = 1.0f;
 	}
 }
@@ -3635,19 +3632,13 @@
 	if (force)
 	{
 		for(CLBody* body in Body)
-		{
 			[body.Model ResetOpasity];
-			[body.Model Frame:0.0f];
-		}
 		[Leader ResetOpasity];
-		[Leader Frame:0.0f];
 	}
 	else
 	{
 		for(CLBody* body in Body)
-		{
 			body.Model.Opasity = 0.0f;
-		}
 		Leader.Opasity = 0.0f;
 	}
 }

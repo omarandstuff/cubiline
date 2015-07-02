@@ -136,6 +136,10 @@
 			{
 				[m_gameSetUp Resize];
 				[m_gameSetUp InToSetUp];
+				
+				[m_cubilineLevel HideSnake:true];
+				[m_cubilineLevel ShowSnake:false];
+				
 				[m_gameSetUp Frame:time];
 				
 				[m_mainMenu OutToPlay];
@@ -165,8 +169,6 @@
 		[m_mainMenu Frame:time];
 		if([m_mainMenu OutReady])
 		{
-			[m_cubilineLevel HideSnake:true];
-			[m_cubilineLevel ShowSnake:false];
 			m_renderBox.MainView.Scene = m_gameSetUp.Scene;
 			[m_gameSetUp Begin];
 			m_gameState = GAME_STATE_GAME_SETUP;

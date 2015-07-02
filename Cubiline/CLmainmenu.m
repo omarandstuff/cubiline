@@ -29,6 +29,9 @@
 	bool m_loby;
 	bool m_inLoby;
 	float m_rotationLobby;
+	float m_properLobyRotation;
+	bool m_lobbyReleased;
+	bool m_lobbyDirection;
 	
 	float m_realRotation;
 	float m_properRotation;
@@ -578,7 +581,7 @@
 	m_right.Width = m_left.Width = m_down.Width = spriteSize / 10.0f;
 	
 	m_title.Position = GLKVector3Make(0.0f, spriteSize * 0.25f + (height / 2.0f - spriteSize * 0.25f) / 2.0f, 0.0f);
-	m_title.Width = spriteSize * 0.85;
+	m_title.Width = spriteSize * 0.70;
 	
 	m_cubeLimit = spriteSize / 3.5f;
 	
@@ -1033,6 +1036,7 @@
 - (void)TouchPanBegan:(float)x Y:(float)y Fingers:(int)fingers
 {
 	m_preRotation = m_cube.Rotation;
+	m_preRotation.x = m_properLobyRotation;
 }
 
 - (void)TouchPanChange:(float)x Y:(float)y Fingers:(int)fingers
@@ -1043,14 +1047,30 @@
 	float moveY = y * 180.0f / spriteSize;
 	bool movingX = fabsf(move) > fabsf(moveY);
 	
+	if(m_lobbyReleased)
+		m_lobbyDirection = Selection == CL_MAIN_MENU_SELECTION_PLAY;
+	m_lobbyReleased = false;
+	
 	if(Selection == CL_MAIN_MENU_SELECTION_PLAY)
-		moveY = moveY < 0.0f ? moveY : 0.0f;
+	{
+		if(m_lobbyDirection)
+			moveY = moveY < 0.0f ? moveY : 0.0f;
+		else
+			moveY = moveY > 0.0f ? moveY : 0.0f;
+	}
 	else if (Selection == CL_MAIN_MENU_SELECTION_LOBY)
-		moveY = moveY > 0.0f ? moveY : 0.0f;
+	{
+		if(m_lobbyDirection)
+			moveY = moveY < 0.0f ? moveY : 0.0f;
+		else
+			moveY = moveY > 0.0f ? moveY : 0.0f;
+	}
 	else
 		moveY = 0;
 	
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? (90.0f + (!movingX ? moveY : 0.0f)) : (!movingX ? moveY : 0.0f), movingX ? move : 0.0f, 0.0f));
+	//GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? (90.0f * (!m_lobbyDirection && !m_lobbyReleased) + (!movingX ? moveY : 0.0f)) : (!movingX ? moveY : 0.0f), movingX ? move : 0.0f, 0.0f));
+	
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!movingX ? moveY : 0.0f, movingX ? move : 0.0f, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1236,25 +1256,17 @@
 		{
 			m_loby = true;
 			m_inLoby = true;
-			Selection = CL_MAIN_MENU_SELECTION_LOBY;
-			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
-			m_text.Text = [m_language stringForKey:@"main_menu_play_lobby"];
+			m_rotationLobby = -45.0f;
 			[self DoSelect];
 			[self ProperCube];
-			[m_flipSound Stop];
-			[m_flipSound Play];
 		}
 		else if (Selection == CL_MAIN_MENU_SELECTION_LOBY)
 		{
+			m_rotationLobby = -30.0f;
 			m_loby = false;
 			m_inLoby = false;
-			Selection = CL_MAIN_MENU_SELECTION_PLAY;
-			m_text.Text = [m_language stringForKey:@"main_menu_play"];
-			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 			[self DoSelect];
 			[self ProperCube];
-			[m_flipSound Stop];
-			[m_flipSound Play];
 		}
 	}
 	else if([self TestButton:m_audioSetUpRect X:rx Y:ry] && m_inButton)
@@ -1332,7 +1344,7 @@
 
 - (void)ProperCube
 {
-	GLKVector3 newRotation = GLKVector3Make(m_inLoby ? -90.0f : 0.0f, m_properRotation, 0.0f);
+	GLKVector3 newRotation = GLKVector3Make(m_properLobyRotation, m_properRotation, 0.0f);
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1342,6 +1354,9 @@
 	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
+	m_rotationLobby = newRotation.x;
+	
+	m_lobbyReleased = true;
 	
 	if(Selection == CL_MAIN_MENU_SELECTION_LOBY)
 	{
@@ -1364,6 +1379,42 @@
 - (void)DoSelect
 {
 	float normal = fmodf(m_realRotation, 360.0f);
+	float normalY = fmodf(m_rotationLobby, 360.0f);
+	
+	if(normalY < -0.5f && normalY > -89.5f)
+	{
+		if(normalY > -45.0f)
+		{
+			if(Selection == CL_MAIN_MENU_SELECTION_PLAY)return;
+			Selection = CL_MAIN_MENU_SELECTION_PLAY;
+			m_loby = false;
+			m_inLoby = false;
+			
+			m_text.Text = [m_language stringForKey:@"main_menu_play"];
+			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
+			
+			m_properLobyRotation = 0.0f;
+		}
+		if(normalY <= -45.0f)
+		{
+			if(Selection == CL_MAIN_MENU_SELECTION_LOBY)return;
+			Selection = CL_MAIN_MENU_SELECTION_LOBY;
+			m_loby = true;
+			m_inLoby = true;
+			
+			m_text.Text = [m_language stringForKey:@"main_menu_play_lobby"];
+			m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
+			
+			[m_flipSound Stop];
+			[m_flipSound Play];
+			
+			m_properLobyRotation = -90.0f;
+		}
+		return;
+	}
 	
 	if(normal >= 0.0f)
 	{
@@ -1384,6 +1435,8 @@
 			else
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
+			
+			m_properLobyRotation = 0.0f;
 			
 			if(m_loby)
 				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
@@ -1416,6 +1469,8 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
+			m_properLobyRotation = 0.0f;
+			
 			m_text.Text = [m_language stringForKey:@"main_menu_about"];
 			
 			[m_flipSound Stop];
@@ -1437,6 +1492,8 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
+			m_properLobyRotation = 0.0f;
+			
 			m_text.Text = [m_language stringForKey:@"main_menu_howto"];
 			
 			[m_flipSound Stop];
@@ -1457,6 +1514,8 @@
 			else
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
+			
+			m_properLobyRotation = 0.0f;
 			
 			m_text.Text = [m_language stringForKey:@"main_menu_gc"];
 			
@@ -1483,6 +1542,8 @@
 			else
 				m_properRotation += 90.0f;
 			m_preProperRotation = m_realRotation;
+			
+			m_properLobyRotation = 0.0f;
 			
 			if(m_loby)
 				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
@@ -1515,6 +1576,8 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
+			m_properLobyRotation = 0.0f;
+			
 			m_text.Text = [m_language stringForKey:@"main_menu_gc"];
 			
 			[m_flipSound Stop];
@@ -1535,6 +1598,8 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
+			m_properLobyRotation = 0.0f;
+			
 			m_text.Text = [m_language stringForKey:@"main_menu_howto"];
 			
 			[m_flipSound Stop];
@@ -1554,6 +1619,8 @@
 			else
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
+			
+			m_properLobyRotation = 0.0f;
 			
 			m_text.Text = [m_language stringForKey:@"main_menu_about"];
 			
