@@ -3635,8 +3635,12 @@
 	if (force)
 	{
 		for(CLBody* body in Body)
+		{
 			[body.Model ResetOpasity];
+			[body.Model Frame:0.0f];
+		}
 		[Leader ResetOpasity];
+		[Leader Frame:0.0f];
 	}
 	else
 	{

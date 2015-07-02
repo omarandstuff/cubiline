@@ -28,6 +28,7 @@
 	
 	bool m_loby;
 	bool m_inLoby;
+	float m_rotationLobby;
 	
 	float m_realRotation;
 	float m_properRotation;
@@ -553,7 +554,7 @@
 	[m_cubeView ResizeWithWidth:spriteSize Height:spriteSize];
 	m_cubeImage.Scale = GLKVector3Make(spriteSize, -spriteSize, 0.0f);
 	
-	m_text.Position = GLKVector3Make(0.0f, -spriteSize / 3.0f, 0.0f);
+	m_text.Position = GLKVector3Make(0.0f, -spriteSize / 2.9f, 0.0f);
 	
 	m_right.Position = GLKVector3Make(spriteSize * 0.4f, 0.0f, 0.0f);
 	m_left.Position = GLKVector3Make(-spriteSize * 0.4f, 0.0f, 0.0f);
@@ -571,8 +572,8 @@
 	
 	m_downRect.top = spriteSize * -0.4f;
 	m_downRect.bottom = spriteSize * -0.5f;
-	m_downRect.left = spriteSize * -0.5f;
-	m_downRect.right = spriteSize * 0.5f;
+	m_downRect.left = spriteSize / -3.0f;
+	m_downRect.right = spriteSize / 3.0f;
 	
 	m_right.Width = m_left.Width = m_down.Width = spriteSize / 10.0f;
 	
@@ -1039,7 +1040,17 @@
 	if(m_viewing || m_howtoFase != HOW_TO_NONE)return;
 	
 	float move = x * 180.0f / spriteSize;
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? 90.0f : 0.0f, move, 0.0f));
+	float moveY = y * 180.0f / spriteSize;
+	bool movingX = fabsf(move) > fabsf(moveY);
+	
+	if(Selection == CL_MAIN_MENU_SELECTION_PLAY)
+		moveY = moveY < 0.0f ? moveY : 0.0f;
+	else if (Selection == CL_MAIN_MENU_SELECTION_LOBY)
+		moveY = moveY > 0.0f ? moveY : 0.0f;
+	else
+		moveY = 0;
+	
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? (90.0f + (!movingX ? moveY : 0.0f)) : (!movingX ? moveY : 0.0f), movingX ? move : 0.0f, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1049,6 +1060,7 @@
 	m_cube.Rotation = newRotation;
 	
 	m_realRotation = newRotation.y;
+	m_rotationLobby = newRotation.x;
 	
 	[self DoSelect];
 	
