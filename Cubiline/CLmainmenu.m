@@ -1068,9 +1068,9 @@
 	else
 		moveY = 0;
 	
-	//GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? (90.0f * (!m_lobbyDirection && !m_lobbyReleased) + (!movingX ? moveY : 0.0f)) : (!movingX ? moveY : 0.0f), movingX ? move : 0.0f, 0.0f));
+	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!(m_inLoby && Selection == CL_MAIN_MENU_SELECTION_LOBY) && m_loby ? (90.0f * (!m_lobbyDirection && !m_lobbyReleased) + (!movingX ? moveY : 0.0f)) : (!movingX ? moveY : 0.0f), movingX ? move : 0.0f, 0.0f));
 	
-	GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!movingX ? moveY : 0.0f, movingX ? move : 0.0f, 0.0f));
+	//GLKVector3 newRotation = GLKVector3Add(m_preRotation, GLKVector3Make(!movingX ? moveY : 0.0f, movingX ? move : 0.0f, 0.0f));
 	
 	m_playIcon.Rotation = newRotation;
 	m_gameCenterIcon.Rotation = newRotation;
@@ -1436,7 +1436,7 @@
 				m_properRotation -= 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_properLobyRotation = 0.0f;
+			m_properLobyRotation = m_loby ? -90.0f : 0.0f;
 			
 			if(m_loby)
 				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
@@ -1543,7 +1543,7 @@
 				m_properRotation += 90.0f;
 			m_preProperRotation = m_realRotation;
 			
-			m_properLobyRotation = 0.0f;
+			m_properLobyRotation = m_loby ? -90.0f : 0.0f;
 			
 			if(m_loby)
 				m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 180.0f);
