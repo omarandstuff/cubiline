@@ -1145,7 +1145,7 @@
 	
 	[m_scoreFinish ResetScale:GLKVector3Make(m_renderBox.ScreenWidth * 1.5f, m_renderBox.ScreenHeight * 0.7f, 0.0f)];
 	[m_scoreFinish ResetOpasity:0.0f];
-	m_scoreFinish.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 1.6f, 0.0f);
+	m_scoreFinish.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * (m_landscape ? 1.0f : 1.6f), 0.0f);
 	m_scoreFinish.Opasity = 0.9f;
 	
 	[m_scoreFinish2 ResetScale:GLKVector3Make(m_renderBox.ScreenWidth * 1.5f, m_renderBox.ScreenHeight * 0.5f, 0.0f)];
@@ -1153,34 +1153,34 @@
 	m_scoreFinish2.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize, 0.0f);
 	m_scoreFinish2.Opasity = 0.9f;
 	
-	[m_restartButton ResetScale:GLKVector3Make(m_buttonSize * 2.5f, m_buttonSize * 2.5f, 0.0f)];
+	[m_restartButton ResetScale:GLKVector3Make(m_buttonSize * (m_landscape ? 1.5f : 2.5f), m_buttonSize * (m_landscape ? 1.5f : 2.5f), 0.0f)];
 	[m_restartButton ResetOpasity:0.0f];
-	m_restartButton.Width = m_buttonSize * 1.5;
+	m_restartButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.5f);
 	m_restartButton.Opasity = 1.0f;
 	
 	[m_restartText ResetFontSize: m_buttonSize];
 	[m_restartText ResetOpasity:0.0f];
-	m_restartText.FontSize = m_buttonSize * 0.25f;
+	m_restartText.FontSize = m_buttonSize * (m_landscape ? 0.2f : 0.25f);
 	m_restartText.Opasity = 1.0f;
 	
-	[m_gcButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	[m_gcButton ResetScale:GLKVector3Make(m_buttonSize * (m_landscape ? 1.5f : 2.0f), m_buttonSize * (m_landscape ? 1.5f : 2.0f), 0.0f)];
 	[m_gcButton ResetOpasity:0.0f];
-	m_gcButton.Width = m_buttonSize;
+	m_gcButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 	m_gcButton.Opasity = 1.0f;
 	
 	[m_gcText ResetFontSize: m_buttonSize];
 	[m_gcText ResetOpasity:0.0f];
-	m_gcText.FontSize = m_buttonSize * 0.25f;
+	m_gcText.FontSize = m_buttonSize * (m_landscape ? 0.2f : 0.25f);
 	m_gcText.Opasity = 1.0f;
 	
-	[m_exitButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
+	[m_exitButton ResetScale:GLKVector3Make(m_buttonSize * (m_landscape ? 1.5f : 2.0f), m_buttonSize * (m_landscape ? 1.5f : 2.0f), 0.0f)];
 	[m_exitButton ResetOpasity:0.0f];
-	m_exitButton.Width = m_buttonSize;
+	m_exitButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 	m_exitButton.Opasity = 1.0f;
 	
 	[m_exitText ResetFontSize: m_buttonSize];
 	[m_exitText ResetOpasity:0.0f];
-	m_exitText.FontSize = m_buttonSize * 0.25f;
+	m_exitText.FontSize = m_buttonSize * (m_landscape ? 0.2f : 0.25f);
 	m_exitText.Opasity = 1.0f;
 	
 	if(m_toNew)
