@@ -121,9 +121,9 @@
 		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
 		CommonTextStyle(m_sizeText);
 		
-		m_speedNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_speed"]];
+		m_speedNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"1"];
 		CommonTextStyle(m_speedNumber);
-		m_sizeNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
+		m_sizeNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"1"];
 		CommonTextStyle(m_sizeNumber);
 		
 		
@@ -223,7 +223,10 @@
 	m_minusSizeButtonRect.left = position.x - m_buttonSize / 2.0f;
 	m_minusSizeButtonRect.right = m_minusSizeButtonRect.left + m_buttonSize;
 	
-	position.x += buttonspace + m_buttonSize;
+	position.x += m_buttonSize * 0.5f + buttonspace * 0.5f;
+	m_sizeNumber.Position = position;
+	
+	position.x += m_buttonSize * 0.5f + buttonspace * 0.5f;
 	m_plusSizeButton.Position = position;
 	
 	m_plusSizeButtonRect.top = position.y + m_buttonSize / 2.0f;
@@ -239,7 +242,10 @@
 	m_minusSpeedButtonRect.left = position.x - m_buttonSize / 2.0f;
 	m_minusSpeedButtonRect.right = m_minusSpeedButtonRect.left + m_buttonSize;
 	
-	position.x += m_buttonSize + buttonspace;
+	position.x += m_buttonSize * 0.5f + buttonspace * 0.5f;
+	m_speedNumber.Position = position;
+	
+	position.x += m_buttonSize * 0.5f + buttonspace * 0.5f;
 	m_plusSpeedButton.Position = position;
 	
 	m_plusSpeedButtonRect.top = position.y + m_buttonSize / 2.0f;
@@ -328,6 +334,16 @@
 	m_speedText.FontSize = m_buttonSize * 0.28f;
 	m_speedText.Opasity = 1.0f;
 	
+	[m_sizeNumber ResetFontSize:m_buttonSize * 0.8f];
+	[m_sizeNumber ResetOpasity];
+	m_sizeNumber.FontSize = m_buttonSize * 0.28f;
+	m_sizeNumber.Opasity = 1.0f;
+	
+	[m_speedNumber ResetFontSize:m_buttonSize * 0.8f];
+	[m_speedNumber ResetOpasity];
+	m_speedNumber.FontSize = m_buttonSize * 0.28f;
+	m_speedNumber.Opasity = 1.0f;
+	
 	[m_gameModeText ResetFontSize:m_buttonSize * 0.8f];
 	[m_gameModeText ResetOpasity];
 	m_gameModeText.FontSize = m_buttonSize * 0.4f;
@@ -358,18 +374,22 @@
 	if(size == CL_SIZE_SMALL)
 	{
 		radious = 9.0f * 2.3;
+		m_sizeNumber.Text = @"1";
 	}
 	else if(size == CL_SIZE_NORMAL)
 	{
 		radious = 15.0f * 2.3;
+		m_sizeNumber.Text = @"2";
 	}
 	else if(size == CL_SIZE_BIG)
 	{
 		radious = 21.0f * 2.3;
+		m_sizeNumber.Text = @"3";
 	}
 	else if(size == CL_SIZE_EXTRA)
 	{
 		radious = 27.0f * 2.3;
+		m_sizeNumber.Text = @"4";
 	}
 	
 	GameData.Size = m_size;
@@ -385,15 +405,19 @@
 	
 	if(speed == CL_SIZE_SMALL)
 	{
-
+		m_speedNumber.Text = @"1";
 	}
 	else if(speed == CL_SIZE_NORMAL)
 	{
-
+		m_speedNumber.Text = @"2";
 	}
 	else if(speed == CL_SIZE_BIG)
 	{
-
+		m_speedNumber.Text = @"3";
+	}
+	else if(speed == CL_SIZE_EXTRA)
+	{
+		m_speedNumber.Text = @"4";
 	}
 	
 	GameData.Speed = m_speed;
@@ -644,6 +668,8 @@
 	m_playButton.OpasityTransitionTime = 0.1f;
 	m_sizeText.OpasityTransitionTime = 0.1f;
 	m_speedText.OpasityTransitionTime = 0.1f;
+	m_speedNumber.OpasityTransitionTime = 0.1f;
+	m_sizeNumber.OpasityTransitionTime = 0.1f;
 	
 	m_playButton.Opasity = 0.0f;
 	m_sizeText.Opasity = 0.0f;
@@ -652,6 +678,9 @@
 	m_minusSizeButton.Opasity = 0.0f;
 	m_plusSpeedButton.Opasity = 0.0f;
 	m_minusSpeedButton.Opasity = 0.0f;
+	
+	m_speedNumber.Opasity = 0.1f;
+	m_sizeNumber.Opasity = 0.1f;
 	
 	m_audioSetUpOn.Opasity = 0.0f;
 	m_audioSetUpOff.Opasity = 0.0f;
