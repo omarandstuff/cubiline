@@ -128,7 +128,7 @@
 		m_cubeCamera.PositionTransitionTime = 0.4f;
 		m_cubeCamera.PivotRotationTransitionTime = 0.2f;
 		m_cubeCamera.LockLookAt = true;
-		m_cubeCamera.Far = 60.0f;
+		m_cubeCamera.Far = 200.0f;
 		m_cubeCamera.Near = 5.0f;
 		m_cubeCamera.FocusRange = 15.0f;
 		m_cubeCamera.PivotRotation = GLKVector3Make(-30.0f, 30.0f, 0.0f);
@@ -418,7 +418,7 @@
 	[m_plusSizeButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
 	[m_plusSizeButton ResetOpasity];
 	m_plusSizeButton.Width = m_buttonSize;
-	if(m_size == CL_SIZE_BIG)
+	if(m_size == CL_SIZE_EXTRA)
 		m_plusSizeButton.Opasity = 0.5f;
 	else
 		m_plusSizeButton.Opasity = 1.0f;
@@ -434,7 +434,7 @@
 	[m_plusSpeedButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
 	[m_plusSpeedButton ResetOpasity];
 	m_plusSpeedButton.Width = m_buttonSize;
-	if(m_speed == CL_SIZE_BIG)
+	if(m_speed == CL_SIZE_EXTRA)
 		m_plusSpeedButton.Opasity = 0.5f;
 	else
 		m_plusSpeedButton.Opasity = 1.0f;
@@ -546,6 +546,10 @@
 	{
 		radious = 21.0f * 2.3;
 	}
+	else if(size == CL_SIZE_EXTRA)
+	{
+		radious = 27.0f * 2.3;
+	}
 	
 	GameData.Size = m_size;
 	
@@ -652,6 +656,10 @@
 		else if(m_size == CL_SIZE_NORMAL)
 		{
 			m_size = CL_SIZE_BIG;
+		}
+		else if(m_size == CL_SIZE_BIG)
+		{
+			m_size = CL_SIZE_EXTRA;
 			m_plusSizeButtonEnable = false;
 			m_plusSizeButton.Opasity = 0.5f;
 		}
@@ -663,7 +671,11 @@
 	}
 	else if([self TestButton:m_minusSizeButtonRect X:rx Y:ry] && m_minusSizeButtonEnable)
 	{
-		if(m_size == CL_SIZE_BIG)
+		if(m_size == CL_SIZE_EXTRA)
+		{
+			m_size = CL_SIZE_BIG;
+		}
+		else if(m_size == CL_SIZE_BIG)
 		{
 			m_size = CL_SIZE_NORMAL;
 		}
@@ -688,6 +700,10 @@
 		else if(m_speed == CL_SIZE_NORMAL)
 		{
 			m_speed = CL_SIZE_BIG;
+		}
+		else if(m_speed == CL_SIZE_BIG)
+		{
+			m_speed = CL_SIZE_EXTRA;
 			m_plusSpeedButtonEnable = false;
 			m_plusSpeedButton.Opasity = 0.5f;
 		}
@@ -699,7 +715,11 @@
 	}
 	else if([self TestButton:m_minusSpeedButtonRect X:rx Y:ry] && m_minusSpeedButtonEnable)
 	{
-		if(m_speed == CL_SIZE_BIG)
+		if(m_speed == CL_SIZE_EXTRA)
+		{
+			m_speed = CL_SIZE_BIG;
+		}
+		else if(m_speed == CL_SIZE_BIG)
 		{
 			m_speed = CL_SIZE_NORMAL;
 		}
@@ -774,7 +794,7 @@
 	[m_cubeCamera ResetPivot:GLKVector3Make(0.0f, 0.0f, -7.3f)];
 	[m_cubeCamera ResetPivotRotation:GLKVector3Make(26.5650501, 0.0f, 0.0f)];
 }
-- (void)Begin
+- (void)Begin:(bool)forced
 {
 	[Level Reset];
 	[self ChangeSpeed:m_speed];
@@ -806,6 +826,11 @@
 		m_minusSizeButtonEnable = true;
 		m_plusSizeButtonEnable = true;
 	}
+	else if(m_size == CL_SIZE_BIG)
+	{
+		m_minusSizeButtonEnable = true;
+		m_plusSizeButtonEnable = true;
+	}
 	else
 	{
 		m_minusSizeButtonEnable = true;
@@ -822,17 +847,24 @@
 		m_minusSpeedButtonEnable = true;
 		m_plusSpeedButtonEnable = true;
 	}
+	else if(m_speed == CL_SIZE_BIG)
+	{
+		m_minusSpeedButtonEnable = true;
+		m_plusSpeedButtonEnable = true;
+	}
 	else
 	{
 		m_minusSpeedButtonEnable = true;
 		m_plusSpeedButtonEnable = false;
 	}
 	
-	
-	m_play = true;
-	[m_playSound Play];
-	
-	//[self PresentShit];
+	if(forced)
+	{
+		m_play = true;
+		[m_playSound Play];
+	}
+	else
+		[self PresentShit];
 }
 
 - (void)OutToPlay

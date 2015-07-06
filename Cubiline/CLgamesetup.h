@@ -16,7 +16,7 @@
 - (void)Resize;
 
 - (void)InToSetUp;
-- (void)Begin;
+- (void)Begin:(bool)forced;
 
 - (bool)Ready;
 

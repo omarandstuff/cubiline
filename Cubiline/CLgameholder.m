@@ -132,6 +132,9 @@
 	
 	
 	CLLAnguage* m_language;
+	
+	
+	bool m_landscape;
 }
 
 - (void)Create;
@@ -547,6 +550,8 @@
 	
 	float offsetMenu = m_buttonSize * 1.1f;
 	
+	m_landscape = width > height;
+	
 	/// Puse button
 	m_pauseButton.Position = GLKVector3Make(-width / 2 + m_buttonSize / 2.0f, height / 2 - m_buttonSize / 2.0f, 0.0f);
 	m_pauseRect.top =  height / 2;
@@ -647,57 +652,135 @@
 	}
 	else
 	{
-		/// Score text
-		m_points.Position = GLKVector3Make(0.0f, -m_buttonSize * 0.1 + offsetMenu, 0.0f);
+		GLKVector3 positionget;
 		
-		/// Finish band
-		m_scoreFinish.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + offsetMenu, 0.0f);
-		m_scoreFinish2.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize * 0.5f + offsetMenu, 0.0f);
+		if(!m_landscape)
+		{
+			/// Score text
+			m_points.Position = GLKVector3Make(0.0f, -m_buttonSize * 0.1 + offsetMenu, 0.0f);
+			
+			/// Finish band
+			m_scoreFinish.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + offsetMenu, 0.0f);
+			m_scoreFinish2.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize * 0.5f + offsetMenu, 0.0f);
+			
+			/// Coins band
+			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
+			
+			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
+			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
+			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
+			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
+			
+			m_getCoinsBack.Position = positionget;
+			positionget.y += m_viewSize * 0.02f;
+			m_getCoinsIcon.Position = positionget;
+			positionget.y -= m_viewSize * 0.16f;
+			m_getCoinsText.Position = positionget;
+			
+			
+			// Finish buttons
+			m_restartButton.Width = m_buttonSize * 1.5f;
+			m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize + offsetMenu, 0.0f);
+			m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.8f + offsetMenu, 0.0f);
+			m_restartText.FontSize = m_buttonSize * 0.25f;
+			m_restartRect.top = -m_buttonSize + m_buttonSize * 0.75f + offsetMenu;
+			m_restartRect.bottom = m_restartRect.top - m_buttonSize * 1.5f;
+			m_restartRect.left = -m_buttonSize * 0.75f;
+			m_restartRect.right = m_restartRect.left + m_buttonSize * 1.5f;
+			
+			m_gcButton.Width = m_buttonSize;
+			m_gcButton.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize + offsetMenu, 0.0f);
+			m_gcText.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 1.6f + offsetMenu, 0.0f);
+			m_gcText.FontSize = m_buttonSize * 0.25f;
+			m_gcRect.top = -m_buttonSize + m_buttonSize * 0.5f + offsetMenu;
+			m_gcRect.bottom = m_gcRect.top - m_buttonSize;
+			m_gcRect.left = -m_buttonSize * 2.0f;
+			m_gcRect.right = m_gcRect.left + m_buttonSize;
+			
+			m_exitButton.Width = m_buttonSize;
+			m_exitButton.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize + offsetMenu, 0.0f);
+			m_exitText.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 1.6f + offsetMenu, 0.0f);
+			m_exitText.FontSize = m_buttonSize * 0.25f;
+			m_exitRect.top = -m_buttonSize + m_buttonSize * 0.5f + offsetMenu;
+			m_exitRect.bottom = m_exitRect.top - m_buttonSize;
+			m_exitRect.right = m_buttonSize * 2.0f;
+			m_exitRect.left = m_exitRect.right - m_buttonSize;
+			
+			// Finish score banner.
+			m_scoreFinish.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 1.6f, 0.0f);
+			m_scoreFinish2.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize, 0.0f);
+			
+			// New record text.
+			m_newRecord.Position = GLKVector3Make(m_points.Width / 2.0f + m_buttonSize * 0.1f, m_buttonSize * 0.5f + offsetMenu, 0.0f);
+		}
+		else
+		{
+			offsetMenu += m_viewSize * 0.05f;
+			
+			/// Score text
+			m_points.Position = GLKVector3Make(0.0f, -m_buttonSize * 0.1 + offsetMenu, 0.0f);
+			
+			/// Finish band
+			m_scoreFinish2.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize * 0.5f + offsetMenu, 0.0f);
+			
+			// New record text.
+			m_newRecord.Position = GLKVector3Make(m_points.Width / 2.0f + m_buttonSize * 0.1f, m_buttonSize * 0.5f + offsetMenu, 0.0f);
+			
+			/// Finish band
+			m_scoreFinish.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.3f + offsetMenu, 0.0f);
+			
+			
+			// Finish buttons
+			m_restartButton.Width = m_buttonSize * 0.9f;
+			m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.4f + offsetMenu, 0.0f);
+			m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.25f + offsetMenu, 0.0f);
+			m_restartText.FontSize = m_buttonSize * 0.2f;
+			m_restartRect.top = -m_buttonSize * 1.15 + m_buttonSize * 0.9f + offsetMenu;
+			m_restartRect.bottom = m_restartRect.top - m_buttonSize;
+			m_restartRect.left = -m_buttonSize * 0.5f;
+			m_restartRect.right = m_restartRect.left + m_buttonSize;
+			
+			m_gcButton.Width = m_buttonSize * 0.9f;
+			m_gcButton.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 1.15 + m_buttonSize * 0.4f + offsetMenu, 0.0f);
+			m_gcText.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 1.25f + offsetMenu, 0.0f);
+			m_gcText.FontSize = m_buttonSize * 0.2f;
+			m_gcRect.top = -m_buttonSize * 1.15 + m_buttonSize * 0.9f + offsetMenu;;
+			m_gcRect.bottom = m_gcRect.top - m_buttonSize;
+			m_gcRect.left = -m_buttonSize * 2.0f;
+			m_gcRect.right = m_gcRect.left + m_buttonSize;
+			
+			m_exitButton.Width = m_buttonSize * 0.9f;
+			m_exitButton.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 1.15 + m_buttonSize * 0.4f + offsetMenu, 0.0f);
+			m_exitText.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 1.25f + offsetMenu, 0.0f);
+			m_exitText.FontSize = m_buttonSize * 0.2f;
+			m_exitRect.top = -m_buttonSize * 1.15 + m_buttonSize * 0.9f + offsetMenu;
+			m_exitRect.bottom = m_exitRect.top - m_buttonSize;
+			m_exitRect.right = m_buttonSize * 2.0f;
+			m_exitRect.left = m_exitRect.right - m_buttonSize;
+			
+			// Finish score banner.
+			m_scoreFinish.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize, 0.0f);
+			m_scoreFinish2.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize, 0.0f);
+			
+			offsetMenu += m_viewSize * 0.1f;
+			
+			/// Coins band
+			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
+			
+			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
+			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
+			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
+			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
+			
+			m_getCoinsBack.Position = positionget;
+			positionget.y += m_viewSize * 0.02f;
+			m_getCoinsIcon.Position = positionget;
+			positionget.y -= m_viewSize * 0.16f;
+			m_getCoinsText.Position = positionget;
+
+		}
 		
-		/// Coins band
-		GLKVector3 positionget = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
-		m_getCoinsBack.Position = positionget;
-		m_getCoinsText.Position = positionget;
-		positionget.x = width / 2.0f - m_buttonSize * 0.25f;
-		positionget.y -= (m_buttonSize * 0.375f - m_buttonSize * 0.25f);
-		m_getCoinsIcon.Position = positionget;
 		
-		m_getCoinsRect.top = positionget.y + m_buttonSize * 0.375f;
-		m_getCoinsRect.bottom = m_getCoinsRect.top - m_buttonSize * 0.75f;
-		m_getCoinsRect.left = -width / 2.0f;
-		m_getCoinsRect.right = width / 2.0f;
-		
-		m_getCoinsBack.Width = width;
-		m_getCoinsBack.Height = m_buttonSize * 0.75f;
-		
-		// Finish buttons
-		m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize + offsetMenu, 0.0f);
-		m_restartText.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.8f + offsetMenu, 0.0f);
-		m_restartRect.top = -m_buttonSize + m_buttonSize * 0.75f + offsetMenu;
-		m_restartRect.bottom = m_restartRect.top - m_buttonSize * 1.5f;
-		m_restartRect.left = -m_buttonSize * 0.75f;
-		m_restartRect.right = m_restartRect.left + m_buttonSize * 1.5f;
-		
-		m_gcButton.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize + offsetMenu, 0.0f);
-		m_gcText.Position = GLKVector3Make(-m_buttonSize * 1.5f, -m_buttonSize * 1.6f + offsetMenu, 0.0f);
-		m_gcRect.top = -m_buttonSize + m_buttonSize * 0.5f + offsetMenu;
-		m_gcRect.bottom = m_gcRect.top - m_buttonSize;
-		m_gcRect.left = -m_buttonSize * 2.0f;
-		m_gcRect.right = m_gcRect.left + m_buttonSize;
-		
-		m_exitButton.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize + offsetMenu, 0.0f);
-		m_exitText.Position = GLKVector3Make(m_buttonSize * 1.5f, -m_buttonSize * 1.6f + offsetMenu, 0.0f);
-		m_exitRect.top = -m_buttonSize + m_buttonSize * 0.5f + offsetMenu;
-		m_exitRect.bottom = m_exitRect.top - m_buttonSize;
-		m_exitRect.right = m_buttonSize * 2.0f;
-		m_exitRect.left = m_exitRect.right - m_buttonSize;
-		
-		// Finish score banner.
-		m_scoreFinish.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 1.6f, 0.0f);
-		m_scoreFinish2.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize, 0.0f);
-		
-		// New record text.
-		m_newRecord.Position = GLKVector3Make(m_points.Width / 2.0f + m_buttonSize * 0.1f, m_buttonSize * 0.5f + offsetMenu, 0.0f);
 	}
 }
 
@@ -731,7 +814,7 @@
 	m_cubeCamera.PivotTransitionTime = 0.4f;
 	m_cubeCamera.PositionTransitionTime = 0.4f;
 	m_cubeCamera.PivotRotationTransitionTime = 0.2f;
-	m_cubeCamera.Far = 60.0f;
+	m_cubeCamera.Far = 200.0f;
 	m_cubeCamera.Near = 1.0f;
 	m_cubeCamera.DepthOfField = true;
 	m_cubeCamera.LockLookAt = true;
@@ -1110,21 +1193,21 @@
 		m_newRecord.Opasity = 1.0f;
 	}
 	
-	if(m_getCoinsEnable)
+	if(true)
 	{
-		[m_getCoinsBack ResetScale:GLKVector3Make(m_renderBox.ScreenWidth * 1.5f, m_renderBox.ScreenHeight * 0.7f, 0.0f)];
+		[m_getCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
 		[m_getCoinsBack ResetOpasity:0.0f];
-		m_getCoinsBack.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 0.75f, 0.0f);
+		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
 		m_getCoinsBack.Opasity = 0.9f;
 		
 		[m_getCoinsText ResetFontSize: m_buttonSize * 1.5f];
 		[m_getCoinsText ResetOpasity:0.0f];
-		m_getCoinsText.FontSize = m_buttonSize * 0.5f;
+		m_getCoinsText.Width = m_viewSize * 0.33f;
 		m_getCoinsText.Opasity = 1.0f;
 		
-		[m_getCoinsIcon ResetScale:GLKVector3Make(m_buttonSize, m_buttonSize, 0.0f)];
+		[m_getCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
 		[m_getCoinsIcon ResetOpasity:0.0f];
-		m_getCoinsIcon.Width = m_buttonSize * 0.5f;
+		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_getCoinsIcon.Opasity = 1.0f;
 	}
 	
@@ -1516,13 +1599,17 @@
 	else if(m_stage == FINISHED && !m_watch.Active)
 	{
 		if([self TestButton:m_restartRect X:rx Y:ry])
-			m_restartButton.Width = m_buttonSize * 1.0f;
+			m_restartButton.Width = m_buttonSize * (m_landscape ? 0.5f : 1.0f);
 		else if([self TestButton:m_gcRect X:rx Y:ry])
-			m_gcButton.Width = m_buttonSize * 0.7f;
+			m_gcButton.Width = m_buttonSize * (m_landscape ? 0.5f : 0.7f);
 		else if([self TestButton:m_exitRect X:rx Y:ry])
-			m_exitButton.Width = m_buttonSize * 0.7f;
+			m_exitButton.Width = m_buttonSize * (m_landscape ? 0.5f : 0.7f);
 		else if ([self TestButton:m_getCoinsRect X:rx Y:ry] && m_getCoinsEnable)
-			m_getCoinsText.FontSize = m_buttonSize * 0.25f;
+		{
+			m_getCoinsText.Width = m_viewSize * 0.28f;
+			m_getCoinsIcon.Width = m_buttonSize * 1.0f;
+			m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
+		}
 		else
 			m_touchedButton = false;
 	}
@@ -1622,7 +1709,6 @@
 				m_audioSetUpOff.Opasity = 0.0f;
 			}
 		}
-		
 		m_audioSetUpOn.Width = m_buttonSize / 3.0f;
 		m_audioSetUpOff.Height = m_buttonSize / 3.0f;
 		m_pauseButton.Width = m_buttonSize * 0.75f;
@@ -1747,10 +1833,12 @@
 			[m_ads setUnityRewardedZone];
 			[m_ads presentUnityAd];
 		}
-		m_getCoinsText.FontSize = m_buttonSize * 0.5f;
-		m_restartButton.Width = m_buttonSize * 1.5f;
-		m_gcButton.Width = m_buttonSize;
-		m_exitButton.Width = m_buttonSize;
+		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
+		m_getCoinsText.Width = m_viewSize * 0.33f;
+		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
+		m_restartButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.5f);
+		m_gcButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
+		m_exitButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 	}
 	m_touchedButton = false;
 }

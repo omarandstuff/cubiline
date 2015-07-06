@@ -2642,6 +2642,8 @@
 				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime + 5.0f];
 			else if(_Size == CL_SIZE_BIG)
 				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime + 10.0f];
+			else if(_Size == CL_SIZE_EXTRA)
+				[m_specialFood1Watch ResetInSeconds:m_specialFood1ShowTime + 15.0f];
 			
 			[self RandomFood:SpecialFood1];
 			
@@ -2690,6 +2692,8 @@
 				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime + 5.0f];
 			else if(_Size == CL_SIZE_BIG)
 				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime + 10.0f];
+			else if(_Size == CL_SIZE_EXTRA)
+				[m_specialFood2Watch ResetInSeconds:m_specialFood2ShowTime + 15.0f];
 			
 			[self RandomFood:SpecialFood2];
 			
@@ -2731,6 +2735,8 @@
 				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime + 5.0f];
 			else if(_Size == CL_SIZE_BIG)
 				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime + 10.0f];
+			else if(_Size == CL_SIZE_EXTRA)
+				[m_specialFood3Watch ResetInSeconds:m_specialFood3ShowTime + 15.0f];
 			
 			[self RandomFood:SpecialFood3];
 			
@@ -2771,6 +2777,8 @@
 				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime + 5.0f];
 			else if(_Size == CL_SIZE_BIG)
 				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime + 10.0f];
+			else if(_Size == CL_SIZE_EXTRA)
+				[m_specialFood4Watch ResetInSeconds:m_specialFood4ShowTime + 15.0f];
 			
 			[self RandomFood:SpecialFood4];
 			
@@ -2807,6 +2815,8 @@
 				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime + 5.0f];
 			else if(_Size == CL_SIZE_BIG)
 				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime + 10.0f];
+			else if(_Size == CL_SIZE_EXTRA)
+				[m_specialFood5Watch ResetInSeconds:m_specialFood5ShowTime + 15.0f];
 			
 			[self RandomFood:SpecialFood5];
 			
@@ -3130,8 +3140,11 @@
 		text.FontSize = 2.0f;
 	else if(_Size == CL_SIZE_NORMAL)
 		text.FontSize = 3.0f;
-	else
+	else if(_Size == CL_SIZE_BIG)
 		text.FontSize = 4.0f;
+	else
+		text.FontSize = 5.0f;
+
 	text.Opasity = 0.0f;
 	
 }
@@ -3467,8 +3480,8 @@
 	FocusedCamera.ViewUpTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	FocusedCamera.ViewUpTransitionTime = 1.0f;
 	FocusedCamera.LockLookAt = true;
-	FocusedCamera.Far = 60.0f;
-	FocusedCamera.Near = 5.0f;
+	FocusedCamera.Far = 200.0f;
+	FocusedCamera.Near = 1.0f;
 	FocusedCamera.FocusRange = 5.0f;
 	
 	// Body and slots
@@ -3534,6 +3547,22 @@
 		m_guides.TextureCompression = BigSizeVector;
 		
 		m_cubeFaceSlotLimit = (BigSizeLimit * BigSizeLimit * 4);
+	}
+	else if(size == CL_SIZE_EXTRA)
+	{
+		m_levelModel.Scale = ExtraSizeVector;
+		
+		m_cubeEdgeLimit = 14.0f;
+		m_cubeEdgeLogicalLimit = 13.0f;
+		
+		m_radious = ExtraSizeLimit * 2.3f * 2.0f;
+		
+		m_cubeSideSize = m_cubeEdgeLimit * 2 + 1;
+		
+		m_guides.Scale = GuidesExtraSizeVector;
+		m_guides.TextureCompression = ExtraSizeVector;
+		
+		m_cubeFaceSlotLimit = (ExtraSizeLimit * ExtraSizeLimit * 4);
 	}
 	
 	if(Zone == CL_ZONE_FRONT)
@@ -3926,6 +3955,10 @@
 	else if(speed == CL_SIZE_BIG)
 	{
 		Leader.PositionTransitionSpeed = 7.0f;
+	}
+	else if(speed == CL_SIZE_EXTRA)
+	{
+		Leader.PositionTransitionSpeed = 9.0f;
 	}
 	
 	GLKVector3 leaderPosition = Leader.Position;

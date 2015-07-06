@@ -132,7 +132,7 @@
 		[m_mainMenu Frame:time];
 		if([m_mainMenu Selected])
 		{
-			if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_PLAY)
+			if(m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_PLAY || m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_LOBY)
 			{
 				[m_gameSetUp Resize];
 				[m_gameSetUp InToSetUp];
@@ -170,7 +170,8 @@
 		if([m_mainMenu OutReady])
 		{
 			m_renderBox.MainView.Scene = m_gameSetUp.Scene;
-			[m_gameSetUp Begin];
+			[m_gameSetUp Begin: m_mainMenu.Selection == CL_MAIN_MENU_SELECTION_PLAY];
+			[m_mainMenu Reset];
 			m_gameState = GAME_STATE_GAME_SETUP;
 			[m_gameSetUp Resize];
 			m_cubilineLevel.Move = true;

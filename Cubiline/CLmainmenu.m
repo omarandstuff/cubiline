@@ -504,6 +504,8 @@
 		/// Sounds
 		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		m_flipSound = [m_audioBox NewSoundWithFileName:@"flip.wav"];
+		
+		[self Reset];
 	}
 	
 	return self;
@@ -1657,6 +1659,8 @@
 	m_down.Opasity = 1.0f;
 	m_title.Opasity = 1.0f;
 	
+	m_text.Text = [m_language stringForKey:@"main_menu_play"];
+	
 	if(m_audioBox.Mute)
 	{
 		m_audioSetUpOff.Opasity = 1.0f;
@@ -1674,6 +1678,10 @@
 	m_cubeCamera.PivotTransitionTime = 0.8f;
 	m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_cubeCamera.PositionTransitionTime = 0.8f;
+	
+	m_properLobyRotation = 0.0f;
+	
+	[self ProperCube];
 	
 	m_playIcon.Opasity = 0.0f;
 	m_gameCenterIcon.Opasity = 0.0f;
@@ -1703,6 +1711,10 @@
 - (void)Reset
 {
 	m_selected = false;
+	m_loby = false;
+	m_inLoby = false;
+	m_lobbyDirection = true;
+	m_down.Rotation = GLKVector3Make(0.0f, 0.0f, 0.0f);
 }
 
 - (bool)Selected

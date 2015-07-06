@@ -76,7 +76,8 @@ enum CL_SIZE
 {
 	CL_SIZE_SMALL,
 	CL_SIZE_NORMAL,
-	CL_SIZE_BIG
+	CL_SIZE_BIG,
+	CL_SIZE_EXTRA
 };
 
 enum CL_MAIN_MENU_SELECTION
@@ -130,14 +131,17 @@ struct rect
 #define SmallSizeVector GLKVector3Make(9.0f, 9.0f, 9.0f)
 #define NormalSizeVector GLKVector3Make(15.0f, 15.0f, 15.0f)
 #define BigSizeVector GLKVector3Make(21.0f, 21.0f, 21.0f)
+#define ExtraSizeVector GLKVector3Make(27.0f, 27.0f, 27.0f)
 
 #define GuidesSmallSizeVector GLKVector3Make(9.01f, 9.01f, 9.01f)
 #define GuidesNormalSizeVector GLKVector3Make(15.01f, 15.01f, 15.01f)
 #define GuidesBigSizeVector GLKVector3Make(21.01f, 21.01f, 21.01f)
+#define GuidesExtraSizeVector GLKVector3Make(27.01f, 27.01f, 27.01f)
 
 #define SmallSizeLimit 4.5f
 #define NormalSizeLimit 7.5f
 #define BigSizeLimit 10.5f
+#define ExtraSizeLimit 13.5f
 
 #define CommonButtonStyle(Button) Button.Opasity = 0.0f; Button.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.OpasityTransitionTime = 0.13f; Button.LockAspect = true; Button.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH; Button.ScaleTransitionTime = 0.1f
 

@@ -87,7 +87,7 @@
 	[GameStrings setObject:@"block whenever you like." forKey:@"help_howto_power_ghost_text3"];
 	
 	[GameStrings setObject:@"Buy 10,000 " forKey:@"setup_buy"];
-	[GameStrings setObject:@"Level Options" forKey:@"setup_level"];
+	[GameStrings setObject:@"Setup" forKey:@"setup_level"];
 	[GameStrings setObject:@"Cube Size" forKey:@"setup_size"];
 	[GameStrings setObject:@"Line Speed" forKey:@"setup_speed"];
 	
@@ -97,7 +97,7 @@
 	[GameStrings setObject:@"Scores" forKey:@"game_scores"];
 	[GameStrings setObject:@"Main Menu" forKey:@"game_menu"];
 	[GameStrings setObject:@"New Record" forKey:@"game_record"];
-	[GameStrings setObject:@"Get Coins" forKey:@"game_get_coins"];
+	[GameStrings setObject:@"Win Coins" forKey:@"game_get_coins"];
 	
 	[GameStrings setObject:@"Coins" forKey:@"level_coins"];
 	[GameStrings setObject:@"Ghost" forKey:@"level_ghost"];
@@ -139,7 +139,7 @@
 	[GameStrings setObject:@"en el momento que quieras." forKey:@"help_howto_power_ghost_text3"];
 	
 	[GameStrings setObject:@"Comprar 10,000 " forKey:@"setup_buy"];
-	[GameStrings setObject:@"Opciones del Nivel" forKey:@"setup_level"];
+	[GameStrings setObject:@"Configurar" forKey:@"setup_level"];
 	[GameStrings setObject:@"Tama\x7fo" forKey:@"setup_size"];
 	[GameStrings setObject:@"Velocidad" forKey:@"setup_speed"];
 	
