@@ -250,6 +250,8 @@
 		// Calculate the direction of the translation.
 		m_transDirection =  GLKVector3Subtract(m_targetPosition, m_originPosition);
 		m_transDist = GLKVector3Length(m_transDirection);
+		if(m_transDist == 0.0f)
+			IsActive = 0;
 		m_transDirection = GLKVector3DivideScalar(m_transDirection, m_transDist);
 		
 		if (TransitionEffect == VE_TRANSITION_EFFECT_HARD || TransitionEffect == VE_TRANSITION_EFFECT_END_SUPER_SMOOTH)// Set the speed and time for the translation.
