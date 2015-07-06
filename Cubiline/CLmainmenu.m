@@ -12,6 +12,7 @@
 	VEModel* m_gameCenterIcon;
 	VEModel* m_howToIcon;
 	VEModel* m_aboutIcon;
+	VEModel* m_setUpIcon;
 	
 	VESprite* m_title;
 	
@@ -234,6 +235,15 @@
 		m_aboutIcon.OpasityTransitionTime = 0.3f;
 		m_aboutIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
 		
+		m_setUpIcon = [m_renderBox NewModelFromFileName:@"main_menu_setup"];
+		m_setUpIcon.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_setUpIcon.ScaleTransitionTime = 0.15f;
+		m_setUpIcon.RotationTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
+		m_setUpIcon.RotationTransitionTime = 0.1f;
+		m_setUpIcon.OpasityTransitionEffect = VE_TRANSITION_EFFECT_BEGIN_EASE;
+		m_setUpIcon.OpasityTransitionTime = 0.3f;
+		m_setUpIcon.ForcedRenderMode = VE_RENDER_MODE_DIFFUSE;
+		
 		m_right = [m_renderBox NewSpriteFromFileName:@"menu_right.png"];
 		m_left = [m_renderBox NewSpriteFromFileName:@"menu_left.png"];
 		m_down = [m_renderBox NewSpriteFromFileName:@"menu_down.png"];
@@ -408,6 +418,7 @@
 		[m_cubeScene addModel:m_gameCenterIcon];
 		[m_cubeScene addModel:m_howToIcon];
 		[m_cubeScene addModel:m_aboutIcon];
+		[m_cubeScene addModel:m_setUpIcon];
 		
 		[Scene addSprite:m_cubeImage];
 		[Scene addText:m_text];
@@ -1078,6 +1089,7 @@
 	m_gameCenterIcon.Rotation = newRotation;
 	m_howToIcon.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
+	m_setUpIcon.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
 	
@@ -1304,6 +1316,7 @@
 	m_gameCenterIcon.Scale = newScale;
 	m_howToIcon.Scale = newScale;
 	m_aboutIcon.Scale = newScale;
+	m_setUpIcon.Scale = newScale;
 	
 	m_cube.Scale = newScale;
 }
@@ -1319,6 +1332,11 @@
 			m_playIcon.Scale = newSelectedScale;
 		else
 			m_playIcon.Scale = newScale;
+		
+		if(Selection == CL_MAIN_MENU_SELECTION_LOBY)
+			m_setUpIcon.Scale = newSelectedScale;
+		else
+			m_setUpIcon.Scale = newScale;
 		
 		if(Selection == CL_MAIN_MENU_SELECTION_GC)
 			m_gameCenterIcon.Scale = newSelectedScale;
@@ -1352,6 +1370,7 @@
 	m_gameCenterIcon.Rotation = newRotation;
 	m_howToIcon.Rotation = newRotation;
 	m_aboutIcon.Rotation = newRotation;
+	m_setUpIcon.Rotation = newRotation;
 	
 	m_cube.Rotation = newRotation;
 	
@@ -1646,6 +1665,7 @@
 	m_text.Opasity = 1.0f;
 	m_playIcon.Opasity = 1.0f;
 	m_gameCenterIcon.Opasity = 1.0f;
+	m_setUpIcon.Opasity = 1.0f;
 	Selection = CL_MAIN_MENU_SELECTION_PLAY;
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:7.0f];
@@ -1685,6 +1705,7 @@
 	
 	m_playIcon.Opasity = 0.0f;
 	m_gameCenterIcon.Opasity = 0.0f;
+	m_setUpIcon.Opasity = 0.0f;
 	m_cubeCamera.PivotTransitionEffect = VE_TRANSITION_EFFECT_HARD;
 	m_cubeCamera.PivotTransitionTime = 0.8f;
 	m_cubeCamera.PositionTransitionEffect = VE_TRANSITION_EFFECT_HARD;

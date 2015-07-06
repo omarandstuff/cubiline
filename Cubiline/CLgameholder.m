@@ -674,14 +674,14 @@
 			m_scoreFinish2.Position = GLKVector3Make(0.0f, -m_buttonSize * 1.15 + m_buttonSize * 0.8f + m_buttonSize * 0.5f + offsetMenu, 0.0f);
 			
 			/// Coins band
-			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
+			positionget = GLKVector3Make(-m_viewSize * 0.3f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
 			
 			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
 			m_buyCoinsRect.top = m_getCoinsRect.top;
 			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
 			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
 			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
-			m_buyCoinsRect.left = m_viewSize / 4.0f - m_viewSize * 0.175f;
+			m_buyCoinsRect.left = m_viewSize * 0.3f - m_viewSize * 0.175f;
 			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
 			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
 			
@@ -692,7 +692,7 @@
 			positionget.y -= m_viewSize * 0.16f;
 			m_getCoinsText.Position = positionget;
 			
-			positionget.x = m_viewSize / 4.0f;
+			positionget.x = m_viewSize * 0.3;
 			m_buyCoinsText.Position = positionget;
 			positionget.y += m_viewSize * 0.16f;
 			m_buyCoinsIcon.Position = positionget;
@@ -789,14 +789,14 @@
 			offsetMenu += m_viewSize * 0.1f;
 			
 			/// Coins band
-			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
+			positionget = GLKVector3Make(-m_viewSize * 0.3f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
 			
 			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
 			m_buyCoinsRect.top = m_getCoinsRect.top;
 			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
 			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
 			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
-			m_buyCoinsRect.left = m_viewSize / 4.0f - m_viewSize * 0.175f;
+			m_buyCoinsRect.left = m_viewSize * 0.3f - m_viewSize * 0.175f;
 			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
 			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
 			
@@ -807,7 +807,7 @@
 			positionget.y -= m_viewSize * 0.16f;
 			m_getCoinsText.Position = positionget;
 			
-			positionget.x = m_viewSize / 4.0f;
+			positionget.x = m_viewSize * 0.3f;
 			m_buyCoinsText.Position = positionget;
 			positionget.y += m_viewSize * 0.16f;
 			m_buyCoinsIcon.Position = positionget;
@@ -1281,19 +1281,19 @@
 		[m_buyCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
 		[m_buyCoinsBack ResetOpasity:0.0f];
 		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-		m_buyCoinsBack.Opasity = 0.9f;
+		m_buyCoinsBack.Opasity = m_inTransaction ? 0.5f : 0.9f;
 		
 		[m_buyCoinsText ResetFontSize: m_buttonSize * 1.5f];
 		[m_buyCoinsText ResetOpasity:0.0f];
 		m_buyCoinsText.Width = m_viewSize * 0.33f;
-		m_buyCoinsText.Opasity = 1.0f;
+		m_buyCoinsText.Opasity = m_inTransaction ? 0.5f : 1.0f;
 		
 		[m_buyPriceText ResetFontSize: m_buttonSize * 1.5f];
 		[m_buyPriceText ResetOpasity:0.0f];
 		m_buyPriceText.Width = m_viewSize * 0.33f;
 		if(m_buyPriceText.Height > m_buttonSize * 0.33f)
 			m_buyPriceText.FontSize = m_buttonSize * 0.33f;
-		m_buyPriceText.Opasity = 1.0f;
+		m_buyPriceText.Opasity = m_inTransaction ? 0.5f : 1.0f;
 		
 		[m_buyCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
 		[m_buyCoinsIcon ResetOpasity:0.0f];

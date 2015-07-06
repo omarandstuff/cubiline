@@ -9,6 +9,8 @@
 	
 	GLKVector3 m_prePosition;
 	
+	VESprite* m_back;
+	VESprite* m_back2;
 	VEText* m_speedText;
 	VEText* m_sizeText;
 	VESprite* m_plusSpeedButton;
@@ -16,6 +18,8 @@
 	VESprite* m_plusSizeButton;
 	VESprite* m_minusSizeButton;
 	VESprite* m_playButton;
+	
+	VEText* m_playText;
 	
 	VEText* m_speedNumber;
 	VEText* m_sizeNumber;
@@ -116,6 +120,14 @@
 		m_cubeCamera.PivotRotation = GLKVector3Make(-30.0f, 30.0f, 0.0f);
 		
 		// Back
+		m_back = [m_renderBox NewSolidSpriteWithColor:ColorWhite];
+		CommonButtonStyle(m_back);
+		m_back.LockAspect = false;
+		
+		m_back2 = [m_renderBox NewSolidSpriteWithColor:PrimaryColor];
+		CommonButtonStyle(m_back2);
+		m_back2.LockAspect = false;
+		
 		m_speedText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_speed"]];
 		CommonTextStyle(m_speedText);
 		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
@@ -150,9 +162,14 @@
 		m_gameModeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_level"]];
 		CommonTextStyle(m_gameModeText);
 		
+		m_playText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"main_menu_play"]];
+		CommonTextStyle(m_playText);
+		
 		
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
+		[Scene addSprite:m_back];
+		[Scene addSprite:m_back2];
 		[Scene addText:m_speedText];
 		[Scene addText:m_sizeText];
 		[Scene addSprite:m_plusSpeedButton];
@@ -165,6 +182,7 @@
 		[Scene addText:m_gameModeText];
 		[Scene addText:m_speedNumber];
 		[Scene addText:m_sizeNumber];
+		[Scene addText:m_playText];
 		
 		m_watch = [[VEWatch alloc] init];
 		m_watch.Style = VE_WATCH_STYLE_LIMITED;
@@ -254,13 +272,16 @@
 	m_plusSpeedButtonRect.right = m_plusSpeedButtonRect.left + m_buttonSize;
 	
 	position.x = spriteSize / 2.0f - m_buttonSize - buttonspace;
-	position.y = -height / 2.0f + buttonspace * 1.5f + m_buttonSize;
+	position.y = -height / 2.0f + buttonspace * 1.5f + m_buttonSize * 1.2f;
 	m_playButton.Position = position;
 	
 	m_playButtonRect.top = position.y + m_buttonSize;
 	m_playButtonRect.bottom = m_playButtonRect.top - m_buttonSize * 2.0f;
 	m_playButtonRect.left = position.x - m_buttonSize;
 	m_playButtonRect.right = m_playButtonRect.left + m_buttonSize *2.0f;
+	
+	position.y -= m_buttonSize * 0.8f;
+	m_playText.Position = position;
 	
 	position.x = -spriteSize / 2.0f + buttonspace * 1.5f + m_buttonSize;
 	position.y = -height / 2.0f + m_buttonSize;
@@ -272,6 +293,14 @@
 	position.y += m_buttonSize * 0.5f;
 	position.x = m_plusSizeButtonRect.right + buttonspace / 2.0f;
 	m_gameModeText.Position = position;
+	
+	m_back.Position = GLKVector3Make(0.0f, -height * 0.5f + m_buttonSize, 0.0f);
+	m_back.Width = width;
+	m_back.Height = m_buttonSize * 2.0f;
+	
+	m_back2.Position = GLKVector3Make(0.0f, -height * 0.5f + m_buttonSize * 2.0f, 0.0f);
+	m_back2.Width = width;
+	m_back2.Height = m_buttonSize * 0.02f;
 	
 	/// Audio
 	
@@ -348,6 +377,14 @@
 	[m_gameModeText ResetOpasity];
 	m_gameModeText.FontSize = m_buttonSize * 0.4f;
 	m_gameModeText.Opasity = 1.0f;
+	
+	[m_playText ResetFontSize:m_buttonSize * 0.8f];
+	[m_playText ResetOpasity];
+	m_playText.FontSize = m_buttonSize * 0.4f;
+	m_playText.Opasity = 1.0f;
+	
+	m_back.Opasity = 1.0f;
+	m_back2.Opasity = 1.0f;
 	
 	if(m_audioBox.Mute)
 	{
@@ -670,6 +707,9 @@
 	m_speedText.OpasityTransitionTime = 0.1f;
 	m_speedNumber.OpasityTransitionTime = 0.1f;
 	m_sizeNumber.OpasityTransitionTime = 0.1f;
+	m_back.OpasityTransitionTime = 0.1f;
+	m_back2.OpasityTransitionTime = 0.1f;
+	m_playText.OpasityTransitionTime = 0.1f;
 	
 	m_playButton.Opasity = 0.0f;
 	m_sizeText.Opasity = 0.0f;
@@ -679,11 +719,16 @@
 	m_plusSpeedButton.Opasity = 0.0f;
 	m_minusSpeedButton.Opasity = 0.0f;
 	
-	m_speedNumber.Opasity = 0.1f;
-	m_sizeNumber.Opasity = 0.1f;
+	m_speedNumber.Opasity = 0.0f;
+	m_sizeNumber.Opasity = 0.0f;
 	
 	m_audioSetUpOn.Opasity = 0.0f;
 	m_audioSetUpOff.Opasity = 0.0f;
+	
+	m_back.Opasity = 0.0f;
+	m_back2.Opasity = 0.0f;
+	
+	m_playText.Opasity = 0.0f;
 	
 	m_gameModeText.Opasity = 0.0f;
 	

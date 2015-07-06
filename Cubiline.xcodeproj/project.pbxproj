@@ -152,6 +152,9 @@
 		37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAE71A91760200FFFE6D /* game_restart.png */; };
 		37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */ = {isa = PBXBuildFile; fileRef = 37BCAAEC1A9176BE00FFFE6D /* game_continue.png */; };
 		37C83FC71ACB624D000CBE9F /* VEinapppurchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C83FC61ACB624D000CBE9F /* VEinapppurchase.m */; };
+		37D5B2541B4AB5BF001960D5 /* main_menu_setup.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37D5B2521B4AB5BF001960D5 /* main_menu_setup.mtl */; };
+		37D5B2551B4AB5BF001960D5 /* main_menu_setup.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37D5B2531B4AB5BF001960D5 /* main_menu_setup.obj */; };
+		37D5B2571B4AB783001960D5 /* main_menu_setup.png in Resources */ = {isa = PBXBuildFile; fileRef = 37D5B2561B4AB783001960D5 /* main_menu_setup.png */; };
 		37DEE6581AC272B7005E29AE /* CubilineTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 37DEE6571AC272B7005E29AE /* CubilineTitle.png */; };
 		37EADC471AC91392002C45BD /* get_coins_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EADC461AC91392002C45BD /* get_coins_icon.png */; };
 		37EADC491AC91980002C45BD /* game_time_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EADC481AC91980002C45BD /* game_time_button.png */; };
@@ -389,6 +392,9 @@
 		37BCAAEC1A9176BE00FFFE6D /* game_continue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_continue.png; path = Cubiline/Resources/game_continue.png; sourceTree = "<group>"; };
 		37C83FC51ACB624D000CBE9F /* VEinapppurchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEinapppurchase.h; path = Cubiline/VEinapppurchase.h; sourceTree = "<group>"; };
 		37C83FC61ACB624D000CBE9F /* VEinapppurchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEinapppurchase.m; path = Cubiline/VEinapppurchase.m; sourceTree = "<group>"; };
+		37D5B2521B4AB5BF001960D5 /* main_menu_setup.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_setup.mtl; path = Cubiline/Resources/main_menu_setup.mtl; sourceTree = "<group>"; };
+		37D5B2531B4AB5BF001960D5 /* main_menu_setup.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main_menu_setup.obj; path = Cubiline/Resources/main_menu_setup.obj; sourceTree = "<group>"; };
+		37D5B2561B4AB783001960D5 /* main_menu_setup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = main_menu_setup.png; path = Cubiline/Resources/main_menu_setup.png; sourceTree = "<group>"; };
 		37DEE6571AC272B7005E29AE /* CubilineTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CubilineTitle.png; path = Cubiline/Resources/CubilineTitle.png; sourceTree = "<group>"; };
 		37EADC461AC91392002C45BD /* get_coins_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = get_coins_icon.png; path = Cubiline/Resources/get_coins_icon.png; sourceTree = "<group>"; };
 		37EADC481AC91980002C45BD /* game_time_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_time_button.png; path = Cubiline/Resources/game_time_button.png; sourceTree = "<group>"; };
@@ -462,33 +468,25 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3785A0CE1B4A39D5001F3D84 /* buy_coins_icon.png */,
+				37AABCBE1ACE174C0051C6CC /* 1up.wav */,
+				37AABCBF1ACE174C0051C6CC /* 10up.wav */,
+				37AABCC01ACE174C0051C6CC /* 10x.wav */,
 				DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */,
-				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
-				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
-				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
-				37B58F4B1AD0FCAB00AE2595 /* main_menu_howto.mtl */,
-				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
-				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
-				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
-				37A44FED1ABBD50A00D5C120 /* white_cube.mtl */,
-				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
-				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
-				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
-				37B58F4C1AD0FCAB00AE2595 /* main_menu_howto.obj */,
-				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
-				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
-				37AFD00F1ABFE31B00700003 /* single_guides_low.obj */,
-				37A44FEE1ABBD50A00D5C120 /* white_cube.obj */,
+				3785A0CE1B4A39D5001F3D84 /* buy_coins_icon.png */,
+				374868531ACF33670060FC9B /* coins.wav */,
 				37B58F4F1AD0FDD300AE2595 /* color_blue.png */,
 				37B58F501AD0FDD300AE2595 /* color_gray.png */,
 				DC09D2501AE318F900DDE7B3 /* cubilines.png */,
 				37DEE6571AC272B7005E29AE /* CubilineTitle.png */,
 				DC09D24E1AE2FEB100DDE7B3 /* face_books.png */,
+				374868401ACF09D80060FC9B /* finish.wav */,
+				3796A9851AD0976800064050 /* flip.wav */,
 				37BCAAEC1A9176BE00FFFE6D /* game_continue.png */,
 				37BCAAE51A91760200FFFE6D /* game_exit.png */,
 				37BCAAE61A91760200FFFE6D /* game_gc.png */,
 				37EADC4E1AC92693002C45BD /* game_ghost_button.png */,
+				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
+				374FCCBB1A86FCAF00B14ACB /* game_guides.obj */,
 				374FCCBE1A86FFEA00B14ACB /* game_guides.png */,
 				37BCAAE21A9165A300FFFE6D /* game_pause.png */,
 				37EADC4A1AC9240F002C45BD /* game_reduct_button.png */,
@@ -499,6 +497,7 @@
 				37ADE7631A89ABB500FB84CF /* game_setup_speed.png */,
 				37EADC481AC91980002C45BD /* game_time_button.png */,
 				37EADC461AC91392002C45BD /* get_coins_icon.png */,
+				37AABCC21ACE174C0051C6CC /* ghost.wav */,
 				37EFEB881AD19E360069380D /* how_to_eat_blue.png */,
 				37EFEB891AD19E360069380D /* how_to_eat_gray.png */,
 				37EFEB8A1AD19E360069380D /* how_to_eat_green.png */,
@@ -516,31 +515,41 @@
 				37EFEB941AD1B5E60069380D /* how_to_power_ghost.png */,
 				37EFEB951AD1B5E60069380D /* how_to_power_reduct.png */,
 				37EFEB961AD1B5E60069380D /* how_to_power_time.png */,
+				374868411ACF09D80060FC9B /* in_setup.wav */,
 				37550F561ACA4E030020860F /* Logo.png */,
+				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
+				37AF23221A7D5A1300E0829E /* main_menu_about.obj */,
 				37AF23251A7D5A7500E0829E /* main_menu_about.png */,
+				3758D1251A7C6BF200982ABE /* main_menu_game_center.mtl */,
+				3758D1261A7C6BF200982ABE /* main_menu_game_center.obj */,
 				3758D1291A7C6D2D00982ABE /* main_menu_game_center.png */,
+				37B58F4B1AD0FCAB00AE2595 /* main_menu_howto.mtl */,
+				37B58F4C1AD0FCAB00AE2595 /* main_menu_howto.obj */,
+				3758D1171A7C61A900982ABE /* main_menu_play.mtl */,
+				3758D1181A7C61A900982ABE /* main_menu_play.obj */,
 				3758D1191A7C61A900982ABE /* main_menu_play.png */,
+				37D5B2521B4AB5BF001960D5 /* main_menu_setup.mtl */,
+				37D5B2531B4AB5BF001960D5 /* main_menu_setup.obj */,
+				37D5B2561B4AB783001960D5 /* main_menu_setup.png */,
 				376EE5B41B436AD3003BB22C /* menu_down.png */,
 				37B3B4F01AC217AC001D7EBA /* menu_left.png */,
 				37B3B4F11AC217AC001D7EBA /* menu_right.png */,
-				3796A97B1AD070FE00064050 /* sound_button_off.png */,
-				3796A97C1AD070FE00064050 /* sound_button_on.png */,
-				37A44FEF1ABBD50A00D5C120 /* white_texture.png */,
-				37AABCBE1ACE174C0051C6CC /* 1up.wav */,
-				37AABCBF1ACE174C0051C6CC /* 10up.wav */,
-				37AABCC01ACE174C0051C6CC /* 10x.wav */,
-				374868531ACF33670060FC9B /* coins.wav */,
-				374868401ACF09D80060FC9B /* finish.wav */,
-				3796A9851AD0976800064050 /* flip.wav */,
-				37AABCC21ACE174C0051C6CC /* ghost.wav */,
-				374868411ACF09D80060FC9B /* in_setup.wav */,
 				374868421ACF09D80060FC9B /* newrecord.wav */,
 				3759AF001AD05D03003539A2 /* out.wav */,
 				3796A9891AD09D2F00064050 /* play.wav */,
 				374868431ACF09D80060FC9B /* plus_minus.wav */,
+				3728F5BB1A6C4FEB004F7244 /* quad.mtl */,
+				3728F5BC1A6C4FEB004F7244 /* quad.obj */,
+				37AFD00E1ABFE31B00700003 /* single_guides_low.mtl */,
+				37AFD00F1ABFE31B00700003 /* single_guides_low.obj */,
 				3759AEFE1AD05B4D003539A2 /* size.wav */,
+				3796A97B1AD070FE00064050 /* sound_button_off.png */,
+				3796A97C1AD070FE00064050 /* sound_button_on.png */,
 				3796A9871AD09C3600064050 /* speed.wav */,
 				37AABCC31ACE174C0051C6CC /* stretch.wav */,
+				37A44FED1ABBD50A00D5C120 /* white_cube.mtl */,
+				37A44FEE1ABBD50A00D5C120 /* white_cube.obj */,
+				37A44FEF1ABBD50A00D5C120 /* white_texture.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -909,6 +918,7 @@
 				37AABCC51ACE174C0051C6CC /* 10up.wav in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
 				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
+				37D5B2571B4AB783001960D5 /* main_menu_setup.png in Resources */,
 				37B3B4F31AC217AC001D7EBA /* menu_right.png in Resources */,
 				37EFEB991AD1B5E60069380D /* how_to_power_time.png in Resources */,
 				37EFEB931AD19E360069380D /* how_to_eat_yellow.png in Resources */,
@@ -967,6 +977,7 @@
 				3796A9861AD0976800064050 /* flip.wav in Resources */,
 				37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */,
 				373E62B01AA28ABE00ACC243 /* color_light_shader.fsh in Resources */,
+				37D5B2551B4AB5BF001960D5 /* main_menu_setup.obj in Resources */,
 				3758D11B1A7C61A900982ABE /* main_menu_play.obj in Resources */,
 				37EC3EB41AD100E700E39E83 /* how_to_move_left.png in Resources */,
 				3796A9881AD09C3600064050 /* speed.wav in Resources */,
@@ -979,6 +990,7 @@
 				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
 				3728F5E81A6C4FF6004F7244 /* fullscreen_shader.fsh in Resources */,
 				37EC3EB31AD100E700E39E83 /* how_to_move_down.png in Resources */,
+				37D5B2541B4AB5BF001960D5 /* main_menu_setup.mtl in Resources */,
 				37BCAAEB1A91760200FFFE6D /* game_restart.png in Resources */,
 				373E62A01AA232A500ACC243 /* color_diffuse_shader.vsh in Resources */,
 				37B3B4F21AC217AC001D7EBA /* menu_left.png in Resources */,
