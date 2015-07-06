@@ -112,6 +112,7 @@
 		377A85611A79EAE9004F88F7 /* VEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A85391A79EAE9004F88F7 /* VEview.m */; };
 		377A85621A79EAE9004F88F7 /* VEwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 377A853B1A79EAE9004F88F7 /* VEwatch.m */; };
 		378001B31A6D9948009FFCC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 378001B21A6D9948009FFCC8 /* StoreKit.framework */; };
+		3785A0CF1B4A39D5001F3D84 /* buy_coins_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3785A0CE1B4A39D5001F3D84 /* buy_coins_icon.png */; };
 		378EDAF81A79BB7100397989 /* Gau Font Cube Medium.png in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */; };
 		378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */ = {isa = PBXBuildFile; fileRef = 378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */; };
 		378EDB621A79E65100397989 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26191A6C4EFD00DB4E6C /* main.m */; };
@@ -347,6 +348,7 @@
 		377A853A1A79EAE9004F88F7 /* VEwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VEwatch.h; path = Cubiline/VEwatch.h; sourceTree = "<group>"; };
 		377A853B1A79EAE9004F88F7 /* VEwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEwatch.m; path = Cubiline/VEwatch.m; sourceTree = "<group>"; };
 		378001B21A6D9948009FFCC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3785A0CE1B4A39D5001F3D84 /* buy_coins_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buy_coins_icon.png; path = Cubiline/Resources/buy_coins_icon.png; sourceTree = "<group>"; };
 		378EDAEA1A79BB7100397989 /* Gau Font Cube Medium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Gau Font Cube Medium.png"; path = "Cubiline/Fonts/Gau Font Cube Medium.png"; sourceTree = "<group>"; };
 		378EDAEB1A79BB7100397989 /* Gau Font Cube Medium.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Gau Font Cube Medium.txt"; path = "Cubiline/Fonts/Gau Font Cube Medium.txt"; sourceTree = "<group>"; };
 		3796A97B1AD070FE00064050 /* sound_button_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sound_button_off.png; path = Cubiline/Resources/sound_button_off.png; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 		3728F54C1A6C4F82004F7244 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3785A0CE1B4A39D5001F3D84 /* buy_coins_icon.png */,
 				DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */,
 				374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */,
 				37AF23211A7D5A1300E0829E /* main_menu_about.mtl */,
@@ -933,6 +936,7 @@
 				3728F5CB1A6C4FEB004F7244 /* quad.obj in Resources */,
 				37AABCC81ACE174C0051C6CC /* ghost.wav in Resources */,
 				37DEE6581AC272B7005E29AE /* CubilineTitle.png in Resources */,
+				3785A0CF1B4A39D5001F3D84 /* buy_coins_icon.png in Resources */,
 				3748684A1ACF09D80060FC9B /* newrecord.wav in Resources */,
 				378EDAF91A79BB7100397989 /* Gau Font Cube Medium.txt in Resources */,
 				374868541ACF33670060FC9B /* coins.wav in Resources */,

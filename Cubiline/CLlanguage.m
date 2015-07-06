@@ -98,6 +98,7 @@
 	[GameStrings setObject:@"Main Menu" forKey:@"game_menu"];
 	[GameStrings setObject:@"New Record" forKey:@"game_record"];
 	[GameStrings setObject:@"Win Coins" forKey:@"game_get_coins"];
+	[GameStrings setObject:@"Buy Coins" forKey:@"game_buy_coins"];
 	
 	[GameStrings setObject:@"Coins" forKey:@"level_coins"];
 	[GameStrings setObject:@"Ghost" forKey:@"level_ghost"];
@@ -150,6 +151,7 @@
 	[GameStrings setObject:@"Menu" forKey:@"game_menu"];
 	[GameStrings setObject:@"Nuevo Record" forKey:@"game_record"];
 	[GameStrings setObject:@"Gana Monedas" forKey:@"game_get_coins"];
+	[GameStrings setObject:@"Compra Monedas" forKey:@"game_buy_coins"];
 	
 	[GameStrings setObject:@"Monedas" forKey:@"level_coins"];
 	[GameStrings setObject:@"Fantasma" forKey:@"level_ghost"];

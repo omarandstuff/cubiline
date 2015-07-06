@@ -115,6 +115,11 @@
 	bool m_getCoinsEnable;
 	bool m_viewed;
 	
+	/// Buy Coins
+	VESprite* m_buyCoinsBack;
+	VEText* m_buyCoinsText;
+	VESprite* m_buyCoinsIcon;
+	Rect m_buyCoinsRect;
 	
 	/// reset effect
 	bool m_resetEffect;
@@ -667,15 +672,27 @@
 			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
 			
 			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
+			m_buyCoinsRect.top = m_getCoinsRect.top;
 			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
+			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
 			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
+			m_buyCoinsRect.left = m_viewSize / 4.0f - m_viewSize * 0.175f;
 			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
+			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
+			
 			
 			m_getCoinsBack.Position = positionget;
 			positionget.y += m_viewSize * 0.02f;
 			m_getCoinsIcon.Position = positionget;
 			positionget.y -= m_viewSize * 0.16f;
 			m_getCoinsText.Position = positionget;
+			
+			positionget.x = m_viewSize / 4.0f;
+			m_buyCoinsText.Position = positionget;
+			positionget.y += m_viewSize * 0.16f;
+			m_buyCoinsIcon.Position = positionget;
+			positionget.y -= m_viewSize * 0.02f;
+			m_buyCoinsBack.Position = positionget;
 			
 			
 			// Finish buttons
@@ -768,15 +785,27 @@
 			positionget = GLKVector3Make(-m_viewSize / 4.0f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
 			
 			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
+			m_buyCoinsRect.top = m_getCoinsRect.top;
 			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
+			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
 			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
+			m_buyCoinsRect.left = m_viewSize / 4.0f - m_viewSize * 0.175f;
 			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
+			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
+			
 			
 			m_getCoinsBack.Position = positionget;
 			positionget.y += m_viewSize * 0.02f;
 			m_getCoinsIcon.Position = positionget;
 			positionget.y -= m_viewSize * 0.16f;
 			m_getCoinsText.Position = positionget;
+			
+			positionget.x = m_viewSize / 4.0f;
+			m_buyCoinsText.Position = positionget;
+			positionget.y += m_viewSize * 0.16f;
+			m_buyCoinsIcon.Position = positionget;
+			positionget.y -= m_viewSize * 0.02f;
+			m_buyCoinsBack.Position = positionget;
 
 		}
 		
@@ -928,6 +957,22 @@
 	
 	[m_ads AddunityAdsVideoCompletedObjectResponder:self];
 	
+	///
+	
+	/// Buy coins
+	m_buyCoinsBack = [m_renderBox NewSolidSpriteWithColor:FrontColor];
+	CommonButtonStyle(m_buyCoinsBack);
+	m_buyCoinsBack.LockAspect = false;
+	
+	m_buyCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_buy_coins"]];
+	CommonTextStyle(m_buyCoinsText);
+	m_buyCoinsText.Color = GLKVector3MultiplyScalar(FrontColor, 0.5f);
+	
+	m_buyCoinsIcon = [m_renderBox NewSpriteFromFileName:@"buy_coins_icon.png"];
+	CommonButtonStyle(m_buyCoinsIcon);
+	
+	///
+	
 	//// Indicators
 	m_special1 = [m_renderBox NewSolidSpriteWithColor:RightColor];
 	CommonButtonStyle(m_special1);
@@ -985,6 +1030,10 @@
 	[Scene addSprite:m_getCoinsBack];
 	[Scene addText:m_getCoinsText];
 	[Scene addSprite:m_getCoinsIcon];
+	
+	[Scene addSprite:m_buyCoinsBack];
+	[Scene addText:m_buyCoinsText];
+	[Scene addSprite:m_buyCoinsIcon];
 	
 	[Scene addText:m_spendText];
 	
@@ -1210,6 +1259,21 @@
 		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_getCoinsIcon.Opasity = 1.0f;
 	}
+	
+	[m_buyCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
+	[m_buyCoinsBack ResetOpasity:0.0f];
+	m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
+	m_buyCoinsBack.Opasity = 0.9f;
+	
+	[m_buyCoinsText ResetFontSize: m_buttonSize * 1.5f];
+	[m_buyCoinsText ResetOpasity:0.0f];
+	m_buyCoinsText.Width = m_viewSize * 0.33f;
+	m_buyCoinsText.Opasity = 1.0f;
+	
+	[m_buyCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
+	[m_buyCoinsIcon ResetOpasity:0.0f];
+	m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
+	m_buyCoinsIcon.Opasity = 1.0f;
 	
 	[m_coins ResetFontSize:fontsize * 2.0f];
 	[m_coins ResetOpasity:0.0f];
@@ -1457,6 +1521,9 @@
 				m_getCoinsBack.Opasity = 0.0f;
 				m_getCoinsText.Opasity = 0.0f;
 				m_getCoinsIcon.Opasity = 0.0f;
+				m_buyCoinsBack.Opasity = 0.0f;
+				m_buyCoinsText.Opasity = 0.0f;
+				m_buyCoinsIcon.Opasity = 0.0f;
 				
 				m_coins.Opasity = 0.0f;
 				m_coinsIcon.Opasity = 0.0f;
@@ -1609,6 +1676,12 @@
 			m_getCoinsText.Width = m_viewSize * 0.28f;
 			m_getCoinsIcon.Width = m_buttonSize * 1.0f;
 			m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
+		}
+		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry])
+		{
+			m_buyCoinsText.Width = m_viewSize * 0.28f;
+			m_buyCoinsIcon.Width = m_buttonSize * 1.0f;
+			m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
 		}
 		else
 			m_touchedButton = false;
@@ -1833,9 +1906,16 @@
 			[m_ads setUnityRewardedZone];
 			[m_ads presentUnityAd];
 		}
+		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry])
+		{
+
+		}
 		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
 		m_getCoinsText.Width = m_viewSize * 0.33f;
 		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
+		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
+		m_buyCoinsText.Width = m_viewSize * 0.33f;
+		m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_restartButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.5f);
 		m_gcButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 		m_exitButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
@@ -1898,6 +1978,10 @@
 	m_getCoinsBack.Opasity = 0.0f;
 	m_getCoinsText.Opasity = 0.0f;
 	m_getCoinsIcon.Opasity = 0.0f;
+	
+	m_buyCoinsBack.Opasity = 0.0f;
+	m_buyCoinsText.Opasity = 0.0f;
+	m_buyCoinsIcon.Opasity = 0.0f;
 	
 	m_timeButton.Opasity = 0.0f;
 	m_reductButton.Opasity = 0.0f;
