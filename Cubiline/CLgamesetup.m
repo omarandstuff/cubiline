@@ -16,6 +16,9 @@
 	VESprite* m_plusSizeButton;
 	VESprite* m_minusSizeButton;
 	VESprite* m_playButton;
+	
+	VEText* m_speedNumber;
+	VEText* m_sizeNumber;
 
 	Rect m_plusSpeedButtonRect;
 	Rect m_minusSpeedButtonRect;
@@ -44,27 +47,9 @@
 	float spriteSize;
 	float m_buttonAudioSize;
 	
-	/// Coins
-	VEText* m_coins;
-	VEText* m_coinsC;
-	VESprite* m_coinsIcon;
-	VEEffect1* m_coinsEffect;
-	int m_totalCoins;
-	
-	SKProduct* m_coinsProduct;
-	bool m_coinsEnabled;
-	bool m_inTransaction;
-	VESprite* m_backBuyCoins;
-	VEText* m_buyCoinsText;
-	VEText* m_buyCoinsC;
-	VEText* m_buyPrice;
-	VESprite* m_buyButton;
-	Rect m_buyButtonRect;
-	
 	
 	/// Sound
 	VEAudioBox* m_audioBox;
-	VESound* m_coinsSound;
 	VESound* m_sizeSound;
 	VESound* m_speedSound;
 	VESound* m_playSound;
@@ -73,7 +58,7 @@
 	VESprite* m_audioSetUpOff;
 	Rect m_audioSetUpRect;
 	
-	VESprite* m_background;
+
 	VEText* m_gameModeText;
 	
 	
@@ -106,9 +91,6 @@
 		m_audioBox = [VEAudioBox sharedVEAudioBox];
 		m_language = [CLLAnguage sharedCLLanguage];
 		
-		// Purchase
-		[[VEIAPurchase sharedVEIAPurchase] addPaymentTransactionObserver:self];
-		
 		// Scene for full screen presentation.
 		Scene = [m_renderBox NewSceneWithName:@"SetUpGameScene"];
 		
@@ -139,6 +121,11 @@
 		m_sizeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
 		CommonTextStyle(m_sizeText);
 		
+		m_speedNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_speed"]];
+		CommonTextStyle(m_speedNumber);
+		m_sizeNumber = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_size"]];
+		CommonTextStyle(m_sizeNumber);
+		
 		
 		m_plusSpeedButton = [m_renderBox NewSpriteFromFileName:@"game_setup_plus.png"];
 		CommonButtonStyle(m_plusSpeedButton);
@@ -150,41 +137,7 @@
 		CommonButtonStyle(m_minusSizeButton);
 		m_playButton = [m_renderBox NewSpriteFromFileName:@"game_setup_play.png"];
 		CommonButtonStyle(m_playButton);
-		
-		// Coins text.
-		m_coins = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"0   "];
-		CommonTextStyle(m_coins);
-		m_coins.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
-		m_coinsIcon = [m_renderBox NewSolidSpriteWithColor:TopColor];
-		CommonButtonStyle(m_coinsIcon);
-		m_coinsIcon.LockAspect = false;
-		
-		m_coinsC = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"c" Align:VE_TEXT_ALIGN_RIGHT];
-		CommonTextStyle(m_coinsC);
-		m_coinsC.Color = BottomColor;
-		
-		m_coinsEffect = [[VEEffect1 alloc] init];
-		m_coinsEffect.TransitionEffect = VE_TRANSITION_EFFECT_HARD;
-		m_coinsEffect.TransitionTime = 0.4f;
-		
-		m_backBuyCoins = [m_renderBox NewSolidSpriteWithColor:TopColor];
-		CommonButtonStyle(m_backBuyCoins);
-		m_backBuyCoins.LockAspect = false;
-		m_buyCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_buy"] Align:VE_TEXT_ALIGN_LEFT];
-		CommonTextStyle(m_buyCoinsText);
-		m_buyCoinsText.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
-		m_buyCoinsC = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"c" Align:VE_TEXT_ALIGN_LEFT];
-		CommonTextStyle(m_buyCoinsC);
-		m_buyCoinsC.Color = BottomColor;
-		
-		m_buyPrice = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"$0.99"];
-		CommonTextStyle(m_buyPrice);
-		m_buyPrice.Color = FrontColor;
-		
-		m_buyButton = [m_renderBox NewSolidSpriteWithColor:ColorWhite];
-		CommonButtonStyle(m_buyButton);
-		
-		//////
+
 		
 		//// Audio SetUp
 		m_audioSetUpOn = [m_renderBox NewSpriteFromFileName:@"sound_button_on.png"];
@@ -193,12 +146,6 @@
 		CommonButtonStyle(m_audioSetUpOff);
 		
 		
-		/// back
-		m_background = [m_renderBox NewSolidSpriteWithColor:ColorWhite];
-		m_background.Opasity = 0.0f;
-		m_background.OpasityTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
-		m_background.OpasityTransitionTime = 0.15f;
-		
 		/// text game mode
 		m_gameModeText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"setup_level"]];
 		CommonTextStyle(m_gameModeText);
@@ -206,7 +153,6 @@
 		
 		// Scene viewable objects
 		[Scene addSprite:m_cubeImage];
-		[Scene addSprite:m_background];
 		[Scene addText:m_speedText];
 		[Scene addText:m_sizeText];
 		[Scene addSprite:m_plusSpeedButton];
@@ -214,17 +160,11 @@
 		[Scene addSprite:m_plusSizeButton];
 		[Scene addSprite:m_minusSizeButton];
 		[Scene addSprite:m_playButton];
-		[Scene addSprite:m_coinsIcon];
-		[Scene addText:m_coins];
-		[Scene addText:m_coinsC];
-		[Scene addSprite:m_backBuyCoins];
-		[Scene addText:m_buyCoinsText];
-		[Scene addText:m_buyCoinsC];
-		[Scene addSprite:m_buyButton];
-		[Scene addText:m_buyPrice];
 		[Scene addSprite:m_audioSetUpOn];
 		[Scene addSprite:m_audioSetUpOff];
 		[Scene addText:m_gameModeText];
+		[Scene addText:m_speedNumber];
+		[Scene addText:m_sizeNumber];
 		
 		m_watch = [[VEWatch alloc] init];
 		m_watch.Style = VE_WATCH_STYLE_LIMITED;
@@ -233,7 +173,6 @@
 		m_speed = CL_SIZE_NORMAL;
 		
 		// Sound
-		m_coinsSound = [m_audioBox NewSoundWithFileName:@"coins.wav"];
 		m_sizeSound = [m_audioBox NewSoundWithFileName:@"size.wav"];
 		m_speedSound = [m_audioBox NewSoundWithFileName:@"speed.wav"];
 		m_playSound = [m_audioBox NewSoundWithFileName:@"play.wav"];
@@ -245,48 +184,6 @@
 - (void)Frame:(float)time
 {
 	[m_watch Frame:time];
-	
-	bool active = m_coinsEffect.IsActive;
-	[m_coinsEffect Frame:time];
-	
-	if(Level.Coins != m_totalCoins)
-	{
-		int delta = Level.Coins - m_totalCoins;
-		if(m_totalCoins == -1)
-		{
-			m_totalCoins = 0;
-			delta = 0;
-			active = true;
-		}
-		m_totalCoins = Level.Coins;
-		
-		if(GameData.Coins > m_totalCoins)
-		{
-			m_totalCoins = GameData.Coins;
-			Level.Coins = m_totalCoins;
-		}
-		else
-			GameData.Coins = m_totalCoins;
-		
-		if(Level.Coins == m_coinsEffect.Value + 1)
-		{
-			[m_coinsEffect Reset:Level.Coins];
-			active = true;
-		}
-		else
-			m_coinsEffect.Value = Level.Coins;
-	}
-	if(active)
-	{
-		m_coins.Text = [NSString stringWithFormat:@"%d    ", (int)m_coinsEffect.Value];
-		m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 4.0f, m_coins.Height, 0.0f);
-		
-		m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, m_renderBox.ScreenHeight / 2.0f - m_buttonSize * 0.5f, 0.0f);
-		
-		GLKVector3 position = m_buyCoinsText.Position;
-		m_buyCoinsC.Position = GLKVector3Make(position.x + m_buyCoinsText.Width, position.y, 0.0f);
-	}
-
 }
 
 - (void)Render
@@ -370,34 +267,6 @@
 	position.x = m_plusSizeButtonRect.right + buttonspace / 2.0f;
 	m_gameModeText.Position = position;
 	
-	// Coins text
-	m_coins.Position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 0.5f, 0.0f);
-	m_coinsIcon.Position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 0.5f + buttonspace * 1.5f, 0.0f);
-	m_coinsC.Position = GLKVector3Make(m_coins.Width * 0.5f, height / 2.0f - m_buttonSize * 0.5f, 0.0f);
-	
-	position = GLKVector3Make(0.0f, height / 2.0f - m_buttonSize * 1.5f, 0.0f);
-	
-	m_backBuyCoins.Position = position;
-	m_backBuyCoins.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 0.6f, 0.0f);
-	
-	position.x = -spriteSize / 2.0f + buttonspace * 5.0f;
-	position.y -= buttonspace * 1.5f;
-	m_buyCoinsText.Position = position;
-	
-	position.x += m_buyCoinsText.Width;
-	m_buyCoinsC.Position = position;
-	
-	position.x = spriteSize / 2.0f - buttonspace * 5.0f - m_buyPrice.Width / 2.0f;;
-	m_buyPrice.Position = position;
-	
-	position.y += buttonspace * 1.5f;
-	m_buyButton.Position = position;
-	
-	m_buyButtonRect.top = position.y + m_buttonSize * 0.35f;
-	m_buyButtonRect.bottom = m_buyButtonRect.top - m_buttonSize * 0.7f;
-	m_buyButtonRect.left = position.x - (m_buyPrice.Width + m_buttonSize / 4.0f) / 2.0f;
-	m_buyButtonRect.right = m_buyButtonRect.left + m_buyPrice.Width + m_buttonSize / 4.0f;
-	
 	/// Audio
 	
 	m_audioSetUpOn.Position = GLKVector3Make(width / 2.0f - m_buttonAudioSize / 3.0f, height / 2.0f - m_buttonAudioSize / 3.0f, 0.0f);
@@ -407,9 +276,6 @@
 	m_audioSetUpRect.top = height / 2.0f;
 	m_audioSetUpRect.left = width / 2.0f - (m_buttonAudioSize / 3.0f) * 1.8f;
 	m_audioSetUpRect.right = width / 2.0f;
-	
-	m_background.Width = width;
-	m_background.Height = height;
 	
 }
 
@@ -467,49 +333,6 @@
 	m_gameModeText.FontSize = m_buttonSize * 0.4f;
 	m_gameModeText.Opasity = 1.0f;
 	
-	[m_coins ResetFontSize:m_buttonSize * 1.0f];
-	[m_coins ResetOpasity:0.0f];
-	m_coins.FontSize = m_buttonSize * 0.5f;;
-	m_coins.Opasity = 1.0f;
-	
-	[m_coinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
-	[m_coinsIcon ResetOpasity:0.0f];
-	m_coinsIcon.Scale = GLKVector3Make(m_coins.Width + m_buttonSize / 5.0f, m_coins.Height, 0.0f);
-	m_coinsIcon.Opasity = 1.0f;
-	
-	[m_coinsC ResetFontSize:m_buttonSize * 1.0f];
-	[m_coinsC ResetOpasity:0.0f];
-	m_coinsC.FontSize = m_buttonSize * 0.5f;;
-	m_coinsC.Opasity = 1.0f;
-	
-	if(m_coinsEnabled)
-	{
-		[m_backBuyCoins ResetScale:GLKVector3Make(m_buttonSize * 1.5f, m_buttonSize * 1.5f, 0.0f)];
-		[m_backBuyCoins ResetOpasity];
-		m_backBuyCoins.Scale = GLKVector3Make(m_renderBox.ScreenWidth, m_buttonSize * 0.6f, 0.0f);
-		m_backBuyCoins.Opasity = 1.0f;
-		
-		[m_buyCoinsText ResetFontSize:m_buttonSize * 1.0f];
-		[m_buyCoinsText ResetOpasity:0.0f];
-		m_buyCoinsText.FontSize = m_buttonSize * 0.5f;;
-		m_buyCoinsText.Opasity = 1.0f;
-		
-		[m_buyCoinsC ResetFontSize:m_buttonSize * 1.0f];
-		[m_buyCoinsC ResetOpasity:0.0f];
-		m_buyCoinsC.FontSize = m_buttonSize * 0.5f;;
-		m_buyCoinsC.Opasity = 1.0f;
-		
-		[m_buyPrice ResetFontSize:m_buttonSize * 1.0f];
-		[m_buyPrice ResetOpasity:0.0f];
-		m_buyPrice.FontSize = m_buttonSize * 0.5f;;
-		m_buyPrice.Opasity = 1.0f;
-		
-		[m_buyButton ResetScale:GLKVector3Make(m_buttonSize * 2.0f, m_buttonSize * 2.0f, 0.0f)];
-		[m_buyButton ResetOpasity:0.0f];
-		m_buyButton.Scale = GLKVector3Make(m_buyPrice.Width + m_buttonSize / 5.0f, m_buttonSize * 0.7f, 0.0f);
-		m_buyButton.Opasity = 1.0f;
-	}
-	
 	if(m_audioBox.Mute)
 	{
 		[m_audioSetUpOff ResetScale:GLKVector3Make(m_buttonAudioSize, m_buttonAudioSize, 0.0f)];
@@ -524,8 +347,6 @@
 		m_audioSetUpOn.Width = m_buttonAudioSize / 3.0f;
 		m_audioSetUpOn.Opasity = 1.0f;
 	}
-	
-	m_background.Opasity = 0.6f;
 }
 
 - (void)ResizeLevel:(enum CL_SIZE)size
@@ -609,9 +430,7 @@
 	
 	m_pressing = true;
 	
-	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled && !m_inTransaction)
-		m_buyPrice.FontSize = m_buttonSize * 0.35f;
-	else if([self TestButton:m_playButtonRect X:rx Y:ry])
+	if([self TestButton:m_playButtonRect X:rx Y:ry])
 		m_playButton.Width = m_buttonSize * 1.5f;
 	else if([self TestButton:m_plusSizeButtonRect X:rx Y:ry])
 		m_plusSizeButton.Width = m_buttonSize * 0.5f;
@@ -636,13 +455,7 @@
 	if(!m_pressing)return;
 	m_pressing = false;
 	
-	if([self TestButton:m_buyButtonRect X:rx Y:ry] && m_coinsEnabled && !m_inTransaction)
-	{
-		[[VEIAPurchase sharedVEIAPurchase] buyProduct:[[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"]];
-		m_buyPrice.Opasity = 0.5f;
-		m_inTransaction = true;
-	}
-	else if([self TestButton:m_playButtonRect X:rx Y:ry])
+	if([self TestButton:m_playButtonRect X:rx Y:ry])
 	{
 		m_play = true;
 		[m_playSound Play];
@@ -750,7 +563,6 @@
 		}
 	}
 	
-	m_buyPrice.FontSize = m_buttonSize * 0.5f;
 	m_playButton.Width = m_buttonSize * 2.0f;
 	m_plusSizeButton.Width = m_buttonSize;
 	m_minusSizeButton.Width = m_buttonSize;
@@ -758,33 +570,6 @@
 	m_minusSpeedButton.Width = m_buttonSize;
 	m_audioSetUpOn.Width = m_buttonSize / 3.0f;
 	m_audioSetUpOff.Height = m_buttonSize / 3.0f;
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-	for (SKPaymentTransaction * transaction in transactions)
-	{
-		SKPaymentTransactionState st = transaction.transactionState;
-		if(m_coinsEnabled)m_buyPrice.Opasity = 1.0f;
-		m_inTransaction = false;
-		switch (st)
-		{
-			case SKPaymentTransactionStatePurchased:
-			{
-				
-				GameData.Coins += 10000;
-				Level.Coins += GameData.Coins;
-				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-				[m_coinsSound Stop];
-				[m_coinsSound Play];
-			}
-			case SKPaymentTransactionStateFailed:
-				break;
-			case SKPaymentTransactionStateRestored:
-			default:
-				break;
-		}
-	};
 }
 
 - (void)InToSetUp
@@ -802,19 +587,6 @@
 	Level.Dance = true;
 	m_play = false;
 	
-	m_totalCoins = -1;
-	
-	m_coinsProduct = [[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"];
-	
-	m_coinsEnabled = false;
-	
-	if(m_coinsProduct)
-	{
-		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-		[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-		m_buyPrice.Text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[m_coinsProduct.price floatValue]]];
-		m_coinsEnabled = true;
-	}
 	
 	if(m_size == CL_SIZE_SMALL)
 	{
@@ -880,21 +652,11 @@
 	m_minusSizeButton.Opasity = 0.0f;
 	m_plusSpeedButton.Opasity = 0.0f;
 	m_minusSpeedButton.Opasity = 0.0f;
-	m_coinsIcon.Opasity = 0.0f;
-	m_coins.Opasity = 0.0f;
-	m_coinsC.Opasity = 0.0f;
-	m_buyCoinsC.Opasity = 0.0f;
-	m_buyCoinsText.Opasity = 0.0f;
-	m_buyPrice.Opasity = 0.0f;
-	m_buyButton.Opasity = 0.0f;
-	m_backBuyCoins.Opasity = 0.0f;
 	
 	m_audioSetUpOn.Opasity = 0.0f;
 	m_audioSetUpOff.Opasity = 0.0f;
 	
 	m_gameModeText.Opasity = 0.0f;
-	
-	m_background.Opasity = 0.0f;
 	
 	m_cubeView.Camera = Level.FocusedCamera;
 	

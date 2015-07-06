@@ -4,7 +4,7 @@
 #import "CLlevel.h"
 #import "CLtouchable.h"
 
-@interface CLGameSetpUp : CLTouchable<SKPaymentTransactionObserver>
+@interface CLGameSetpUp : CLTouchable
 
 @property CLLevel* Level;
 @property (readonly)VEScene* Scene;

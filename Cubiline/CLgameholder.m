@@ -118,8 +118,12 @@
 	/// Buy Coins
 	VESprite* m_buyCoinsBack;
 	VEText* m_buyCoinsText;
+	VEText* m_buyPriceText;
 	VESprite* m_buyCoinsIcon;
 	Rect m_buyCoinsRect;
+	bool m_inTransaction;
+	bool m_buyEnabled;
+	SKProduct* m_buyProduct;
 	
 	/// reset effect
 	bool m_resetEffect;
@@ -140,6 +144,7 @@
 	
 	
 	bool m_landscape;
+
 }
 
 - (void)Create;
@@ -693,6 +698,8 @@
 			m_buyCoinsIcon.Position = positionget;
 			positionget.y -= m_viewSize * 0.02f;
 			m_buyCoinsBack.Position = positionget;
+			positionget.y += m_viewSize * 0.13f;
+			m_buyPriceText.Position = positionget;
 			
 			
 			// Finish buttons
@@ -806,6 +813,8 @@
 			m_buyCoinsIcon.Position = positionget;
 			positionget.y -= m_viewSize * 0.02f;
 			m_buyCoinsBack.Position = positionget;
+			positionget.y += m_viewSize * 0.13f;
+			m_buyPriceText.Position = positionget;
 
 		}
 		
@@ -825,6 +834,9 @@
 		m_viewSize = width;
 	
 	m_buttonSize = m_viewSize / 5.0f;
+	
+	// Purchase
+	[[VEIAPurchase sharedVEIAPurchase] addPaymentTransactionObserver:self];
 	
 	// Cube view
 	m_cubeView = [m_renderBox NewViewAs:VE_VIEW_TYPE_TEXTURE Width:m_viewSize Height:m_viewSize];
@@ -968,6 +980,10 @@
 	CommonTextStyle(m_buyCoinsText);
 	m_buyCoinsText.Color = GLKVector3MultiplyScalar(FrontColor, 0.5f);
 	
+	m_buyPriceText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Caca de perro"];
+	CommonTextStyle(m_buyPriceText);
+	m_buyPriceText.Color = ColorWhite;
+	
 	m_buyCoinsIcon = [m_renderBox NewSpriteFromFileName:@"buy_coins_icon.png"];
 	CommonButtonStyle(m_buyCoinsIcon);
 	
@@ -1033,6 +1049,7 @@
 	
 	[Scene addSprite:m_buyCoinsBack];
 	[Scene addText:m_buyCoinsText];
+	[Scene addText:m_buyPriceText];
 	[Scene addSprite:m_buyCoinsIcon];
 	
 	[Scene addText:m_spendText];
@@ -1242,7 +1259,7 @@
 		m_newRecord.Opasity = 1.0f;
 	}
 	
-	if(true)
+	if(m_getCoinsEnable)
 	{
 		[m_getCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
 		[m_getCoinsBack ResetOpasity:0.0f];
@@ -1259,20 +1276,30 @@
 		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_getCoinsIcon.Opasity = 1.0f;
 	}
+	if(m_buyEnabled)
+	{
+		[m_buyCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
+		[m_buyCoinsBack ResetOpasity:0.0f];
+		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
+		m_buyCoinsBack.Opasity = 0.9f;
+		
+		[m_buyCoinsText ResetFontSize: m_buttonSize * 1.5f];
+		[m_buyCoinsText ResetOpasity:0.0f];
+		m_buyCoinsText.Width = m_viewSize * 0.33f;
+		m_buyCoinsText.Opasity = 1.0f;
+		
+		[m_buyPriceText ResetFontSize: m_buttonSize * 1.5f];
+		[m_buyPriceText ResetOpasity:0.0f];
+		m_buyPriceText.Width = m_viewSize * 0.33f;
+		if(m_buyPriceText.Height > m_buttonSize * 0.33f)
+			m_buyPriceText.FontSize = m_buttonSize * 0.33f;
+		m_buyPriceText.Opasity = 1.0f;
+		
+		[m_buyCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
+		[m_buyCoinsIcon ResetOpasity:0.0f];
+		m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
+	}
 	
-	[m_buyCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
-	[m_buyCoinsBack ResetOpasity:0.0f];
-	m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-	m_buyCoinsBack.Opasity = 0.9f;
-	
-	[m_buyCoinsText ResetFontSize: m_buttonSize * 1.5f];
-	[m_buyCoinsText ResetOpasity:0.0f];
-	m_buyCoinsText.Width = m_viewSize * 0.33f;
-	m_buyCoinsText.Opasity = 1.0f;
-	
-	[m_buyCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
-	[m_buyCoinsIcon ResetOpasity:0.0f];
-	m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
 	m_buyCoinsIcon.Opasity = 1.0f;
 	
 	[m_coins ResetFontSize:fontsize * 2.0f];
@@ -1523,6 +1550,7 @@
 				m_getCoinsIcon.Opasity = 0.0f;
 				m_buyCoinsBack.Opasity = 0.0f;
 				m_buyCoinsText.Opasity = 0.0f;
+				m_buyPriceText.Opasity = 0.0f;
 				m_buyCoinsIcon.Opasity = 0.0f;
 				
 				m_coins.Opasity = 0.0f;
@@ -1677,8 +1705,9 @@
 			m_getCoinsIcon.Width = m_buttonSize * 1.0f;
 			m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
 		}
-		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry])
+		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry] && m_buyEnabled && !m_inTransaction)
 		{
+			m_buyPriceText.Width = m_buyPriceText.Width * 0.85f;
 			m_buyCoinsText.Width = m_viewSize * 0.28f;
 			m_buyCoinsIcon.Width = m_buttonSize * 1.0f;
 			m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
@@ -1877,6 +1906,10 @@
 			m_getCoinsBack.Opasity = 0.0f;
 			m_getCoinsText.Opasity = 0.0f;
 			m_getCoinsIcon.Opasity = 0.0f;
+			m_buyCoinsBack.Opasity = 0.0f;
+			m_buyCoinsText.Opasity = 0.0f;
+			m_buyPriceText.Opasity = 0.0f;
+			m_buyCoinsIcon.Opasity = 0.0f;
 			
 			m_coins.Opasity = 0.0f;
 			m_coinsIcon.Opasity = 0.0f;
@@ -1906,15 +1939,23 @@
 			[m_ads setUnityRewardedZone];
 			[m_ads presentUnityAd];
 		}
-		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry])
+		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry] && m_buyEnabled && !m_inTransaction)
 		{
-
+			[[VEIAPurchase sharedVEIAPurchase] buyProduct:[[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"]];
+			m_inTransaction = true;
+			m_buyCoinsBack.Opasity = 0.5f;
+			m_buyCoinsIcon.Opasity = 0.5f;
+			m_buyPriceText.Opasity = 0.5f;
+			m_buyCoinsText.Opasity = 0.5f;
 		}
 		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
 		m_getCoinsText.Width = m_viewSize * 0.33f;
 		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
 		m_buyCoinsText.Width = m_viewSize * 0.33f;
+		m_buyPriceText.Width = m_viewSize * 0.33f;
+		if(m_buyPriceText.Height > m_buttonSize * 0.33f)
+			m_buyPriceText.FontSize = m_buttonSize * 0.33f;
 		m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_restartButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.5f);
 		m_gcButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
@@ -1981,6 +2022,7 @@
 	
 	m_buyCoinsBack.Opasity = 0.0f;
 	m_buyCoinsText.Opasity = 0.0f;
+	m_buyPriceText.Opasity = 0.0f;
 	m_buyCoinsIcon.Opasity = 0.0f;
 	
 	m_timeButton.Opasity = 0.0f;
@@ -2092,6 +2134,18 @@
 	
 	m_getCoinsEnable = [m_ads unityAdsCanShow];
 	
+	m_buyProduct = [[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"];
+	
+	m_buyEnabled = false;
+	
+	if(m_buyProduct)
+	{
+		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+		[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+		m_buyPriceText.Text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[m_buyProduct.price floatValue]]];
+		m_buyEnabled = true;
+	}
+	
 	[self Resize];
 	[self PresentFinishMenu];
 	
@@ -2107,6 +2161,36 @@
 	[m_watch Frame:1.0f];
 	
 	m_showing = true;
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+	for (SKPaymentTransaction * transaction in transactions)
+	{
+		SKPaymentTransactionState st = transaction.transactionState;
+		if(m_buyEnabled)
+		{
+			m_buyCoinsBack.Opasity = 1.0f;
+			m_buyCoinsIcon.Opasity = 1.0f;
+			m_buyPriceText.Opasity = 1.0f;
+			m_buyCoinsText.Opasity = 1.0f;
+		}
+		m_inTransaction = false;
+		switch (st)
+		{
+			case SKPaymentTransactionStatePurchased:
+			{
+				
+				Level.Coins += 10000;
+				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+			}
+			case SKPaymentTransactionStateFailed:
+				break;
+			case SKPaymentTransactionStateRestored:
+			default:
+				break;
+		}
+	};
 }
 
 - (void)setLevel:(CLLevel *)level
