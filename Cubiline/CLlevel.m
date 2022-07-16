@@ -2656,11 +2656,11 @@
 		
 		if(distspecial < 0.5f)
 		{
-			m_toGrow += 10.0f;
-			m_slotControl += 10;
+			m_toGrow += 20.0f;
+			m_slotControl += 20;
 			
-			Score += 10;
-			Grown += 10;
+			Score += 20;
+			Grown += 20;
 			
 			HighScore = MAX(HighScore, Score);
 			
@@ -2706,7 +2706,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Score += 10;
+			Score += 20;
 			HighScore = MAX(HighScore, Score);
 			
 			[self PositionateTextByPoint:m_specialPoints2Shower Position:SpecialFood2.Position Offset:1.52f];
@@ -2749,7 +2749,7 @@
 		
 		if(distspecial < 0.5f)
 		{
-			Coins += 200;
+			Coins += 2000;
 			
 			[self PositionateTextByPoint:m_specialPoints3Shower Position:SpecialFood3.Position Offset:1.53f];
 			
@@ -3361,7 +3361,7 @@
 	m_pointsShower.OpasityEase = 0.05f;
 	m_pointsShower.OpasityTransitionTime = 2.2f;
 	
-	m_specialPoints1Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"10+"];
+	m_specialPoints1Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"20+"];
 	m_specialPoints1Shower.FontSize = 0.0f;
 	m_specialPoints1Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints1Shower.ScaleTransitionTime = 0.4f;
@@ -3372,7 +3372,7 @@
 	m_specialPoints1Shower.OpasityEase = 0.05f;
 	m_specialPoints1Shower.OpasityTransitionTime = 2.2f;
 	
-	m_specialPoints2Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"[10+]"];
+	m_specialPoints2Shower = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"[20+]"];
 	m_specialPoints2Shower.FontSize = 0.0f;
 	m_specialPoints2Shower.ScaleTransitionEffect = VE_TRANSITION_EFFECT_END_SUPER_SMOOTH;
 	m_specialPoints2Shower.ScaleTransitionTime = 0.4f;

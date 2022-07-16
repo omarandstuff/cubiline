@@ -104,27 +104,6 @@
 	bool m_toNew;
 	bool m_new;
 
-	//Ads
-	VEAds* m_ads;
-	
-	/// Get Coins
-	VESprite* m_getCoinsBack;
-	VEText* m_getCoinsText;
-	VESprite* m_getCoinsIcon;
-	Rect m_getCoinsRect;
-	bool m_getCoinsEnable;
-	bool m_viewed;
-	
-	/// Buy Coins
-	VESprite* m_buyCoinsBack;
-	VEText* m_buyCoinsText;
-	VEText* m_buyPriceText;
-	VESprite* m_buyCoinsIcon;
-	Rect m_buyCoinsRect;
-	bool m_inTransaction;
-	bool m_buyEnabled;
-	SKProduct* m_buyProduct;
-	
 	/// reset effect
 	bool m_resetEffect;
 	VEWatch* m_resetEffectTime;
@@ -177,8 +156,6 @@
 		m_graphics = graphics;
 		
 		m_language = [CLLAnguage sharedCLLanguage];
-		
-		m_ads = [VEAds sharedVEAds];
 		
 		m_totalCoins = -20;
 		
@@ -676,32 +653,6 @@
 			/// Coins band
 			positionget = GLKVector3Make(-m_viewSize * 0.3f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
 			
-			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
-			m_buyCoinsRect.top = m_getCoinsRect.top;
-			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
-			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
-			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
-			m_buyCoinsRect.left = m_viewSize * 0.3f - m_viewSize * 0.175f;
-			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
-			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
-			
-			
-			m_getCoinsBack.Position = positionget;
-			positionget.y += m_viewSize * 0.02f;
-			m_getCoinsIcon.Position = positionget;
-			positionget.y -= m_viewSize * 0.16f;
-			m_getCoinsText.Position = positionget;
-			
-			positionget.x = m_viewSize * 0.3;
-			m_buyCoinsText.Position = positionget;
-			positionget.y += m_viewSize * 0.16f;
-			m_buyCoinsIcon.Position = positionget;
-			positionget.y -= m_viewSize * 0.02f;
-			m_buyCoinsBack.Position = positionget;
-			positionget.y += m_viewSize * 0.13f;
-			m_buyPriceText.Position = positionget;
-			
-			
 			// Finish buttons
 			m_restartButton.Width = m_buttonSize * 1.5f;
 			m_restartButton.Position = GLKVector3Make(0.0f, -m_buttonSize + offsetMenu, 0.0f);
@@ -790,32 +741,6 @@
 			
 			/// Coins band
 			positionget = GLKVector3Make(-m_viewSize * 0.3f, -m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f + ((-height / 2.0f + m_buttonSize / 2.0f) - (-m_buttonSize * 1.15 + offsetMenu - m_buttonSize * 0.8f)) / 2.0f, 0.0f);
-			
-			m_getCoinsRect.top = positionget.y + m_viewSize * 0.175f;
-			m_buyCoinsRect.top = m_getCoinsRect.top;
-			m_getCoinsRect.bottom = m_getCoinsRect.top - m_viewSize * 0.35f;
-			m_buyCoinsRect.bottom = m_getCoinsRect.bottom;
-			m_getCoinsRect.left = positionget.x - m_viewSize * 0.175f;
-			m_buyCoinsRect.left = m_viewSize * 0.3f - m_viewSize * 0.175f;
-			m_getCoinsRect.right = m_getCoinsRect.left + m_viewSize * 0.35f;
-			m_buyCoinsRect.right = m_buyCoinsRect.left + m_viewSize * 0.35f;
-			
-			
-			m_getCoinsBack.Position = positionget;
-			positionget.y += m_viewSize * 0.02f;
-			m_getCoinsIcon.Position = positionget;
-			positionget.y -= m_viewSize * 0.16f;
-			m_getCoinsText.Position = positionget;
-			
-			positionget.x = m_viewSize * 0.3f;
-			m_buyCoinsText.Position = positionget;
-			positionget.y += m_viewSize * 0.16f;
-			m_buyCoinsIcon.Position = positionget;
-			positionget.y -= m_viewSize * 0.02f;
-			m_buyCoinsBack.Position = positionget;
-			positionget.y += m_viewSize * 0.13f;
-			m_buyPriceText.Position = positionget;
-
 		}
 		
 		
@@ -955,40 +880,6 @@
 
 	///
 	
-	/// Get coins
-	m_getCoinsBack = [m_renderBox NewSolidSpriteWithColor:TopColor];
-	CommonButtonStyle(m_getCoinsBack);
-	m_getCoinsBack.LockAspect = false;
-	
-	m_getCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_get_coins"]];
-	CommonTextStyle(m_getCoinsText);
-	m_getCoinsText.Color = GLKVector3MultiplyScalar(TopColor, 0.5f);
-
-	m_getCoinsIcon = [m_renderBox NewSpriteFromFileName:@"get_coins_icon.png"];
-	CommonButtonStyle(m_getCoinsIcon);
-	
-	[m_ads AddunityAdsVideoCompletedObjectResponder:self];
-	
-	///
-	
-	/// Buy coins
-	m_buyCoinsBack = [m_renderBox NewSolidSpriteWithColor:FrontColor];
-	CommonButtonStyle(m_buyCoinsBack);
-	m_buyCoinsBack.LockAspect = false;
-	
-	m_buyCoinsText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:[m_language stringForKey:@"game_buy_coins"]];
-	CommonTextStyle(m_buyCoinsText);
-	m_buyCoinsText.Color = GLKVector3MultiplyScalar(FrontColor, 0.5f);
-	
-	m_buyPriceText = [m_renderBox NewTextWithFontName:@"Gau Font Cube Medium" Text:@"Caca de perro"];
-	CommonTextStyle(m_buyPriceText);
-	m_buyPriceText.Color = ColorWhite;
-	
-	m_buyCoinsIcon = [m_renderBox NewSpriteFromFileName:@"buy_coins_icon.png"];
-	CommonButtonStyle(m_buyCoinsIcon);
-	
-	///
-	
 	//// Indicators
 	m_special1 = [m_renderBox NewSolidSpriteWithColor:RightColor];
 	CommonButtonStyle(m_special1);
@@ -1042,15 +933,6 @@
 	[Scene addSprite:m_pauseButton];
 	[Scene addSprite:m_audioSetUpOn];
 	[Scene addSprite:m_audioSetUpOff];
-	
-	[Scene addSprite:m_getCoinsBack];
-	[Scene addText:m_getCoinsText];
-	[Scene addSprite:m_getCoinsIcon];
-	
-	[Scene addSprite:m_buyCoinsBack];
-	[Scene addText:m_buyCoinsText];
-	[Scene addText:m_buyPriceText];
-	[Scene addSprite:m_buyCoinsIcon];
 	
 	[Scene addText:m_spendText];
 	
@@ -1258,49 +1140,6 @@
 		m_newRecord.FontSize = m_buttonSize * 0.3f;
 		m_newRecord.Opasity = 1.0f;
 	}
-	
-	if(m_getCoinsEnable)
-	{
-		[m_getCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
-		[m_getCoinsBack ResetOpasity:0.0f];
-		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-		m_getCoinsBack.Opasity = 0.9f;
-		
-		[m_getCoinsText ResetFontSize: m_buttonSize * 1.5f];
-		[m_getCoinsText ResetOpasity:0.0f];
-		m_getCoinsText.Width = m_viewSize * 0.33f;
-		m_getCoinsText.Opasity = 1.0f;
-		
-		[m_getCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
-		[m_getCoinsIcon ResetOpasity:0.0f];
-		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
-		m_getCoinsIcon.Opasity = 1.0f;
-	}
-	if(m_buyEnabled)
-	{
-		[m_buyCoinsBack ResetScale:GLKVector3Make(m_viewSize * 0.6f, m_viewSize * 0.6f, 0.0f)];
-		[m_buyCoinsBack ResetOpasity:0.0f];
-		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-		m_buyCoinsBack.Opasity = m_inTransaction ? 0.5f : 0.9f;
-		
-		[m_buyCoinsText ResetFontSize: m_buttonSize * 1.5f];
-		[m_buyCoinsText ResetOpasity:0.0f];
-		m_buyCoinsText.Width = m_viewSize * 0.33f;
-		m_buyCoinsText.Opasity = m_inTransaction ? 0.5f : 1.0f;
-		
-		[m_buyPriceText ResetFontSize: m_buttonSize * 1.5f];
-		[m_buyPriceText ResetOpasity:0.0f];
-		m_buyPriceText.Width = m_viewSize * 0.33f;
-		if(m_buyPriceText.Height > m_buttonSize * 0.33f)
-			m_buyPriceText.FontSize = m_buttonSize * 0.33f;
-		m_buyPriceText.Opasity = m_inTransaction ? 0.5f : 1.0f;
-		
-		[m_buyCoinsIcon ResetScale:GLKVector3Make(m_buttonSize * 2.3f, m_buttonSize * 2.3f, 0.0f)];
-		[m_buyCoinsIcon ResetOpasity:0.0f];
-		m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
-	}
-	
-	m_buyCoinsIcon.Opasity = 1.0f;
 	
 	[m_coins ResetFontSize:fontsize * 2.0f];
 	[m_coins ResetOpasity:0.0f];
@@ -1545,13 +1384,6 @@
 				m_gcText.Opasity = 0.0f;
 				m_exitText.Opasity = 0.0f;
 				m_newRecord.Opasity = 0.0f;
-				m_getCoinsBack.Opasity = 0.0f;
-				m_getCoinsText.Opasity = 0.0f;
-				m_getCoinsIcon.Opasity = 0.0f;
-				m_buyCoinsBack.Opasity = 0.0f;
-				m_buyCoinsText.Opasity = 0.0f;
-				m_buyPriceText.Opasity = 0.0f;
-				m_buyCoinsIcon.Opasity = 0.0f;
 				
 				m_coins.Opasity = 0.0f;
 				m_coinsIcon.Opasity = 0.0f;
@@ -1699,19 +1531,6 @@
 			m_gcButton.Width = m_buttonSize * (m_landscape ? 0.5f : 0.7f);
 		else if([self TestButton:m_exitRect X:rx Y:ry])
 			m_exitButton.Width = m_buttonSize * (m_landscape ? 0.5f : 0.7f);
-		else if ([self TestButton:m_getCoinsRect X:rx Y:ry] && m_getCoinsEnable)
-		{
-			m_getCoinsText.Width = m_viewSize * 0.28f;
-			m_getCoinsIcon.Width = m_buttonSize * 1.0f;
-			m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
-		}
-		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry] && m_buyEnabled && !m_inTransaction)
-		{
-			m_buyPriceText.Width = m_buyPriceText.Width * 0.85f;
-			m_buyCoinsText.Width = m_viewSize * 0.28f;
-			m_buyCoinsIcon.Width = m_buttonSize * 1.0f;
-			m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.33f, m_viewSize * 0.33f, 0.0f);
-		}
 		else
 			m_touchedButton = false;
 	}
@@ -1903,13 +1722,6 @@
 			m_scoreFinish.Opasity = 0.0f;
 			m_scoreFinish2.Opasity = 0.0f;
 			m_newRecord.Opasity = 0.0f;;
-			m_getCoinsBack.Opasity = 0.0f;
-			m_getCoinsText.Opasity = 0.0f;
-			m_getCoinsIcon.Opasity = 0.0f;
-			m_buyCoinsBack.Opasity = 0.0f;
-			m_buyCoinsText.Opasity = 0.0f;
-			m_buyPriceText.Opasity = 0.0f;
-			m_buyCoinsIcon.Opasity = 0.0f;
 			
 			m_coins.Opasity = 0.0f;
 			m_coinsIcon.Opasity = 0.0f;
@@ -1930,44 +1742,11 @@
 		{
 			Exit = true;
 		}
-		else if ([self TestButton:m_getCoinsRect X:rx Y:ry] && m_getCoinsEnable)
-		{
-			m_getCoinsEnable = false;
-			m_getCoinsBack.Opasity = 0.0f;
-			m_getCoinsText.Opasity = 0.0f;
-			m_getCoinsIcon.Opasity = 0.0f;
-			[m_ads setUnityRewardedZone];
-			[m_ads presentUnityAd];
-		}
-		else if ([self TestButton:m_buyCoinsRect X:rx Y:ry] && m_buyEnabled && !m_inTransaction)
-		{
-			[[VEIAPurchase sharedVEIAPurchase] buyProduct:[[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"]];
-			m_inTransaction = true;
-			m_buyCoinsBack.Opasity = 0.5f;
-			m_buyCoinsIcon.Opasity = 0.5f;
-			m_buyPriceText.Opasity = 0.5f;
-			m_buyCoinsText.Opasity = 0.5f;
-		}
-		m_getCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-		m_getCoinsText.Width = m_viewSize * 0.33f;
-		m_getCoinsIcon.Width = m_buttonSize * 1.5f;
-		m_buyCoinsBack.Scale = GLKVector3Make(m_viewSize * 0.35f, m_viewSize * 0.35f, 0.0f);
-		m_buyCoinsText.Width = m_viewSize * 0.33f;
-		m_buyPriceText.Width = m_viewSize * 0.33f;
-		if(m_buyPriceText.Height > m_buttonSize * 0.33f)
-			m_buyPriceText.FontSize = m_buttonSize * 0.33f;
-		m_buyCoinsIcon.Width = m_buttonSize * 1.5f;
 		m_restartButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.5f);
 		m_gcButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 		m_exitButton.Width = m_buttonSize * (m_landscape ? 0.9f : 1.0f);
 	}
 	m_touchedButton = false;
-}
-
-- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
-{
-	if(!skipped)
-		Level.Coins += 1000;
 }
 
 - (void)Begin
@@ -2015,15 +1794,6 @@
 	m_newRecord.Opasity = 0.0f;
 	m_audioSetUpOn.Opasity = 0.0f;
 	m_audioSetUpOff.Opasity = 0.0f;
-	
-	m_getCoinsBack.Opasity = 0.0f;
-	m_getCoinsText.Opasity = 0.0f;
-	m_getCoinsIcon.Opasity = 0.0f;
-	
-	m_buyCoinsBack.Opasity = 0.0f;
-	m_buyCoinsText.Opasity = 0.0f;
-	m_buyPriceText.Opasity = 0.0f;
-	m_buyCoinsIcon.Opasity = 0.0f;
 	
 	m_timeButton.Opasity = 0.0f;
 	m_reductButton.Opasity = 0.0f;
@@ -2131,20 +1901,7 @@
 	m_special3Active = false;
 	m_special4Active = false;
 	m_special5Active = false;
-	
-	m_getCoinsEnable = [m_ads unityAdsCanShow];
-	
-	m_buyProduct = [[VEIAPurchase sharedVEIAPurchase].Products objectForKey:@"cubiline_10000_extra_coins"];
-	
-	m_buyEnabled = false;
-	
-	if(m_buyProduct)
-	{
-		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-		[numberFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
-		m_buyPriceText.Text = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:[m_buyProduct.price floatValue]]];
-		m_buyEnabled = true;
-	}
+
 	
 	[self Resize];
 	[self PresentFinishMenu];
@@ -2154,43 +1911,13 @@
 	else
 		[m_finishSound Play];
 	
-	Level.Coins += Level.Score * 4;
+	Level.Coins += Level.Score * 20;
 	
 	[m_watch Reset];
 	[m_watch SetLimitInSeconds:0.0f];
 	[m_watch Frame:1.0f];
 	
 	m_showing = true;
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-	for (SKPaymentTransaction * transaction in transactions)
-	{
-		SKPaymentTransactionState st = transaction.transactionState;
-		if(m_buyEnabled)
-		{
-			m_buyCoinsBack.Opasity = 1.0f;
-			m_buyCoinsIcon.Opasity = 1.0f;
-			m_buyPriceText.Opasity = 1.0f;
-			m_buyCoinsText.Opasity = 1.0f;
-		}
-		m_inTransaction = false;
-		switch (st)
-		{
-			case SKPaymentTransactionStatePurchased:
-			{
-				
-				Level.Coins += 10000;
-				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-			}
-			case SKPaymentTransactionStateFailed:
-				break;
-			case SKPaymentTransactionStateRestored:
-			default:
-				break;
-		}
-	};
 }
 
 - (void)setLevel:(CLLevel *)level

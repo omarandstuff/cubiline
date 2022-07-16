@@ -53,8 +53,6 @@
 		3748684A1ACF09D80060FC9B /* newrecord.wav in Resources */ = {isa = PBXBuildFile; fileRef = 374868421ACF09D80060FC9B /* newrecord.wav */; };
 		3748684B1ACF09D80060FC9B /* plus_minus.wav in Resources */ = {isa = PBXBuildFile; fileRef = 374868431ACF09D80060FC9B /* plus_minus.wav */; };
 		374868541ACF33670060FC9B /* coins.wav in Resources */ = {isa = PBXBuildFile; fileRef = 374868531ACF33670060FC9B /* coins.wav */; };
-		374E21CB1AC7C23900913B2A /* UnityAds.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 374E21C91AC7C23900913B2A /* UnityAds.bundle */; };
-		374E21CC1AC7C23900913B2A /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E21CA1AC7C23900913B2A /* UnityAds.framework */; };
 		374FCCAF1A86DCCD00B14ACB /* CLgamesetup.m in Sources */ = {isa = PBXBuildFile; fileRef = 374FCCAE1A86DCCD00B14ACB /* CLgamesetup.m */; };
 		374FCCB21A86DD0300B14ACB /* CLbody.m in Sources */ = {isa = PBXBuildFile; fileRef = 374FCCB11A86DD0300B14ACB /* CLbody.m */; };
 		374FCCBC1A86FCAF00B14ACB /* game_guides.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 374FCCBA1A86FCAF00B14ACB /* game_guides.mtl */; };
@@ -121,7 +119,6 @@
 		3796A9861AD0976800064050 /* flip.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3796A9851AD0976800064050 /* flip.wav */; };
 		3796A9881AD09C3600064050 /* speed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3796A9871AD09C3600064050 /* speed.wav */; };
 		3796A98A1AD09D2F00064050 /* play.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3796A9891AD09D2F00064050 /* play.wav */; };
-		379A65611ABF6A32009C3A6C /* VEads.m in Sources */ = {isa = PBXBuildFile; fileRef = 379A65601ABF6A32009C3A6C /* VEads.m */; };
 		37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A35A8C1A6D040E00E36F43 /* GameKit.framework */; };
 		37A44FF01ABBD50A00D5C120 /* white_cube.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FED1ABBD50A00D5C120 /* white_cube.mtl */; };
 		37A44FF11ABBD50A00D5C120 /* white_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 37A44FEE1ABBD50A00D5C120 /* white_cube.obj */; };
@@ -181,8 +178,9 @@
 		37EFEB991AD1B5E60069380D /* how_to_power_time.png in Resources */ = {isa = PBXBuildFile; fileRef = 37EFEB961AD1B5E60069380D /* how_to_power_time.png */; };
 		37EFEB9F1AD1C18A0069380D /* CLlanguage.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EFEB9E1AD1C18A0069380D /* CLlanguage.m */; };
 		37FA76B21A901A9E0097497D /* CLgameholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FA76B11A901A9E0097497D /* CLgameholder.m */; };
-		37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37FB26251A6C4EFD00DB4E6C /* Main.storyboard */; };
 		37FB26381A6C4EFD00DB4E6C /* CubilineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */; };
+		639198712882993600798F80 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639198702882993600798F80 /* Launch Screen.storyboard */; };
+		6391987528829C1300798F80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6391987428829C1300798F80 /* Main.storyboard */; };
 		DC09D24D1AE2EE5C00DDE7B3 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */; };
 		DC09D24F1AE2FEB100DDE7B3 /* face_books.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09D24E1AE2FEB100DDE7B3 /* face_books.png */; };
 		DC09D2511AE318F900DDE7B3 /* cubilines.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09D2501AE318F900DDE7B3 /* cubilines.png */; };
@@ -252,8 +250,6 @@
 		374868421ACF09D80060FC9B /* newrecord.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = newrecord.wav; path = Cubiline/Resources/newrecord.wav; sourceTree = "<group>"; };
 		374868431ACF09D80060FC9B /* plus_minus.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = plus_minus.wav; path = Cubiline/Resources/plus_minus.wav; sourceTree = "<group>"; };
 		374868531ACF33670060FC9B /* coins.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = coins.wav; path = Cubiline/Resources/coins.wav; sourceTree = "<group>"; };
-		374E21C91AC7C23900913B2A /* UnityAds.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = UnityAds.bundle; path = "Cubiline/unity-ads-sdk-master/UnityAds.bundle"; sourceTree = "<group>"; };
-		374E21CA1AC7C23900913B2A /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = "Cubiline/unity-ads-sdk-master/UnityAds.framework"; sourceTree = "<group>"; };
 		374FCCAC1A86DCCD00B14ACB /* CLcommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLcommon.h; path = Cubiline/CLcommon.h; sourceTree = "<group>"; };
 		374FCCAD1A86DCCD00B14ACB /* CLgamesetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLgamesetup.h; path = Cubiline/CLgamesetup.h; sourceTree = "<group>"; };
 		374FCCAE1A86DCCD00B14ACB /* CLgamesetup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLgamesetup.m; path = Cubiline/CLgamesetup.m; sourceTree = "<group>"; };
@@ -359,8 +355,6 @@
 		3796A9851AD0976800064050 /* flip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = flip.wav; path = Cubiline/Resources/flip.wav; sourceTree = "<group>"; };
 		3796A9871AD09C3600064050 /* speed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = speed.wav; path = Cubiline/Resources/speed.wav; sourceTree = "<group>"; };
 		3796A9891AD09D2F00064050 /* play.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = play.wav; path = Cubiline/Resources/play.wav; sourceTree = "<group>"; };
-		379A65601ABF6A32009C3A6C /* VEads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VEads.m; path = Cubiline/VEads.m; sourceTree = "<group>"; };
-		379A65621ABF6A4F009C3A6C /* VEads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VEads.h; path = Cubiline/VEads.h; sourceTree = "<group>"; };
 		37A35A8C1A6D040E00E36F43 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		37A44FED1ABBD50A00D5C120 /* white_cube.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.mtl; path = Cubiline/Resources/white_cube.mtl; sourceTree = "<group>"; };
 		37A44FEE1ABBD50A00D5C120 /* white_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = white_cube.obj; path = Cubiline/Resources/white_cube.obj; sourceTree = "<group>"; };
@@ -430,10 +424,11 @@
 		37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		37FB26221A6C4EFD00DB4E6C /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		37FB26231A6C4EFD00DB4E6C /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		37FB26261A6C4EFD00DB4E6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37FB26311A6C4EFD00DB4E6C /* Cubiline.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Cubiline.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FB26361A6C4EFD00DB4E6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubilineTests.m; sourceTree = "<group>"; };
+		639198702882993600798F80 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		6391987428829C1300798F80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = background.mp3; path = Cubiline/Resources/background.mp3; sourceTree = "<group>"; };
 		DC09D24E1AE2FEB100DDE7B3 /* face_books.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = face_books.png; path = Cubiline/Resources/face_books.png; sourceTree = "<group>"; };
 		DC09D2501AE318F900DDE7B3 /* cubilines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cubilines.png; path = Cubiline/Resources/cubilines.png; sourceTree = "<group>"; };
@@ -451,7 +446,6 @@
 				3728F5F41A6C5033004F7244 /* OpenAL.framework in Frameworks */,
 				3728F5F21A6C5027004F7244 /* AVFoundation.framework in Frameworks */,
 				37A35A8D1A6D040E00E36F43 /* GameKit.framework in Frameworks */,
-				374E21CC1AC7C23900913B2A /* UnityAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,8 +603,6 @@
 				37604EDC1A88019200F77B76 /* CLmainmenu.m */,
 				37604EDD1A88019200F77B76 /* CLtouchable.h */,
 				37604EDE1A88019200F77B76 /* CLtouchable.m */,
-				379A65621ABF6A4F009C3A6C /* VEads.h */,
-				379A65601ABF6A32009C3A6C /* VEads.m */,
 				373E62A31AA2713600ACC243 /* VEgamecenter.h */,
 				373E62A41AA2713600ACC243 /* VEgamecenter.m */,
 				37C83FC51ACB624D000CBE9F /* VEinapppurchase.h */,
@@ -716,8 +708,6 @@
 				3728F5F31A6C5033004F7244 /* OpenAL.framework */,
 				378001B21A6D9948009FFCC8 /* StoreKit.framework */,
 				3723C0C61AC3BCCE00DD3477 /* SystemConfiguration.framework */,
-				374E21C91AC7C23900913B2A /* UnityAds.bundle */,
-				374E21CA1AC7C23900913B2A /* UnityAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -765,9 +755,10 @@
 				37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */,
 				37FB26221A6C4EFD00DB4E6C /* GameViewController.h */,
 				37FB26231A6C4EFD00DB4E6C /* GameViewController.m */,
-				37FB26251A6C4EFD00DB4E6C /* Main.storyboard */,
 				37FB26171A6C4EFD00DB4E6C /* Supporting Files */,
 				3771AC041A6CC7B8008E74D9 /* images.xcassets */,
+				639198702882993600798F80 /* Launch Screen.storyboard */,
+				6391987428829C1300798F80 /* Main.storyboard */,
 			);
 			path = Cubiline;
 			sourceTree = "<group>";
@@ -868,6 +859,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -900,7 +892,6 @@
 				3728F5ED1A6C4FF6004F7244 /* vertex_light_shader.vsh in Resources */,
 				37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */,
 				37AABCC41ACE174C0051C6CC /* 1up.wav in Resources */,
-				374E21CB1AC7C23900913B2A /* UnityAds.bundle in Resources */,
 				DC09D2511AE318F900DDE7B3 /* cubilines.png in Resources */,
 				3728F5EE1A6C4FF6004F7244 /* texture_shader.fsh in Resources */,
 				37BCAAED1A9176BE00FFFE6D /* game_continue.png in Resources */,
@@ -917,6 +908,7 @@
 				3759AEFF1AD05B4D003539A2 /* size.wav in Resources */,
 				37AABCC51ACE174C0051C6CC /* 10up.wav in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
+				639198712882993600798F80 /* Launch Screen.storyboard in Resources */,
 				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
 				37D5B2571B4AB783001960D5 /* main_menu_setup.png in Resources */,
 				37B3B4F31AC217AC001D7EBA /* menu_right.png in Resources */,
@@ -927,7 +919,6 @@
 				3728F5E51A6C4FF6004F7244 /* depth_shader.vsh in Resources */,
 				3728F5E61A6C4FF6004F7244 /* depth_texture_shader.fsh in Resources */,
 				37EFEB921AD19E360069380D /* how_to_eat_white.png in Resources */,
-				37FB26271A6C4EFD00DB4E6C /* Main.storyboard in Resources */,
 				37AFD0111ABFE31B00700003 /* single_guides_low.obj in Resources */,
 				37EFEB971AD1B5E60069380D /* how_to_power_ghost.png in Resources */,
 				37EFEB911AD19E360069380D /* how_to_eat_orange.png in Resources */,
@@ -940,6 +931,7 @@
 				37B58F4E1AD0FCAB00AE2595 /* main_menu_howto.obj in Resources */,
 				37ADE7641A89ABB500FB84CF /* game_setup_play.png in Resources */,
 				37EF21511AD20CC60099B67F /* Gau Font Cube Big.png in Resources */,
+				6391987528829C1300798F80 /* Main.storyboard in Resources */,
 				3759AF011AD05D03003539A2 /* out.wav in Resources */,
 				37B58F521AD0FDD300AE2595 /* color_gray.png in Resources */,
 				3728F5E91A6C4FF6004F7244 /* fullscreen_shader.vsh in Resources */,
@@ -1049,7 +1041,6 @@
 				377A85471A79EAE9004F88F7 /* VEeffect1.m in Sources */,
 				374FCCB21A86DD0300B14ACB /* CLbody.m in Sources */,
 				377A854D1A79EAE9004F88F7 /* VElight.m in Sources */,
-				379A65611ABF6A32009C3A6C /* VEads.m in Sources */,
 				3738026B1A79F9E100CBC700 /* VEcolorshader.m in Sources */,
 				377A854A1A79EAE9004F88F7 /* VEfullscreenshader.m in Sources */,
 				377A85461A79EAE9004F88F7 /* VEdepthshader.m in Sources */,
@@ -1094,17 +1085,6 @@
 			targetProxy = 37FB26321A6C4EFD00DB4E6C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		37FB26251A6C4EFD00DB4E6C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				37FB26261A6C4EFD00DB4E6C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		37FB26391A6C4EFD00DB4E6C /* Debug */ = {
@@ -1192,13 +1172,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Cubiline/unity-ads-sdk-master",
-				);
+				CURRENT_PROJECT_VERSION = 36;
+				DEVELOPMENT_TEAM = 4WT5U2SGE8;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Cubiline/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_NAME = Cubiline;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1212,13 +1192,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Cubiline/unity-ads-sdk-master",
-				);
+				CURRENT_PROJECT_VERSION = 36;
+				DEVELOPMENT_TEAM = 4WT5U2SGE8;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Cubiline/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.2.0;
 				PRODUCT_NAME = Cubiline;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

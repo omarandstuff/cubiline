@@ -2,7 +2,6 @@
 #define Cubiline_CLcommon_h
 
 #import "CLdata.h"
-#import "VEads.h"
 #import "VEinapppurchase.h"
 #import "VErenderbox.h"
 #import "VEaudiobox.h"

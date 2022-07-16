@@ -15,7 +15,6 @@
 	
 	NSString* m_device;
 	
-	VEAds* m_ads;
 	VEIAPurchase* m_iAPurchase;
 }
 
@@ -30,9 +29,6 @@
 {
 	[super viewDidLoad];
 	
-	//Ads
-	m_ads = [VEAds loadSaredVEAdsWithViewController:self];
-	
 	/// InApp purchase
 	m_iAPurchase = [VEIAPurchase sharedVEIAPurchase];
 	
@@ -43,14 +39,7 @@
 	NSString* deviceCategory = [self deviceCategory];
 	m_device = [self deviceModelName];
 
-	if([deviceCategory isEqualToString:@"very low"])
-		m_multipler = 2.0f;
-	else if([deviceCategory isEqualToString:@"low"])
-		m_multipler = 2.0f;
-	else if([deviceCategory isEqualToString:@"medium"])
-		m_multipler = 2.0f;
-	else
-		m_multipler = 2.0f;
+	m_multipler = 4.0f;
 	
 	
 	// Create the context object
@@ -120,10 +109,7 @@
 	glClearColor(0.9f, 0.95f, 0.95f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
-{
-	
-}
+
 - (NSString*)deviceCategory;
 {
 	struct utsname systemInfo;
@@ -244,7 +230,7 @@
 - (void)update
 {
 	// The authentification View Controller is presented.
-	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting || m_ads.PresentingFullScreen) return;
+	if(m_gameCenter.AuthentificationViewController != nil || m_gameCenter.Presenting) return;
 	
 	// Update the timer to adjust the time we wnat to use.
 	[m_timer Frame:self.timeSinceLastUpdate];
