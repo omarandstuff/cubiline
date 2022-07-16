@@ -72,7 +72,6 @@
 		37604EE51A88562900F77B76 /* game_setup_minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE31A88562900F77B76 /* game_setup_minus.png */; };
 		37604EE61A88562900F77B76 /* game_setup_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 37604EE41A88562900F77B76 /* game_setup_plus.png */; };
 		376EE5B51B436AD3003BB22C /* menu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 376EE5B41B436AD3003BB22C /* menu_down.png */; };
-		3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3771AC041A6CC7B8008E74D9 /* images.xcassets */; };
 		377880151AA3897400BDECB4 /* CLdata.m in Sources */ = {isa = PBXBuildFile; fileRef = 377880141AA3897400BDECB4 /* CLdata.m */; };
 		377A84EB1A79EA15004F88F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB261C1A6C4EFD00DB4E6C /* AppDelegate.m */; };
 		377A84EC1A79EA15004F88F7 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26231A6C4EFD00DB4E6C /* GameViewController.m */; };
@@ -181,6 +180,7 @@
 		37FB26381A6C4EFD00DB4E6C /* CubilineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */; };
 		639198712882993600798F80 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 639198702882993600798F80 /* Launch Screen.storyboard */; };
 		6391987528829C1300798F80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6391987428829C1300798F80 /* Main.storyboard */; };
+		639198772882AD2300798F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 639198762882AD2300798F80 /* Assets.xcassets */; };
 		DC09D24D1AE2EE5C00DDE7B3 /* background.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */; };
 		DC09D24F1AE2FEB100DDE7B3 /* face_books.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09D24E1AE2FEB100DDE7B3 /* face_books.png */; };
 		DC09D2511AE318F900DDE7B3 /* cubilines.png in Resources */ = {isa = PBXBuildFile; fileRef = DC09D2501AE318F900DDE7B3 /* cubilines.png */; };
@@ -275,7 +275,6 @@
 		37604EE31A88562900F77B76 /* game_setup_minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_minus.png; path = Cubiline/Resources/game_setup_minus.png; sourceTree = "<group>"; };
 		37604EE41A88562900F77B76 /* game_setup_plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_setup_plus.png; path = Cubiline/Resources/game_setup_plus.png; sourceTree = "<group>"; };
 		376EE5B41B436AD3003BB22C /* menu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menu_down.png; path = Cubiline/Resources/menu_down.png; sourceTree = "<group>"; };
-		3771AC041A6CC7B8008E74D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		377880131AA3897400BDECB4 /* CLdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLdata.h; path = Cubiline/CLdata.h; sourceTree = "<group>"; };
 		377880141AA3897400BDECB4 /* CLdata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLdata.m; path = Cubiline/CLdata.m; sourceTree = "<group>"; };
 		377A84F51A79EAE9004F88F7 /* VE3Dobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VE3Dobject.h; path = Cubiline/VE3Dobject.h; sourceTree = "<group>"; };
@@ -429,6 +428,7 @@
 		37FB26371A6C4EFD00DB4E6C /* CubilineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubilineTests.m; sourceTree = "<group>"; };
 		639198702882993600798F80 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6391987428829C1300798F80 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		639198762882AD2300798F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC09D24C1AE2EE5C00DDE7B3 /* background.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = background.mp3; path = Cubiline/Resources/background.mp3; sourceTree = "<group>"; };
 		DC09D24E1AE2FEB100DDE7B3 /* face_books.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = face_books.png; path = Cubiline/Resources/face_books.png; sourceTree = "<group>"; };
 		DC09D2501AE318F900DDE7B3 /* cubilines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cubilines.png; path = Cubiline/Resources/cubilines.png; sourceTree = "<group>"; };
@@ -756,7 +756,6 @@
 				37FB26221A6C4EFD00DB4E6C /* GameViewController.h */,
 				37FB26231A6C4EFD00DB4E6C /* GameViewController.m */,
 				37FB26171A6C4EFD00DB4E6C /* Supporting Files */,
-				3771AC041A6CC7B8008E74D9 /* images.xcassets */,
 				639198702882993600798F80 /* Launch Screen.storyboard */,
 				6391987428829C1300798F80 /* Main.storyboard */,
 			);
@@ -768,6 +767,7 @@
 			children = (
 				37FB26181A6C4EFD00DB4E6C /* Info.plist */,
 				37FB26191A6C4EFD00DB4E6C /* main.m */,
+				639198762882AD2300798F80 /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -909,7 +909,6 @@
 				37AABCC51ACE174C0051C6CC /* 10up.wav in Resources */,
 				373CC3141A6DF886003BEE7F /* color_shader.fsh in Resources */,
 				639198712882993600798F80 /* Launch Screen.storyboard in Resources */,
-				3771AC051A6CC7B8008E74D9 /* images.xcassets in Resources */,
 				37D5B2571B4AB783001960D5 /* main_menu_setup.png in Resources */,
 				37B3B4F31AC217AC001D7EBA /* menu_right.png in Resources */,
 				37EFEB991AD1B5E60069380D /* how_to_power_time.png in Resources */,
@@ -977,6 +976,7 @@
 				373E62B31AA28ABE00ACC243 /* light_shader.vsh in Resources */,
 				3728F5E41A6C4FF6004F7244 /* depth_shader.fsh in Resources */,
 				37EADC4F1AC92693002C45BD /* game_ghost_button.png in Resources */,
+				639198772882AD2300798F80 /* Assets.xcassets in Resources */,
 				37EC3EBC1AD110B200E39E83 /* how_to_move_well3.png in Resources */,
 				3728F5E31A6C4FF6004F7244 /* depth_of_field_shader.vsh in Resources */,
 				3728F5EA1A6C4FF6004F7244 /* gaussian_blur_shader.fsh in Resources */,
@@ -1169,6 +1169,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1189,6 +1190,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
