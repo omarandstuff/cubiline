@@ -39,7 +39,7 @@
 	NSString* deviceCategory = [self deviceCategory];
 	m_device = [self deviceModelName];
 
-	m_multipler = 4.0f;
+	m_multipler = 2.0f;
 	
 	
 	// Create the context object
